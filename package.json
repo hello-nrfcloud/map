@@ -24,9 +24,11 @@
     "prepare": "husky install"
   },
   "devDependencies": {
+    "@nordicsemiconductor/asset-tracker-cloud-code-style": "13.1.10",
     "@nordicsemiconductor/from-env": "3.0.0",
     "@types/node": "20.11.5",
     "husky": "8.0.3",
+    "prettier": "3.2.4",
     "the-new-css-reset": "1.11.2",
     "tsx": "4.7.0",
     "vite": "5.0.12",
