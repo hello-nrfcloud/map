@@ -24,6 +24,7 @@
     "prepare": "husky install"
   },
   "devDependencies": {
+    "@commitlint/config-conventional": "18.4.4",
     "@nordicsemiconductor/asset-tracker-cloud-code-style": "13.1.10",
     "@nordicsemiconductor/from-env": "3.0.0",
     "@types/node": "20.11.5",
