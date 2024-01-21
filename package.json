@@ -1,0 +1,24 @@
+{
+  "name": "@hello.nrfcloud.com/map",
+  "version": "0.0.0-development",
+  "type": "module",
+  "description": "Show public devices on a map",
+  "scripts": {
+    "start": "vite",
+    "build": "node --max_old_space_size=8192 ./node_modules/vite/bin/vite.js build --emptyOutDir",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@nordicsemiconductor/from-env": "3.0.0",
+    "@types/node": "20.11.5",
+    "husky": "8.0.3",
+    "the-new-css-reset": "1.11.2",
+    "tsx": "4.7.0",
+    "vite": "5.0.12",
+    "vite-plugin-solid": "2.8.2"
+  },
+  "dependencies": {
+    "@hello.nrfcloud.com/proto": "github:hello-nrfcloud/proto",
+    "date-fns": "3.3.0"
+  }
+}
