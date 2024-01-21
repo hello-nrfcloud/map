@@ -2,6 +2,21 @@
   "name": "@hello.nrfcloud.com/map",
   "version": "0.0.0-development",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hello-nrfcloud/map.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hello-nrfcloud/map/issues"
+  },
+  "homepage": "https://hello.nrfcloud.com/map",
+  "keywords": [
+    "nordicsemiconductor",
+    "cellular-iot",
+    "hello-nrfcloud"
+  ],
+  "author": "Nordic Semiconductor ASA | nordicsemi.no",
+  "license": "BSD-3-Clause",
   "description": "Show public devices on a map",
   "scripts": {
     "start": "vite",
@@ -18,7 +33,38 @@
     "vite-plugin-solid": "2.8.2"
   },
   "dependencies": {
-    "@hello.nrfcloud.com/proto": "github:hello-nrfcloud/proto",
+    "@hello.nrfcloud.com/proto": "6.4.6",
     "date-fns": "3.3.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=9.0.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "eslint --ext .js,.ts,.jsx,.tsx"
+    ],
+    "*.{md,json,yaml,yml,html}": [
+      "prettier --write"
+    ]
+  },
+  "prettier": "@nordicsemiconductor/asset-tracker-cloud-code-style/.prettierrc",
+  "release": {
+    "branches": [
+      "saga"
+    ],
+    "remoteTags": true,
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/github",
+        {
+          "successComment": false,
+          "failTitle": false
+        }
+      ]
+    ]
   }
 }
