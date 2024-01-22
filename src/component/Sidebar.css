@@ -1,0 +1,20 @@
+nav.sidebar {
+  background-color: var(--bg-blue-4);
+  width: 60px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  border-right: 1px solid var(--bg-blue-1);
+}
+
+nav.sidebar .logo {
+  padding: 10px;
+}
+
+nav.sidebar hr {
+  border-top: 1px solid var(--bg-blue-8);
+  border-bottom: 1px solid var(--bg-blue-1);
+  width: 100%;
+  padding: 0;
+}

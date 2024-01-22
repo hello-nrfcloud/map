@@ -1,25 +1,17 @@
 import { Devices } from './component/Devices.jsx'
-import { useParameters } from './context/Parameters.js'
+import { ExperimentalWarning } from './component/ExperimentalWarning.jsx'
+import { Sidebar } from './component/Sidebar.jsx'
+
+import './MapApp.css'
 
 export const MapApp = () => {
-	const parameters = useParameters()
-
 	return (
 		<>
+			<Sidebar />
+			<ExperimentalWarning />
 			<main>
 				<Devices />
 			</main>
-			<aside style={{ 'margin-top': '2rem' }}>
-				<h1>Parameters</h1>
-				<dl>
-					<dt>
-						<code>devicesAPIURL</code>
-					</dt>
-					<dd>
-						<code>{parameters.devicesAPIURL.toString()}</code>
-					</dd>
-				</dl>
-			</aside>
 		</>
 	)
 }

@@ -10,7 +10,7 @@ import { DevicesProvider } from './context/Devices.jsx'
 const root = document.getElementById('root')
 
 if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
-	throw new Error('Root element not found. ')
+	throw new Error('Root element not found.')
 }
 
 render(
