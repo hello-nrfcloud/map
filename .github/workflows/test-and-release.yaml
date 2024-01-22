@@ -46,9 +46,6 @@ jobs:
           REGISTRY_ENDPOINT: ${{ vars.REGISTRY_ENDPOINT }}
         run: |
           npm run build
-          cp -L -r ./static ./build/client
-          mkdir -p build/client/node_modules/maplibre-gl/dist/
-          cp node_modules/maplibre-gl/dist/maplibre-gl.css build/client/node_modules/maplibre-gl/dist/
 
       - name: Semantic release
         continue-on-error: true
