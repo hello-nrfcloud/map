@@ -1,6 +1,6 @@
 import type { ParentProps } from 'solid-js'
 import { createResource, createContext, useContext } from 'solid-js'
-import { useParameters } from './Parameters'
+import { useParameters } from './Parameters.js'
 import { Devices, PublicDevice } from '@hello.nrfcloud.com/proto/hello/map'
 import { type Static } from '@sinclair/typebox'
 

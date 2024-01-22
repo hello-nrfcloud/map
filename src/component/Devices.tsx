@@ -1,5 +1,5 @@
 import type { PublicDevice } from '@hello.nrfcloud.com/proto/hello/map'
-import { useDevices } from '../context/Devices'
+import { useDevices } from '../context/Devices.js'
 import { For, Show } from 'solid-js'
 import { type Static } from '@sinclair/typebox'
 import {
