@@ -32,7 +32,7 @@
     "@nordicsemiconductor/eslint-config-asset-tracker-cloud-typescript": "17.0.0",
     "@nordicsemiconductor/from-env": "3.0.0",
     "@types/node": "20.11.5",
-    "@typescript-eslint/eslint-plugin": "6.19.0",
+    "@typescript-eslint/eslint-plugin": "6.19.1",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "2.29.1",
     "eslint-plugin-jsx-a11y": "6.8.0",
@@ -44,7 +44,7 @@
     "the-new-css-reset": "1.11.2",
     "tsx": "4.7.0",
     "vite": "5.0.12",
-    "vite-plugin-solid": "2.8.2"
+    "vite-plugin-solid": "2.8.3"
   },
   "dependencies": {
     "@hello.nrfcloud.com/proto": "6.4.7",
