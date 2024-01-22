@@ -8,11 +8,9 @@ const { version: defaultVersion, homepage } = JSON.parse(
 	fs.readFileSync(path.join(process.cwd(), 'package.json'), 'utf-8'),
 )
 const version = process.env.VERSION ?? defaultVersion
-const { registryURL } = fromEnv({
-	registryURL: 'REGISTRY_URL',
+const { registryEndpoint } = fromEnv({
+	registryEndpoint: 'REGISTRY_ENDPOINT',
 })(process.env)
-
-console.log(process.env.REGISTRY_URL)
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -31,6 +29,6 @@ export default defineConfig({
 		HOMEPAGE: JSON.stringify(homepage),
 		VERSION: JSON.stringify(version ?? Date.now()),
 		BUILD_TIME: JSON.stringify(new Date().toISOString()),
-		REGISTRY_URL: JSON.stringify(new URL(registryURL).toString()),
+		REGISTRY_ENDPOINT: JSON.stringify(new URL(registryEndpoint).toString()),
 	},
 })

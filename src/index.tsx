@@ -15,7 +15,7 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
 
 render(
 	() => (
-		<ParametersProvider registryURL={new URL(REGISTRY_URL)}>
+		<ParametersProvider registryEndpoint={new URL(REGISTRY_ENDPOINT)}>
 			<DevicesProvider>
 				<MapApp />
 			</DevicesProvider>

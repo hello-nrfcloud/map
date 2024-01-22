@@ -30,10 +30,10 @@ export const fetchParameters = (url: URL) => async (): Promise<Parameters> => {
 	}
 }
 
-export const createParametersContext = (registryURL: URL) => {
+export const createParametersContext = (registryEndpoint: URL) => {
 	const [parameters, { refetch }] = createResource(
-		registryURL,
-		fetchParameters(registryURL),
+		registryEndpoint,
+		fetchParameters(registryEndpoint),
 	)
 
 	return {
@@ -58,11 +58,11 @@ export const useParameters = () => {
 }
 
 export const ParametersProvider = (
-	props: ParentProps<{ registryURL: URL }>,
+	props: ParentProps<{ registryEndpoint: URL }>,
 ) => {
 	const [parameters] = createResource(
-		props.registryURL,
-		fetchParameters(props.registryURL),
+		props.registryEndpoint,
+		fetchParameters(props.registryEndpoint),
 	)
 
 	return (
