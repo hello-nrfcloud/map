@@ -4,7 +4,6 @@ import {
 	CreateInvalidationCommand,
 } from '@aws-sdk/client-cloudfront'
 import { stackOutput } from '@nordicsemiconductor/cloudformation-helpers'
-import chalk from 'chalk'
 import { glob } from 'glob'
 import { randomUUID } from 'node:crypto'
 import path, { parse } from 'node:path'
@@ -27,16 +26,16 @@ const pathesToInvalidate = [
 ]
 
 const stackName = process.env.STACK_NAME ?? 'hello-nrfcloud-web'
-console.log(chalk.yellow('Stack name:'), chalk.blue(stackName))
+console.log('Stack name:', stackName)
 
 const { distributionId } = await stackOutput(cloudFormation)<{
 	distributionId: string
 }>(stackName)
 
-console.log(chalk.yellow('Distribution ID:'), chalk.blue(distributionId))
+console.log('Distribution ID:', distributionId)
 
-console.log(chalk.yellow('Pathes to invalidate:'))
-pathesToInvalidate.map((s) => console.log(chalk.gray('-'), chalk.blue(s)))
+console.log('Pathes to invalidate:')
+pathesToInvalidate.map((s) => console.log('-', s))
 
 const { Invalidation } = await cloudFront.send(
 	new CreateInvalidationCommand({
@@ -51,5 +50,5 @@ const { Invalidation } = await cloudFront.send(
 	}),
 )
 
-console.log(chalk.green('Invalidation created!'))
-console.log(chalk.yellow('Invalidation ID:'), chalk.blue(Invalidation?.Id))
+console.log('Invalidation created!')
+console.log('Invalidation ID:', Invalidation?.Id)
