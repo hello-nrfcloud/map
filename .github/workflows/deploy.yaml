@@ -46,13 +46,8 @@ jobs:
           SENTRY_DSN: ${{ vars.SENTRY_DSN }}
         run: |
           npm run build
-          cp -L -r ./static ./build/client
-          mkdir -p build/client/node_modules/maplibre-gl/dist/
-          cp node_modules/maplibre-gl/dist/maplibre-gl.css build/client/node_modules/maplibre-gl/dist/
-          mkdir -p build/client/node_modules/bootstrap/dist/css/
-          cp node_modules/bootstrap/dist/css/bootstrap.css build/client/node_modules/bootstrap/dist/css/
-          mkdir  ./build/client/.well-known
-          echo ${{ env.VERSION }} > ./build/client/.well-known/release
+          mkdir  ./dist/.well-known
+          echo ${{ env.VERSION }} > ./dist/.well-known/release
 
       - name: Cache AWS CLI (Linux)
         id: cache-aws-cli
@@ -83,7 +78,7 @@ jobs:
 
       - name: Upload build
         run: |
-          aws s3 sync build/client s3://${{ env.BUCKET_NAME }}/map
+          aws s3 sync dist s3://${{ env.BUCKET_NAME }}/map
 
       - name: Set cache metadata
         run: |
