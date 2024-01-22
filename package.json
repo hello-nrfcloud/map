@@ -24,8 +24,8 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "18.4.4",
-    "@nordicsemiconductor/asset-tracker-cloud-code-style": "13.1.10",
+    "@commitlint/config-conventional": "18.5.0",
+    "@nordicsemiconductor/asset-tracker-cloud-code-style": "13.1.11",
     "@nordicsemiconductor/from-env": "3.0.0",
     "@types/node": "20.11.5",
     "husky": "8.0.3",
@@ -36,8 +36,8 @@
     "vite-plugin-solid": "2.8.2"
   },
   "dependencies": {
-    "@hello.nrfcloud.com/proto": "6.4.6",
-    "date-fns": "3.3.0"
+    "@hello.nrfcloud.com/proto": "6.4.7",
+    "date-fns": "3.3.1"
   },
   "engines": {
     "node": ">=20.0.0",
