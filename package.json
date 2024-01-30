@@ -21,7 +21,7 @@
   "scripts": {
     "start": "vite",
     "build": "node --max_old_space_size=8192 ./node_modules/vite/bin/vite.js build --emptyOutDir",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "devDependencies": {
     "@aws-sdk/client-cloudformation": "3.502.0",
@@ -39,7 +39,7 @@
     "eslint-plugin-prefer-arrow": "1.2.3",
     "eslint-plugin-unicorn": "50.0.1",
     "glob": "10.3.10",
-    "husky": "8.0.3",
+    "husky": "9.0.7",
     "prettier": "3.2.4",
     "the-new-css-reset": "1.11.2",
     "tsx": "4.7.0",
