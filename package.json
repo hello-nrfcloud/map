@@ -1,69 +1,39 @@
 {
-  "name": "@hello.nrfcloud.com/map",
+  "name": "@nordicsemiconductor/asset-tracker-cloud-code-style",
   "version": "0.0.0-development",
-  "type": "module",
+  "description": "Code style definitions for all nRF Asset Tracker projects.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hello-nrfcloud/map.git"
+    "url": "git+https://github.com/NordicSemiconductor/asset-tracker-cloud-code-style-js.git"
   },
   "bugs": {
-    "url": "https://github.com/hello-nrfcloud/map/issues"
+    "url": "https://github.com/NordicSemiconductor/asset-tracker-cloud-code-style-js/issues"
   },
-  "homepage": "https://hello.nrfcloud.com/map",
+  "homepage": "https://github.com/NordicSemiconductor/asset-tracker-cloud-code-style-js#readme",
   "keywords": [
-    "nordicsemiconductor",
-    "cellular-iot",
-    "hello-nrfcloud"
+    "nrf-asset-tracker",
+    "iot"
   ],
   "author": "Nordic Semiconductor ASA | nordicsemi.no",
   "license": "BSD-3-Clause",
-  "description": "Show public devices on a map",
-  "scripts": {
-    "start": "vite",
-    "build": "node --max_old_space_size=8192 ./node_modules/vite/bin/vite.js build --emptyOutDir",
-    "prepare": "husky install"
-  },
-  "devDependencies": {
-    "@aws-sdk/client-cloudformation": "3.502.0",
-    "@aws-sdk/client-cloudfront": "3.502.0",
-    "@commitlint/config-conventional": "18.6.0",
-    "@nordicsemiconductor/asset-tracker-cloud-code-style": "13.1.12",
-    "@nordicsemiconductor/cloudformation-helpers": "9.0.2",
-    "@nordicsemiconductor/eslint-config-asset-tracker-cloud-typescript": "17.0.0",
-    "@nordicsemiconductor/from-env": "3.0.0",
-    "@types/node": "20.11.10",
-    "@typescript-eslint/eslint-plugin": "6.20.0",
-    "eslint-config-prettier": "9.1.0",
-    "eslint-plugin-import": "2.29.1",
-    "eslint-plugin-jsx-a11y": "6.8.0",
-    "eslint-plugin-prefer-arrow": "1.2.3",
-    "eslint-plugin-unicorn": "50.0.1",
-    "glob": "10.3.10",
-    "husky": "8.0.3",
-    "prettier": "3.2.4",
-    "the-new-css-reset": "1.11.2",
-    "tsx": "4.7.0",
-    "vite": "5.0.12",
-    "vite-plugin-solid": "2.9.1"
-  },
   "dependencies": {
-    "@hello.nrfcloud.com/proto": "6.4.7",
-    "date-fns": "3.3.1"
-  },
-  "engines": {
-    "node": ">=20.0.0",
-    "npm": ">=9.0.0"
+    "@commitlint/cli": "18.6.0",
+    "eslint": "8.56.0",
+    "lint-staged": "15.2.0",
+    "pinst": "3.0.0",
+    "prettier": "3.2.4",
+    "prettier-plugin-organize-imports": "3.2.4",
+    "typescript": "5.3.3"
   },
   "lint-staged": {
-    "*.{ts,tsx}": [
-      "prettier --write",
-      "eslint --ext .js,.ts,.jsx,.tsx"
-    ],
-    "*.{md,json,yaml,yml,html}": [
-      "prettier --write"
+    "*.{yml,md,js,json}": [
+      "prettier --write --config .prettierrc.js"
     ]
   },
-  "prettier": "@nordicsemiconductor/asset-tracker-cloud-code-style/.prettierrc",
+  "engines": {
+    "node": ">=20",
+    "npm": ">=9"
+  },
   "release": {
     "branches": [
       "saga"
@@ -72,6 +42,7 @@
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
+      "@semantic-release/npm",
       [
         "@semantic-release/github",
         {
@@ -80,5 +51,25 @@
         }
       ]
     ]
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "package-lock.json",
+    "index.js",
+    "LICENSE",
+    "README.md",
+    ".prettierrc.js",
+    "tsconfig.json",
+    "templates"
+  ],
+  "scripts": {
+    "prepare": "husky",
+    "test": "npm exec -- renovate-config-validator"
+  },
+  "devDependencies": {
+    "@commitlint/config-conventional": "18.6.0",
+    "husky": "9.0.7"
   }
 }
