@@ -44,7 +44,7 @@
     "the-new-css-reset": "1.11.2",
     "tsx": "4.7.1",
     "vite": "5.1.2",
-    "vite-plugin-solid": "2.10.0"
+    "vite-plugin-solid": "2.10.1"
   },
   "dependencies": {
     "@hello.nrfcloud.com/proto": "6.4.13",
