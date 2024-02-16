@@ -63,7 +63,7 @@
       "prettier --write"
     ]
   },
-  "prettier": "@nordicsemiconductor/asset-tracker-cloud-code-style/.prettierrc",
+  "prettier": "@bifravst/prettier-config",
   "release": {
     "branches": [
       "saga"
