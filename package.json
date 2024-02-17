@@ -47,7 +47,7 @@
     "vite-plugin-solid": "2.10.1"
   },
   "dependencies": {
-    "@hello.nrfcloud.com/proto": "6.4.13",
+    "@hello.nrfcloud.com/proto": "6.4.15",
     "date-fns": "3.3.1"
   },
   "engines": {
