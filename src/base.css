@@ -9,6 +9,13 @@
   --bg-blue-8: #020d47;
   --color-warning: #e7c27b;
   --color-dark-red: #860404;
+  --base-size-sidebar: 40px;
+}
+
+@media (min-width: 400px) {
+  :root {
+    --base-size-sidebar: 60px;
+  }
 }
 
 html,

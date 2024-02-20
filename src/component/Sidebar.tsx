@@ -19,11 +19,13 @@ export const Sidebar = () => {
 				<SidebarContent class="warning">
 					<header>
 						<h1>Under construction!</h1>
-						<a href="#">
-							<Close />
-						</a>
 					</header>
-
+					<nav>
+						<span></span>
+						<a href="#" class="close">
+							<Close size={20} />
+						</a>
+					</nav>
 					<div style={{ padding: '1rem' }}>
 						<p>
 							This website is under construction and not intended for production
@@ -43,7 +45,11 @@ const SidebarContent = (props: ParentProps<{ class?: string }>) => (
 const SidebarNav = () => (
 	<nav class="sidebar">
 		<a href="#" class="button white">
-			<img src="/assets/logo.svg" class="logo" alt="hello.nrfcloud.com logo" />
+			<img
+				src="../assets/logo.svg"
+				class="logo"
+				alt="hello.nrfcloud.com logo"
+			/>
 		</a>
 		<hr />
 		<a class="button warning" href="#warning">

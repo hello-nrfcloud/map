@@ -1,6 +1,6 @@
 nav.sidebar {
   background-color: var(--bg-blue-4);
-  width: 60px;
+  width: var(--base-size-sidebar);
   height: 100vh;
   position: fixed;
   left: 0;
@@ -19,8 +19,8 @@ nav.sidebar hr {
 }
 
 nav.sidebar .button {
-  width: 59px;
-  height: 59px;
+  width: calc(var(--base-size-sidebar) - 1px);
+  height: calc(var(--base-size-sidebar) - 1px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,27 +37,44 @@ nav.sidebar .white {
 
 aside.sidebar {
   position: fixed;
-  left: 59px;
-  top: 60px;
+  left: calc(var(--base-size-sidebar) - 1px);
+  top: var(--base-size-sidebar);
+  border-top-right-radius: calc(var(--base-size-sidebar) / 2);
 }
 
 aside.sidebar > header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 60px;
+  height: var(--base-size-sidebar);
   margin: 0 1rem;
+}
+
+aside.sidebar nav {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  color: 1px solid rgba(0, 0, 0, 0.5);
+  margin: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+
+aside.sidebar .close {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 aside.sidebar.warning {
   background-color: var(--color-warning);
   color: var(--color-dark-red);
-
-  min-height: 50vh;
+  border-bottom-color: var(--color-dark-red);
+  height: calc(100vh - var(--base-size-sidebar));
 }
 
 @media (min-width: 400px) {
   aside.sidebar.warning {
-    width: 300px;
+    width: calc(400px - var(--base-size-sidebar));
   }
 }
