@@ -22,7 +22,7 @@ export const Sidebar = () => {
 					</header>
 					<nav>
 						<span></span>
-						<a href="#" class="close">
+						<a href="/#" class="close">
 							<Close size={20} />
 						</a>
 					</nav>
@@ -44,7 +44,7 @@ const SidebarContent = (props: ParentProps<{ class?: string }>) => (
 
 const SidebarNav = () => (
 	<nav class="sidebar">
-		<a href="#" class="button white">
+		<a href="/#" class="button white">
 			<img
 				src="../assets/logo.svg"
 				class="logo"
@@ -52,7 +52,7 @@ const SidebarNav = () => (
 			/>
 		</a>
 		<hr />
-		<a class="button warning" href="#warning">
+		<a class="button warning" href="/#warning">
 			<Warning strokeWidth={2} size={32} />
 		</a>
 	</nav>
