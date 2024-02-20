@@ -49,6 +49,7 @@ jobs:
           npm run build
           mkdir  ./dist/.well-known
           echo ${{ env.VERSION }} > ./dist/.well-known/release
+          cp assets/* dist/assets
 
       - name: Cache AWS CLI (Linux)
         id: cache-aws-cli
