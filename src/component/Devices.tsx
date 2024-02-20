@@ -48,7 +48,6 @@ const DescribeInstance = ({ instance }: { instance: LwM2MObjectInstance }) => {
 	const definition = definitions[instance.ObjectID as LwM2MObjectID]
 	const tsResourceId = timestampResources[definition.ObjectID] as number
 	const ts = instance.Resources[tsResourceId] as string
-	console.log(ts)
 	return (
 		<Show
 			when={definition !== undefined}

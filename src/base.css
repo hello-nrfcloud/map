@@ -7,6 +7,8 @@
   --bg-blue-6: #021255;
   --bg-blue-7: #020e4b;
   --bg-blue-8: #020d47;
+  --color-warning: #e7c27b;
+  --color-dark-red: #860404;
 }
 
 html,
@@ -18,7 +20,28 @@ body {
   background: var(--bg-blue-8);
   color: white;
   font-family: "Share Tech", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
-h1 {
+code {
+  font-family: "Share Tech Mono", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+
+button[type="button"] {
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
 }

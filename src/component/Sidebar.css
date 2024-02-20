@@ -13,8 +13,51 @@ nav.sidebar .logo {
 }
 
 nav.sidebar hr {
-  border-top: 1px solid var(--bg-blue-8);
   border-bottom: 1px solid var(--bg-blue-1);
   width: 100%;
   padding: 0;
+}
+
+nav.sidebar .button {
+  width: 59px;
+  height: 59px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+nav.sidebar .warning {
+  background-color: var(--color-warning);
+  color: var(--color-dark-red);
+}
+
+nav.sidebar .white {
+  background-color: white;
+}
+
+aside.sidebar {
+  position: fixed;
+  left: 59px;
+  top: 60px;
+}
+
+aside.sidebar > header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  margin: 0 1rem;
+}
+
+aside.sidebar.warning {
+  background-color: var(--color-warning);
+  color: var(--color-dark-red);
+
+  min-height: 50vh;
+}
+
+@media (min-width: 400px) {
+  aside.sidebar.warning {
+    width: 300px;
+  }
 }
