@@ -108,7 +108,7 @@ const DescribeResource = ({
 				<abbr title={info.Description}>{info.Name}</abbr>
 			</dt>
 			<dd>
-				{`${value}`}
+				{value.toString()}
 				<Show when={info.Units !== undefined}>{` ${info.Units}`}</Show>
 			</dd>
 		</>

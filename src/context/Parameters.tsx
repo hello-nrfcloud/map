@@ -23,7 +23,7 @@ export const fetchParameters = (url: URL) => async (): Promise<Parameters> => {
 	} catch (err) {
 		console.error(err)
 		throw new Error(
-			`Failed to fetch parameters from registry (${url}): ${
+			`Failed to fetch parameters from registry (${url.toString()}): ${
 				(err as Error).message
 			}!`,
 		)
