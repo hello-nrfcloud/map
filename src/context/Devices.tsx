@@ -4,6 +4,8 @@ import { useParameters } from './Parameters.js'
 import { Devices, PublicDevice } from '@hello.nrfcloud.com/proto/hello/map'
 import { type Static } from '@sinclair/typebox'
 
+export type Device = Static<typeof PublicDevice>
+
 export const fetchDevices =
 	(url: URL) => async (): Promise<Static<typeof Devices>> => {
 		try {
@@ -31,8 +33,11 @@ export const DevicesProvider = (props: ParentProps) => {
 	)
 }
 
-export const DevicesContext = createContext<
-	() => Static<typeof PublicDevice>[]
->(() => [])
+export const DevicesContext = createContext<() => Device[]>(() => [])
 
 export const useDevices = () => useContext(DevicesContext)
+
+export const byId =
+	(search: string) =>
+	({ id }: { id: string }) =>
+		id === search

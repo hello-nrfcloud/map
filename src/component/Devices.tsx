@@ -8,6 +8,7 @@ import {
 	LwM2MObjectID,
 	timestampResources,
 	type LwM2MResourceValue,
+	type LwM2MResourceInfo,
 } from '@hello.nrfcloud.com/proto-lwm2m'
 import { formatDistanceToNow } from 'date-fns'
 export const Devices = () => {
@@ -112,24 +113,4 @@ const DescribeResource = ({
 			</dd>
 		</>
 	)
-}
-
-// FIXME: use from proto-lwm2m
-type LwM2MResourceInfo = {
-	ResourceID: number
-	Name: string
-	Mandatory: boolean
-	Type: ResourceType
-	Description: string // e.g. 'The decimal notation of latitude, e.g. -43.5723 [World Geodetic System 1984].'
-	RangeEnumeration?: string // e.g. ''
-	Units?: string // e.g. 'lat'
-}
-// FIXME: use from proto-lwm2m
-enum ResourceType {
-	String = 'String',
-	Integer = 'Integer',
-	Float = 'Float',
-	Boolean = 'Boolean',
-	Opaque = 'Opaque',
-	Time = 'Time',
 }

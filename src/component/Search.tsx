@@ -1,68 +1,131 @@
-import { useDevices } from '../context/Devices.js'
+import { type Device, useDevices } from '../context/Devices.js'
 import './Search.css'
 import { AddToSearch, Close } from './LucideIcon.js'
-import { createSignal, For, Show } from 'solid-js'
+import { createSignal, For, Show, createEffect } from 'solid-js'
+import { SidebarContent } from './Sidebar.jsx'
+import { link } from '../util/link.js'
+import { Device as DeviceIcon } from '../icons/Device.js'
 
-export const Search = () => {
-	const devices = useDevices()
-	const [searchTerms, setSearchTerms] = createSignal<string[]>([
-		`id:pentacid-coxalgia-backheel`,
-		`model:PCA20035+solar`,
-		`model:PCA20035+solar`,
-		`model:PCA20035+solar`,
+enum SearchTermType {
+	Id = 'id',
+	Model = 'model',
+}
+type SearchTerm = {
+	type: SearchTermType
+	term: string
+}
+const allowedTypes = [SearchTermType.Id, SearchTermType.Model]
+
+const isSearchTermType = (term: unknown): term is SearchTermType =>
+	typeof term === 'string' && allowedTypes.includes((term ?? '') as any)
+
+const Search = () => {
+	const [searchTerms, setSearchTerms] = createSignal<SearchTerm[]>([
+		{ type: SearchTermType.Id, term: 'pentacid-coxalgia-backheel' },
+		{ type: SearchTermType.Model, term: 'PCA20035+solar' },
 	])
 	let input!: HTMLInputElement
 
 	const addSearchTerm = () => {
-		console.log({ value: input.value })
 		if (input.value.length > 0) {
-			setSearchTerms((prev) => [...prev, input.value])
+			const [type, term] = input.value.split(':')
+			if (isSearchTermType(type) && term !== undefined) {
+				setSearchTerms((prev) => [...prev, { type, term } as SearchTerm])
+			}
 		}
 		input.value = ''
 	}
 
 	return (
-		<aside class="search">
-			<div class="wrapper">
-				<div class="stats">{devices().length} devices</div>
-				<div class="form-wrapper">
-					<form
-						onSubmit={(e) => {
-							e.preventDefault()
-							e.stopPropagation()
+		<>
+			<div class="wrapper boxed">
+				<form
+					onSubmit={(e) => {
+						e.preventDefault()
+						e.stopPropagation()
+					}}
+				>
+					<input
+						type="search"
+						placeholder='e.g. "id:<device id>"'
+						ref={input}
+						onKeyUp={(e) => {
+							if (e.key === 'Enter') addSearchTerm()
 						}}
-					>
-						<input
-							type="search"
-							placeholder='e.g. "id:<device id>"'
-							ref={input}
-							onKeyUp={(e) => {
-								if (e.key === 'Enter') addSearchTerm()
-							}}
-						/>
-						<button type="button">
-							<AddToSearch size={20} />
-						</button>
-					</form>
-					<Show when={searchTerms().length > 0}>
-						<div class="terms">
-							<For each={searchTerms()}>
-								{(term) => (
-									<button
-										type="button"
-										onClick={() =>
-											setSearchTerms((terms) => terms.filter((t) => t !== term))
-										}
-									>
-										{term}
-										<Close size={16} />
-									</button>
-								)}
-							</For>
-						</div>
-					</Show>
-				</div>
+					/>
+					<button type="button">
+						<AddToSearch size={20} />
+					</button>
+				</form>
+				<Show when={searchTerms().length > 0}>
+					<div class="terms">
+						<For each={searchTerms()}>
+							{(term) => (
+								<button
+									type="button"
+									onClick={() =>
+										setSearchTerms((terms) => terms.filter((t) => t !== term))
+									}
+								>
+									<span>{term.type}:</span>
+									<span>{term.term}</span>
+									<Close size={16} />
+								</button>
+							)}
+						</For>
+					</div>
+				</Show>
 			</div>
-		</aside>
+			<Show when={searchTerms().length > 0}>
+				<SearchResult terms={searchTerms()} />
+			</Show>
+		</>
 	)
 }
+
+export const Sidebar = () => {
+	const devices = useDevices()
+	const [numDevices, setNumDevices] = createSignal<number>(0)
+	createEffect(() => setNumDevices(devices().length))
+
+	return (
+		<SidebarContent class="search">
+			<header>
+				<h1>Search {numDevices()} devices</h1>
+				<a href={link('/#')} class="close">
+					<Close size={20} />
+				</a>
+			</header>
+			<Search />
+		</SidebarContent>
+	)
+}
+
+const SearchResult = ({ terms }: { terms: SearchTerm[] }) => {
+	const [results, setResults] = createSignal<Device[]>([])
+	const devices = useDevices()
+
+	createEffect(() => setResults(devices().filter(matches(terms))))
+
+	return (
+		<section class="results boxed">
+			<header>
+				<h2>Results</h2>
+			</header>
+			<For each={results()} fallback={<p>No matching devices found.</p>}>
+				{(device) => (
+					<span class="result">
+						<DeviceIcon class="icon" />
+						<a href={link(`/#id:${device.id}`)}>
+							<code>{device.id}</code>
+						</a>
+						<small>({device.model})</small>
+					</span>
+				)}
+			</For>
+		</section>
+	)
+}
+
+const matches = (terms: SearchTerm[]) => (/*device: Device*/) =>
+	terms.reduce((matches) => matches, true)

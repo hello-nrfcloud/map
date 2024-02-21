@@ -52,3 +52,10 @@ h6 {
   font-weight: 300;
   font-style: normal;
 }
+
+.boxed {
+  background-color: #ffffff22;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 4px #000000b8;
+}
