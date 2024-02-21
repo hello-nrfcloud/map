@@ -6,6 +6,7 @@ import './base.css'
 import { MapApp } from './MapApp.js'
 import { ParametersProvider } from './context/Parameters.js'
 import { DevicesProvider } from './context/Devices.jsx'
+import { NavigationProvider } from './context/Navigation.js'
 
 const root = document.getElementById('root')
 
@@ -17,7 +18,9 @@ render(
 	() => (
 		<ParametersProvider registryEndpoint={new URL(REGISTRY_ENDPOINT)}>
 			<DevicesProvider>
-				<MapApp />
+				<NavigationProvider>
+					<MapApp />
+				</NavigationProvider>
 			</DevicesProvider>
 		</ParametersProvider>
 	),

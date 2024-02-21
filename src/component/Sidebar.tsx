@@ -1,16 +1,11 @@
-import './Sidebar.css'
-import { createSignal, Show, onCleanup, type ParentProps } from 'solid-js'
+import { Show, type ParentProps } from 'solid-js'
+import { useNavigation } from '../context/Navigation.jsx'
+import { link } from '../util/link.js'
 import { Close, Warning } from './LucideIcon.js'
+import './Sidebar.css'
 
 export const Sidebar = () => {
-	const [location, setLocation] = createSignal(
-		window.location.hash.slice(1) || 'home',
-	)
-
-	const locationHandler = () => setLocation(window.location.hash.slice(1))
-	window.addEventListener('hashchange', locationHandler)
-
-	onCleanup(() => window.removeEventListener('hashchange', locationHandler))
+	const location = useNavigation()
 
 	return (
 		<>
@@ -22,7 +17,7 @@ export const Sidebar = () => {
 					</header>
 					<nav>
 						<span></span>
-						<a href="/#" class="close">
+						<a href={link('/#')} class="close">
 							<Close size={20} />
 						</a>
 					</nav>
@@ -44,15 +39,15 @@ const SidebarContent = (props: ParentProps<{ class?: string }>) => (
 
 const SidebarNav = () => (
 	<nav class="sidebar">
-		<a href="/#" class="button white">
+		<a href={link('/#')} class="button white">
 			<img
-				src="../assets/logo.svg"
+				src={link('/assets/logo.svg')}
 				class="logo"
 				alt="hello.nrfcloud.com logo"
 			/>
 		</a>
 		<hr />
-		<a class="button warning" href="/#warning">
+		<a class="button warning" href={link('/#warning')}>
 			<Warning strokeWidth={2} size={32} />
 		</a>
 	</nav>

@@ -16,6 +16,9 @@ jobs:
 
     environment: production
 
+    env:
+      BASE_URL: /map/
+
     steps:
       - uses: actions/checkout@v4
         with:
@@ -44,7 +47,7 @@ jobs:
           REGISTRY_ENDPOINT: ${{ vars.REGISTRY_ENDPOINT }}
           DOMAIN_NAME: ${{ vars.DOMAIN_NAME }}
           SENTRY_DSN: ${{ vars.SENTRY_DSN }}
-          BASE_URL: /map
+          BASE_URL: ${{ env.BASE_URL }}
         run: |
           npm run build
           mkdir  ./dist/.well-known
@@ -73,29 +76,28 @@ jobs:
           aws-region: ${{ vars.AWS_REGION }}
 
       - name: Get bucket name
-        run:
-          echo "BUCKET_NAME=`aws cloudformation describe-stacks --stack-name ${{
-          vars.STACK_NAME }} | jq -r '.Stacks[0].Outputs[] | select(.OutputKey
-          == "bucketName") | .OutputValue'`" >> $GITHUB_ENV
+        run: |
+          echo "BUCKET_NAME=`aws cloudformation describe-stacks --stack-name ${{ vars.STACK_NAME }} | jq -r '.Stacks[0].Outputs[] | select(.OutputKey == "bucketName") | .OutputValue'`" >> $GITHUB_ENV
+          echo "S3_LOCATION=${BUCKET_NAME}${{ env.BASE_URL }}" >> $GITHUB_ENV
 
       - name: Delete old files
         run: |
-          aws s3 rm s3://${{ env.BUCKET_NAME }}/map/ --recursive
+          aws s3 rm s3://${{ env.S3_LOCATION }} --recursive
 
       - name: Upload build
         run: |
-          aws s3 sync dist s3://${{ env.BUCKET_NAME }}/map/
+          aws s3 sync dist s3://${{ env.S3_LOCATION }}
 
       - name: Set cache metadata
         run: |
           # All files to 1 year
-          aws s3 cp s3://${{ env.BUCKET_NAME }}/map/ s3://${{ env.BUCKET_NAME }}/map/ --recursive --cache-control max-age=30758400,public
+          aws s3 cp s3://${{ env.S3_LOCATION }} s3://${{ env.S3_LOCATION }} --recursive --cache-control max-age=30758400,public
           # HTML files and .well-known/ to 10 minutes
-          aws s3 cp s3://${{ env.BUCKET_NAME }}/map/ s3://${{ env.BUCKET_NAME }}/map/ --exclude "*" --include "*.html" --include ".well-known/*" --recursive --cache-control max-age=600,public --content-type "text/html; charset=UTF-8"
+          aws s3 cp s3://${{ env.S3_LOCATION }} s3://${{ env.S3_LOCATION }} --exclude "*" --include "*.html" --include ".well-known/*" --recursive --cache-control max-age=600,public --content-type "text/html; charset=UTF-8"
 
-      - name:
-          Trigger CloudFront cache invalidation for fixed resources (all other
-          files have unique names)
+      # Trigger CloudFront cache invalidation for fixed resources
+      # (all other files have unique names)
+      - name: Invalidate CloudFront cache
         env:
           STACK_NAME: ${{ vars.STACK_NAME }}
         run: npx tsx .github/workflows/invalidate-cloudfront.ts

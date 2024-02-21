@@ -12,10 +12,12 @@ const { registryEndpoint } = fromEnv({
 	registryEndpoint: 'REGISTRY_ENDPOINT',
 })(process.env)
 
+const base = `${(process.env.BASE_URL ?? '').replace(/\/+$/, '')}/`
+
 // https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [solidPlugin()],
-	base: `${(process.env.BASE_URL ?? '').replace(/\/+$/, '')}/`,
+	base,
 	preview: {
 		host: 'localhost',
 		port: 8080,
@@ -30,5 +32,6 @@ export default defineConfig({
 		VERSION: JSON.stringify(version ?? Date.now()),
 		BUILD_TIME: JSON.stringify(new Date().toISOString()),
 		REGISTRY_ENDPOINT: JSON.stringify(new URL(registryEndpoint).toString()),
+		BASE_URL: JSON.stringify(base),
 	},
 })

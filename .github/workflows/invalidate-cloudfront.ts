@@ -16,7 +16,7 @@ const buildDir = path.join(process.cwd(), 'build', 'client')
 const htmlFiles = await glob('*/**/*.html', {
 	cwd: buildDir,
 })
-const prefix = '/map'
+const prefix = (process.env.BASE_URL ?? '').replace(/\/*$/, '')
 const pathesToInvalidate = [
 	`${prefix}/`,
 	`${prefix}/manifest.json`,
