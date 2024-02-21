@@ -5,7 +5,7 @@ import './base.css'
 
 import { MapApp } from './MapApp.js'
 import { ParametersProvider } from './context/Parameters.js'
-import { DevicesProvider } from './context/Devices.jsx'
+import { DevicesProvider } from './context/Devices.js'
 import { NavigationProvider } from './context/Navigation.js'
 
 const root = document.getElementById('root')

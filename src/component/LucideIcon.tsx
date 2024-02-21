@@ -1,4 +1,10 @@
-import { AlertTriangle, X, type IconNode } from 'lucide'
+import {
+	AlertTriangle,
+	X,
+	type IconNode,
+	Search as SearchIcon,
+	ZoomIn,
+} from 'lucide'
 import { For } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
 
@@ -37,3 +43,10 @@ export const Warning = (props: LucideProps) => (
 )
 
 export const Close = (props: LucideProps) => <LucideIcon icon={X} {...props} />
+export const Search = (props: LucideProps) => (
+	<LucideIcon icon={SearchIcon} {...props} />
+)
+
+export const AddToSearch = (props: LucideProps) => (
+	<LucideIcon icon={ZoomIn} {...props} />
+)

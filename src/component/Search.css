@@ -1,0 +1,118 @@
+aside.search {
+  position: absolute;
+  top: 0;
+  left: var(--base-size-sidebar);
+  width: calc(100vw - var(--base-size-sidebar));
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 600px) {
+  aside.search {
+    left: calc(2 * var(--base-size-sidebar));
+    width: calc(100vw - 4 * var(--base-size-sidebar));
+  }
+}
+
+aside.search div.wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  align-items: center;
+  background-color: rgb(236, 236, 236);
+  color: #333;
+  border-top-color: white;
+  border-bottom-color: #333;
+  width: 100%;
+  max-width: 750px;
+}
+
+@media (min-width: 600px) {
+  aside.search div.wrapper {
+    flex-direction: row;
+    border-radius: 10px;
+    padding: 1rem;
+  }
+}
+
+aside.search .form-wrapper {
+  width: 100%;
+}
+
+aside.search form {
+  display: flex;
+  align-items: center;
+}
+
+aside.search form input[type="search"] {
+  border-style: solid;
+  border-width: 1px;
+  border-right-width: 0;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-color: #d3d3d3;
+  border-right-color: #d3d3d3;
+  border-top-color: rgb(129, 129, 129);
+  border-left-color: rgb(129, 129, 129);
+  background-color: white;
+  padding: 0 0.5rem;
+  flex-grow: 1;
+  height: 32px;
+}
+
+aside.search form button {
+  border-style: solid;
+  border-width: 1px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-color: #d3d3d3;
+  border-left-color: #d3d3d3;
+  border-bottom-color: rgb(129, 129, 129);
+  border-right-color: rgb(129, 129, 129);
+  background-color: rgb(184, 184, 184);
+  height: 32px;
+  padding: 0 0.5rem;
+}
+
+aside.search form button svg {
+  margin-top: 4px;
+  color: #153e57;
+  opacity: 0.8;
+}
+
+aside.search div.stats {
+  padding: 0 0 0.25rem 0;
+}
+
+@media (min-width: 600px) {
+  aside.search div.stats {
+    padding: 0 1rem 0 0;
+    flex-shrink: 0;
+  }
+}
+
+aside.search div.terms {
+  margin-top: 0.5rem;
+  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+aside.search div.terms button {
+  display: flex;
+  align-items: center;
+  color: #153e57;
+  border: 1px solid #00000033;
+  background-color: #ffffff66;
+  border-radius: 5px;
+  padding: 0.25rem 0.5rem;
+}
+
+aside.search div.terms button {
+  margin-top: 0.25rem;
+}
+
+aside.search div.terms button:first-child,
+aside.search div.terms button + button {
+  margin-right: 0.25rem;
+}

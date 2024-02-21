@@ -1,5 +1,5 @@
 import { Show, type ParentProps } from 'solid-js'
-import { useNavigation } from '../context/Navigation.jsx'
+import { useNavigation } from '../context/Navigation.js'
 import { link } from '../util/link.js'
 import { Close, Warning } from './LucideIcon.js'
 import './Sidebar.css'
