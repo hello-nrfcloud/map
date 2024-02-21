@@ -77,7 +77,8 @@ jobs:
 
       - name: Get bucket name
         run: |
-          echo "BUCKET_NAME=`aws cloudformation describe-stacks --stack-name ${{ vars.STACK_NAME }} | jq -r '.Stacks[0].Outputs[] | select(.OutputKey == "bucketName") | .OutputValue'`" >> $GITHUB_ENV
+          BUCKET_NAME=`aws cloudformation describe-stacks --stack-name ${{ vars.STACK_NAME }} | jq -r '.Stacks[0].Outputs[] | select(.OutputKey == "bucketName") | .OutputValue'`
+          echo "BUCKET_NAME=${BUCKET_NAME}" >> $GITHUB_ENV
           echo "S3_LOCATION=${BUCKET_NAME}${{ env.BASE_URL }}" >> $GITHUB_ENV
 
       - name: Delete old files
