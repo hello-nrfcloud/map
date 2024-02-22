@@ -1,12 +1,8 @@
 :root {
-  --bg-blue-1: #022075;
-  --bg-blue-2: #011e71;
-  --bg-blue-3: #021c6c;
-  --bg-blue-4: #021966;
-  --bg-blue-5: #02165e;
-  --bg-blue-6: #021255;
-  --bg-blue-7: #020e4b;
-  --bg-blue-8: #020d47;
+  --bg-blue-4: #1a497b;
+  --bg-blue-3: #11456f;
+  --bg-blue-2: #094062;
+  --bg-blue-1: #003c56;
   --color-warning: #e7c27b;
   --color-error: #ce0d0d;
   --base-size-sidebar: 40px;
@@ -24,7 +20,7 @@ body {
   width: 100%;
   min-height: 100vh;
   min-width: 100vw;
-  background: var(--bg-blue-8);
+  background: #111;
   color: white;
   font-family: "Share Tech", sans-serif;
   font-weight: 400;
@@ -54,7 +50,6 @@ h6 {
 }
 
 .boxed {
-  background-color: #ffffff22;
   padding: 1rem;
   border-radius: 10px;
   box-shadow: 0 0 4px #000000b8;
