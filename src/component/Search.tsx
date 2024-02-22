@@ -39,7 +39,7 @@ const Search = () => {
 
 	return (
 		<>
-			<div class="wrapper boxed">
+			<div class="wrapper boxed light">
 				<form
 					onSubmit={(e) => {
 						e.preventDefault()

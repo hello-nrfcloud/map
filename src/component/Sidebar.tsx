@@ -1,13 +1,14 @@
 import { Show, type ParentProps } from 'solid-js'
-import { byId, useDevices } from '../context/Devices.js'
 import { useNavigation } from '../context/Navigation.js'
-import { Device as DeviceIcon } from '../icons/Device.js'
 import { linkAsset, linkToHome, linkToPanel } from '../util/link.js'
 import {
 	SidebarButton as AppUpdateRequiredButton,
 	Sidebar as AppUpdateRequiredSidebar,
 } from './AppUpdate.jsx'
-import { DeviceSidebar } from './DeviceSidebar.js'
+import {
+	DeviceSidebar,
+	SidebarButton as DeviceDetailButton,
+} from './Device.jsx'
 import { Search, ViewSourceIcon, Warning } from './LucideIcon.js'
 import { Sidebar as SearchSidebar } from './Search.js'
 import './Sidebar.css'
@@ -44,22 +45,6 @@ const SidebarNav = () => (
 		<ViewSourceButton />
 	</nav>
 )
-
-const DeviceDetailButton = () => {
-	const location = useNavigation()
-	const devices = useDevices()
-
-	return (
-		<Show when={devices().find(byId(location().deviceId ?? '')) !== undefined}>
-			<>
-				<a class="button active" href={linkToHome()}>
-					<DeviceIcon class="logo" />
-				</a>
-				<hr />
-			</>
-		</Show>
-	)
-}
 
 const SearchButton = () => {
 	const location = useNavigation()

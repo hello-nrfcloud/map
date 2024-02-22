@@ -1,4 +1,5 @@
 :root {
+  --bg-blue-5: #2f5a87;
   --bg-blue-4: #1a497b;
   --bg-blue-3: #11456f;
   --bg-blue-2: #094062;
@@ -6,6 +7,8 @@
   --color-warning: #e7c27b;
   --color-error: #ce0d0d;
   --base-size-sidebar: 40px;
+  --regular-font-family: "Montserrat", sans-serif;
+  --condensed-font-family: "Roboto Condensed", sans-serif;
 }
 
 @media (min-width: 400px) {
@@ -22,7 +25,7 @@ body {
   min-width: 100vw;
   background: #111;
   color: white;
-  font-family: "Share Tech", sans-serif;
+  font-family: var(--regular-font-family);
   font-weight: 400;
   font-style: normal;
 }
@@ -43,7 +46,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--regular-font-family);
   font-optical-sizing: auto;
   font-weight: 300;
   font-style: normal;
@@ -52,7 +55,11 @@ h6 {
 .boxed {
   padding: 1rem;
   border-radius: 10px;
-  box-shadow: 0 0 4px #000000b8;
+  box-shadow: 0 0 13px #00000066;
+}
+
+.boxed + .boxed {
+  margin-top: 1rem;
 }
 
 p + p {

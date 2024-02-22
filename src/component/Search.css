@@ -1,6 +1,7 @@
 aside.search .wrapper {
   margin: 0 1rem;
   --color-forms: #333;
+  font-family: var(--condensed-font-family);
 }
 
 aside.search form {
@@ -39,7 +40,7 @@ aside.search form button {
   padding: 0 0.5rem;
 }
 
-aside.search form button svg {
+aside.search form button .icon {
   margin-top: 4px;
   color: #153e57;
   opacity: 0.8;
@@ -71,7 +72,7 @@ aside.search div.terms button + button {
   margin-right: 0.25rem;
 }
 
-aside.search div.terms button svg {
+aside.search div.terms button .icon {
   margin-left: 0.5rem;
 }
 
@@ -87,6 +88,7 @@ aside.search section.results .result {
   display: flex;
   align-items: center;
   margin-left: 0.25rem;
+  font-family: var(--condensed-font-family);
 }
 
 aside.search section.results .result .icon {

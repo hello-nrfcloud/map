@@ -77,7 +77,7 @@ aside.sidebar {
 }
 
 @media (min-width: 400px) {
-  aside.sidebar.warning {
+  aside.sidebar {
     width: calc(400px - var(--base-size-sidebar));
   }
 }
@@ -88,4 +88,8 @@ aside.sidebar a {
 
 .boxed {
   background-color: var(--bg-blue-4);
+}
+
+.boxed.light {
+  background-color: var(--bg-blue-5);
 }
