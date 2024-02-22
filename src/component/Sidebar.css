@@ -43,9 +43,18 @@ nav.sidebar .warning {
 aside.sidebar {
   position: fixed;
   left: calc(var(--base-size-sidebar) - 1px);
-  top: var(--base-size-sidebar);
-  border-top-right-radius: calc(var(--base-size-sidebar) / 4);
+  top: 0;
   z-index: 2000;
+  background-color: var(--bg-blue-3);
+  height: 100vh;
+}
+
+@media (min-width: 400px) {
+  aside.sidebar {
+    width: calc(400px - var(--base-size-sidebar));
+    border-top-right-radius: calc(var(--base-size-sidebar) / 4);
+    border-bottom-right-radius: calc(var(--base-size-sidebar) / 4);
+  }
 }
 
 aside.sidebar > header {
@@ -69,17 +78,6 @@ aside.sidebar .close {
   justify-content: space-between;
   align-items: center;
   margin-left: 1rem;
-}
-
-aside.sidebar {
-  background-color: var(--bg-blue-3);
-  height: calc(100vh - var(--base-size-sidebar));
-}
-
-@media (min-width: 400px) {
-  aside.sidebar {
-    width: calc(400px - var(--base-size-sidebar));
-  }
 }
 
 aside.sidebar a {

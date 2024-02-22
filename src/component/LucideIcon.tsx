@@ -13,6 +13,7 @@ import {
 	FileText,
 	ExternalLink as ExternalLinkIcon,
 	CloudOff,
+	PlusCircle,
 } from 'lucide'
 import { For } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
@@ -67,11 +68,11 @@ export const AppUpdateRequired = (props: LucideProps) => (
 	<LucideIcon icon={RefreshCcwDot} {...props} />
 )
 
-export const ViewSourceIcon = (props: LucideProps) => (
+export const ViewSource = (props: LucideProps) => (
 	<LucideIcon icon={Code2} {...props} />
 )
 
-export const MultipleIcon = (props: LucideProps) => (
+export const Multiple = (props: LucideProps) => (
 	<LucideIcon icon={SquareStack} {...props} />
 )
 
@@ -97,4 +98,8 @@ export const ExternalLink = (props: LucideProps) => (
 
 export const NoData = (props: LucideProps) => (
 	<LucideIcon icon={CloudOff} {...props} />
+)
+
+export const Add = (props: LucideProps) => (
+	<LucideIcon icon={PlusCircle} {...props} />
 )

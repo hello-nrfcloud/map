@@ -4,15 +4,20 @@ import { linkAsset, linkToHome, linkToPanel } from '../util/link.js'
 import {
 	SidebarButton as AppUpdateRequiredButton,
 	Sidebar as AppUpdateRequiredSidebar,
-} from './AppUpdate.jsx'
-import {
-	DeviceSidebar,
-	SidebarButton as DeviceDetailButton,
-} from './Device.jsx'
-import { Search, ViewSourceIcon, Warning } from './LucideIcon.js'
+} from './AppUpdate.js'
+import { DeviceSidebar, SidebarButton as DeviceDetailButton } from './Device.js'
+import { Search, Warning } from './LucideIcon.js'
 import { Sidebar as SearchSidebar } from './Search.js'
 import './Sidebar.css'
-import { WIPSidebar } from './WIPSidebar.jsx'
+import { WIPSidebar } from './WIPSidebar.js'
+import {
+	Sidebar as ViewSourceSidebar,
+	SidebarButton as ViewSourceButton,
+} from './ViewSource.js'
+import {
+	Sidebar as AddDeviceSidebar,
+	SidebarButton as AddDeviceButton,
+} from './AddDevice.js'
 
 export const Sidebar = () => (
 	<>
@@ -21,6 +26,8 @@ export const Sidebar = () => (
 		<DeviceSidebar />
 		<SearchSidebar />
 		<AppUpdateRequiredSidebar />
+		<ViewSourceSidebar />
+		<AddDeviceSidebar />
 	</>
 )
 
@@ -30,6 +37,7 @@ export const SidebarContent = (props: ParentProps<{ class?: string }>) => (
 
 const SidebarNav = () => (
 	<nav class="sidebar">
+		<AppUpdateRequiredButton />
 		<a href={linkToHome()} class="button">
 			<img
 				src={linkAsset('logo.svg')}
@@ -38,10 +46,10 @@ const SidebarNav = () => (
 			/>
 		</a>
 		<hr />
+		<WarningButton />
 		<SearchButton />
 		<DeviceDetailButton />
-		<WarningButton />
-		<AppUpdateRequiredButton />
+		<AddDeviceButton />
 		<ViewSourceButton />
 	</nav>
 )
@@ -89,12 +97,3 @@ const WarningButton = () => {
 		</>
 	)
 }
-
-const ViewSourceButton = () => (
-	<>
-		<a class="button" href={REPOSITORY_URL} target="_blank">
-			<ViewSourceIcon strokeWidth={2} />
-		</a>
-		<hr />
-	</>
-)

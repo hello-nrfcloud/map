@@ -12,7 +12,7 @@ import {
 	Collapse,
 	Documentation,
 	Expand,
-	MultipleIcon,
+	Multiple,
 	Updated,
 	ExternalLink,
 } from './LucideIcon.js'
@@ -44,7 +44,7 @@ export const DescribeInstance = ({
 										title={`Instance ID: ${instanceId}`}
 										class="multiple-instances"
 									>
-										<MultipleIcon strokeWidth={1} size={14} /> {instanceId}
+										<Multiple strokeWidth={1} size={14} /> {instanceId}
 									</abbr>
 								</Show>
 							</small>
