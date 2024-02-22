@@ -37,11 +37,11 @@ export const fetchRelease = async (): Promise<SemVer | undefined> => {
 		console.debug(logPrefix, `Not found: ${res.status}`)
 		return undefined
 	}
-	const versionString = await res.text()
-	const v = parse(versionString.slice(0, 20))
+	const versionString = (await res.text()).trim().slice(0, 20)
+	const v = parse(versionString)
 	if (v === null) {
 		console.error(logPrefix, `Could not parse response as semver!`)
-		console.debug(logPrefix, versionString.slice(0, 20))
+		console.debug(logPrefix, versionString)
 		return undefined
 	}
 	return v
