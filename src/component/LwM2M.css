@@ -3,7 +3,7 @@ aside.device header h1 {
   align-items: center;
 }
 aside.device header h1 .icon {
-  margin-left: 0.25rem;
+  margin-left: calc(var(--gap) / 4);
 }
 
 aside.device .device-info small {
@@ -12,7 +12,7 @@ aside.device .device-info small {
 }
 
 aside.device .device-info a .icon {
-  margin-left: 0.25rem;
+  margin-left: calc(var(--gap) / 4);
 }
 
 section.lwm2m header {
@@ -37,16 +37,16 @@ section.lwm2m header h2 time {
 }
 
 section.lwm2m header h2 time .icon {
-  margin-right: 0.25rem;
+  margin-right: calc(var(--gap) / 4);
   display: flex;
 }
 
 section.lwm2m .multiple-instances {
-  margin-left: 0.5rem;
+  margin-left: calc(var(--gap) / 2);
 }
 
 section.lwm2m .resources {
-  margin-top: 0.5rem;
+  margin-top: calc(var(--gap) / 2);
   font-family: var(--condensed-font-family);
   font-weight: 300;
   font-size: 14px;
@@ -60,7 +60,7 @@ section.lwm2m .resources dl {
 
 section.lwm2m .resources dl dd,
 section.lwm2m .resources dl dt {
-  margin-bottom: 0.25rem;
+  margin-bottom: calc(var(--gap) / 4);
   border-bottom: 1px solid #ffffff2a;
 }
 
@@ -69,16 +69,16 @@ section.lwm2m .resources dl dd {
 }
 
 section.lwm2m .source {
-  margin-top: 0.5rem;
+  margin-top: calc(var(--gap) / 2);
   opacity: 0.9;
   display: flex;
   align-items: center;
 }
 
 section.lwm2m .source .icon {
-  margin-right: 0.25rem;
+  margin-right: calc(var(--gap) / 4);
 }
 
 section.lwm2m .source a .icon {
-  margin-left: 0.25rem;
+  margin-left: calc(var(--gap) / 4);
 }

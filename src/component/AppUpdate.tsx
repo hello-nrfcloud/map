@@ -41,8 +41,7 @@ export const Sidebar = () => {
 							<Close size={20} />
 						</a>
 					</header>
-					<hr />
-					<div style={{ padding: '1rem' }}>
+					<section class="separator">
 						<p>
 							A new version (<code>{updateInfo().releasedVersion}</code>) of
 							this web application is available.
@@ -50,7 +49,7 @@ export const Sidebar = () => {
 						<p>
 							Please <a href={reloadLink()}>reload it</a>.
 						</p>
-					</div>
+					</section>
 				</SidebarContent>
 			</Show>
 		</Show>

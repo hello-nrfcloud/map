@@ -9,11 +9,15 @@
   --base-size-sidebar: 40px;
   --regular-font-family: "Inter Tight", sans-serif;
   --condensed-font-family: "Roboto Condensed", sans-serif;
+  --gap: 0.5rem;
+  --border-radius: 2.5px;
 }
 
 @media (min-width: 400px) {
   :root {
     --base-size-sidebar: 60px;
+    --gap: 1rem;
+    --border-radius: 5px;
   }
 }
 
@@ -57,14 +61,18 @@ h1 {
   font-weight: 100;
 }
 
+h2 {
+  font-size: 18px;
+}
+
 .boxed {
-  padding: 1rem;
-  border-radius: 10px;
+  padding: var(--gap);
+  border-radius: calc(var(--border-radius) * 2);
   box-shadow: 0 0 13px #00000066;
 }
 
 .boxed + .boxed {
-  margin-top: 1rem;
+  margin-top: var(--gap);
 }
 
 p {

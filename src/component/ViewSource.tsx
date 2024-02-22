@@ -17,8 +17,7 @@ export const Sidebar = () => {
 						<Close size={20} />
 					</a>
 				</header>
-				<hr />
-				<div style={{ padding: '1rem' }}>
+				<section class="separator">
 					<p>
 						The owners of the devices on this map have opted in to make the
 						device data publicly available.
@@ -54,7 +53,7 @@ export const Sidebar = () => {
 						</a>
 						.
 					</p>
-				</div>
+				</section>
 			</SidebarContent>
 		</Show>
 	)

@@ -53,7 +53,7 @@ export const DeviceSidebar = () => {
 				<Show
 					when={selectedDevice() !== undefined}
 					fallback={
-						<div style={{ margin: '0 1rem' }}>
+						<section>
 							<div class="boxed">
 								<p class="device-info">
 									<code>{location().deviceId ?? ''}</code>
@@ -62,7 +62,7 @@ export const DeviceSidebar = () => {
 							<div class="boxed">
 								<p>No state available.</p>
 							</div>
-						</div>
+						</section>
 					}
 				>
 					<DeviceInfo device={selectedDevice()!} />
@@ -73,7 +73,7 @@ export const DeviceSidebar = () => {
 }
 
 const DeviceInfo = ({ device }: { device: Device }) => (
-	<div style={{ margin: '0 1rem' }}>
+	<section>
 		<div class="boxed light">
 			<p class="device-info">
 				<code>{device.id}</code>
@@ -106,5 +106,5 @@ const DeviceInfo = ({ device }: { device: Device }) => (
 				)}
 			</For>
 		</Show>
-	</div>
+	</section>
 )

@@ -9,7 +9,7 @@ nav.sidebar {
 }
 
 nav.sidebar .logo {
-  padding: 10px;
+  padding: calc(var(--border-radius) * 2);
 }
 
 nav.sidebar hr {
@@ -47,6 +47,7 @@ aside.sidebar {
   z-index: 2000;
   background-color: var(--bg-blue-3);
   height: 100vh;
+  width: calc(100vw - var(--base-size-sidebar) + 1px);
 }
 
 @media (min-width: 400px) {
@@ -62,22 +63,24 @@ aside.sidebar > header {
   justify-content: space-between;
   align-items: center;
   height: var(--base-size-sidebar);
-  margin: 0 1rem;
+  margin: 0 var(--gap);
 }
 
-aside.sidebar hr {
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  color: 1px solid rgba(0, 0, 0, 0.5);
-  margin: 0 1rem;
-  opacity: 0.5;
+aside.sidebar > section {
+  margin: 0 var(--gap);
+}
+aside.sidebar > section.separator {
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: rgba(255, 255, 255, 0.5);
+  padding-top: var(--gap);
 }
 
 aside.sidebar .close {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-left: 1rem;
+  margin-left: var(--gap);
 }
 
 aside.sidebar a {

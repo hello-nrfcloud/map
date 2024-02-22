@@ -1,5 +1,5 @@
 aside.search .wrapper {
-  margin: 0 1rem;
+  margin: 0 var(--gap);
   --color-forms: #333;
   font-family: var(--condensed-font-family);
 }
@@ -14,14 +14,14 @@ aside.search form input[type="search"] {
   border-style: solid;
   border-width: 1px;
   border-right-width: 0;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
   border-bottom-color: #d3d3d3;
   border-right-color: #d3d3d3;
   border-top-color: rgb(129, 129, 129);
   border-left-color: rgb(129, 129, 129);
   background-color: white;
-  padding: 0 0.5rem;
+  padding: 0 calc(var(--gap) / 2);
   flex-grow: 1;
   height: 32px;
 }
@@ -29,15 +29,15 @@ aside.search form input[type="search"] {
 aside.search form button {
   border-style: solid;
   border-width: 1px;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
   border-bottom-color: #d3d3d3;
   border-right-color: #d3d3d3;
   border-top-color: rgb(129, 129, 129);
   border-left-color: rgb(129, 129, 129);
   background-color: rgb(184, 184, 184);
   height: 32px;
-  padding: 0 0.5rem;
+  padding: 0 calc(var(--gap) / 2);
 }
 
 aside.search form button .icon {
@@ -47,7 +47,7 @@ aside.search form button .icon {
 }
 
 aside.search div.terms {
-  margin-top: 0.5rem;
+  margin-top: calc(var(--gap) / 2);
   flex-direction: row;
   display: flex;
   flex-wrap: wrap;
@@ -59,41 +59,41 @@ aside.search div.terms button {
   color: #153e57;
   border: 1px solid #00000033;
   background-color: #ffffffde;
-  border-radius: 5px;
-  padding: 0.25rem 0.5rem;
+  border-radius: var(--border-radius);
+  padding: calc(var(--gap) / 4) calc(var(--gap) / 2);
 }
 
 aside.search div.terms button {
-  margin-top: 0.25rem;
+  margin-top: calc(var(--gap) / 4);
 }
 
 aside.search div.terms button:first-child,
 aside.search div.terms button + button {
-  margin-right: 0.25rem;
+  margin-right: calc(var(--gap) / 4);
 }
 
 aside.search div.terms button .icon {
-  margin-left: 0.5rem;
+  margin-left: calc(var(--gap) / 2);
 }
 
 aside.search section.results {
-  margin: 1rem;
+  margin: var(--gap);
 }
 
 aside.search section.results header {
-  margin-bottom: 1rem;
+  margin-bottom: var(--gap);
 }
 
 aside.search section.results .result {
   display: flex;
   align-items: center;
-  margin-left: 0.25rem;
+  margin-left: calc(var(--gap) / 4);
   font-family: var(--condensed-font-family);
 }
 
 aside.search section.results .result .icon {
   width: 24px;
-  margin-right: 0.5rem;
+  margin-right: calc(var(--gap) / 2);
   flex-shrink: 0;
 }
 

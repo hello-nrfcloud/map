@@ -15,13 +15,12 @@ export const WIPSidebar = () => {
 						<Close size={20} />
 					</a>
 				</header>
-				<hr />
-				<div style={{ padding: '1rem' }}>
+				<section class="separator">
 					<p>
 						This website is under construction and not intended for production
 						use.
 					</p>
-				</div>
+				</section>
 			</SidebarContent>
 		</Show>
 	)

@@ -17,13 +17,12 @@ export const Sidebar = () => {
 						<Close size={20} />
 					</a>
 				</header>
-				<hr />
-				<div style={{ padding: '1rem' }}>
+				<section class="separator">
 					<p>
 						Instructions for adding your device to this application will follow,
 						soon.
 					</p>
-				</div>
+				</section>
 			</SidebarContent>
 		</Show>
 	)
