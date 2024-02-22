@@ -1,38 +1,27 @@
-import { createSignal, createEffect, Show, type ParentProps } from 'solid-js'
+import { Show, type ParentProps } from 'solid-js'
+import { byId, useDevices } from '../context/Devices.js'
 import { useNavigation } from '../context/Navigation.js'
-import { link } from '../util/link.js'
-import { Search, Warning } from './LucideIcon.js'
-import './Sidebar.css'
-import { byId, useDevices, type Device } from '../context/Devices.js'
 import { Device as DeviceIcon } from '../icons/Device.js'
-import { WarningSidebar } from './WarningSidebar.js'
+import { linkAsset, linkToHome, linkToPanel } from '../util/link.js'
+import {
+	SidebarButton as AppUpdateRequiredButton,
+	Sidebar as AppUpdateRequiredSidebar,
+} from './AppUpdate.jsx'
 import { DeviceSidebar } from './DeviceSidebar.js'
+import { Search, Warning } from './LucideIcon.js'
 import { Sidebar as SearchSidebar } from './Search.js'
+import './Sidebar.css'
+import { WIPSidebar } from './WIPSidebar.jsx'
 
-export const Sidebar = () => {
-	const location = useNavigation()
-	const devices = useDevices()
-	const [selectedDevice, setSelectedDevice] = createSignal<Device>()
-
-	createEffect(() => {
-		setSelectedDevice(devices().find(byId(location().deviceId ?? '')))
-	})
-
-	return (
-		<>
-			<SidebarNav />
-			<Show when={location().panel === 'warning'}>
-				<WarningSidebar />
-			</Show>
-			<Show when={selectedDevice() !== undefined}>
-				<DeviceSidebar device={selectedDevice() as Device} />
-			</Show>
-			<Show when={location().panel === 'search'}>
-				<SearchSidebar />
-			</Show>
-		</>
-	)
-}
+export const Sidebar = () => (
+	<>
+		<SidebarNav />
+		<WIPSidebar />
+		<DeviceSidebar />
+		<SearchSidebar />
+		<AppUpdateRequiredSidebar />
+	</>
+)
 
 export const SidebarContent = (props: ParentProps<{ class?: string }>) => (
 	<aside class={`sidebar ${props.class ?? ''}`}>{props.children}</aside>
@@ -40,9 +29,9 @@ export const SidebarContent = (props: ParentProps<{ class?: string }>) => (
 
 const SidebarNav = () => (
 	<nav class="sidebar">
-		<a href={link('/#')} class="button">
+		<a href={linkToHome()} class="button">
 			<img
-				src={link('/assets/logo.svg')}
+				src={linkAsset('logo.svg')}
 				class="logo"
 				alt="hello.nrfcloud.com logo"
 			/>
@@ -51,6 +40,7 @@ const SidebarNav = () => (
 		<SearchButton />
 		<DeviceDetailButton />
 		<WarningButton />
+		<AppUpdateRequiredButton />
 	</nav>
 )
 
@@ -61,7 +51,7 @@ const DeviceDetailButton = () => {
 	return (
 		<Show when={devices().find(byId(location().deviceId ?? '')) !== undefined}>
 			<>
-				<a class="button active" href={link('/#')}>
+				<a class="button active" href={linkToHome()}>
 					<DeviceIcon class="logo" />
 				</a>
 				<hr />
@@ -78,12 +68,12 @@ const SearchButton = () => {
 			<Show
 				when={location().panel === 'search'}
 				fallback={
-					<a class="button" href={link('/#search')}>
+					<a class="button" href={linkToPanel('search')}>
 						<Search strokeWidth={2} />
 					</a>
 				}
 			>
-				<a class="button active" href={link('/#')}>
+				<a class="button active" href={linkToHome()}>
 					<Search strokeWidth={2} />
 				</a>
 			</Show>
@@ -100,12 +90,12 @@ const WarningButton = () => {
 			<Show
 				when={location().panel === 'warning'}
 				fallback={
-					<a class="button warning" href={link('/#warning')}>
+					<a class="button warning" href={linkToPanel('warning')}>
 						<Warning strokeWidth={2} />
 					</a>
 				}
 			>
-				<a class="button warning active" href={link('/#')}>
+				<a class="button warning active" href={linkToHome()}>
 					<Warning strokeWidth={2} />
 				</a>
 			</Show>

@@ -4,6 +4,7 @@ import {
 	type IconNode,
 	Search as SearchIcon,
 	ZoomIn,
+	RefreshCcwDot,
 } from 'lucide'
 import { For } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
@@ -49,4 +50,8 @@ export const Search = (props: LucideProps) => (
 
 export const AddToSearch = (props: LucideProps) => (
 	<LucideIcon icon={ZoomIn} {...props} />
+)
+
+export const AppUpdateRequired = (props: LucideProps) => (
+	<LucideIcon icon={RefreshCcwDot} {...props} />
 )

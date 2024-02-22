@@ -3,6 +3,7 @@ import fs from 'fs'
 import { defineConfig } from 'vite'
 import solidPlugin from 'vite-plugin-solid'
 import path from 'node:path'
+import { trimTrailingSlash } from './src/util/trimTrailingSlash.js'
 
 const { version: defaultVersion, homepage } = JSON.parse(
 	fs.readFileSync(path.join(process.cwd(), 'package.json'), 'utf-8'),
@@ -12,7 +13,7 @@ const { registryEndpoint } = fromEnv({
 	registryEndpoint: 'REGISTRY_ENDPOINT',
 })(process.env)
 
-const base = `${(process.env.BASE_URL ?? '').replace(/\/+$/, '')}/`
+const base = trimTrailingSlash(process.env.BASE_URL ?? '')
 
 // https://vitejs.dev/config/
 export default defineConfig({

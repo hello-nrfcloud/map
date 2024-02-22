@@ -1,6 +1,6 @@
 aside.search .wrapper {
   margin: 0 1rem;
-  --color-forms-text: #333;
+  --color-forms: #333;
 }
 
 aside.search form {
@@ -9,7 +9,7 @@ aside.search form {
 }
 
 aside.search form input[type="search"] {
-  color: var(--color-forms-text);
+  color: var(--color-forms);
   border-style: solid;
   border-width: 1px;
   border-right-width: 0;
@@ -97,8 +97,4 @@ aside.search section.results .result .icon {
 
 aside.search section.results .result small {
   opacity: 0.75;
-}
-
-aside.search section.results .result a {
-  text-decoration: underline;
 }

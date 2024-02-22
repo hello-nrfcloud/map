@@ -24,20 +24,20 @@ nav.sidebar .button {
   height: calc(var(--base-size-sidebar) - 1px);
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
+  flex-direction: column;
 }
 
+/* Button colors */
 nav.sidebar .active {
   background-color: var(--bg-blue-1);
 }
 
-nav.sidebar .active.warning {
-  background-color: var(--color-warning);
-  color: var(--color-dark-red);
+nav.sidebar .error {
+  color: var(--color-error);
 }
 
 nav.sidebar .warning {
-  background-color: var(--color-dark-red);
   color: var(--color-warning);
 }
 
@@ -77,13 +77,12 @@ aside.sidebar {
   height: calc(100vh - var(--base-size-sidebar));
 }
 
-aside.sidebar.warning {
-  background-color: var(--color-warning);
-  color: var(--color-dark-red);
-}
-
 @media (min-width: 400px) {
   aside.sidebar.warning {
     width: calc(400px - var(--base-size-sidebar));
   }
+}
+
+aside.sidebar a {
+  text-decoration: underline;
 }

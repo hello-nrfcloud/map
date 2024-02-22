@@ -3,8 +3,9 @@ import './Search.css'
 import { AddToSearch, Close } from './LucideIcon.js'
 import { createSignal, For, Show, createEffect } from 'solid-js'
 import { SidebarContent } from './Sidebar.jsx'
-import { link } from '../util/link.js'
+import { linkToDevice, linkToHome } from '../util/link.js'
 import { Device as DeviceIcon } from '../icons/Device.js'
+import { useNavigation } from '../context/Navigation.jsx'
 
 enum SearchTermType {
 	Id = 'id',
@@ -87,17 +88,20 @@ export const Sidebar = () => {
 	const devices = useDevices()
 	const [numDevices, setNumDevices] = createSignal<number>(0)
 	createEffect(() => setNumDevices(devices().length))
+	const location = useNavigation()
 
 	return (
-		<SidebarContent class="search">
-			<header>
-				<h1>Search {numDevices()} devices</h1>
-				<a href={link('/#')} class="close">
-					<Close size={20} />
-				</a>
-			</header>
-			<Search />
-		</SidebarContent>
+		<Show when={location().panel === 'search'}>
+			<SidebarContent class="search">
+				<header>
+					<h1>Search {numDevices()} devices</h1>
+					<a href={linkToHome()} class="close">
+						<Close size={20} />
+					</a>
+				</header>
+				<Search />
+			</SidebarContent>
+		</Show>
 	)
 }
 
@@ -117,7 +121,7 @@ const SearchResult = ({ terms }: { terms: SearchTerm[] }) => {
 					<span class="result">
 						<DeviceIcon class="icon" />
 						<span>
-							<a href={link(`/#id:${device.id}`)}>
+							<a href={linkToDevice(device.id)}>
 								<code>{device.id}</code>
 							</a>
 							<br />
