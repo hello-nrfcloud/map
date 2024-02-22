@@ -1,13 +1,14 @@
 import { fromEnv } from '@nordicsemiconductor/from-env'
-import fs from 'fs'
 import { defineConfig } from 'vite'
 import solidPlugin from 'vite-plugin-solid'
-import path from 'node:path'
 import { trimTrailingSlash } from './src/util/trimTrailingSlash.js'
+import pJson from './package.json'
 
-const { version: defaultVersion, homepage } = JSON.parse(
-	fs.readFileSync(path.join(process.cwd(), 'package.json'), 'utf-8'),
-)
+const {
+	version: defaultVersion,
+	homepage,
+	repository: { url: repositoryUrl },
+} = pJson
 const version = process.env.VERSION ?? defaultVersion
 const { registryEndpoint } = fromEnv({
 	registryEndpoint: 'REGISTRY_ENDPOINT',
@@ -34,5 +35,6 @@ export default defineConfig({
 		BUILD_TIME: JSON.stringify(new Date().toISOString()),
 		REGISTRY_ENDPOINT: JSON.stringify(new URL(registryEndpoint).toString()),
 		BASE_URL: JSON.stringify(base),
+		REPOSITORY_URL: JSON.stringify(repositoryUrl.replace('git+', '')),
 	},
 })

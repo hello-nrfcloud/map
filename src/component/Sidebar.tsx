@@ -8,7 +8,7 @@ import {
 	Sidebar as AppUpdateRequiredSidebar,
 } from './AppUpdate.jsx'
 import { DeviceSidebar } from './DeviceSidebar.js'
-import { Search, Warning } from './LucideIcon.js'
+import { Search, ViewSourceIcon, Warning } from './LucideIcon.js'
 import { Sidebar as SearchSidebar } from './Search.js'
 import './Sidebar.css'
 import { WIPSidebar } from './WIPSidebar.jsx'
@@ -41,6 +41,7 @@ const SidebarNav = () => (
 		<DeviceDetailButton />
 		<WarningButton />
 		<AppUpdateRequiredButton />
+		<ViewSourceButton />
 	</nav>
 )
 
@@ -103,3 +104,12 @@ const WarningButton = () => {
 		</>
 	)
 }
+
+const ViewSourceButton = () => (
+	<>
+		<a class="button" href={REPOSITORY_URL} target="_blank">
+			<ViewSourceIcon strokeWidth={2} />
+		</a>
+		<hr />
+	</>
+)
