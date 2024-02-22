@@ -41,15 +41,11 @@ nav.sidebar .warning {
   color: var(--color-warning);
 }
 
-nav.sidebar .white {
-  background-color: white;
-}
-
 aside.sidebar {
   position: fixed;
   left: calc(var(--base-size-sidebar) - 1px);
   top: var(--base-size-sidebar);
-  border-top-right-radius: calc(var(--base-size-sidebar) / 2);
+  border-top-right-radius: calc(var(--base-size-sidebar) / 4);
   z-index: 2000;
 }
 

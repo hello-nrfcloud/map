@@ -13,7 +13,7 @@ export const DeviceSidebar = ({ device }: { device: Device }) => (
 				<Close size={20} />
 			</a>
 		</header>
-		<div style={{ padding: '1rem' }}>
+		<div style={{ margin: '0 1rem' }}>
 			<div class="boxed">
 				<p>Model: {device.model}</p>
 			</div>

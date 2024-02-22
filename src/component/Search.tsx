@@ -116,10 +116,13 @@ const SearchResult = ({ terms }: { terms: SearchTerm[] }) => {
 				{(device) => (
 					<span class="result">
 						<DeviceIcon class="icon" />
-						<a href={link(`/#id:${device.id}`)}>
-							<code>{device.id}</code>
-						</a>
-						<small>({device.model})</small>
+						<span>
+							<a href={link(`/#id:${device.id}`)}>
+								<code>{device.id}</code>
+							</a>
+							<br />
+							<small>{device.model}</small>
+						</span>
 					</span>
 				)}
 			</For>

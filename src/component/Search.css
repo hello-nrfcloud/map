@@ -30,10 +30,10 @@ aside.search form button {
   border-width: 1px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
-  border-top-color: #d3d3d3;
-  border-left-color: #d3d3d3;
-  border-bottom-color: rgb(129, 129, 129);
-  border-right-color: rgb(129, 129, 129);
+  border-bottom-color: #d3d3d3;
+  border-right-color: #d3d3d3;
+  border-top-color: rgb(129, 129, 129);
+  border-left-color: rgb(129, 129, 129);
   background-color: rgb(184, 184, 184);
   height: 32px;
   padding: 0 0.5rem;
@@ -76,7 +76,7 @@ aside.search div.terms button svg {
 }
 
 aside.search section.results {
-  margin: 2rem 1rem 1rem 1rem;
+  margin: 1rem;
 }
 
 aside.search section.results header {
@@ -92,11 +92,11 @@ aside.search section.results .result {
 aside.search section.results .result .icon {
   width: 24px;
   margin-right: 0.5rem;
+  flex-shrink: 0;
 }
 
 aside.search section.results .result small {
   opacity: 0.75;
-  margin-left: 0.5rem;
 }
 
 aside.search section.results .result a {

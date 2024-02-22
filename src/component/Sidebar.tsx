@@ -40,7 +40,7 @@ export const SidebarContent = (props: ParentProps<{ class?: string }>) => (
 
 const SidebarNav = () => (
 	<nav class="sidebar">
-		<a href={link('/#')} class="button white">
+		<a href={link('/#')} class="button">
 			<img
 				src={link('/assets/logo.svg')}
 				class="logo"
@@ -79,12 +79,12 @@ const SearchButton = () => {
 				when={location().panel === 'search'}
 				fallback={
 					<a class="button" href={link('/#search')}>
-						<Search strokeWidth={2} size={32} />
+						<Search strokeWidth={2} />
 					</a>
 				}
 			>
 				<a class="button active" href={link('/#')}>
-					<Search strokeWidth={2} size={32} />
+					<Search strokeWidth={2} />
 				</a>
 			</Show>
 			<hr />
@@ -101,12 +101,12 @@ const WarningButton = () => {
 				when={location().panel === 'warning'}
 				fallback={
 					<a class="button warning" href={link('/#warning')}>
-						<Warning strokeWidth={2} size={32} />
+						<Warning strokeWidth={2} />
 					</a>
 				}
 			>
 				<a class="button warning active" href={link('/#')}>
-					<Warning strokeWidth={2} size={32} />
+					<Warning strokeWidth={2} />
 				</a>
 			</Show>
 			<hr />
