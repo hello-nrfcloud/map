@@ -71,7 +71,7 @@ export const AppUpdateProvider = (props: ParentProps) => {
 					logPrefix,
 					`release version`,
 					releasedVersion.raw,
-					`is older`,
+					`is same or older`,
 				)
 			}
 		}
