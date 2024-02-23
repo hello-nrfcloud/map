@@ -7,16 +7,15 @@ import {
 	type LwM2MResourceValue,
 	type LwM2MResourceInfo,
 } from '@hello.nrfcloud.com/proto-lwm2m'
-import { formatDistanceToNow } from 'date-fns'
 import {
 	Collapse,
 	Documentation,
 	Expand,
 	Multiple,
-	Updated,
 	ExternalLink,
 } from './LucideIcon.js'
 import { instanceTs } from '../util/instanceTs.js'
+import { RelativeTime } from './RelativeTime.jsx'
 
 export const DescribeInstance = ({
 	instance,
@@ -51,10 +50,7 @@ export const DescribeInstance = ({
 							</small>
 						</span>
 						<small>
-							<time dateTime={ts.toISOString()}>
-								<Updated size={12} strokeWidth={1} />
-								{formatDistanceToNow(ts, { addSuffix: true })}
-							</time>
+							<RelativeTime time={ts} />
 						</small>
 					</h2>
 

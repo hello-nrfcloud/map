@@ -1,13 +1,13 @@
 import { type Device, useDevices } from '../context/Devices.js'
 import './Search.css'
-import { AddToSearch, Close, Updated } from './LucideIcon.js'
+import { AddToSearch, Close } from './LucideIcon.js'
 import { createSignal, For, Show, createEffect } from 'solid-js'
 import { SidebarContent } from './Sidebar.jsx'
 import { linkToDevice, linkToHome } from '../util/link.js'
 import { Device as DeviceIcon } from '../icons/Device.js'
 import { useNavigation } from '../context/Navigation.jsx'
 import { instanceTs } from '../util/instanceTs.js'
-import { formatDistanceToNow } from 'date-fns'
+import { RelativeTime } from './RelativeTime.jsx'
 
 enum SearchTermType {
 	Id = 'id',
@@ -146,10 +146,7 @@ const SearchResult = ({ terms }: { terms: SearchTerm[] }) => {
 									fallback={<small>Never updated.</small>}
 								>
 									<small>
-										<time dateTime={lastUpdate!.toISOString()}>
-											<Updated size={12} strokeWidth={1} />
-											{formatDistanceToNow(lastUpdate!, { addSuffix: true })}
-										</time>
+										<RelativeTime time={lastUpdate!} />
 									</small>
 								</Show>
 							</span>
