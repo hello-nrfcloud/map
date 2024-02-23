@@ -23,6 +23,7 @@ import { Icon as LocationIcon, Card as LocationCard } from './Location.js'
 import './KnownObjects.css'
 import { RelativeTime } from '../RelativeTime.jsx'
 import { instanceTs } from '../../util/instanceTs.js'
+import { DescribeInstance } from '../LwM2M.jsx'
 
 type Objects = {
 	info: DeviceInformation_14204 | undefined
@@ -47,7 +48,7 @@ export const KnownObjects = (objects: Objects) => {
 
 	return (
 		<section class="known-objects boxed">
-			<nav>
+			<nav class="tabs">
 				<For each={locations}>
 					{(location) => (
 						<Tab
@@ -76,17 +77,30 @@ export const KnownObjects = (objects: Objects) => {
 				</Show>
 				<Show when={visibleCard() === 'bat' && bat !== undefined}>
 					<BatteryAndPowerCard bat={bat!} />
-					<RelativeTime time={instanceTs(bat!)} />
 				</Show>
 				<For each={locations}>
 					{(location) => (
 						<Show when={visibleCard() === toKey(location)}>
 							<LocationCard location={location} />
-							<RelativeTime time={instanceTs(location)} />
 						</Show>
 					)}
 				</For>
 			</div>
+			<footer>
+				<Show when={visibleCard() === 'info' && info !== undefined}>
+					<DescribeInstance instance={info!} />
+				</Show>
+				<Show when={visibleCard() === 'bat' && bat !== undefined}>
+					<DescribeInstance instance={bat!} />
+				</Show>
+				<For each={locations}>
+					{(location) => (
+						<Show when={visibleCard() === toKey(location)}>
+							<DescribeInstance instance={location} />
+						</Show>
+					)}
+				</For>
+			</footer>
 		</section>
 	)
 }

@@ -1,15 +1,20 @@
+.known-objects {
+  margin-top: var(--gap);
+}
+
 .known-objects time.relative {
   font-size: 90%;
   opacity: 0.8;
 }
 
-.known-objects > nav {
+.known-objects nav.tabs {
   border-bottom: 1px solid #ffffff99;
   display: flex;
   align-items: flex-end;
+  padding: var(--gap) 0 0 var(--gap);
 }
 
-.known-objects > nav button {
+.known-objects nav.tabs button {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,17 +23,31 @@
   font-weight: 400;
 }
 
-.known-objects > nav button small {
+.known-objects nav.tabs button small {
   font-size: 80%;
 }
 
-.known-objects > nav button {
+.known-objects nav.tabs button {
   padding: 0 var(--gap) var(--gap-half) var(--gap);
   opacity: 0.5;
   border-bottom: 2px solid #ffffff00;
 }
 
-.known-objects > nav button.active {
+.known-objects nav.tabs button.active {
   opacity: 1;
   border-bottom: 2px solid #ffffffff;
+}
+
+.known-objects.boxed {
+  padding: 0;
+}
+
+.known-objects footer {
+  padding: var(--gap);
+  background-color: var(--bg-blue-2);
+  border-top: 1px solid var(--bg-blue-1);
+}
+
+.known-objects .cards .resources {
+  padding: var(--gap);
 }

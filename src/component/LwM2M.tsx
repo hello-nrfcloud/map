@@ -13,10 +13,12 @@ import {
 	Expand,
 	Multiple,
 	ExternalLink,
+	Search,
 } from '../icons/LucideIcon.jsx'
 import { instanceTs } from '../util/instanceTs.js'
 import { RelativeTime } from './RelativeTime.jsx'
 import { ResourcesDL } from './ResourcesDL.jsx'
+import { linkToPanel } from '../util/link.js'
 
 export const DescribeInstance = ({
 	instance,
@@ -25,7 +27,6 @@ export const DescribeInstance = ({
 }) => {
 	const [expanded, setExpanded] = createSignal<boolean>(false)
 	const definition = definitions[instance.ObjectID as LwM2MObjectID]
-	const tsResourceId = timestampResources[definition.ObjectID] as number
 	const ts = instanceTs(instance)
 	const instanceId = instance.ObjectInstanceID ?? 0
 	return (
@@ -54,12 +55,11 @@ export const DescribeInstance = ({
 							<RelativeTime time={ts} />
 						</small>
 					</h2>
-
 					<Show
 						when={expanded()}
 						fallback={
 							<button type="button" onClick={() => setExpanded(true)}>
-								<Expand />
+								<Expand strokeWidth={1} />
 							</button>
 						}
 					>
@@ -69,42 +69,65 @@ export const DescribeInstance = ({
 					</Show>
 				</header>
 				<Show when={expanded()}>
-					<div class="resources">
-						<ResourcesDL>
-							<For
-								each={Object.entries(instance.Resources).filter(
-									([resourceId]) => parseInt(resourceId, 10) !== tsResourceId,
-								)}
-							>
-								{([resourceID, value]) => (
-									<DescribeResource
-										info={
-											definition.Resources[
-												parseInt(resourceID, 10)
-											] as LwM2MResourceInfo
-										}
-										value={value}
-									/>
-								)}
-							</For>
-						</ResourcesDL>
-						<p class="source">
-							<Documentation size={16} strokeWidth={1} />
-							<a
-								href={`https://github.com/hello-nrfcloud/proto-lwm2m/blob/saga/lwm2m/${instance.ObjectID}.xml`}
-								target="_blank"
-							>
-								<span>
-									LwM2M Object ID: {instance.ObjectID}, Version:{' '}
-									{instance.ObjectVersion ?? '1.0'}
-								</span>
-								<ExternalLink size={16} strokeWidth={1} />
-							</a>
-						</p>
-					</div>
+					<DescribeResources instance={instance} />
 				</Show>
 			</section>
 		</Show>
+	)
+}
+
+export const DescribeResources = ({
+	instance,
+}: {
+	instance: LwM2MObjectInstance
+}) => {
+	const definition = definitions[instance.ObjectID as LwM2MObjectID]
+	const tsResourceId = timestampResources[definition.ObjectID] as number
+	return (
+		<div class="instance-resources">
+			<ResourcesDL>
+				<For
+					each={Object.entries(instance.Resources).filter(
+						([resourceId]) => parseInt(resourceId, 10) !== tsResourceId,
+					)}
+				>
+					{([resourceID, value]) => (
+						<DescribeResource
+							info={
+								definition.Resources[
+									parseInt(resourceID, 10)
+								] as LwM2MResourceInfo
+							}
+							value={value}
+						/>
+					)}
+				</For>
+			</ResourcesDL>
+			<p class="source">
+				<Documentation size={16} strokeWidth={1} />
+				<a
+					href={`https://github.com/hello-nrfcloud/proto-lwm2m/blob/saga/lwm2m/${instance.ObjectID}.xml`}
+					target="_blank"
+				>
+					<span>
+						LwM2M Object ID: {instance.ObjectID}, Version:{' '}
+						{instance.ObjectVersion ?? '1.0'}
+					</span>
+					<ExternalLink size={16} strokeWidth={1} />
+				</a>
+			</p>
+			<p class="source">
+				<Search size={16} strokeWidth={1} />
+				<a
+					href={linkToPanel(
+						`search`,
+						new URLSearchParams({ object: instance.ObjectID.toString() }),
+					)}
+				>
+					Search for all devices with ObjectID {instance.ObjectID}
+				</a>
+			</p>
+		</div>
 	)
 }
 

@@ -12,6 +12,7 @@ enum SearchTermType {
 	Id = 'id',
 	Model = 'model',
 	NotModel = '-model',
+	ObjectID = 'object',
 	Any = '*',
 }
 type SearchTerm = {
@@ -22,13 +23,20 @@ const allowedTypes = [
 	SearchTermType.Id,
 	SearchTermType.Model,
 	SearchTermType.NotModel,
+	SearchTermType.ObjectID,
 ]
 
 const isSearchTermType = (term: unknown): term is SearchTermType =>
 	typeof term === 'string' && allowedTypes.includes((term ?? '') as any)
 
 const Search = () => {
-	const [searchTerms, setSearchTerms] = createSignal<SearchTerm[]>([])
+	const nav = useNavigation()
+	const [searchTerms, setSearchTerms] = createSignal<SearchTerm[]>(
+		[...nav().query.entries()].map<SearchTerm>(([k, v]) => ({
+			type: k as SearchTermType,
+			term: v,
+		})),
+	)
 	let input!: HTMLInputElement
 
 	const addSearchTerm = () => {
@@ -130,7 +138,7 @@ const SearchResult = ({ terms }: { terms: SearchTerm[] }) => {
 	return (
 		<section class="results">
 			<header>
-				<h2>Results</h2>
+				<h2>{results().length} results</h2>
 			</header>
 			<For each={results()} fallback={<p>No matching devices found.</p>}>
 				{(device) => <DeviceCard device={device} />}
@@ -193,5 +201,8 @@ const termMatchesDevice = (term: SearchTerm, device: Device) => {
 		tokens.push(device.id)
 	if (term.type === SearchTermType.Model || term.type === SearchTermType.Any)
 		tokens.push(device.model)
+	if (term.type === SearchTermType.ObjectID) {
+		tokens.push(device.state?.map(({ ObjectID }) => ObjectID))
+	}
 	return tokens.join(' ').includes(term.term)
 }

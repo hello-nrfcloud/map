@@ -1,6 +1,7 @@
 export const link = (target: string): string => `${BASE_URL}${target}`
 
-export const linkToPanel = (panel: string): string => link(`/#${panel}`)
+export const linkToPanel = (panel: string, query?: URLSearchParams): string =>
+	link(`/#${panel}${query !== undefined ? `?${query.toString()}` : ''}`)
 
 export const linkToHome = (): string => link('/#')
 

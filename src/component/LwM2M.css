@@ -34,25 +34,25 @@ section.lwm2m .multiple-instances {
   margin-left: var(--gap-half);
 }
 
-section.lwm2m .resources {
+.instance-resources {
   margin-top: var(--gap-half);
   font-family: var(--condensed-font-family);
   font-weight: 300;
   font-size: 14px;
 }
 
-section.lwm2m .source {
+.instance-resources .source {
   margin-top: var(--gap-half);
   opacity: 0.9;
   display: flex;
   align-items: center;
 }
 
-section.lwm2m .source .icon {
+.instance-resources .source .icon {
   margin-right: var(--gap-quart);
 }
 
-section.lwm2m .source a .icon {
+.instance-resources .source a .icon {
   margin-left: var(--gap-quart);
 }
 
