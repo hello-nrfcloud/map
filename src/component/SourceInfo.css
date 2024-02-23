@@ -1,0 +1,21 @@
+.source-info p {
+  opacity: 0.75;
+  display: flex;
+}
+
+.source-info a .icon {
+  margin-left: var(--gap-quart);
+}
+
+.source-info .icon {
+  flex-shrink: 0;
+  margin-right: var(--gap-quart);
+}
+
+.source-info a .icon {
+  margin-right: var(--gap-quart);
+}
+
+.source-info p + p {
+  margin-top: 0;
+}

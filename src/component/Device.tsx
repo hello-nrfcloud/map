@@ -1,23 +1,24 @@
 import { useDevices, type Device, byId } from '../context/Devices.js'
 import { useNavigation } from '../context/Navigation.js'
 import { Device as DeviceIcon } from '../icons/Device.js'
-import { linkToHome } from '../util/link.js'
+import { linkToHome, linkToPanel } from '../util/link.js'
 import { DescribeInstance } from './LwM2M.jsx'
-import { Close, ExternalLink, NoData } from '../icons/LucideIcon.jsx'
+import { Close, Documentation, NoData, Search } from '../icons/LucideIcon.jsx'
 import { SidebarContent } from './Sidebar.js'
 import { Show, For, createSignal, createEffect } from 'solid-js'
 import { newestInstanceFirst } from '../util/instanceTs.js'
 import { type LwM2MObjectInstance } from '@hello.nrfcloud.com/proto-lwm2m'
 import { InfoBlock } from './InfoBlock.jsx'
 import { KnownObjects } from './KnownObjects/KnownObjects.jsx'
-
-import './LwM2M.css'
 import {
 	isBatteryAndPower,
 	isDeviceInformation,
 	isGeoLocation,
 	isGeoLocationArray,
 } from '../util/lwm2m.js'
+import { SourceInfo } from './SourceInfo.jsx'
+
+import './LwM2M.css'
 
 export const SidebarButton = () => {
 	const location = useNavigation()
@@ -51,7 +52,7 @@ export const DeviceSidebar = () => {
 			<SidebarContent class="device">
 				<header>
 					<h1>
-						<span>Device</span>
+						<span>{location().deviceId}</span>
 						<Show when={selectedDevice() === undefined}>
 							<NoData strokeWidth={1} size={20} />
 						</Show>
@@ -65,7 +66,7 @@ export const DeviceSidebar = () => {
 					fallback={
 						<section>
 							<div class="boxed">
-								<p class="device-info">
+								<p>
 									<code>{location().deviceId ?? ''}</code>
 								</p>
 							</div>
@@ -110,37 +111,6 @@ const DeviceInfo = ({ device }: { device: Device }) => {
 
 	return (
 		<section>
-			<div class="boxed light">
-				<p class="device-info">
-					<code>{device.id}</code>
-					<br />
-					<Show
-						when={device.model === 'world.thingy.rocks'}
-						fallback={
-							<small>
-								Model:{' '}
-								<a
-									href={`https://github.com/hello-nrfcloud/proto-lwm2m/tree/saga/models/${encodeURIComponent(device.model)}`}
-									target="_blank"
-								>
-									{device.model}
-									<ExternalLink size={16} strokeWidth={1} />
-								</a>
-							</small>
-						}
-					>
-						<small>
-							<a
-								href={`https://world.thingy.rocks/#${device.id}`}
-								target="_blank"
-							>
-								world.thingy.rocks legacy device
-								<ExternalLink size={16} strokeWidth={1} />
-							</a>
-						</small>
-					</Show>
-				</p>
-			</div>
 			<Show when={device.state === undefined}>
 				<div class="boxed">
 					<p>No objects newer than 30 days are available.</p>
@@ -167,6 +137,60 @@ const DeviceInfo = ({ device }: { device: Device }) => {
 					)}
 				</For>
 			</Show>
+			<InfoBlock title={'Model'}>
+				<p>
+					The model describes each device and optionally defines how data
+					published by a device is transformed. The model definitions are
+					published in{' '}
+					<a
+						href={`https://github.com/hello-nrfcloud/proto-lwm2m/tree/saga/models`}
+						target="_blank"
+					>
+						this GitHub repository
+					</a>
+					.
+				</p>
+			</InfoBlock>
+			<div class="boxed">
+				<Show
+					when={device.model === 'world.thingy.rocks'}
+					fallback={
+						<SourceInfo>
+							<p>
+								<Documentation size={16} strokeWidth={1} />
+								<a
+									href={`https://github.com/hello-nrfcloud/proto-lwm2m/tree/saga/models/${encodeURIComponent(device.model)}`}
+									target="_blank"
+								>
+									Model definition for <code>{device.model}</code>
+								</a>
+							</p>
+							<p>
+								<Search size={16} strokeWidth={1} />
+								<a
+									href={linkToPanel(
+										`search`,
+										new URLSearchParams({ model: device.model }),
+									)}
+								>
+									Search for all devices with model <code>{device.model}</code>
+								</a>
+							</p>
+						</SourceInfo>
+					}
+				>
+					<SourceInfo>
+						<p>
+							<a
+								href={`https://world.thingy.rocks/#${device.id}`}
+								target="_blank"
+							>
+								world.thingy.rocks legacy device
+							</a>
+						</p>
+					</SourceInfo>
+				</Show>
+			</div>
 		</section>
 	)
 }

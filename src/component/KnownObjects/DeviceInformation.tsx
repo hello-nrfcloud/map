@@ -15,8 +15,6 @@ export const Icon = () => (
 
 export const Card = ({ info }: { info: DeviceInformation_14204 }) => (
 	<ResourcesDL>
-		<dt>IMEI</dt>
-		<dd>{info['Resources'][0]}</dd>
 		<Show when={info['Resources'][1] !== undefined}>
 			<dt>ICCID</dt>
 			<dd>{info['Resources'][1]}</dd>

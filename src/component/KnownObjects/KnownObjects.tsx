@@ -21,8 +21,6 @@ import {
 import { Icon as LocationIcon, Card as LocationCard } from './Location.js'
 
 import './KnownObjects.css'
-import { RelativeTime } from '../RelativeTime.jsx'
-import { instanceTs } from '../../util/instanceTs.js'
 import { DescribeInstance } from '../LwM2M.jsx'
 
 type Objects = {
@@ -73,7 +71,6 @@ export const KnownObjects = (objects: Objects) => {
 			<div class="cards">
 				<Show when={visibleCard() === 'info' && info !== undefined}>
 					<DeviceInformationCard info={info!} />
-					<RelativeTime time={instanceTs(info!)} />
 				</Show>
 				<Show when={visibleCard() === 'bat' && bat !== undefined}>
 					<BatteryAndPowerCard bat={bat!} />

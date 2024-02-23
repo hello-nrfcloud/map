@@ -6,15 +6,6 @@ aside.device header h1 .icon {
   margin-left: var(--gap-quart);
 }
 
-aside.device .device-info small {
-  opacity: 0.75;
-  font-size: 90%;
-}
-
-aside.device .device-info a .icon {
-  margin-left: var(--gap-quart);
-}
-
 section.lwm2m header {
   display: flex;
   justify-content: space-between;
@@ -41,19 +32,9 @@ section.lwm2m .multiple-instances {
   font-size: 14px;
 }
 
-.instance-resources .source {
-  margin-top: var(--gap-half);
-  opacity: 0.9;
-  display: flex;
-  align-items: center;
-}
-
-.instance-resources .source .icon {
-  margin-right: var(--gap-quart);
-}
-
-.instance-resources .source a .icon {
-  margin-left: var(--gap-quart);
+.sidebar.device h1 {
+  font-family: var(--condensed-font-family);
+  font-weight: 100;
 }
 
 .sidebar.device .info-block {
@@ -61,4 +42,10 @@ section.lwm2m .multiple-instances {
 }
 .sidebar.device .info-block.expanded {
   margin-bottom: var(--gap);
+}
+.instance-resources .resources {
+  margin-top: var(--gap);
+}
+.instance-resources .source-info {
+  margin-top: var(--gap-half);
 }

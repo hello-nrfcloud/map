@@ -12,13 +12,13 @@ import {
 	Documentation,
 	Expand,
 	Multiple,
-	ExternalLink,
 	Search,
 } from '../icons/LucideIcon.jsx'
 import { instanceTs } from '../util/instanceTs.js'
 import { RelativeTime } from './RelativeTime.jsx'
 import { ResourcesDL } from './ResourcesDL.jsx'
 import { linkToPanel } from '../util/link.js'
+import { SourceInfo } from './SourceInfo.jsx'
 
 export const DescribeInstance = ({
 	instance,
@@ -64,7 +64,7 @@ export const DescribeInstance = ({
 						}
 					>
 						<button type="button" onClick={() => setExpanded(false)}>
-							<Collapse />
+							<Collapse strokeWidth={1} />
 						</button>
 					</Show>
 				</header>
@@ -103,30 +103,30 @@ export const DescribeResources = ({
 					)}
 				</For>
 			</ResourcesDL>
-			<p class="source">
-				<Documentation size={16} strokeWidth={1} />
-				<a
-					href={`https://github.com/hello-nrfcloud/proto-lwm2m/blob/saga/lwm2m/${instance.ObjectID}.xml`}
-					target="_blank"
-				>
-					<span>
-						LwM2M Object ID: {instance.ObjectID}, Version:{' '}
-						{instance.ObjectVersion ?? '1.0'}
-					</span>
-					<ExternalLink size={16} strokeWidth={1} />
-				</a>
-			</p>
-			<p class="source">
-				<Search size={16} strokeWidth={1} />
-				<a
-					href={linkToPanel(
-						`search`,
-						new URLSearchParams({ object: instance.ObjectID.toString() }),
-					)}
-				>
-					Search for all devices with ObjectID {instance.ObjectID}
-				</a>
-			</p>
+			<SourceInfo>
+				<p>
+					<Documentation size={16} strokeWidth={1} />
+					<a
+						href={`https://github.com/hello-nrfcloud/proto-lwm2m/blob/saga/lwm2m/${instance.ObjectID}.xml`}
+						target="_blank"
+					>
+						LwM2M Object ID: <code>{instance.ObjectID}</code>, Version:{' '}
+						<code>{instance.ObjectVersion ?? '1.0'}</code>
+					</a>
+				</p>
+				<p>
+					<Search size={16} strokeWidth={1} />
+					<a
+						href={linkToPanel(
+							`search`,
+							new URLSearchParams({ object: instance.ObjectID.toString() }),
+						)}
+					>
+						Search for all devices with ObjectID{' '}
+						<code>{instance.ObjectID}</code>
+					</a>
+				</p>
+			</SourceInfo>
 		</div>
 	)
 }

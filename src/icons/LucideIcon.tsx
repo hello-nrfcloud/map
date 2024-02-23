@@ -12,7 +12,6 @@ import {
 	ChevronUp,
 	Clock10,
 	FileText,
-	ExternalLink as ExternalLinkIcon,
 	CloudOff,
 	PlusCircle,
 	Info as InfoIcon,
@@ -95,10 +94,6 @@ export const Updated = (props: LucideProps) => (
 
 export const Documentation = (props: LucideProps) => (
 	<LucideIcon icon={FileText} {...props} />
-)
-
-export const ExternalLink = (props: LucideProps) => (
-	<LucideIcon icon={ExternalLinkIcon} {...props} />
 )
 
 export const NoData = (props: LucideProps) => (
