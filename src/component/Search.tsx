@@ -11,13 +11,18 @@ import { RelativeTime } from './RelativeTime.jsx'
 enum SearchTermType {
 	Id = 'id',
 	Model = 'model',
+	NotModel = '-model',
 	Any = '*',
 }
 type SearchTerm = {
 	type: SearchTermType
 	term: string
 }
-const allowedTypes = [SearchTermType.Id, SearchTermType.Model]
+const allowedTypes = [
+	SearchTermType.Id,
+	SearchTermType.Model,
+	SearchTermType.NotModel,
+]
 
 const isSearchTermType = (term: unknown): term is SearchTermType =>
 	typeof term === 'string' && allowedTypes.includes((term ?? '') as any)
@@ -28,7 +33,7 @@ const Search = () => {
 
 	const addSearchTerm = () => {
 		if (input.value.length > 0) {
-			const [type, term] = input.value.split(':')
+			const [type, term] = input.value.trim().split(':')
 			if (type !== undefined && term === undefined) {
 				setSearchTerms((prev) => [
 					...prev,
@@ -182,6 +187,8 @@ const matches = (terms: SearchTerm[]) => (device: Device) =>
 
 const termMatchesDevice = (term: SearchTerm, device: Device) => {
 	const tokens = []
+	if (term.type === SearchTermType.NotModel)
+		return !device.model.includes(term.term)
 	if (term.type === SearchTermType.Id || term.type === SearchTermType.Any)
 		tokens.push(device.id)
 	if (term.type === SearchTermType.Model || term.type === SearchTermType.Any)
