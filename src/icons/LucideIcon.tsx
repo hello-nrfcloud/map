@@ -3,7 +3,8 @@ import {
 	X,
 	type IconNode,
 	Search as SearchIcon,
-	ZoomIn,
+	ZoomIn as ZoomInIcon,
+	ZoomOut as ZoomOutIcon,
 	RefreshCcwDot,
 	Code2,
 	SquareStack,
@@ -16,6 +17,8 @@ import {
 	PlusCircle,
 	Info as InfoIcon,
 	BatteryCharging,
+	MapPinned,
+	LocateFixed,
 } from 'lucide'
 import { For } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
@@ -63,7 +66,7 @@ export const Search = (props: LucideProps) => (
 )
 
 export const AddToSearch = (props: LucideProps) => (
-	<LucideIcon icon={ZoomIn} {...props} />
+	<LucideIcon icon={ZoomInIcon} {...props} />
 )
 
 export const AppUpdateRequired = (props: LucideProps) => (
@@ -112,4 +115,20 @@ export const Info = (props: LucideProps) => (
 
 export const Battery = (props: LucideProps) => (
 	<LucideIcon icon={BatteryCharging} {...props} />
+)
+
+export const Map = (props: LucideProps) => (
+	<LucideIcon icon={MapPinned} {...props} />
+)
+
+export const ZoomIn = (props: LucideProps) => (
+	<LucideIcon icon={ZoomInIcon} {...props} />
+)
+
+export const ZoomOut = (props: LucideProps) => (
+	<LucideIcon icon={ZoomOutIcon} {...props} />
+)
+
+export const Center = (props: LucideProps) => (
+	<LucideIcon icon={LocateFixed} {...props} />
 )

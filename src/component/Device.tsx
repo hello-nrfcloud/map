@@ -3,20 +3,21 @@ import { useNavigation } from '../context/Navigation.js'
 import { Device as DeviceIcon } from '../icons/Device.js'
 import { linkToHome } from '../util/link.js'
 import { DescribeInstance } from './LwM2M.jsx'
-import { Close, ExternalLink, NoData } from './LucideIcon.js'
+import { Close, ExternalLink, NoData } from '../icons/LucideIcon.jsx'
 import { SidebarContent } from './Sidebar.js'
 import { Show, For, createSignal, createEffect } from 'solid-js'
 import { newestInstanceFirst } from '../util/instanceTs.js'
-import {
-	type LwM2MObjectInstance,
-	type DeviceInformation_14204,
-	type BatteryAndPower_14202,
-	LwM2MObjectID,
-} from '@hello.nrfcloud.com/proto-lwm2m'
+import { type LwM2MObjectInstance } from '@hello.nrfcloud.com/proto-lwm2m'
 import { InfoBlock } from './InfoBlock.jsx'
 import { KnownObjects } from './KnownObjects/KnownObjects.jsx'
 
 import './LwM2M.css'
+import {
+	isBatteryAndPower,
+	isDeviceInformation,
+	isGeoLocation,
+	isGeoLocationArray,
+} from '../util/lwm2m.js'
 
 export const SidebarButton = () => {
 	const location = useNavigation()
@@ -83,20 +84,10 @@ export const DeviceSidebar = () => {
 
 const isGenericObject = (instance: LwM2MObjectInstance): boolean => {
 	if (isDeviceInformation(instance)) return false
+	if (isBatteryAndPower(instance)) return false
+	if (isGeoLocation(instance)) return false
 	return true
 }
-
-export const isDeviceInformation = (
-	instance?: LwM2MObjectInstance,
-): instance is DeviceInformation_14204 =>
-	instance !== undefined &&
-	instance.ObjectID === LwM2MObjectID.DeviceInformation_14204
-
-export const isBatteryAndPower = (
-	instance?: LwM2MObjectInstance,
-): instance is BatteryAndPower_14202 =>
-	instance !== undefined &&
-	instance.ObjectID === LwM2MObjectID.BatteryAndPower_14202
 
 const DeviceInfo = ({ device }: { device: Device }) => {
 	const instances = (device.state ?? []).sort(newestInstanceFirst)
@@ -111,6 +102,11 @@ const DeviceInfo = ({ device }: { device: Device }) => {
 	const bat = isBatteryAndPower(maybeBatteryAndPower)
 		? maybeBatteryAndPower
 		: undefined
+
+	const maybeGeolocations = instances.filter(isGeoLocation)
+	const locations = isGeoLocationArray(maybeGeolocations)
+		? maybeGeolocations
+		: []
 
 	return (
 		<section>
@@ -147,16 +143,16 @@ const DeviceInfo = ({ device }: { device: Device }) => {
 			</div>
 			<Show when={device.state === undefined}>
 				<div class="boxed">
-					<p>No state available.</p>
+					<p>No objects newer than 30 days are available.</p>
 				</div>
 			</Show>
-			<KnownObjects info={deviceInfo} bat={bat} />
+			<KnownObjects info={deviceInfo} bat={bat} locations={locations} />
 			<Show when={otherObjects.length > 0}>
 				<InfoBlock title={'Other objects'}>
 					<p>
-						These objects have been published by the device, but there is no
-						custom handling in this application for the data, yet. Consider
-						creating a feature request{' '}
+						These objects have been published by the device in the last 30 days,
+						but there is no custom handling in this application for the data,
+						yet. Consider creating a feature request{' '}
 						<a href={REPOSITORY_URL} target="_blank">
 							here
 						</a>

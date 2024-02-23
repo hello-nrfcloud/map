@@ -6,7 +6,7 @@ import {
 	Sidebar as AppUpdateRequiredSidebar,
 } from './AppUpdate.js'
 import { DeviceSidebar, SidebarButton as DeviceDetailButton } from './Device.js'
-import { Search, Warning } from './LucideIcon.js'
+import { Search, Warning } from '../icons/LucideIcon.jsx'
 import { Sidebar as SearchSidebar } from './Search.js'
 import './Sidebar.css'
 import { WIPSidebar } from './WIPSidebar.js'

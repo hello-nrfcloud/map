@@ -1,0 +1,24 @@
+div.map {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1/1;
+  color: #333;
+  margin-bottom: var(--gap-half);
+}
+
+div.map-container {
+  position: relative;
+}
+
+div.map-container nav {
+  position: absolute;
+  top: var(--gap-half);
+  right: var(--gap-half);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+
+div.map-container nav button + button {
+  margin-top: var(--gap-half);
+}

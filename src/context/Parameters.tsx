@@ -3,9 +3,10 @@ import { createContext, createResource, useContext, Show } from 'solid-js'
 
 export type Parameters = {
 	// Map resources
-	// mapName: string;
-	// mapApiKey: string;
-	// mapRegion: string;
+	mapName: string
+	mapApiKey: string
+	mapRegion: string
+	cognitoIdentityPoolId: string
 	// Map sharing
 	devicesAPIURL: URL
 	thingyWorldShadowsURL: URL
@@ -15,10 +16,21 @@ export const fetchParameters = (url: URL) => async (): Promise<Parameters> => {
 	try {
 		const res = await fetch(url)
 		const params = await res.json()
-		const { devicesAPIURL, thingyWorldShadowsURL } = params
+		const {
+			devicesAPIURL,
+			thingyWorldShadowsURL,
+			mapName,
+			mapApiKey,
+			mapRegion,
+			cognitoIdentityPoolId,
+		} = params
 		const parsed = {
 			devicesAPIURL: new URL(devicesAPIURL),
 			thingyWorldShadowsURL: new URL(thingyWorldShadowsURL),
+			mapName,
+			mapApiKey,
+			mapRegion,
+			cognitoIdentityPoolId,
 		}
 		for (const [k, v] of Object.entries({ devicesAPIURL })) {
 			console.log(`[Parameters]`, k, v)

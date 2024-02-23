@@ -3,18 +3,32 @@
   opacity: 0.8;
 }
 
-.known-objects nav {
+.known-objects > nav {
   border-bottom: 1px solid #ffffff99;
-  margin-bottom: var(--gap);
+  display: flex;
+  align-items: flex-end;
 }
 
-.known-objects nav button {
-  padding: 0 var(--gap-half);
+.known-objects > nav button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50px;
+  font-family: var(--condensed-font-family);
+  font-weight: 400;
+}
+
+.known-objects > nav button small {
+  font-size: 80%;
+}
+
+.known-objects > nav button {
+  padding: 0 var(--gap) var(--gap-half) var(--gap);
   opacity: 0.5;
   border-bottom: 2px solid #ffffff00;
 }
 
-.known-objects nav button.active {
+.known-objects > nav button.active {
   opacity: 1;
   border-bottom: 2px solid #ffffffff;
 }

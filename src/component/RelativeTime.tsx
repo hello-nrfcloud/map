@@ -1,5 +1,5 @@
 import { formatDistanceToNow } from 'date-fns'
-import { Updated } from './LucideIcon.js'
+import { Updated } from '../icons/LucideIcon.jsx'
 import { createSignal, onCleanup } from 'solid-js'
 import './RelativeTime.css'
 

@@ -13,7 +13,7 @@ import {
 	Expand,
 	Multiple,
 	ExternalLink,
-} from './LucideIcon.js'
+} from '../icons/LucideIcon.jsx'
 import { instanceTs } from '../util/instanceTs.js'
 import { RelativeTime } from './RelativeTime.jsx'
 import { ResourcesDL } from './ResourcesDL.jsx'

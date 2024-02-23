@@ -1,6 +1,6 @@
 import { type Device, useDevices } from '../context/Devices.js'
 import './Search.css'
-import { AddToSearch, Close } from './LucideIcon.js'
+import { AddToSearch, Close } from '../icons/LucideIcon.jsx'
 import { createSignal, For, Show, createEffect } from 'solid-js'
 import { SidebarContent } from './Sidebar.jsx'
 import { linkToDevice, linkToHome } from '../util/link.js'

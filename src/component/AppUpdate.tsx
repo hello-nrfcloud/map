@@ -1,6 +1,6 @@
 import { useNavigation } from '../context/Navigation.jsx'
 import { reloadLink, linkToHome, linkToPanel } from '../util/link.js'
-import { AppUpdateRequired, Close } from './LucideIcon.js'
+import { AppUpdateRequired, Close } from '../icons/LucideIcon.jsx'
 import { Show } from 'solid-js'
 import { SidebarContent } from './Sidebar.jsx'
 import { useAppUpdate } from '../context/AppUpdate.jsx'

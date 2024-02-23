@@ -1,6 +1,6 @@
 import { useNavigation } from '../context/Navigation.js'
 import { linkToHome } from '../util/link.js'
-import { Close } from './LucideIcon.js'
+import { Close } from '../icons/LucideIcon.jsx'
 import { SidebarContent } from './Sidebar.js'
 import { Show } from 'solid-js'
 
