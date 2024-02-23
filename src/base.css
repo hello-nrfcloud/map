@@ -10,6 +10,8 @@
   --regular-font-family: "Inter Tight", sans-serif;
   --condensed-font-family: "Roboto Condensed", sans-serif;
   --gap: 0.5rem;
+  --gap-half: calc(var(--gap) / 2);
+  --gap-quart: calc(var(--gap) / 2);
   --border-radius: 2.5px;
 }
 

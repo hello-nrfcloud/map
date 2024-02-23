@@ -1,0 +1,10 @@
+time.relative {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+time.relative .icon {
+  margin-right: var(--gap-quart);
+  display: flex;
+}

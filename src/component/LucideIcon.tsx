@@ -14,6 +14,8 @@ import {
 	ExternalLink as ExternalLinkIcon,
 	CloudOff,
 	PlusCircle,
+	Info as InfoIcon,
+	BatteryCharging,
 } from 'lucide'
 import { For } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
@@ -102,4 +104,12 @@ export const NoData = (props: LucideProps) => (
 
 export const Add = (props: LucideProps) => (
 	<LucideIcon icon={PlusCircle} {...props} />
+)
+
+export const Info = (props: LucideProps) => (
+	<LucideIcon icon={InfoIcon} {...props} />
+)
+
+export const Battery = (props: LucideProps) => (
+	<LucideIcon icon={BatteryCharging} {...props} />
 )

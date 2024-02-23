@@ -1,0 +1,20 @@
+.known-objects time.relative {
+  font-size: 90%;
+  opacity: 0.8;
+}
+
+.known-objects nav {
+  border-bottom: 1px solid #ffffff99;
+  margin-bottom: var(--gap);
+}
+
+.known-objects nav button {
+  padding: 0 var(--gap-half);
+  opacity: 0.5;
+  border-bottom: 2px solid #ffffff00;
+}
+
+.known-objects nav button.active {
+  opacity: 1;
+  border-bottom: 2px solid #ffffffff;
+}

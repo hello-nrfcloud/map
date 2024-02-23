@@ -1,0 +1,19 @@
+dl.resources {
+  margin-top: var(--gap-half);
+  font-family: var(--condensed-font-family);
+  font-weight: 300;
+  font-size: 14px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto;
+}
+
+dl.resources dd,
+dl.resources dt {
+  margin-bottom: var(--gap-quart);
+  border-bottom: 1px solid #ffffff2a;
+}
+
+dl.resources dd {
+  text-align: right;
+}

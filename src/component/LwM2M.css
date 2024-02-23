@@ -3,7 +3,7 @@ aside.device header h1 {
   align-items: center;
 }
 aside.device header h1 .icon {
-  margin-left: calc(var(--gap) / 4);
+  margin-left: var(--gap-quart);
 }
 
 aside.device .device-info small {
@@ -12,7 +12,7 @@ aside.device .device-info small {
 }
 
 aside.device .device-info a .icon {
-  margin-left: calc(var(--gap) / 4);
+  margin-left: var(--gap-quart);
 }
 
 section.lwm2m header {
@@ -30,55 +30,35 @@ section.lwm2m small {
   font-size: 80%;
 }
 
-section.lwm2m header h2 time {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-section.lwm2m header h2 time .icon {
-  margin-right: calc(var(--gap) / 4);
-  display: flex;
-}
-
 section.lwm2m .multiple-instances {
-  margin-left: calc(var(--gap) / 2);
+  margin-left: var(--gap-half);
 }
 
 section.lwm2m .resources {
-  margin-top: calc(var(--gap) / 2);
+  margin-top: var(--gap-half);
   font-family: var(--condensed-font-family);
   font-weight: 300;
   font-size: 14px;
 }
 
-section.lwm2m .resources dl {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  grid-template-rows: auto;
-}
-
-section.lwm2m .resources dl dd,
-section.lwm2m .resources dl dt {
-  margin-bottom: calc(var(--gap) / 4);
-  border-bottom: 1px solid #ffffff2a;
-}
-
-section.lwm2m .resources dl dd {
-  text-align: right;
-}
-
 section.lwm2m .source {
-  margin-top: calc(var(--gap) / 2);
+  margin-top: var(--gap-half);
   opacity: 0.9;
   display: flex;
   align-items: center;
 }
 
 section.lwm2m .source .icon {
-  margin-right: calc(var(--gap) / 4);
+  margin-right: var(--gap-quart);
 }
 
 section.lwm2m .source a .icon {
-  margin-left: calc(var(--gap) / 4);
+  margin-left: var(--gap-quart);
+}
+
+.sidebar.device .info-block {
+  margin-bottom: var(--gap-half);
+}
+.sidebar.device .info-block.expanded {
+  margin-bottom: var(--gap);
 }

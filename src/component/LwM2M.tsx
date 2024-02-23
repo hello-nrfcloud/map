@@ -16,6 +16,7 @@ import {
 } from './LucideIcon.js'
 import { instanceTs } from '../util/instanceTs.js'
 import { RelativeTime } from './RelativeTime.jsx'
+import { ResourcesDL } from './ResourcesDL.jsx'
 
 export const DescribeInstance = ({
 	instance,
@@ -69,7 +70,7 @@ export const DescribeInstance = ({
 				</header>
 				<Show when={expanded()}>
 					<div class="resources">
-						<dl>
+						<ResourcesDL>
 							<For
 								each={Object.entries(instance.Resources).filter(
 									([resourceId]) => parseInt(resourceId, 10) !== tsResourceId,
@@ -86,7 +87,7 @@ export const DescribeInstance = ({
 									/>
 								)}
 							</For>
-						</dl>
+						</ResourcesDL>
 						<p class="source">
 							<Documentation size={16} strokeWidth={1} />
 							<a

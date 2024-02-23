@@ -1,6 +1,7 @@
 import { formatDistanceToNow } from 'date-fns'
 import { Updated } from './LucideIcon.js'
 import { createSignal, onCleanup } from 'solid-js'
+import './RelativeTime.css'
 
 export const RelativeTime = ({ time }: { time: Date }) => {
 	const format = () => formatDistanceToNow(time, { addSuffix: true })
@@ -15,7 +16,7 @@ export const RelativeTime = ({ time }: { time: Date }) => {
 	})
 
 	return (
-		<time dateTime={time.toISOString()}>
+		<time class="relative" dateTime={time.toISOString()}>
 			<Updated size={12} strokeWidth={1} />
 			{formatted()}
 		</time>
