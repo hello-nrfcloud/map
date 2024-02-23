@@ -86,9 +86,8 @@ aside.search section.results header {
 
 aside.search section.results .result {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   margin-left: calc(var(--gap) / 4);
-  font-family: var(--condensed-font-family);
 }
 
 aside.search section.results .result .icon {
@@ -99,4 +98,5 @@ aside.search section.results .result .icon {
 
 aside.search section.results .result small {
   opacity: 0.75;
+  font-size: 90%;
 }

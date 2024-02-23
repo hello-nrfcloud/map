@@ -8,14 +8,18 @@ export type Parameters = {
 	// mapRegion: string;
 	// Map sharing
 	devicesAPIURL: URL
+	thingyWorldShadowsURL: URL
 }
 
 export const fetchParameters = (url: URL) => async (): Promise<Parameters> => {
 	try {
 		const res = await fetch(url)
 		const params = await res.json()
-		const { devicesAPIURL } = params
-		const parsed = { devicesAPIURL: new URL(devicesAPIURL) }
+		const { devicesAPIURL, thingyWorldShadowsURL } = params
+		const parsed = {
+			devicesAPIURL: new URL(devicesAPIURL),
+			thingyWorldShadowsURL: new URL(thingyWorldShadowsURL),
+		}
 		for (const [k, v] of Object.entries({ devicesAPIURL })) {
 			console.log(`[Parameters]`, k, v)
 		}
@@ -42,12 +46,7 @@ export const createParametersContext = (registryEndpoint: URL) => {
 	}
 }
 
-type ParametersContextType = {
-	devicesAPIURL: URL
-}
-export const ParametersContext = createContext<ParametersContextType>(
-	undefined as any,
-)
+export const ParametersContext = createContext<Parameters>(undefined as any)
 export const useParameters = () => {
 	const context = useContext(ParametersContext)
 

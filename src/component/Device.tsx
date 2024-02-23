@@ -6,6 +6,7 @@ import { DescribeInstance } from './LwM2M.jsx'
 import { Close, ExternalLink, NoData } from './LucideIcon.js'
 import { SidebarContent } from './Sidebar.js'
 import { Show, For, createSignal, createEffect } from 'solid-js'
+import { newestInstanceFirst } from '../util/instanceTs.js'
 
 import './LwM2M.css'
 
@@ -78,16 +79,31 @@ const DeviceInfo = ({ device }: { device: Device }) => (
 			<p class="device-info">
 				<code>{device.id}</code>
 				<br />
-				<small>
-					Model:{' '}
-					<a
-						href={`https://github.com/hello-nrfcloud/proto-lwm2m/tree/saga/models/${encodeURIComponent(device.model)}`}
-						target="_blank"
-					>
-						{device.model}
-						<ExternalLink size={16} strokeWidth={1} />
-					</a>
-				</small>
+				<Show
+					when={device.model === 'world.thingy.rocks'}
+					fallback={
+						<small>
+							Model:{' '}
+							<a
+								href={`https://github.com/hello-nrfcloud/proto-lwm2m/tree/saga/models/${encodeURIComponent(device.model)}`}
+								target="_blank"
+							>
+								{device.model}
+								<ExternalLink size={16} strokeWidth={1} />
+							</a>
+						</small>
+					}
+				>
+					<small>
+						<a
+							href={`https://world.thingy.rocks/#${device.id}`}
+							target="_blank"
+						>
+							world.thingy.rocks legacy device
+							<ExternalLink size={16} strokeWidth={1} />
+						</a>
+					</small>
+				</Show>
 			</p>
 		</div>
 		<Show
@@ -98,7 +114,7 @@ const DeviceInfo = ({ device }: { device: Device }) => (
 				</div>
 			}
 		>
-			<For each={device.state}>
+			<For each={(device.state ?? []).sort(newestInstanceFirst)}>
 				{(instance) => (
 					<div class="boxed">
 						<DescribeInstance instance={instance} />

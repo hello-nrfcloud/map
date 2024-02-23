@@ -16,6 +16,7 @@ import {
 	Updated,
 	ExternalLink,
 } from './LucideIcon.js'
+import { instanceTs } from '../util/instanceTs.js'
 
 export const DescribeInstance = ({
 	instance,
@@ -25,7 +26,7 @@ export const DescribeInstance = ({
 	const [expanded, setExpanded] = createSignal<boolean>(false)
 	const definition = definitions[instance.ObjectID as LwM2MObjectID]
 	const tsResourceId = timestampResources[definition.ObjectID] as number
-	const ts = instance.Resources[tsResourceId] as string
+	const ts = instanceTs(instance)
 	const instanceId = instance.ObjectInstanceID ?? 0
 	return (
 		<Show
@@ -50,7 +51,7 @@ export const DescribeInstance = ({
 							</small>
 						</span>
 						<small>
-							<time dateTime={ts}>
+							<time dateTime={ts.toISOString()}>
 								<Updated size={12} strokeWidth={1} />
 								{formatDistanceToNow(ts, { addSuffix: true })}
 							</time>

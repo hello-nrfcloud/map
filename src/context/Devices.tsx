@@ -25,9 +25,18 @@ export const DevicesProvider = (props: ParentProps) => {
 		parameters,
 		fetchDevices(parameters.devicesAPIURL),
 	)
+	const [thingyWorldDevicesResource] = createResource(
+		parameters,
+		fetchDevices(parameters.thingyWorldShadowsURL),
+	)
 
 	return (
-		<DevicesContext.Provider value={() => devicesResource()?.devices ?? []}>
+		<DevicesContext.Provider
+			value={() => [
+				...(devicesResource()?.devices ?? []),
+				...(thingyWorldDevicesResource()?.devices ?? []),
+			]}
+		>
 			{props.children}
 		</DevicesContext.Provider>
 	)

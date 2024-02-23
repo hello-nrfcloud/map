@@ -1,11 +1,13 @@
 import { type Device, useDevices } from '../context/Devices.js'
 import './Search.css'
-import { AddToSearch, Close } from './LucideIcon.js'
+import { AddToSearch, Close, Updated } from './LucideIcon.js'
 import { createSignal, For, Show, createEffect } from 'solid-js'
 import { SidebarContent } from './Sidebar.jsx'
 import { linkToDevice, linkToHome } from '../util/link.js'
 import { Device as DeviceIcon } from '../icons/Device.js'
 import { useNavigation } from '../context/Navigation.jsx'
+import { instanceTs } from '../util/instanceTs.js'
+import { formatDistanceToNow } from 'date-fns'
 
 enum SearchTermType {
 	Id = 'id',
@@ -106,29 +108,54 @@ export const Sidebar = () => {
 }
 
 const SearchResult = ({ terms }: { terms: SearchTerm[] }) => {
-	const [results, setResults] = createSignal<Device[]>([])
+	const [results, setResults] = createSignal<
+		{ device: Device; lastUpdate: Date | undefined }[]
+	>([])
 	const devices = useDevices()
 
-	createEffect(() => setResults(devices().filter(matches(terms))))
+	createEffect(() =>
+		setResults(
+			devices()
+				.filter(matches(terms))
+				.map((device) => ({ device, lastUpdate: updateTs(device) })),
+		),
+	)
 
 	return (
-		<section class="results boxed">
+		<section class="results">
 			<header>
 				<h2>Results</h2>
 			</header>
-			<For each={results()} fallback={<p>No matching devices found.</p>}>
-				{(device) => (
-					<span class="result">
-						<DeviceIcon class="icon" />
-						<span>
-							<a href={linkToDevice(device.id)}>
-								<code>{device.id}</code>
-							</a>
-							<br />
-							<small>{device.model}</small>
-						</span>
-					</span>
-				)}
+			<For
+				each={results().sort(mostRecentUpdateFirst)}
+				fallback={<p>No matching devices found.</p>}
+			>
+				{({ device, lastUpdate }) => {
+					return (
+						<div class="result boxed">
+							<DeviceIcon class="icon" />
+							<span>
+								<a href={linkToDevice(device.id)}>
+									<code>{device.id}</code>
+								</a>
+								<br />
+								<small>{device.model}</small>
+								<br />
+								<Show
+									when={lastUpdate !== undefined}
+									fallback={<small>Never updated.</small>}
+								>
+									<small>
+										<time dateTime={lastUpdate!.toISOString()}>
+											<Updated size={12} strokeWidth={1} />
+											{formatDistanceToNow(lastUpdate!, { addSuffix: true })}
+										</time>
+									</small>
+								</Show>
+							</span>
+						</div>
+					)
+				}}
 			</For>
 		</section>
 	)
@@ -136,3 +163,17 @@ const SearchResult = ({ terms }: { terms: SearchTerm[] }) => {
 
 const matches = (terms: SearchTerm[]) => (/*device: Device*/) =>
 	terms.reduce((matches) => matches, true)
+
+const mostRecentUpdateFirst = (
+	{ lastUpdate: u1 }: { lastUpdate: Date | undefined },
+	{ lastUpdate: u2 }: { lastUpdate: Date | undefined },
+): number => {
+	const d1Update = u1?.getTime() ?? Number.MIN_SAFE_INTEGER
+	const d2Update = u2?.getTime() ?? Number.MIN_SAFE_INTEGER
+	return d2Update - d1Update
+}
+
+const updateTs = (device: Device): Date | undefined =>
+	(device.state ?? []).map(instanceTs).sort(desc)[0]
+
+const desc = (d1: Date, d2: Date) => d2.getTime() - d1.getTime()
