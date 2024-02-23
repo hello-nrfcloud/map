@@ -44,7 +44,7 @@
   "dependencies": {
     "@hello.nrfcloud.com/proto": "6.4.15",
     "date-fns": "3.3.1",
-    "lucide": "0.336.0"
+    "lucide": "0.337.0"
   },
   "engines": {
     "node": ">=20.0.0",
