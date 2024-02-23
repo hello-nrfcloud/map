@@ -23,8 +23,9 @@ type ObjectKey = keyof Objects
 export const KnownObjects = (objects: Objects) => {
 	const { info, bat } = objects
 	const [visibleCard, setVisibleCard] = createSignal<ObjectKey | undefined>(
-		(Object.keys(objects) as ObjectKey[])[0],
+		(Object.keys(objects) as ObjectKey[]).find((k) => objects[k] !== undefined),
 	)
+
 	return (
 		<section class="known-objects boxed">
 			<nav>
