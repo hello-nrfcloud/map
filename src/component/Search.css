@@ -6,6 +6,15 @@ aside.search .wrapper {
 
 aside.search form {
   display: flex;
+  flex-direction: column;
+}
+
+aside.search form label {
+  margin-bottom: 0.5rem;
+}
+
+aside.search form .input-group {
+  display: flex;
   align-items: center;
 }
 
