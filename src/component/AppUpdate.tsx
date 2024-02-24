@@ -36,7 +36,7 @@ export const Sidebar = () => {
 			<Show when={location().panel === panelId}>
 				<SidebarContent class="warning">
 					<header>
-						<h1>Application update required!</h1>
+						<h1>Update available!</h1>
 						<a href={linkToHome()} class="close">
 							<Close size={20} />
 						</a>
