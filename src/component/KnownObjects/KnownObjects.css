@@ -54,6 +54,10 @@
   border-top: 1px solid var(--bg-blue-1);
 }
 
+.known-objects footer .lwm2m.instance + .lwm2m.instance {
+  margin-top: var(--gap);
+}
+
 .known-objects .cards .resources {
   padding: var(--gap);
 }

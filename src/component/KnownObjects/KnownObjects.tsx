@@ -34,9 +34,8 @@ export const KnownObjects = (objects: Objects) => {
 
 	const tabs = []
 
-	for (const location of objects.locations) {
-		tabs.push(toKey(location))
-	}
+	const hasLocations = locations.length > 0
+	if (hasLocations) tabs.push('location')
 	if (objects.info !== undefined) tabs.push('info')
 	if (objects.bat !== undefined) tabs.push('bat')
 
@@ -47,16 +46,11 @@ export const KnownObjects = (objects: Objects) => {
 	return (
 		<section class="known-objects boxed">
 			<nav class="tabs">
-				<For each={locations}>
-					{(location) => (
-						<Tab
-							id={toKey(location)}
-							visibleCard={[visibleCard, setVisibleCard]}
-						>
-							<LocationIcon location={location} />
-						</Tab>
-					)}
-				</For>
+				<Show when={hasLocations}>
+					<Tab id={'location'} visibleCard={[visibleCard, setVisibleCard]}>
+						<LocationIcon />
+					</Tab>
+				</Show>
 				<Show when={info !== undefined}>
 					<Tab id={'info'} visibleCard={[visibleCard, setVisibleCard]}>
 						<DeviceInformationIcon />
@@ -75,13 +69,9 @@ export const KnownObjects = (objects: Objects) => {
 				<Show when={visibleCard() === 'bat' && bat !== undefined}>
 					<BatteryAndPowerCard bat={bat!} />
 				</Show>
-				<For each={locations}>
-					{(location) => (
-						<Show when={visibleCard() === toKey(location)}>
-							<LocationCard location={location} />
-						</Show>
-					)}
-				</For>
+				<Show when={visibleCard() === 'location' && hasLocations}>
+					<LocationCard locations={locations} />
+				</Show>
 			</div>
 			<footer>
 				<Show when={visibleCard() === 'info' && info !== undefined}>
@@ -90,20 +80,15 @@ export const KnownObjects = (objects: Objects) => {
 				<Show when={visibleCard() === 'bat' && bat !== undefined}>
 					<DescribeInstance instance={bat!} />
 				</Show>
-				<For each={locations}>
-					{(location) => (
-						<Show when={visibleCard() === toKey(location)}>
-							<DescribeInstance instance={location} />
-						</Show>
-					)}
-				</For>
+				<Show when={visibleCard() === 'location' && hasLocations}>
+					<For each={locations}>
+						{(location) => <DescribeInstance instance={location} />}
+					</For>
+				</Show>
 			</footer>
 		</section>
 	)
 }
-
-const toKey = (location: Geolocation_14201): string =>
-	`location-${location.Resources[6]}`
 
 const Tab = (
 	props: ParentProps<{

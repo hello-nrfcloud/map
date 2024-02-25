@@ -5,46 +5,57 @@ import { Map as MapLibreGlMap, LngLatBounds } from 'maplibre-gl'
 import { mapStyle } from '../../map/style.js'
 import { useParameters } from '../../context/Parameters.jsx'
 import { transformRequest } from '../../map/transformRequest.jsx'
-
-import './Location.css'
 import {
 	geoJSONPolygonFromCircle,
 	getPolygonCoordinatesForCircle,
 } from '../../map/geoJSONPolygonFromCircle.js'
 import { ZoomOut } from '../../icons/LucideIcon.js'
-import { ResourcesDL } from '../ResourcesDL.jsx'
 
-export const Icon = ({ location }: { location: Geolocation_14201 }) => (
+import './Location.css'
+
+export const Icon = () => (
 	<>
 		<Map strokeWidth={1} size={24} />
-		<small>{location.Resources[6]}</small>
+		<small>Location</small>
 	</>
 )
 
-export const Card = ({ location }: { location: Geolocation_14201 }) => {
-	const parameters = useParameters()
-	const lng = location.Resources[1]
-	const lat = location.Resources[0]
-	const acc = location.Resources[3] ?? 500
-	const src = location.Resources[6]
-
-	let ref!: HTMLDivElement
-	let map: MapLibreGlMap
-
-	const coordinates = getPolygonCoordinatesForCircle(
-		[lng, lat],
-		acc,
-		6,
-		Math.PI / 2,
-	)
-	const bounds = coordinates.reduce(
+const getLocationsBounds = (locations: Geolocation_14201[]) => {
+	const coordinates = locations
+		.map(({ Resources }) => {
+			const lng = Resources[1]
+			const lat = Resources[0]
+			const acc = Resources[3] ?? 500
+			return getPolygonCoordinatesForCircle([lng, lat], acc, 6, Math.PI / 2)
+		})
+		.flat()
+	return coordinates.reduce(
 		(bounds, coord) => {
 			return bounds.extend(coord)
 		},
 		new LngLatBounds(coordinates[0], coordinates[0]),
 	)
+}
+
+// FIXME: parse JSON dates
+const byAge = (loc1: Geolocation_14201, loc2: Geolocation_14201) =>
+	new Date(loc2.Resources['99']).getTime() -
+	new Date(loc1.Resources['99']).getTime()
+
+export const Card = ({ locations }: { locations: Geolocation_14201[] }) => {
+	const parameters = useParameters()
+
+	let ref!: HTMLDivElement
+	let map: MapLibreGlMap
+
+	const bounds = getLocationsBounds(locations)
 
 	createEffect(() => {
+		const mostRecent = locations.sort(byAge)[0] as Geolocation_14201
+
+		const lng = mostRecent.Resources[1]
+		const lat = mostRecent.Resources[0]
+
 		map = new MapLibreGlMap({
 			container: ref,
 			style: mapStyle({
@@ -52,7 +63,7 @@ export const Card = ({ location }: { location: Geolocation_14201 }) => {
 				mapName: parameters.mapName,
 			}),
 			center: [lng, lat],
-			zoom: 12,
+			zoom: 4,
 			refreshExpiredTiles: false,
 			trackResize: false,
 			keyboard: false,
@@ -68,23 +79,30 @@ export const Card = ({ location }: { location: Geolocation_14201 }) => {
 		map.dragPan.disable()
 
 		map.on('load', () => {
-			// Data for Hexagon
-			map.addSource(
-				'center-circle-source',
-				geoJSONPolygonFromCircle([lng, lat], acc, 6, Math.PI / 2),
-			)
-			// Render Hexagon
-			map.addLayer({
-				id: 'center-circle-layer',
-				type: 'line',
-				source: 'center-circle-source',
-				layout: {},
-				paint: {
-					'line-color': locationSourceColors[src] ?? defaultLocationSourceColor,
-					'line-opacity': 1,
-					'line-width': 2,
-				},
-			})
+			for (const { Resources } of locations) {
+				const lng = Resources[1]
+				const lat = Resources[0]
+				const acc = Resources[3] ?? 500
+				const src = Resources[6]
+				// Data for Hexagon
+				map.addSource(
+					`center-circle-source-${src}`,
+					geoJSONPolygonFromCircle([lng, lat], acc, 6, Math.PI / 2),
+				)
+				// Render Hexagon
+				map.addLayer({
+					id: `center-circle-layer-${src}`,
+					type: 'line',
+					source: `center-circle-source-${src}`,
+					layout: {},
+					paint: {
+						'line-color':
+							locationSourceColors[src] ?? defaultLocationSourceColor,
+						'line-opacity': 1,
+						'line-width': 2,
+					},
+				})
+			}
 
 			map.fitBounds(bounds, {
 				padding: 20,
@@ -97,33 +115,27 @@ export const Card = ({ location }: { location: Geolocation_14201 }) => {
 	})
 
 	return (
-		<>
-			<div class="map-container">
-				<nav>
-					<button type="button" onClick={() => map?.zoomIn()}>
-						<ZoomIn />
-					</button>
-					<button
-						type="button"
-						onClick={() =>
-							map?.fitBounds(bounds, {
-								padding: 20,
-							})
-						}
-					>
-						<Center />
-					</button>
-					<button type="button" onClick={() => map?.zoomOut()}>
-						<ZoomOut />
-					</button>
-				</nav>
-				<div class="map" ref={ref} />
-			</div>
-			<ResourcesDL>
-				<dt>Accuracy</dt>
-				<dd>{`${Math.round(acc)} m`}</dd>
-			</ResourcesDL>
-		</>
+		<div class="map-container">
+			<nav>
+				<button type="button" onClick={() => map?.zoomIn()}>
+					<ZoomIn />
+				</button>
+				<button
+					type="button"
+					onClick={() =>
+						map?.fitBounds(bounds, {
+							padding: 20,
+						})
+					}
+				>
+					<Center />
+				</button>
+				<button type="button" onClick={() => map?.zoomOut()}>
+					<ZoomOut />
+				</button>
+			</nav>
+			<div class="map" ref={ref} />
+		</div>
 	)
 }
 

@@ -3,7 +3,6 @@ div.map {
   height: auto;
   aspect-ratio: 1/1;
   color: #333;
-  margin-bottom: var(--gap-half);
 }
 
 div.map-container {
