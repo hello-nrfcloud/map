@@ -69,6 +69,15 @@ aside.sidebar > header {
 aside.sidebar > section {
   margin: 0 var(--gap);
 }
+aside.sidebar > footer {
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: rgba(255, 255, 255, 0.5);
+  padding-top: var(--gap);
+  margin: var(--gap);
+  opacity: 0.8;
+  font-size: 90%;
+}
 aside.sidebar > section.separator {
   border-top-width: 1px;
   border-top-style: solid;

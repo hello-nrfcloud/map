@@ -74,6 +74,9 @@ export const Sidebar = () => {
 						.
 					</p>
 				</section>
+				<footer>
+					<p>Version: {VERSION}</p>
+				</footer>
 			</SidebarContent>
 		</Show>
 	)
