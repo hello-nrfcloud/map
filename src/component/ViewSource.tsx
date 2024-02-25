@@ -19,6 +19,23 @@ export const Sidebar = () => {
 				</header>
 				<section class="separator">
 					<p>
+						<code>hello.nrfcloud.com/map</code> is a showcase that highlights
+						Nordic Semiconductor's cellular IoT solutions by showing thousands
+						of real connected devices, empowering customers to promote their
+						solutions that make Nordic's ecosystem the best, and gathering
+						valuable data to help future customer in their go-to-market efforts.
+					</p>
+					<p>
+						Learn more about the project vision in{' '}
+						<a
+							href="https://github.com/hello-nrfcloud/map?tab=readme-ov-file"
+							target="_blank"
+						>
+							the README
+						</a>
+						.
+					</p>
+					<p>
 						The owners of the devices on this map have opted in to make the
 						device data publicly available.
 					</p>
