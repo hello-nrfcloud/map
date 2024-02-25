@@ -40,8 +40,11 @@ export const Sidebar = () => {
 						device data publicly available.
 					</p>
 					<p>
-						Data published by the device to nRF Cloud will be visible to
-						everyone if it follows the{' '}
+						Data published by the device to{' '}
+						<a href="https://nrfcloud.com/" target="_blank">
+							nRF Cloud
+						</a>{' '}
+						will be visible to everyone if it follows the{' '}
 						<a
 							href="https://github.com/hello-nrfcloud/proto-lwm2m"
 							target="_blank"
