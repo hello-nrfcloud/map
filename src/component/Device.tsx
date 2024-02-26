@@ -5,7 +5,6 @@ import { useNavigation } from '../context/Navigation.js'
 import { Device as DeviceIcon } from '../icons/Device.js'
 import { Close, Documentation, NoData, Search } from '../icons/LucideIcon.jsx'
 import { newestInstanceFirst } from '../util/instanceTs.js'
-import { linkToHome, linkToPanel } from '../util/link.js'
 import {
 	isBatteryAndPower,
 	isDeviceInformation,
@@ -19,17 +18,14 @@ import { SidebarContent } from './Sidebar.js'
 import { SourceInfo } from './SourceInfo.jsx'
 
 import './LwM2M.css'
+import { SearchTermType } from '../context/Search.js'
 
 export const SidebarButton = () => {
 	const location = useNavigation()
 	return (
-		<Show
-			when={
-				location().deviceId !== undefined && location().deviceId !== undefined
-			}
-		>
+		<Show when={location.current().panel.startsWith('id:')}>
 			<>
-				<a class="button active" href={linkToHome()}>
+				<a class="button active" href={location.linkToHome()}>
 					<DeviceIcon class="logo" />
 				</a>
 				<hr />
@@ -41,21 +37,27 @@ export const SidebarButton = () => {
 export const DeviceSidebar = () => {
 	const location = useNavigation()
 	const devices = useDevices()
-	const selectedDevice = createMemo(() =>
-		devices().find(byId(location().deviceId ?? '')),
+	const deviceId = createMemo(() =>
+		location.current().panel.startsWith('id:')
+			? location.current().panel.split(':', 2)[1]
+			: undefined,
 	)
+	const selectedDevice = createMemo(() => {
+		const id = deviceId()
+		return id !== undefined ? devices().find(byId(id)) : undefined
+	})
 
 	return (
-		<Show when={location().deviceId !== undefined}>
+		<Show when={deviceId() !== undefined}>
 			<SidebarContent class="device">
 				<header>
 					<h1>
-						<span>{location().deviceId}</span>
+						<span>{deviceId()}</span>
 						<Show when={selectedDevice() === undefined}>
 							<NoData strokeWidth={1} size={20} />
 						</Show>
 					</h1>
-					<a href={linkToHome()} class="close">
+					<a href={location.linkToHome()} class="close">
 						<Close size={20} />
 					</a>
 				</header>
@@ -65,7 +67,7 @@ export const DeviceSidebar = () => {
 						<section>
 							<div class="boxed">
 								<p>
-									<code>{location().deviceId ?? ''}</code>
+									<code>{deviceId()}</code>
 								</p>
 							</div>
 							<div class="boxed">
@@ -89,6 +91,7 @@ const isGenericObject = (instance: LwM2MObjectInstance): boolean => {
 }
 
 const DeviceInfo = (props: { device: Device }) => {
+	const location = useNavigation()
 	const instances = createMemo(() =>
 		(props.device.state ?? []).sort(newestInstanceFirst),
 	)
@@ -169,10 +172,15 @@ const DeviceInfo = (props: { device: Device }) => {
 							<p>
 								<Search size={16} strokeWidth={1} />
 								<a
-									href={linkToPanel(
-										`search`,
-										new URLSearchParams({ model: props.device.model }),
-									)}
+									href={location.link({
+										panel: 'search',
+										search: [
+											{
+												type: SearchTermType.Model,
+												term: props.device.model,
+											},
+										],
+									})}
 								>
 									Search for all devices with model{' '}
 									<code>{props.device.model}</code>

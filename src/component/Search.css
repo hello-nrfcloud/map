@@ -62,7 +62,7 @@ aside.search div.terms {
   flex-wrap: wrap;
 }
 
-aside.search div.terms button {
+aside.search div.terms .btn {
   display: flex;
   align-items: center;
   color: #153e57;
@@ -72,16 +72,17 @@ aside.search div.terms button {
   padding: calc(var(--gap) / 4) calc(var(--gap) / 2);
 }
 
-aside.search div.terms button {
+aside.search div.terms .btn {
   margin-top: calc(var(--gap) / 4);
+  text-decoration: none;
 }
 
-aside.search div.terms button:first-child,
-aside.search div.terms button + button {
+aside.search div.terms .btn:first-child,
+aside.search div.terms .btn + button {
   margin-right: calc(var(--gap) / 4);
 }
 
-aside.search div.terms button .icon {
+aside.search div.terms .btn .icon {
   margin-left: calc(var(--gap) / 2);
 }
 

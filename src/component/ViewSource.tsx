@@ -1,5 +1,4 @@
 import { useNavigation } from '../context/Navigation.js'
-import { linkToHome, linkToPanel } from '../util/link.js'
 import { Close, ViewSource } from '../icons/LucideIcon.jsx'
 import { SidebarContent } from './Sidebar.js'
 import { Show } from 'solid-js'
@@ -9,11 +8,11 @@ const panelId = 'view-source'
 export const Sidebar = () => {
 	const location = useNavigation()
 	return (
-		<Show when={location().panel === panelId}>
+		<Show when={location.current().panel === panelId}>
 			<SidebarContent>
 				<header>
 					<h1>View source</h1>
-					<a href={linkToHome()} class="close">
+					<a href={location.linkToHome()} class="close">
 						<Close size={20} />
 					</a>
 				</header>
@@ -63,8 +62,11 @@ export const Sidebar = () => {
 						<code>hello.nrfcloud.com</code> credentials.
 					</p>
 					<p>
-						Follow <a href={linkToPanel('add-device')}>these instructions</a> to
-						add your own device.
+						Follow{' '}
+						<a href={location.link({ panel: 'add-device' })}>
+							these instructions
+						</a>{' '}
+						to add your own device.
 					</p>
 					<p>
 						The source-code for this project can be found on{' '}
@@ -88,14 +90,14 @@ export const SidebarButton = () => {
 	return (
 		<>
 			<Show
-				when={location().panel === panelId}
+				when={location.current().panel === panelId}
 				fallback={
-					<a class="button" href={linkToPanel(panelId)}>
+					<a class="button" href={location.link({ panel: panelId })}>
 						<ViewSource strokeWidth={2} />
 					</a>
 				}
 			>
-				<a class="button active" href={linkToHome()}>
+				<a class="button active" href={location.linkToHome()}>
 					<ViewSource strokeWidth={2} />
 				</a>
 			</Show>

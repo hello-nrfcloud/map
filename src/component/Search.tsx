@@ -1,17 +1,31 @@
 import { For, Show, createMemo } from 'solid-js'
 import { useDevices, type Device } from '../context/Devices.js'
 import { useNavigation } from '../context/Navigation.jsx'
-import { useSearch, type SearchTerm, matches } from '../context/Search.jsx'
+import {
+	type SearchTerm,
+	matches,
+	SearchTermType,
+	isSearchTermType,
+} from '../context/Search.js'
 import { Device as DeviceIcon } from '../icons/Device.js'
 import { AddToSearch, Close } from '../icons/LucideIcon.jsx'
-import { linkToDevice, linkToHome } from '../util/link.js'
 import { RelativeTime } from './RelativeTime.jsx'
 import './Search.css'
 import { SidebarContent } from './Sidebar.jsx'
 
+const parse = (value: string): SearchTerm | undefined => {
+	const [type, term] = value.trim().split(':')
+	if (type !== undefined && term === undefined) {
+		return { type: SearchTermType.Any, term: type }
+	} else if (isSearchTermType(type) && term !== undefined) {
+		return { type, term } as SearchTerm
+	}
+	return undefined
+}
+
 const Search = () => {
-	const search = useSearch()
 	let input!: HTMLInputElement
+	const location = useNavigation()
 
 	return (
 		<>
@@ -31,8 +45,14 @@ const Search = () => {
 							ref={input}
 							onKeyUp={(e) => {
 								if (e.key === 'Enter') {
-									search.addSearchTerm(input.value)
-									input.value = ''
+									const maybeTerm = parse(input.value)
+									if (maybeTerm !== undefined) {
+										location.navigateWithSearchTerm(maybeTerm)
+										input.value = ''
+									} else {
+										// TODO: show error
+										console.error(`Invalid search term: ${input.value}`)
+									}
 								}
 							}}
 						/>
@@ -41,28 +61,25 @@ const Search = () => {
 						</button>
 					</div>
 				</form>
-				<Show when={search.searchTerms().length > 0}>
+				<Show when={location.current().search.length > 0}>
 					<div class="terms">
-						<For each={search.searchTerms()}>
+						<For each={location.current().search}>
 							{(term) => (
-								<button
-									type="button"
-									onClick={() => search.removeSearchTerm(term)}
-								>
+								<a class="btn" href={location.linkWithoutSearchTerm(term)}>
 									<span>{term.type}:</span>
 									<span>{term.term}</span>
 									<Close size={16} />
-								</button>
+								</a>
 							)}
 						</For>
 					</div>
 				</Show>
 			</div>
 			<Show
-				when={search.searchTerms().length > 0}
+				when={location.current().search.length > 0}
 				fallback={<MostRecentDevicesList />}
 			>
-				<SearchResult terms={search.searchTerms()} />
+				<SearchResult terms={location.current().search} />
 			</Show>
 		</>
 	)
@@ -74,11 +91,11 @@ export const Sidebar = () => {
 	const location = useNavigation()
 
 	return (
-		<Show when={location().panel === 'search'}>
+		<Show when={location.current().panel === 'search'}>
 			<SidebarContent class="search">
 				<header>
 					<h1>Search {numDevices()} devices</h1>
-					<a href={linkToHome()} class="close">
+					<a href={location.linkToHome()} class="close">
 						<Close size={20} />
 					</a>
 				</header>
@@ -122,24 +139,27 @@ const MostRecentDevicesList = () => {
 	)
 }
 
-const DeviceCard = (props: { device: Device }) => (
-	<div class="result boxed">
-		<DeviceIcon class="icon" />
-		<span>
-			<a href={linkToDevice(props.device.id)}>
-				<code>{props.device.id}</code>
-			</a>
-			<br />
-			<small>{props.device.model}</small>
-			<br />
-			<Show
-				when={props.device.lastUpdate !== undefined}
-				fallback={<small>Never updated.</small>}
-			>
-				<small>
-					<RelativeTime time={props.device.lastUpdate!} />
-				</small>
-			</Show>
-		</span>
-	</div>
-)
+const DeviceCard = (props: { device: Device }) => {
+	const location = useNavigation()
+	return (
+		<div class="result boxed">
+			<DeviceIcon class="icon" />
+			<span>
+				<a href={location.link({ panel: `id:${props.device.id}` })}>
+					<code>{props.device.id}</code>
+				</a>
+				<br />
+				<small>{props.device.model}</small>
+				<br />
+				<Show
+					when={props.device.lastUpdate !== undefined}
+					fallback={<small>Never updated.</small>}
+				>
+					<small>
+						<RelativeTime time={props.device.lastUpdate!} />
+					</small>
+				</Show>
+			</span>
+		</div>
+	)
+}

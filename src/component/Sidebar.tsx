@@ -1,6 +1,6 @@
 import { Show, type ParentProps } from 'solid-js'
 import { useNavigation } from '../context/Navigation.js'
-import { linkAsset, linkToHome, linkToPanel } from '../util/link.js'
+import { linkAsset } from '../util/link.js'
 import {
 	SidebarButton as AppUpdateRequiredButton,
 	Sidebar as AppUpdateRequiredSidebar,
@@ -35,24 +35,27 @@ export const SidebarContent = (props: ParentProps<{ class?: string }>) => {
 	return <aside class={`sidebar ${props.class ?? ''}`}>{props.children}</aside>
 }
 
-const SidebarNav = () => (
-	<nav class="sidebar">
-		<AppUpdateRequiredButton />
-		<a href={linkToHome()} class="button">
-			<img
-				src={linkAsset('logo.svg')}
-				class="logo"
-				alt="hello.nrfcloud.com logo"
-			/>
-		</a>
-		<hr />
-		<WarningButton />
-		<SearchButton />
-		<DeviceDetailButton />
-		<AddDeviceButton />
-		<ViewSourceButton />
-	</nav>
-)
+const SidebarNav = () => {
+	const location = useNavigation()
+	return (
+		<nav class="sidebar">
+			<AppUpdateRequiredButton />
+			<a href={location.linkToHome()} class="button">
+				<img
+					src={linkAsset('logo.svg')}
+					class="logo"
+					alt="hello.nrfcloud.com logo"
+				/>
+			</a>
+			<hr />
+			<WarningButton />
+			<SearchButton />
+			<DeviceDetailButton />
+			<AddDeviceButton />
+			<ViewSourceButton />
+		</nav>
+	)
+}
 
 const SearchButton = () => {
 	const location = useNavigation()
@@ -60,14 +63,14 @@ const SearchButton = () => {
 	return (
 		<>
 			<Show
-				when={location().panel === 'search'}
+				when={location.current().panel === 'search'}
 				fallback={
-					<a class="button" href={linkToPanel('search')}>
+					<a class="button" href={location.link({ panel: 'search' })}>
 						<Search strokeWidth={2} />
 					</a>
 				}
 			>
-				<a class="button active" href={linkToHome()}>
+				<a class="button active" href={location.linkToHome()}>
 					<Search strokeWidth={2} />
 				</a>
 			</Show>
@@ -82,14 +85,14 @@ const WarningButton = () => {
 	return (
 		<>
 			<Show
-				when={location().panel === 'warning'}
+				when={location.current().panel === 'warning'}
 				fallback={
-					<a class="button warning" href={linkToPanel('warning')}>
+					<a class="button warning" href={location.link({ panel: 'warning' })}>
 						<Warning strokeWidth={2} />
 					</a>
 				}
 			>
-				<a class="button warning active" href={linkToHome()}>
+				<a class="button warning active" href={location.linkToHome()}>
 					<Warning strokeWidth={2} />
 				</a>
 			</Show>

@@ -1,5 +1,4 @@
 import { useNavigation } from '../context/Navigation.js'
-import { linkToHome, linkToPanel } from '../util/link.js'
 import { Close, Add } from '../icons/LucideIcon.jsx'
 import { SidebarContent } from './Sidebar.js'
 import { Show } from 'solid-js'
@@ -9,11 +8,11 @@ const panelId = 'add-device'
 export const Sidebar = () => {
 	const location = useNavigation()
 	return (
-		<Show when={location().panel === panelId}>
+		<Show when={location.current().panel === panelId}>
 			<SidebarContent>
 				<header>
 					<h1>Add your device</h1>
-					<a href={linkToHome()} class="close">
+					<a href={location.linkToHome()} class="close">
 						<Close size={20} />
 					</a>
 				</header>
@@ -34,14 +33,14 @@ export const SidebarButton = () => {
 	return (
 		<>
 			<Show
-				when={location().panel === panelId}
+				when={location.current().panel === panelId}
 				fallback={
-					<a class="button" href={linkToPanel(panelId)}>
+					<a class="button" href={location.link({ panel: panelId })}>
 						<Add strokeWidth={2} />
 					</a>
 				}
 			>
-				<a class="button active" href={linkToHome()}>
+				<a class="button active" href={location.linkToHome()}>
 					<Add strokeWidth={2} />
 				</a>
 			</Show>

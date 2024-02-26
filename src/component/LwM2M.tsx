@@ -18,9 +18,9 @@ import {
 import { instanceTs } from '../util/instanceTs.js'
 import { RelativeTime } from './RelativeTime.jsx'
 import { ResourcesDL } from './ResourcesDL.jsx'
-import { linkToPanel } from '../util/link.js'
 import { SourceInfo } from './SourceInfo.jsx'
-import { useSearch } from '../context/Search.jsx'
+import { SearchTermType } from '../context/Search.js'
+import { useNavigation } from '../context/Navigation.jsx'
 
 export const DescribeInstance = (props: { instance: LwM2MObjectInstance }) => {
 	const [expanded, setExpanded] = createSignal<boolean>(false)
@@ -77,7 +77,7 @@ export const DescribeInstance = (props: { instance: LwM2MObjectInstance }) => {
 export const DescribeResources = (props: { instance: LwM2MObjectInstance }) => {
 	const definition = definitions[props.instance.ObjectID as LwM2MObjectID]
 	const tsResourceId = timestampResources[definition.ObjectID] as number
-	const search = useSearch()
+	const location = useNavigation()
 	return (
 		<div class="instance-resources">
 			<ResourcesDL>
@@ -112,15 +112,15 @@ export const DescribeResources = (props: { instance: LwM2MObjectInstance }) => {
 				</p>
 				<p>
 					<Search size={16} strokeWidth={1} />
-					<button
-						type="button"
-						onClick={() => {
-							search.addSearchTerm(`has:${props.instance.ObjectID.toString()}`)
-						}}
+					<a
+						href={location.linkToSearch({
+							type: SearchTermType.Has,
+							term: props.instance.ObjectID.toString(),
+						})}
 					>
 						Search for all devices with ObjectID{' '}
 						<code>{props.instance.ObjectID}</code>
-					</button>
+					</a>
 				</p>
 			</SourceInfo>
 		</div>
@@ -131,58 +131,67 @@ const DescribeResource = (props: {
 	instance: LwM2MObjectInstance
 	info: LwM2MResourceInfo
 	value: LwM2MResourceValue
-}) => (
-	<>
-		<dt>
-			<span>
-				<small>{props.info.ResourceID}: </small>
-				<abbr title={props.info.Description}>{props.info.Name}</abbr>
-			</span>
-			<a
-				href={linkToPanel(
-					'search',
-					new URLSearchParams({
-						has: `${props.instance.ObjectID}/${props.info.ResourceID}`,
-					}),
-				)}
-				title={`Search for devices that have the object ${props.instance.ObjectID} and the resource ${props.info.ResourceID}`}
-			>
-				<small>
-					<Search strokeWidth={1} size={14} />
-				</small>
-			</a>
-		</dt>
-		<dd>
-			<span>
-				<DescribeValue info={props.info} value={props.value} />
-				<Show
-					when={props.info.Units !== undefined}
-				>{` ${props.info.Units}`}</Show>
-			</span>
-			<Show
-				when={
-					props.info.Type === ResourceType.String &&
-					typeof props.value === 'string' &&
-					!/^[0-9]+$/.test(props.value)
-				}
-			>
+}) => {
+	const location = useNavigation()
+	return (
+		<>
+			<dt>
+				<span>
+					<small>{props.info.ResourceID}: </small>
+					<abbr title={props.info.Description}>{props.info.Name}</abbr>
+				</span>
 				<a
-					href={linkToPanel(
-						'search',
-						new URLSearchParams({
-							has: `${props.instance.ObjectID}/${props.info.ResourceID}=${props.value.toString()}`,
-						}),
-					)}
-					title={`Search for devices that have the object ${props.instance.ObjectID} and the resource ${props.info.ResourceID} with the value ${props.value.toString()}`}
+					href={location.link({
+						panel: 'search',
+						search: [
+							{
+								type: SearchTermType.Has,
+								term: `${props.instance.ObjectID}/${props.info.ResourceID}`,
+							},
+						],
+					})}
+					title={`Search for devices that have the object ${props.instance.ObjectID} and the resource ${props.info.ResourceID}`}
 				>
 					<small>
 						<Search strokeWidth={1} size={14} />
 					</small>
-				</a>{' '}
-			</Show>
-		</dd>
-	</>
-)
+				</a>
+			</dt>
+			<dd>
+				<span>
+					<DescribeValue info={props.info} value={props.value} />
+					<Show
+						when={props.info.Units !== undefined}
+					>{` ${props.info.Units}`}</Show>
+				</span>
+				<Show
+					when={
+						props.info.Type === ResourceType.String &&
+						typeof props.value === 'string' &&
+						!/^[0-9]+$/.test(props.value)
+					}
+				>
+					<a
+						href={location.link({
+							panel: 'search',
+							search: [
+								{
+									type: SearchTermType.Has,
+									term: `${props.instance.ObjectID}/${props.info.ResourceID}=${props.value.toString()}`,
+								},
+							],
+						})}
+						title={`Search for devices that have the object ${props.instance.ObjectID} and the resource ${props.info.ResourceID} with the value ${props.value.toString()}`}
+					>
+						<small>
+							<Search strokeWidth={1} size={14} />
+						</small>
+					</a>{' '}
+				</Show>
+			</dd>
+		</>
+	)
+}
 
 const DescribeValue = (props: {
 	value: LwM2MResourceValue

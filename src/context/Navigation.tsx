@@ -5,48 +5,95 @@ import {
 	type ParentProps,
 	type Accessor,
 } from 'solid-js'
+import { decode, encode, type Navigation } from './encodeNavigation.js'
+import type { SearchTerm } from './Search.js'
 
-type CurrentNav =
-	| { panel: string; deviceId: undefined; query: URLSearchParams }
-	| { deviceId: string; panel: undefined; query: URLSearchParams }
-
-const parseHash = (hash: string): CurrentNav => {
-	const [panelWithQuery, id] = (hash.slice(1) ?? 'home').split(':', 2)
-	const [panel, query] = (panelWithQuery ?? '').split('?')
-	if (panel === 'id' && id !== undefined)
-		return {
-			deviceId: id,
-			panel: undefined,
-			query: new URLSearchParams(),
-		}
-	return {
-		panel: panel ?? 'home',
-		deviceId: undefined,
-		query: new URLSearchParams(query ?? ''),
-	}
-}
+const Home: Navigation = { panel: 'home' }
 
 export const NavigationProvider = (props: ParentProps) => {
-	const [location, setLocation] = createSignal<CurrentNav>(
-		parseHash(window.location.hash),
+	const [location, setLocation] = createSignal<Navigation>(
+		decode(window.location.hash.slice(1)) ?? Home,
 	)
 
-	const locationHandler = () => setLocation(parseHash(window.location.hash))
+	const locationHandler = () =>
+		setLocation(decode(window.location.hash.slice(1)) ?? Home)
 	window.addEventListener('hashchange', locationHandler)
 
 	onCleanup(() => window.removeEventListener('hashchange', locationHandler))
+	const navigate = (next: Navigation) => {
+		window.location.hash =
+			encode({
+				...location(),
+				...next,
+			}) ?? ''
+	}
+	const link = (next: Navigation) =>
+		new URL(
+			`/#${encode({
+				...location(),
+				...next,
+			})}`,
+			document.location.href,
+		).toString()
+
+	const linkToHome = () => link(Home)
 
 	return (
-		<NavigationContext.Provider value={location}>
+		<NavigationContext.Provider
+			value={{
+				current: () => ({
+					panel: location().panel,
+					search: location().search ?? [],
+				}),
+				navigate,
+				navigateHome: () => navigate(Home),
+				linkToHome,
+				link,
+				linkWithoutSearchTerm: (term) => {
+					const current = location()
+					return link({
+						...current,
+						search: current.search?.filter((t) => t !== term) ?? [],
+					})
+				},
+				linkToSearch: (term) =>
+					link({
+						panel: 'search',
+						search: [term],
+					}),
+				navigateWithSearchTerm: (term) => {
+					const current = location()
+					navigate({
+						...current,
+						search: [...(current.search ?? []), term],
+					})
+				},
+			}}
+		>
 			{props.children}
 		</NavigationContext.Provider>
 	)
 }
 
-export const NavigationContext = createContext<Accessor<CurrentNav>>(() => ({
-	panel: 'home',
-	deviceId: undefined,
-	query: new URLSearchParams(),
-}))
+export const NavigationContext = createContext<{
+	current: Accessor<Required<Navigation>>
+	navigate: (next: Navigation) => void
+	navigateHome: () => void
+	linkToHome: () => string
+	link: (next: Navigation) => string
+	linkWithoutSearchTerm: (term: SearchTerm) => string
+	linkToSearch: (term: SearchTerm) => string
+	navigateWithSearchTerm: (term: SearchTerm) => void
+}>({
+	current: () => ({ ...Home, search: [] }),
+	navigate: () => undefined,
+	navigateHome: () => undefined,
+	navigateWithSearchTerm: () => undefined,
+	linkToHome: () =>
+		new URL(`/#${encode(Home)}`, document.location.href).toString(),
+	link: () => '/#',
+	linkWithoutSearchTerm: () => '/#',
+	linkToSearch: () => '/#',
+})
 
 export const useNavigation = () => useContext(NavigationContext)

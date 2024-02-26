@@ -1,5 +1,5 @@
 import { useNavigation } from '../context/Navigation.jsx'
-import { reloadLink, linkToHome, linkToPanel } from '../util/link.js'
+import { reloadLink } from '../util/link.js'
 import { AppUpdateRequired, Close } from '../icons/LucideIcon.jsx'
 import { Show } from 'solid-js'
 import { SidebarContent } from './Sidebar.jsx'
@@ -13,9 +13,9 @@ export const SidebarButton = () => {
 	return (
 		<Show when={updateInfo().updateRequired}>
 			<Show
-				when={location().panel === panelId}
+				when={location.current().panel === panelId}
 				fallback={
-					<a class="button error" href={linkToPanel(panelId)}>
+					<a class="button error" href={location.link({ panel: panelId })}>
 						<AppUpdateRequired strokeWidth={2} />
 					</a>
 				}
@@ -33,11 +33,11 @@ export const Sidebar = () => {
 	const updateInfo = useAppUpdate()
 	return (
 		<Show when={updateInfo().updateRequired}>
-			<Show when={location().panel === panelId}>
+			<Show when={location.current().panel === panelId}>
 				<SidebarContent class="warning">
 					<header>
 						<h1>Update available!</h1>
-						<a href={linkToHome()} class="close">
+						<a href={location.linkToHome()} class="close">
 							<Close size={20} />
 						</a>
 					</header>

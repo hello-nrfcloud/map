@@ -12,18 +12,19 @@ import { useDevices, type Device } from '../../context/Devices.js'
 import { useParameters } from '../../context/Parameters.js'
 import { createMap } from '../../map/createMap.js'
 import { newestInstanceFirst } from '../../util/instanceTs.js'
+import { matches } from '../../context/Search.js'
 
 import './AllDevicesMap.css'
-import { matches, useSearch } from '../../context/Search.jsx'
+import { useNavigation } from '../../context/Navigation.jsx'
 
 export const AllDevicesMap = () => {
 	const parameters = useParameters()
 	const allDevices = useDevices()
-	const search = useSearch()
+	const location = useNavigation()
 	let ref!: HTMLDivElement
 	let map: MapLibreGlMap
 	const devices = createMemo(() =>
-		allDevices().filter(matches(search.searchTerms())),
+		allDevices().filter(matches(location.current().search)),
 	)
 	const [mapLoaded, setMapLoaded] = createSignal<boolean>(false)
 
@@ -74,7 +75,9 @@ export const AllDevicesMap = () => {
 				'devices-layer',
 				(e: MapMouseEvent & { features?: MapGeoJSONFeature[] }) => {
 					const id = e.features?.[0]?.properties.id
-					document.location.hash = `id:${id}`
+					location.navigate({
+						panel: `id:${id}`,
+					})
 				},
 			)
 			map.on('mouseenter', 'devices-layer', () => {
