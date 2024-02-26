@@ -44,7 +44,7 @@ export const Card = (props: { locations: Geolocation_14201[] }) => {
 			Resources: { 0: lat, 1: lng },
 		} = mostRecent
 
-		map = createMap(ref, parameters, { lat, lng })
+		map = createMap(ref, parameters, { lat, lng }, 8)
 		map.dragRotate.disable()
 		map.scrollZoom.disable()
 		map.dragPan.disable()

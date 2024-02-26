@@ -25,13 +25,6 @@ section.lwm2m .multiple-instances {
   margin-left: var(--gap-half);
 }
 
-.instance-resources {
-  margin-top: var(--gap-half);
-  font-family: var(--condensed-font-family);
-  font-weight: 300;
-  font-size: 14px;
-}
-
 .sidebar.device h1 {
   font-family: var(--condensed-font-family);
   font-weight: 100;
@@ -48,6 +41,7 @@ section.lwm2m .multiple-instances {
 }
 .instance-resources .source-info {
   margin-top: var(--gap-half);
+  font-size: 90%;
 }
 
 .instance-resources .resources dd {

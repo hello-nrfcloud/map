@@ -35,9 +35,9 @@ export const KnownObjects = (objects: Objects) => {
 
 	const tabs = createMemo(() => {
 		const tabs = []
-		if (hasLocations()) tabs.push('location')
 		if (objects.info !== undefined) tabs.push('info')
 		if (objects.bat !== undefined) tabs.push('bat')
+		if (hasLocations()) tabs.push('location')
 		return tabs
 	})
 
@@ -48,11 +48,6 @@ export const KnownObjects = (objects: Objects) => {
 	return (
 		<section class="known-objects boxed">
 			<nav class="tabs">
-				<Show when={hasLocations()}>
-					<Tab id={'location'} visibleCard={[visibleCard, setVisibleCard]}>
-						<LocationIcon />
-					</Tab>
-				</Show>
 				<Show when={objects.info !== undefined}>
 					<Tab id={'info'} visibleCard={[visibleCard, setVisibleCard]}>
 						<DeviceInformationIcon />
@@ -61,6 +56,11 @@ export const KnownObjects = (objects: Objects) => {
 				<Show when={objects.bat !== undefined}>
 					<Tab id={'bat'} visibleCard={[visibleCard, setVisibleCard]}>
 						<BatteryAndPowerIcon />
+					</Tab>
+				</Show>
+				<Show when={hasLocations()}>
+					<Tab id={'location'} visibleCard={[visibleCard, setVisibleCard]}>
+						<LocationIcon />
 					</Tab>
 				</Show>
 			</nav>

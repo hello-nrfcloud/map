@@ -132,8 +132,10 @@ const DescribeResource = (props: {
 }) => (
 	<>
 		<dt>
-			<small>{props.info.ResourceID}: </small>
-			<abbr title={props.info.Description}>{props.info.Name}</abbr>{' '}
+			<span>
+				<small>{props.info.ResourceID}: </small>
+				<abbr title={props.info.Description}>{props.info.Name}</abbr>
+			</span>
 			<a
 				href={linkToPanel(
 					'search',
@@ -149,7 +151,19 @@ const DescribeResource = (props: {
 			</a>
 		</dt>
 		<dd>
-			<Show when={props.info.Type === ResourceType.String}>
+			<span>
+				<DescribeValue info={props.info} value={props.value} />
+				<Show
+					when={props.info.Units !== undefined}
+				>{` ${props.info.Units}`}</Show>
+			</span>
+			<Show
+				when={
+					props.info.Type === ResourceType.String &&
+					typeof props.value === 'string' &&
+					!/^[0-9]+$/.test(props.value)
+				}
+			>
 				<a
 					href={linkToPanel(
 						'search',
@@ -164,10 +178,6 @@ const DescribeResource = (props: {
 					</small>
 				</a>{' '}
 			</Show>
-			<DescribeValue info={props.info} value={props.value} />
-			<Show
-				when={props.info.Units !== undefined}
-			>{` ${props.info.Units}`}</Show>
 		</dd>
 	</>
 )
