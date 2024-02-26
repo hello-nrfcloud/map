@@ -85,8 +85,9 @@ export const Card = ({ locations }: { locations: Geolocation_14201[] }) => {
 				const acc = Resources[3] ?? 500
 				const src = Resources[6]
 				// Data for Hexagon
+				const locationAreaSourceId = `center-circle-source-${src}`
 				map.addSource(
-					`center-circle-source-${src}`,
+					locationAreaSourceId,
 					geoJSONPolygonFromCircle([lng, lat], acc, 6, Math.PI / 2),
 				)
 				// Render Hexagon
@@ -100,6 +101,26 @@ export const Card = ({ locations }: { locations: Geolocation_14201[] }) => {
 							locationSourceColors[src] ?? defaultLocationSourceColor,
 						'line-opacity': 1,
 						'line-width': 2,
+					},
+				})
+				// Render label on Hexagon
+				map.addLayer({
+					id: `center-circle-layer-label-${src}`,
+					type: 'symbol',
+					source: locationAreaSourceId,
+					layout: {
+						'symbol-placement': 'line',
+						'text-field': `${src}${acc !== undefined ? ` (${Math.round(acc)} m)` : ''}`,
+						'text-font': [glyphFonts.regular],
+						'text-offset': [0, -1],
+						'text-size': 14,
+					},
+					paint: {
+						'text-color':
+							locationSourceColors[src] ?? defaultLocationSourceColor,
+						'text-halo-color': '#222222',
+						'text-halo-width': 1,
+						'text-halo-blur': 1,
 					},
 				})
 			}
@@ -147,3 +168,9 @@ const locationSourceColors: Record<string, string> = {
 	['SCELL']: '#38a3a5',
 } as const
 const defaultLocationSourceColor = '#22577A'
+
+// See https://docs.aws.amazon.com/location/latest/developerguide/esri.html for available fonts
+const glyphFonts = {
+	regular: 'Ubuntu Regular',
+	bold: 'Ubuntu Medium',
+} as const
