@@ -12,7 +12,8 @@ enum SearchTermType {
 	Id = 'id',
 	Model = 'model',
 	NotModel = '-model',
-	ObjectID = 'object',
+	// Used to search for devices with LwM2M objects and resourcs
+	Has = 'has',
 	Any = '*',
 }
 type SearchTerm = {
@@ -23,7 +24,7 @@ const allowedTypes = [
 	SearchTermType.Id,
 	SearchTermType.Model,
 	SearchTermType.NotModel,
-	SearchTermType.ObjectID,
+	SearchTermType.Has,
 ]
 
 const isSearchTermType = (term: unknown): term is SearchTermType =>
@@ -53,6 +54,17 @@ const Search = () => {
 		}
 		input.value = ''
 	}
+
+	// Update URL
+	createEffect(() => {
+		const s = new URLSearchParams(
+			searchTerms().reduce(
+				(terms, term) => ({ ...terms, [term.type]: term.term }),
+				{},
+			),
+		).toString()
+		document.location.hash = `search${s.length > 0 ? `?${s}` : ''}`
+	})
 
 	return (
 		<>
@@ -193,6 +205,9 @@ const matches = (terms: SearchTerm[]) => (device: Device) =>
 		return termMatchesDevice(term, device)
 	}, true)
 
+const resourceValueSearchRx =
+	/^(?<ObjectID>[0-9]+)\/(?<ResourceID>[0-9]+)=(?<Value>.+)/
+
 const termMatchesDevice = (term: SearchTerm, device: Device) => {
 	const tokens = []
 	if (term.type === SearchTermType.NotModel)
@@ -201,8 +216,34 @@ const termMatchesDevice = (term: SearchTerm, device: Device) => {
 		tokens.push(device.id)
 	if (term.type === SearchTermType.Model || term.type === SearchTermType.Any)
 		tokens.push(device.model)
-	if (term.type === SearchTermType.ObjectID) {
-		tokens.push(device.state?.map(({ ObjectID }) => ObjectID))
+	if (term.type === SearchTermType.Has) {
+		const maybeValueSearch = resourceValueSearchRx.exec(term.term)
+		if (maybeValueSearch !== null) {
+			tokens.push(
+				...(device.state ?? [])
+					.map(({ ObjectID, Resources }) =>
+						Object.entries(Resources).map(
+							([ResourceId, Value]) => `${ObjectID}/${ResourceId}=${Value}`,
+						),
+					)
+					.flat(),
+			)
+		} else {
+			const [ObjectID, ResourceId] = term.term.split('/')
+			if (ResourceId === undefined) {
+				tokens.push(device.state?.map(({ ObjectID }) => ObjectID))
+			} else {
+				tokens.push(
+					...(device.state ?? [])
+						.map(({ Resources }) =>
+							Object.keys(Resources).map(
+								(ResourceId) => `${ObjectID}/${ResourceId}`,
+							),
+						)
+						.flat(),
+				)
+			}
+		}
 	}
 	return tokens.join(' ').includes(term.term)
 }

@@ -49,3 +49,7 @@ section.lwm2m .multiple-instances {
 .instance-resources .source-info {
   margin-top: var(--gap-half);
 }
+
+.instance-resources .resources dd {
+  white-space: nowrap;
+}

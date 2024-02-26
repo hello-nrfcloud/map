@@ -6,6 +6,7 @@ import {
 	timestampResources,
 	type LwM2MResourceValue,
 	type LwM2MResourceInfo,
+	ResourceType,
 } from '@hello.nrfcloud.com/proto-lwm2m'
 import {
 	Collapse,
@@ -93,6 +94,7 @@ export const DescribeResources = ({
 				>
 					{([resourceID, value]) => (
 						<DescribeResource
+							instance={instance}
 							info={
 								definition.Resources[
 									parseInt(resourceID, 10)
@@ -119,7 +121,7 @@ export const DescribeResources = ({
 					<a
 						href={linkToPanel(
 							`search`,
-							new URLSearchParams({ object: instance.ObjectID.toString() }),
+							new URLSearchParams({ has: instance.ObjectID.toString() }),
 						)}
 					>
 						Search for all devices with ObjectID{' '}
@@ -132,21 +134,64 @@ export const DescribeResources = ({
 }
 
 const DescribeResource = ({
+	instance,
 	info,
 	value,
 }: {
+	instance: LwM2MObjectInstance
 	info: LwM2MResourceInfo
 	value: LwM2MResourceValue
 }) => {
 	return (
 		<>
 			<dt>
-				<abbr title={info.Description}>{info.Name}</abbr>
+				<small>{info.ResourceID}: </small>
+				<abbr title={info.Description}>{info.Name}</abbr>{' '}
+				<a
+					href={linkToPanel(
+						'search',
+						new URLSearchParams({
+							has: `${instance.ObjectID}/${info.ResourceID}`,
+						}),
+					)}
+					title={`Search for devices that have the object ${instance.ObjectID} and the resource ${info.ResourceID}`}
+				>
+					<small>
+						<Search strokeWidth={1} size={14} />
+					</small>
+				</a>
 			</dt>
 			<dd>
-				{value.toString()}
+				<Show when={info.Type === ResourceType.String}>
+					<a
+						href={linkToPanel(
+							'search',
+							new URLSearchParams({
+								has: `${instance.ObjectID}/${info.ResourceID}=${value.toString()}`,
+							}),
+						)}
+						title={`Search for devices that have the object ${instance.ObjectID} and the resource ${info.ResourceID} with the value ${value.toString()}`}
+					>
+						<small>
+							<Search strokeWidth={1} size={14} />
+						</small>
+					</a>{' '}
+				</Show>
+				<DescribeValue info={info} value={value} />
 				<Show when={info.Units !== undefined}>{` ${info.Units}`}</Show>
 			</dd>
 		</>
 	)
+}
+
+const DescribeValue = ({
+	value,
+	info,
+}: {
+	value: LwM2MResourceValue
+	info: LwM2MResourceInfo
+}) => {
+	if (info.Type === ResourceType.Float && typeof value === 'number')
+		return value.toFixed(2).replace(/\.00$/, '')
+	return value.toString()
 }
