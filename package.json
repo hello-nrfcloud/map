@@ -45,7 +45,7 @@
     "@hello.nrfcloud.com/proto": "6.4.15",
     "date-fns": "3.3.1",
     "e118-iin-list": "4.1.2",
-    "lucide": "0.340.0",
+    "lucide": "0.341.0",
     "maplibre-gl": "4.0.2"
   },
   "engines": {
