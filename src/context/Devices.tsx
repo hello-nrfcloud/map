@@ -1,5 +1,5 @@
 import type { ParentProps } from 'solid-js'
-import { createResource, createContext, useContext } from 'solid-js'
+import { createResource, createContext, useContext, onCleanup } from 'solid-js'
 import { useParameters } from './Parameters.js'
 import { Devices, PublicDevice } from '@hello.nrfcloud.com/proto/hello/map'
 import { type Static } from '@sinclair/typebox'
@@ -24,14 +24,21 @@ export const fetchDevices =
 
 export const DevicesProvider = (props: ParentProps) => {
 	const parameters = useParameters()
-	const [devicesResource] = createResource(
+	const [devicesResource, { refetch: refetchDevices }] = createResource(
 		parameters,
 		fetchDevices(parameters.devicesAPIURL),
 	)
-	const [thingyWorldDevicesResource] = createResource(
-		parameters,
-		fetchDevices(parameters.thingyWorldShadowsURL),
-	)
+	const [thingyWorldDevicesResource, { refetch: refetchThingyWorldDevices }] =
+		createResource(parameters, fetchDevices(parameters.thingyWorldShadowsURL))
+
+	const i = setInterval(() => {
+		void refetchDevices()
+		void refetchThingyWorldDevices()
+	}, 1000 * 60)
+
+	onCleanup(() => {
+		clearInterval(i)
+	})
 
 	return (
 		<DevicesContext.Provider
