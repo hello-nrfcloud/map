@@ -1,17 +1,17 @@
 import { Center, Map, ZoomIn } from '../../icons/LucideIcon.jsx'
 import { type Geolocation_14201 } from '@hello.nrfcloud.com/proto-lwm2m'
-import { createEffect, onCleanup } from 'solid-js'
-import { Map as MapLibreGlMap, LngLatBounds } from 'maplibre-gl'
-import { mapStyle } from '../../map/style.js'
+import { createEffect, onCleanup, createMemo } from 'solid-js'
+import { Map as MapLibreGlMap } from 'maplibre-gl'
 import { useParameters } from '../../context/Parameters.jsx'
-import { transformRequest } from '../../map/transformRequest.jsx'
-import {
-	geoJSONPolygonFromCircle,
-	getPolygonCoordinatesForCircle,
-} from '../../map/geoJSONPolygonFromCircle.js'
+import { geoJSONPolygonFromCircle } from '../../map/geoJSONPolygonFromCircle.js'
 import { ZoomOut } from '../../icons/LucideIcon.js'
-
-import './Location.css'
+import { getLocationsBounds } from '../../map/getLocationsBounds.js'
+import { createMap } from '../../map/createMap.js'
+import {
+	locationSourceColors,
+	defaultLocationSourceColor,
+} from '../../map/locationSourceColors.js'
+import { glyphFonts } from '../../map/glyphFonts.js'
 
 export const Icon = () => (
 	<>
@@ -20,66 +20,37 @@ export const Icon = () => (
 	</>
 )
 
-const getLocationsBounds = (locations: Geolocation_14201[]) => {
-	const coordinates = locations
-		.map(({ Resources }) => {
-			const lng = Resources[1]
-			const lat = Resources[0]
-			const acc = Resources[3] ?? 500
-			return getPolygonCoordinatesForCircle([lng, lat], acc, 6, Math.PI / 2)
-		})
-		.flat()
-	return coordinates.reduce(
-		(bounds, coord) => {
-			return bounds.extend(coord)
-		},
-		new LngLatBounds(coordinates[0], coordinates[0]),
-	)
-}
+import './Location.css'
 
 // FIXME: parse JSON dates
 const byAge = (loc1: Geolocation_14201, loc2: Geolocation_14201) =>
 	new Date(loc2.Resources['99']).getTime() -
 	new Date(loc1.Resources['99']).getTime()
 
-export const Card = ({ locations }: { locations: Geolocation_14201[] }) => {
+export const Card = (props: { locations: Geolocation_14201[] }) => {
 	const parameters = useParameters()
 
 	let ref!: HTMLDivElement
 	let map: MapLibreGlMap
 
-	const bounds = getLocationsBounds(locations)
+	const bounds = createMemo(() => getLocationsBounds(props.locations))
 
 	createEffect(() => {
-		const mostRecent = locations.sort(byAge)[0] as Geolocation_14201
+		const mostRecent = props.locations.sort(byAge)[0]
 
-		const lng = mostRecent.Resources[1]
-		const lat = mostRecent.Resources[0]
+		if (mostRecent === undefined) return
 
-		map = new MapLibreGlMap({
-			container: ref,
-			style: mapStyle({
-				region: parameters.mapRegion,
-				mapName: parameters.mapName,
-			}),
-			center: [lng, lat],
-			zoom: 4,
-			refreshExpiredTiles: false,
-			trackResize: false,
-			keyboard: false,
-			renderWorldCopies: false,
-			transformRequest: transformRequest(
-				parameters.mapApiKey,
-				parameters.mapRegion,
-			),
-			attributionControl: false,
-		})
+		const {
+			Resources: { 0: lat, 1: lng },
+		} = mostRecent
+
+		map = createMap(ref, parameters, { lat, lng })
 		map.dragRotate.disable()
 		map.scrollZoom.disable()
 		map.dragPan.disable()
 
 		map.on('load', () => {
-			for (const { Resources } of locations) {
+			for (const { Resources } of props.locations) {
 				const lng = Resources[1]
 				const lat = Resources[0]
 				const acc = Resources[3] ?? 500
@@ -125,7 +96,7 @@ export const Card = ({ locations }: { locations: Geolocation_14201[] }) => {
 				})
 			}
 
-			map.fitBounds(bounds, {
+			map.fitBounds(bounds(), {
 				padding: 20,
 			})
 		})
@@ -144,7 +115,7 @@ export const Card = ({ locations }: { locations: Geolocation_14201[] }) => {
 				<button
 					type="button"
 					onClick={() =>
-						map?.fitBounds(bounds, {
+						map?.fitBounds(bounds(), {
 							padding: 20,
 						})
 					}
@@ -159,18 +130,3 @@ export const Card = ({ locations }: { locations: Geolocation_14201[] }) => {
 		</div>
 	)
 }
-
-// Source: https://coolors.co/palette/22577a-38a3a5-57cc99-80ed99-c7f9cc
-const locationSourceColors: Record<string, string> = {
-	['GNSS']: '#C7F9CC',
-	['WIFI']: '#80ed99',
-	['MCELL']: '#57cc99',
-	['SCELL']: '#38a3a5',
-} as const
-const defaultLocationSourceColor = '#22577A'
-
-// See https://docs.aws.amazon.com/location/latest/developerguide/esri.html for available fonts
-const glyphFonts = {
-	regular: 'Ubuntu Regular',
-	bold: 'Ubuntu Medium',
-} as const

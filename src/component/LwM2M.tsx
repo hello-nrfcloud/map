@@ -21,19 +21,15 @@ import { ResourcesDL } from './ResourcesDL.jsx'
 import { linkToPanel } from '../util/link.js'
 import { SourceInfo } from './SourceInfo.jsx'
 
-export const DescribeInstance = ({
-	instance,
-}: {
-	instance: LwM2MObjectInstance
-}) => {
+export const DescribeInstance = (props: { instance: LwM2MObjectInstance }) => {
 	const [expanded, setExpanded] = createSignal<boolean>(false)
-	const definition = definitions[instance.ObjectID as LwM2MObjectID]
-	const ts = instanceTs(instance)
-	const instanceId = instance.ObjectInstanceID ?? 0
+	const definition = definitions[props.instance.ObjectID as LwM2MObjectID]
+	const ts = instanceTs(props.instance)
+	const instanceId = props.instance.ObjectInstanceID ?? 0
 	return (
 		<Show
 			when={definition !== undefined}
-			fallback={<p>Unknown Object ID: {instance.ObjectID}!</p>}
+			fallback={<p>Unknown Object ID: {props.instance.ObjectID}!</p>}
 		>
 			<section class="lwm2m instance">
 				<header>
@@ -41,7 +37,7 @@ export const DescribeInstance = ({
 						<span>
 							{definition.Name}{' '}
 							<small>
-								({instance.ObjectID})
+								({props.instance.ObjectID})
 								<Show when={instanceId !== 0}>
 									<abbr
 										title={`Instance ID: ${instanceId}`}
@@ -70,31 +66,27 @@ export const DescribeInstance = ({
 					</Show>
 				</header>
 				<Show when={expanded()}>
-					<DescribeResources instance={instance} />
+					<DescribeResources instance={props.instance} />
 				</Show>
 			</section>
 		</Show>
 	)
 }
 
-export const DescribeResources = ({
-	instance,
-}: {
-	instance: LwM2MObjectInstance
-}) => {
-	const definition = definitions[instance.ObjectID as LwM2MObjectID]
+export const DescribeResources = (props: { instance: LwM2MObjectInstance }) => {
+	const definition = definitions[props.instance.ObjectID as LwM2MObjectID]
 	const tsResourceId = timestampResources[definition.ObjectID] as number
 	return (
 		<div class="instance-resources">
 			<ResourcesDL>
 				<For
-					each={Object.entries(instance.Resources).filter(
+					each={Object.entries(props.instance.Resources).filter(
 						([resourceId]) => parseInt(resourceId, 10) !== tsResourceId,
 					)}
 				>
 					{([resourceID, value]) => (
 						<DescribeResource
-							instance={instance}
+							instance={props.instance}
 							info={
 								definition.Resources[
 									parseInt(resourceID, 10)
@@ -109,11 +101,11 @@ export const DescribeResources = ({
 				<p>
 					<Documentation size={16} strokeWidth={1} />
 					<a
-						href={`https://github.com/hello-nrfcloud/proto-lwm2m/blob/saga/lwm2m/${instance.ObjectID}.xml`}
+						href={`https://github.com/hello-nrfcloud/proto-lwm2m/blob/saga/lwm2m/${props.instance.ObjectID}.xml`}
 						target="_blank"
 					>
-						LwM2M Object ID: <code>{instance.ObjectID}</code>, Version:{' '}
-						<code>{instance.ObjectVersion ?? '1.0'}</code>
+						LwM2M Object ID: <code>{props.instance.ObjectID}</code>, Version:{' '}
+						<code>{props.instance.ObjectVersion ?? '1.0'}</code>
 					</a>
 				</p>
 				<p>
@@ -121,11 +113,11 @@ export const DescribeResources = ({
 					<a
 						href={linkToPanel(
 							`search`,
-							new URLSearchParams({ has: instance.ObjectID.toString() }),
+							new URLSearchParams({ has: props.instance.ObjectID.toString() }),
 						)}
 					>
 						Search for all devices with ObjectID{' '}
-						<code>{instance.ObjectID}</code>
+						<code>{props.instance.ObjectID}</code>
 					</a>
 				</p>
 			</SourceInfo>
@@ -133,65 +125,58 @@ export const DescribeResources = ({
 	)
 }
 
-const DescribeResource = ({
-	instance,
-	info,
-	value,
-}: {
+const DescribeResource = (props: {
 	instance: LwM2MObjectInstance
 	info: LwM2MResourceInfo
 	value: LwM2MResourceValue
-}) => {
-	return (
-		<>
-			<dt>
-				<small>{info.ResourceID}: </small>
-				<abbr title={info.Description}>{info.Name}</abbr>{' '}
+}) => (
+	<>
+		<dt>
+			<small>{props.info.ResourceID}: </small>
+			<abbr title={props.info.Description}>{props.info.Name}</abbr>{' '}
+			<a
+				href={linkToPanel(
+					'search',
+					new URLSearchParams({
+						has: `${props.instance.ObjectID}/${props.info.ResourceID}`,
+					}),
+				)}
+				title={`Search for devices that have the object ${props.instance.ObjectID} and the resource ${props.info.ResourceID}`}
+			>
+				<small>
+					<Search strokeWidth={1} size={14} />
+				</small>
+			</a>
+		</dt>
+		<dd>
+			<Show when={props.info.Type === ResourceType.String}>
 				<a
 					href={linkToPanel(
 						'search',
 						new URLSearchParams({
-							has: `${instance.ObjectID}/${info.ResourceID}`,
+							has: `${props.instance.ObjectID}/${props.info.ResourceID}=${props.value.toString()}`,
 						}),
 					)}
-					title={`Search for devices that have the object ${instance.ObjectID} and the resource ${info.ResourceID}`}
+					title={`Search for devices that have the object ${props.instance.ObjectID} and the resource ${props.info.ResourceID} with the value ${props.value.toString()}`}
 				>
 					<small>
 						<Search strokeWidth={1} size={14} />
 					</small>
-				</a>
-			</dt>
-			<dd>
-				<Show when={info.Type === ResourceType.String}>
-					<a
-						href={linkToPanel(
-							'search',
-							new URLSearchParams({
-								has: `${instance.ObjectID}/${info.ResourceID}=${value.toString()}`,
-							}),
-						)}
-						title={`Search for devices that have the object ${instance.ObjectID} and the resource ${info.ResourceID} with the value ${value.toString()}`}
-					>
-						<small>
-							<Search strokeWidth={1} size={14} />
-						</small>
-					</a>{' '}
-				</Show>
-				<DescribeValue info={info} value={value} />
-				<Show when={info.Units !== undefined}>{` ${info.Units}`}</Show>
-			</dd>
-		</>
-	)
-}
+				</a>{' '}
+			</Show>
+			<DescribeValue info={props.info} value={props.value} />
+			<Show
+				when={props.info.Units !== undefined}
+			>{` ${props.info.Units}`}</Show>
+		</dd>
+	</>
+)
 
-const DescribeValue = ({
-	value,
-	info,
-}: {
+const DescribeValue = (props: {
 	value: LwM2MResourceValue
 	info: LwM2MResourceInfo
 }) => {
-	if (info.Type === ResourceType.Float && typeof value === 'number')
-		return value.toFixed(2).replace(/\.00$/, '')
-	return value.toString()
+	if (props.info.Type === ResourceType.Float && typeof props.value === 'number')
+		return props.value.toFixed(2).replace(/\.00$/, '')
+	return props.value.toString()
 }

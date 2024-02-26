@@ -1,45 +1,45 @@
 import {
 	AlertTriangle,
-	X,
-	type IconNode,
-	Search as SearchIcon,
-	ZoomIn as ZoomInIcon,
-	ZoomOut as ZoomOutIcon,
-	RefreshCcwDot,
-	Code2,
-	SquareStack,
+	BatteryCharging,
 	ChevronDown,
 	ChevronUp,
 	Clock10,
-	FileText,
 	CloudOff,
-	PlusCircle,
+	Code2,
+	FileText,
 	Info as InfoIcon,
-	BatteryCharging,
-	MapPinned,
 	LocateFixed,
+	MapPinned,
+	PlusCircle,
+	RefreshCcwDot,
+	Search as SearchIcon,
+	SquareStack,
+	X,
+	ZoomIn as ZoomInIcon,
+	ZoomOut as ZoomOutIcon,
+	type IconNode,
 } from 'lucide'
 import { For } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
 
-export const LucideIcon = ({
-	icon,
-	strokeWidth,
-	size,
-	class: className,
-}: {
-	icon: IconNode
-	class?: string
-} & LucideProps) => {
-	const [, attrs, children] = icon
+export const LucideIcon = (
+	props: {
+		icon: IconNode
+		class?: string
+	} & LucideProps,
+) => {
+	const [, attrs, children] = props.icon
 	const svgProps = {
-		'stroke-width': strokeWidth ?? attrs.strokeWidth ?? 2,
+		'stroke-width': props.strokeWidth ?? attrs.strokeWidth ?? 2,
 	}
 	return (
 		<svg
 			{...{ ...attrs, ...svgProps }}
-			style={{ width: `${size ?? 24}px`, height: `${size ?? 24}px` }}
-			class={`icon ${className ?? ''}`}
+			style={{
+				width: `${props.size ?? 24}px`,
+				height: `${props.size ?? 24}px`,
+			}}
+			class={`icon ${props.class ?? ''}`}
 		>
 			<For each={children}>
 				{([elementName, attrs]) => (

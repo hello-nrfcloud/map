@@ -3,20 +3,20 @@ import { Updated } from '../icons/LucideIcon.jsx'
 import { createSignal, onCleanup } from 'solid-js'
 import './RelativeTime.css'
 
-export const RelativeTime = ({ time }: { time: Date }) => {
-	const format = () => formatDistanceToNow(time, { addSuffix: true })
+export const RelativeTime = (props: { time: Date }) => {
+	const format = () => formatDistanceToNow(props.time, { addSuffix: true })
 	const [formatted, setFormatted] = createSignal<string>(format())
 
 	const i = setInterval(() => {
 		setFormatted(format())
-	}, getInterval(time))
+	}, getInterval(props.time))
 
 	onCleanup(() => {
 		clearInterval(i)
 	})
 
 	return (
-		<time class="relative" dateTime={time.toISOString()}>
+		<time class="relative" dateTime={props.time.toISOString()}>
 			<Updated size={12} strokeWidth={1} />
 			{formatted()}
 		</time>

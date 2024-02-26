@@ -1,7 +1,7 @@
 import { type Device, useDevices } from '../context/Devices.js'
 import './Search.css'
 import { AddToSearch, Close } from '../icons/LucideIcon.jsx'
-import { createSignal, For, Show, createEffect } from 'solid-js'
+import { createMemo, createSignal, For, Show, createEffect } from 'solid-js'
 import { SidebarContent } from './Sidebar.jsx'
 import { linkToDevice, linkToHome } from '../util/link.js'
 import { Device as DeviceIcon } from '../icons/Device.js'
@@ -122,8 +122,7 @@ const Search = () => {
 
 export const Sidebar = () => {
 	const devices = useDevices()
-	const [numDevices, setNumDevices] = createSignal<number>(0)
-	createEffect(() => setNumDevices(devices().length))
+	const numDevices = createMemo(() => devices().length)
 	const location = useNavigation()
 
 	return (
@@ -141,11 +140,9 @@ export const Sidebar = () => {
 	)
 }
 
-const SearchResult = ({ terms }: { terms: SearchTerm[] }) => {
-	const [results, setResults] = createSignal<Device[]>([])
+const SearchResult = (props: { terms: SearchTerm[] }) => {
 	const devices = useDevices()
-
-	createEffect(() => setResults(devices().filter(matches(terms))))
+	const results = createMemo(() => devices().filter(matches(props.terms)))
 
 	return (
 		<section class="results">
@@ -177,22 +174,22 @@ const MostRecentDevicesList = () => {
 	)
 }
 
-const DeviceCard = ({ device }: { device: Device }) => (
+const DeviceCard = (props: { device: Device }) => (
 	<div class="result boxed">
 		<DeviceIcon class="icon" />
 		<span>
-			<a href={linkToDevice(device.id)}>
-				<code>{device.id}</code>
+			<a href={linkToDevice(props.device.id)}>
+				<code>{props.device.id}</code>
 			</a>
 			<br />
-			<small>{device.model}</small>
+			<small>{props.device.model}</small>
 			<br />
 			<Show
-				when={device.lastUpdate !== undefined}
+				when={props.device.lastUpdate !== undefined}
 				fallback={<small>Never updated.</small>}
 			>
 				<small>
-					<RelativeTime time={device.lastUpdate!} />
+					<RelativeTime time={props.device.lastUpdate!} />
 				</small>
 			</Show>
 		</span>

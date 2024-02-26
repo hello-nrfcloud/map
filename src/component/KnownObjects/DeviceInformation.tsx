@@ -13,19 +13,21 @@ export const Icon = () => (
 	</>
 )
 
-export const Card = ({ info }: { info: DeviceInformation_14204 }) => (
+export const Card = (props: { info: DeviceInformation_14204 }) => (
 	<ResourcesDL>
-		<Show when={info['Resources'][1] !== undefined}>
+		<Show when={props.info['Resources'][1] !== undefined}>
 			<dt>ICCID</dt>
-			<dd>{info['Resources'][1]}</dd>
+			<dd>{props.info['Resources'][1]}</dd>
 			<dt>SIM issued by</dt>
-			<dd>{identifyIssuer(info['Resources'][1]!)?.companyName ?? '??'}</dd>
+			<dd>
+				{identifyIssuer(props.info['Resources'][1]!)?.companyName ?? '??'}
+			</dd>
 		</Show>
 		<dt>Modem firmware version</dt>
-		<dd>{info['Resources'][2]}</dd>
+		<dd>{props.info['Resources'][2]}</dd>
 		<dt>Application firmware version</dt>
-		<dd>{info['Resources'][3]}</dd>
+		<dd>{props.info['Resources'][3]}</dd>
 		<dt>Device type</dt>
-		<dd>{info['Resources'][4]}</dd>
+		<dd>{props.info['Resources'][4]}</dd>
 	</ResourcesDL>
 )

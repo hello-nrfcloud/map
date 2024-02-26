@@ -1,21 +1,21 @@
-import { useDevices, type Device, byId } from '../context/Devices.js'
+import { type LwM2MObjectInstance } from '@hello.nrfcloud.com/proto-lwm2m'
+import { For, Show, createMemo } from 'solid-js'
+import { byId, useDevices, type Device } from '../context/Devices.js'
 import { useNavigation } from '../context/Navigation.js'
 import { Device as DeviceIcon } from '../icons/Device.js'
-import { linkToHome, linkToPanel } from '../util/link.js'
-import { DescribeInstance } from './LwM2M.jsx'
 import { Close, Documentation, NoData, Search } from '../icons/LucideIcon.jsx'
-import { SidebarContent } from './Sidebar.js'
-import { Show, For, createSignal, createEffect } from 'solid-js'
 import { newestInstanceFirst } from '../util/instanceTs.js'
-import { type LwM2MObjectInstance } from '@hello.nrfcloud.com/proto-lwm2m'
-import { InfoBlock } from './InfoBlock.jsx'
-import { KnownObjects } from './KnownObjects/KnownObjects.jsx'
+import { linkToHome, linkToPanel } from '../util/link.js'
 import {
 	isBatteryAndPower,
 	isDeviceInformation,
 	isGeoLocation,
 	isGeoLocationArray,
 } from '../util/lwm2m.js'
+import { InfoBlock } from './InfoBlock.jsx'
+import { KnownObjects } from './KnownObjects/KnownObjects.jsx'
+import { DescribeInstance } from './LwM2M.jsx'
+import { SidebarContent } from './Sidebar.js'
 import { SourceInfo } from './SourceInfo.jsx'
 
 import './LwM2M.css'
@@ -41,11 +41,9 @@ export const SidebarButton = () => {
 export const DeviceSidebar = () => {
 	const location = useNavigation()
 	const devices = useDevices()
-	const [selectedDevice, setSelectedDevice] = createSignal<Device>()
-
-	createEffect(() => {
-		setSelectedDevice(devices().find(byId(location().deviceId ?? '')))
-	})
+	const selectedDevice = createMemo(() =>
+		devices().find(byId(location().deviceId ?? '')),
+	)
 
 	return (
 		<Show when={location().deviceId !== undefined}>
@@ -90,34 +88,37 @@ const isGenericObject = (instance: LwM2MObjectInstance): boolean => {
 	return true
 }
 
-const DeviceInfo = ({ device }: { device: Device }) => {
-	const instances = (device.state ?? []).sort(newestInstanceFirst)
-	const otherObjects = instances.filter(isGenericObject)
+const DeviceInfo = (props: { device: Device }) => {
+	const instances = createMemo(() =>
+		(props.device.state ?? []).sort(newestInstanceFirst),
+	)
+	const otherObjects = createMemo(() => instances().filter(isGenericObject))
+	const deviceInfo = createMemo(() => {
+		const maybeDeviceInfo = instances().find(isDeviceInformation)
+		return isDeviceInformation(maybeDeviceInfo) ? maybeDeviceInfo : undefined
+	})
 
-	const maybeDeviceInfo = instances.find(isDeviceInformation)
-	const deviceInfo = isDeviceInformation(maybeDeviceInfo)
-		? maybeDeviceInfo
-		: undefined
+	const bat = createMemo(() => {
+		const maybeBatteryAndPower = instances().find(isBatteryAndPower)
+		return isBatteryAndPower(maybeBatteryAndPower)
+			? maybeBatteryAndPower
+			: undefined
+	})
 
-	const maybeBatteryAndPower = instances.find(isBatteryAndPower)
-	const bat = isBatteryAndPower(maybeBatteryAndPower)
-		? maybeBatteryAndPower
-		: undefined
-
-	const maybeGeolocations = instances.filter(isGeoLocation)
-	const locations = isGeoLocationArray(maybeGeolocations)
-		? maybeGeolocations
-		: []
+	const locations = createMemo(() => {
+		const maybeGeolocations = instances().filter(isGeoLocation)
+		return isGeoLocationArray(maybeGeolocations) ? maybeGeolocations : []
+	})
 
 	return (
 		<section>
-			<Show when={device.state === undefined}>
+			<Show when={props.device.state === undefined}>
 				<div class="boxed">
 					<p>No objects newer than 30 days are available.</p>
 				</div>
 			</Show>
-			<KnownObjects info={deviceInfo} bat={bat} locations={locations} />
-			<Show when={otherObjects.length > 0}>
+			<KnownObjects info={deviceInfo()} bat={bat()} locations={locations()} />
+			<Show when={otherObjects().length > 0}>
 				<InfoBlock title={'Other objects'}>
 					<p>
 						These objects have been published by the device in the last 30 days,
@@ -129,7 +130,7 @@ const DeviceInfo = ({ device }: { device: Device }) => {
 						.
 					</p>
 				</InfoBlock>
-				<For each={otherObjects}>
+				<For each={otherObjects()}>
 					{(instance) => (
 						<div class="boxed">
 							<DescribeInstance instance={instance} />
@@ -153,16 +154,16 @@ const DeviceInfo = ({ device }: { device: Device }) => {
 			</InfoBlock>
 			<div class="boxed">
 				<Show
-					when={device.model === 'world.thingy.rocks'}
+					when={props.device.model === 'world.thingy.rocks'}
 					fallback={
 						<SourceInfo>
 							<p>
 								<Documentation size={16} strokeWidth={1} />
 								<a
-									href={`https://github.com/hello-nrfcloud/proto-lwm2m/tree/saga/models/${encodeURIComponent(device.model)}`}
+									href={`https://github.com/hello-nrfcloud/proto-lwm2m/tree/saga/models/${encodeURIComponent(props.device.model)}`}
 									target="_blank"
 								>
-									Model definition for <code>{device.model}</code>
+									Model definition for <code>{props.device.model}</code>
 								</a>
 							</p>
 							<p>
@@ -170,10 +171,11 @@ const DeviceInfo = ({ device }: { device: Device }) => {
 								<a
 									href={linkToPanel(
 										`search`,
-										new URLSearchParams({ model: device.model }),
+										new URLSearchParams({ model: props.device.model }),
 									)}
 								>
-									Search for all devices with model <code>{device.model}</code>
+									Search for all devices with model{' '}
+									<code>{props.device.model}</code>
 								</a>
 							</p>
 						</SourceInfo>
@@ -182,7 +184,7 @@ const DeviceInfo = ({ device }: { device: Device }) => {
 					<SourceInfo>
 						<p>
 							<a
-								href={`https://world.thingy.rocks/#${device.id}`}
+								href={`https://world.thingy.rocks/#${props.device.id}`}
 								target="_blank"
 							>
 								world.thingy.rocks legacy device

@@ -31,9 +31,9 @@ export const Sidebar = () => (
 	</>
 )
 
-export const SidebarContent = (props: ParentProps<{ class?: string }>) => (
-	<aside class={`sidebar ${props.class ?? ''}`}>{props.children}</aside>
-)
+export const SidebarContent = (props: ParentProps<{ class?: string }>) => {
+	return <aside class={`sidebar ${props.class ?? ''}`}>{props.children}</aside>
+}
 
 const SidebarNav = () => (
 	<nav class="sidebar">

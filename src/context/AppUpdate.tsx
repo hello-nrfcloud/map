@@ -1,5 +1,5 @@
 import { compare, parse, type SemVer } from 'semver'
-import type { ParentProps } from 'solid-js'
+import { type ParentProps } from 'solid-js'
 import {
 	createContext,
 	createEffect,
