@@ -20,6 +20,7 @@ import { RelativeTime } from './RelativeTime.jsx'
 import { ResourcesDL } from './ResourcesDL.jsx'
 import { linkToPanel } from '../util/link.js'
 import { SourceInfo } from './SourceInfo.jsx'
+import { useSearch } from '../context/Search.jsx'
 
 export const DescribeInstance = (props: { instance: LwM2MObjectInstance }) => {
 	const [expanded, setExpanded] = createSignal<boolean>(false)
@@ -76,6 +77,7 @@ export const DescribeInstance = (props: { instance: LwM2MObjectInstance }) => {
 export const DescribeResources = (props: { instance: LwM2MObjectInstance }) => {
 	const definition = definitions[props.instance.ObjectID as LwM2MObjectID]
 	const tsResourceId = timestampResources[definition.ObjectID] as number
+	const search = useSearch()
 	return (
 		<div class="instance-resources">
 			<ResourcesDL>
@@ -110,15 +112,15 @@ export const DescribeResources = (props: { instance: LwM2MObjectInstance }) => {
 				</p>
 				<p>
 					<Search size={16} strokeWidth={1} />
-					<a
-						href={linkToPanel(
-							`search`,
-							new URLSearchParams({ has: props.instance.ObjectID.toString() }),
-						)}
+					<button
+						type="button"
+						onClick={() => {
+							search.addSearchTerm(`has:${props.instance.ObjectID.toString()}`)
+						}}
 					>
 						Search for all devices with ObjectID{' '}
 						<code>{props.instance.ObjectID}</code>
-					</a>
+					</button>
 				</p>
 			</SourceInfo>
 		</div>

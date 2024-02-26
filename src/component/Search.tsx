@@ -1,70 +1,17 @@
-import { type Device, useDevices } from '../context/Devices.js'
-import './Search.css'
-import { AddToSearch, Close } from '../icons/LucideIcon.jsx'
-import { createMemo, createSignal, For, Show, createEffect } from 'solid-js'
-import { SidebarContent } from './Sidebar.jsx'
-import { linkToDevice, linkToHome } from '../util/link.js'
-import { Device as DeviceIcon } from '../icons/Device.js'
+import { For, Show, createMemo } from 'solid-js'
+import { useDevices, type Device } from '../context/Devices.js'
 import { useNavigation } from '../context/Navigation.jsx'
+import { useSearch, type SearchTerm, matches } from '../context/Search.jsx'
+import { Device as DeviceIcon } from '../icons/Device.js'
+import { AddToSearch, Close } from '../icons/LucideIcon.jsx'
+import { linkToDevice, linkToHome } from '../util/link.js'
 import { RelativeTime } from './RelativeTime.jsx'
-
-enum SearchTermType {
-	Id = 'id',
-	Model = 'model',
-	NotModel = '-model',
-	// Used to search for devices with LwM2M objects and resourcs
-	Has = 'has',
-	Any = '*',
-}
-type SearchTerm = {
-	type: SearchTermType
-	term: string
-}
-const allowedTypes = [
-	SearchTermType.Id,
-	SearchTermType.Model,
-	SearchTermType.NotModel,
-	SearchTermType.Has,
-]
-
-const isSearchTermType = (term: unknown): term is SearchTermType =>
-	typeof term === 'string' && allowedTypes.includes((term ?? '') as any)
+import './Search.css'
+import { SidebarContent } from './Sidebar.jsx'
 
 const Search = () => {
-	const nav = useNavigation()
-	const [searchTerms, setSearchTerms] = createSignal<SearchTerm[]>(
-		[...nav().query.entries()].map<SearchTerm>(([k, v]) => ({
-			type: k as SearchTermType,
-			term: v,
-		})),
-	)
+	const search = useSearch()
 	let input!: HTMLInputElement
-
-	const addSearchTerm = () => {
-		if (input.value.length > 0) {
-			const [type, term] = input.value.trim().split(':')
-			if (type !== undefined && term === undefined) {
-				setSearchTerms((prev) => [
-					...prev,
-					{ type: SearchTermType.Any, term: type },
-				])
-			} else if (isSearchTermType(type) && term !== undefined) {
-				setSearchTerms((prev) => [...prev, { type, term } as SearchTerm])
-			}
-		}
-		input.value = ''
-	}
-
-	// Update URL
-	createEffect(() => {
-		const s = new URLSearchParams(
-			searchTerms().reduce(
-				(terms, term) => ({ ...terms, [term.type]: term.term }),
-				{},
-			),
-		).toString()
-		document.location.hash = `search${s.length > 0 ? `?${s}` : ''}`
-	})
 
 	return (
 		<>
@@ -83,7 +30,10 @@ const Search = () => {
 							placeholder='e.g. "id:<device id>"'
 							ref={input}
 							onKeyUp={(e) => {
-								if (e.key === 'Enter') addSearchTerm()
+								if (e.key === 'Enter') {
+									search.addSearchTerm(input.value)
+									input.value = ''
+								}
 							}}
 						/>
 						<button type="button">
@@ -91,15 +41,13 @@ const Search = () => {
 						</button>
 					</div>
 				</form>
-				<Show when={searchTerms().length > 0}>
+				<Show when={search.searchTerms().length > 0}>
 					<div class="terms">
-						<For each={searchTerms()}>
+						<For each={search.searchTerms()}>
 							{(term) => (
 								<button
 									type="button"
-									onClick={() =>
-										setSearchTerms((terms) => terms.filter((t) => t !== term))
-									}
+									onClick={() => search.removeSearchTerm(term)}
 								>
 									<span>{term.type}:</span>
 									<span>{term.term}</span>
@@ -111,10 +59,10 @@ const Search = () => {
 				</Show>
 			</div>
 			<Show
-				when={searchTerms().length > 0}
+				when={search.searchTerms().length > 0}
 				fallback={<MostRecentDevicesList />}
 			>
-				<SearchResult terms={searchTerms()} />
+				<SearchResult terms={search.searchTerms()} />
 			</Show>
 		</>
 	)
@@ -195,52 +143,3 @@ const DeviceCard = (props: { device: Device }) => (
 		</span>
 	</div>
 )
-
-const matches = (terms: SearchTerm[]) => (device: Device) =>
-	terms.reduce((matches, term) => {
-		if (matches === false) return false
-		return termMatchesDevice(term, device)
-	}, true)
-
-const resourceValueSearchRx =
-	/^(?<ObjectID>[0-9]+)\/(?<ResourceID>[0-9]+)=(?<Value>.+)/
-
-const termMatchesDevice = (term: SearchTerm, device: Device) => {
-	const tokens = []
-	if (term.type === SearchTermType.NotModel)
-		return !device.model.includes(term.term)
-	if (term.type === SearchTermType.Id || term.type === SearchTermType.Any)
-		tokens.push(device.id)
-	if (term.type === SearchTermType.Model || term.type === SearchTermType.Any)
-		tokens.push(device.model)
-	if (term.type === SearchTermType.Has) {
-		const maybeValueSearch = resourceValueSearchRx.exec(term.term)
-		if (maybeValueSearch !== null) {
-			tokens.push(
-				...(device.state ?? [])
-					.map(({ ObjectID, Resources }) =>
-						Object.entries(Resources).map(
-							([ResourceId, Value]) => `${ObjectID}/${ResourceId}=${Value}`,
-						),
-					)
-					.flat(),
-			)
-		} else {
-			const [ObjectID, ResourceId] = term.term.split('/')
-			if (ResourceId === undefined) {
-				tokens.push(device.state?.map(({ ObjectID }) => ObjectID))
-			} else {
-				tokens.push(
-					...(device.state ?? [])
-						.map(({ Resources }) =>
-							Object.keys(Resources).map(
-								(ResourceId) => `${ObjectID}/${ResourceId}`,
-							),
-						)
-						.flat(),
-				)
-			}
-		}
-	}
-	return tokens.join(' ').includes(term.term)
-}

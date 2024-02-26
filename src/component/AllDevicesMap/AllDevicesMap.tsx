@@ -7,19 +7,54 @@ import {
 	MapMouseEvent,
 	type MapGeoJSONFeature,
 } from 'maplibre-gl'
-import { createEffect, onCleanup } from 'solid-js'
+import { createEffect, onCleanup, createMemo, createSignal } from 'solid-js'
 import { useDevices, type Device } from '../../context/Devices.js'
 import { useParameters } from '../../context/Parameters.js'
 import { createMap } from '../../map/createMap.js'
 import { newestInstanceFirst } from '../../util/instanceTs.js'
 
 import './AllDevicesMap.css'
+import { matches, useSearch } from '../../context/Search.jsx'
 
 export const AllDevicesMap = () => {
 	const parameters = useParameters()
-	const devices = useDevices()
+	const allDevices = useDevices()
+	const search = useSearch()
 	let ref!: HTMLDivElement
 	let map: MapLibreGlMap
+	const devices = createMemo(() =>
+		allDevices().filter(matches(search.searchTerms())),
+	)
+	const [mapLoaded, setMapLoaded] = createSignal<boolean>(false)
+
+	// FIXME: decide what should be used as the "center" of the device
+	const deviceLocations = createMemo(() =>
+		devices()
+			.map<{ device: Device; location: Geolocation_14201 } | undefined>(
+				(device) => {
+					const newestLocation = (device.state ?? [])
+						.filter(
+							(state) => state.ObjectID === LwM2MObjectID.Geolocation_14201,
+						)
+						.sort(newestInstanceFirst)[0]
+					if (newestLocation === undefined) return undefined
+					return {
+						device,
+						location: {
+							...newestLocation,
+							Resources: {
+								...newestLocation?.Resources,
+								99: new Date(newestLocation.Resources[99] as string),
+							},
+						} as Geolocation_14201,
+					}
+				},
+			)
+			.filter(
+				(dl): dl is { device: Device; location: Geolocation_14201 } =>
+					dl !== undefined,
+			),
+	)
 
 	createEffect(() => {
 		map = createMap(
@@ -33,69 +68,7 @@ export const AllDevicesMap = () => {
 		)
 
 		map.on('load', () => {
-			// FIXME: decide what should be used as the "center" of the device
-			const deviceLocations = devices()
-				.map<{ device: Device; location: Geolocation_14201 } | undefined>(
-					(device) => {
-						const newestLocation = (device.state ?? [])
-							.filter(
-								(state) => state.ObjectID === LwM2MObjectID.Geolocation_14201,
-							)
-							.sort(newestInstanceFirst)[0]
-						if (newestLocation === undefined) return undefined
-						return {
-							device,
-							location: {
-								...newestLocation,
-								Resources: {
-									...newestLocation?.Resources,
-									99: new Date(newestLocation.Resources[99] as string),
-								},
-							} as Geolocation_14201,
-						}
-					},
-				)
-				.filter(
-					(dl): dl is { device: Device; location: Geolocation_14201 } =>
-						dl !== undefined,
-				)
-
-			map.addSource('devices-source', {
-				type: 'geojson',
-				data: {
-					type: 'FeatureCollection',
-					features: deviceLocations.map(
-						({
-							device: { id },
-							location: {
-								Resources: { 0: lat, 1: lng },
-							},
-						}) => ({
-							type: 'Feature',
-							geometry: {
-								type: 'Point',
-								coordinates: [lng, lat],
-							},
-							properties: {
-								id,
-							},
-						}),
-					),
-				},
-			})
-
-			map.addLayer({
-				id: 'devices-layer',
-				type: 'circle',
-				source: 'devices-source',
-				paint: {
-					'circle-color': '#80ed99',
-					'circle-radius': 4,
-					'circle-stroke-width': 1,
-					'circle-stroke-color': '#2f5a87',
-				},
-			})
-
+			setMapLoaded(true)
 			map.on(
 				'click',
 				'devices-layer',
@@ -113,7 +86,51 @@ export const AllDevicesMap = () => {
 		})
 	})
 
+	createEffect(() => {
+		if (!mapLoaded()) return
+		if (map.getSource('devices-source')) {
+			map.removeLayer('devices-layer')
+			map.removeSource('devices-source')
+		}
+		map.addSource('devices-source', {
+			type: 'geojson',
+			data: {
+				type: 'FeatureCollection',
+				features: deviceLocations().map(
+					({
+						device: { id },
+						location: {
+							Resources: { 0: lat, 1: lng },
+						},
+					}) => ({
+						type: 'Feature',
+						geometry: {
+							type: 'Point',
+							coordinates: [lng, lat],
+						},
+						properties: {
+							id,
+						},
+					}),
+				),
+			},
+		})
+
+		map.addLayer({
+			id: 'devices-layer',
+			type: 'circle',
+			source: 'devices-source',
+			paint: {
+				'circle-color': '#80ed99',
+				'circle-radius': 4,
+				'circle-stroke-width': 1,
+				'circle-stroke-color': '#2f5a87',
+			},
+		})
+	})
+
 	onCleanup(() => {
+		setMapLoaded(false)
 		map?.remove()
 	})
 
