@@ -1,4 +1,4 @@
-import { Map as MapLibreGlMap } from 'maplibre-gl'
+import { Map as MapLibreGlMap, type MapOptions } from 'maplibre-gl'
 import { mapStyle } from '../map/style.js'
 import { transformRequest } from '../map/transformRequest.jsx'
 import type { Parameters } from '../context/Parameters.jsx'
@@ -6,9 +6,10 @@ import type { Parameters } from '../context/Parameters.jsx'
 export const createMap = (
 	container: HTMLDivElement,
 	parameters: Parameters,
-	{ lng, lat }: { lat: number; lng: number },
-	zoom = 4,
+	center: { lat: number; lng: number },
+	options?: Partial<MapOptions>,
 ): MapLibreGlMap => {
+	const { lng, lat } = center
 	const map = new MapLibreGlMap({
 		container,
 		style: mapStyle({
@@ -16,7 +17,6 @@ export const createMap = (
 			mapName: parameters.mapName,
 		}),
 		center: [lng, lat],
-		zoom,
 		refreshExpiredTiles: false,
 		trackResize: true,
 		keyboard: false,
@@ -25,7 +25,7 @@ export const createMap = (
 			parameters.mapApiKey,
 			parameters.mapRegion,
 		),
-		attributionControl: false,
+		zoom: options?.zoom ?? 4,
 	})
 
 	return map

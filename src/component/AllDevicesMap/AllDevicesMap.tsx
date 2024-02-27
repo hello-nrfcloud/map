@@ -65,7 +65,7 @@ export const AllDevicesMap = () => {
 				lat: 63.421065865928355,
 				lng: 10.437128259586967,
 			},
-			1,
+			{ zoom: 1 },
 		)
 
 		map.on('load', () => {
