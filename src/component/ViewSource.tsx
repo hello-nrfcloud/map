@@ -1,5 +1,6 @@
 import { useNavigation } from '../context/Navigation.js'
 import { Close, ViewSource } from '../icons/LucideIcon.jsx'
+import { RelativeTime } from './RelativeTime.jsx'
 import { SidebarContent } from './Sidebar.js'
 import { Show } from 'solid-js'
 
@@ -78,6 +79,9 @@ export const Sidebar = () => {
 				</section>
 				<footer>
 					<p>Version: {VERSION}</p>
+					<p>
+						Build time: <RelativeTime time={new Date(BUILD_TIME)} />
+					</p>
 				</footer>
 			</SidebarContent>
 		</Show>
