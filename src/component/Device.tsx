@@ -16,9 +16,9 @@ import { KnownObjects } from './KnownObjects/KnownObjects.jsx'
 import { DescribeInstance } from './LwM2M.jsx'
 import { SidebarContent } from './Sidebar.js'
 import { SourceInfo } from './SourceInfo.jsx'
+import { SearchTermType } from '../context/Search.js'
 
 import './LwM2M.css'
-import { SearchTermType } from '../context/Search.js'
 
 export const SidebarButton = () => {
 	const location = useNavigation()

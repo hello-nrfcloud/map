@@ -8,19 +8,20 @@ import {
 	MapMouseEvent,
 	type MapGeoJSONFeature,
 } from 'maplibre-gl'
-import { createEffect, onCleanup, createMemo, createSignal } from 'solid-js'
+import { onCleanup, createMemo, createSignal, createEffect } from 'solid-js'
 import { useDevices, type Device } from '../../context/Devices.js'
 import { useParameters } from '../../context/Parameters.js'
 import { createMap } from '../../map/createMap.js'
 import { newestInstanceFirst } from '../../util/instanceTs.js'
-import { matches } from '../../context/Search.js'
-import { useNavigation } from '../../context/Navigation.jsx'
+import { matches, type SearchTerm } from '../../context/Search.js'
+import { useNavigation, type Resource } from '../../context/Navigation.jsx'
 import { glyphFonts } from '../../map/glyphFonts.js'
 import {
 	format,
 	isLwM2MObjectID,
 	type ResourceValue,
 } from '../../util/lwm2m.js'
+import { createStore, reconcile } from 'solid-js/store'
 
 import './AllDevicesMap.css'
 
@@ -36,14 +37,31 @@ export const AllDevicesMap = () => {
 	const location = useNavigation()
 	let ref!: HTMLDivElement
 	let map: MapLibreGlMap
-	const devices = createMemo(() =>
-		allDevices().filter(matches(location.current().search)),
-	)
+
+	// Use a store, so the devices only get updated in case the search really changes
+	const [searchConfig, setSearchConfig] = createStore<{
+		search: SearchTerm[]
+		resources: Resource[]
+	}>({
+		search: location.current().search,
+		resources: location.current().resources,
+	})
+
+	createEffect(() => {
+		setSearchConfig('search', reconcile(location.current().search))
+		setSearchConfig('resources', reconcile(location.current().resources))
+	})
+
+	const matchedDevices = createMemo(() => {
+		console.log('[World]', 'update devices')
+		return allDevices().filter(matches(searchConfig.search))
+	})
 	const [mapLoaded, setMapLoaded] = createSignal<boolean>(false)
 
 	// FIXME: decide what should be used as the "center" of the device
-	const deviceLocations = createMemo(() =>
-		devices()
+	const deviceLocations = createMemo(() => {
+		console.log('[World]', `update location`)
+		return matchedDevices()
 			.map<DeviceInfo | undefined>((device) => {
 				const newestLocation = (device.state ?? [])
 					.filter((state) => state.ObjectID === LwM2MObjectID.Geolocation_14201)
@@ -58,9 +76,8 @@ export const AllDevicesMap = () => {
 							99: new Date(newestLocation.Resources[99] as string),
 						},
 					} as Geolocation_14201,
-					resources: location
-						.current()
-						.resources.map(({ ObjectID, ResourceID }) => {
+					resources: searchConfig.resources
+						.map(({ ObjectID, ResourceID }) => {
 							if (!isLwM2MObjectID(ObjectID)) return undefined
 							const info = definitions[ObjectID].Resources[ResourceID]
 							if (info === undefined) return undefined
@@ -73,8 +90,8 @@ export const AllDevicesMap = () => {
 						.filter((s): s is ResourceValue => s !== undefined),
 				}
 			})
-			.filter((dl): dl is DeviceInfo => dl !== undefined),
-	)
+			.filter((dl): dl is DeviceInfo => dl !== undefined)
+	})
 
 	createEffect(() => {
 		map = createMap(
@@ -153,7 +170,7 @@ export const AllDevicesMap = () => {
 				'circle-color': '#80ed99',
 				'circle-radius': 2,
 				'circle-stroke-width': 1,
-				'circle-stroke-color': '#2f5a87',
+				'circle-stroke-color': '#222222',
 			},
 		})
 

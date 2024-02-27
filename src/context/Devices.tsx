@@ -1,9 +1,16 @@
 import type { ParentProps } from 'solid-js'
-import { createResource, createContext, useContext, onCleanup } from 'solid-js'
+import {
+	createEffect,
+	createResource,
+	createContext,
+	useContext,
+	onCleanup,
+} from 'solid-js'
 import { useParameters } from './Parameters.js'
 import { Devices, PublicDevice } from '@hello.nrfcloud.com/proto/hello/map'
 import { type Static } from '@sinclair/typebox'
 import { instanceTs } from '../util/instanceTs.js'
+import { createStore, reconcile } from 'solid-js/store'
 
 export type Device = Static<typeof PublicDevice> & {
 	lastUpdate: Date | undefined
@@ -31,6 +38,27 @@ export const DevicesProvider = (props: ParentProps) => {
 	const [thingyWorldDevicesResource, { refetch: refetchThingyWorldDevices }] =
 		createResource(parameters, fetchDevices(parameters.thingyWorldShadowsURL))
 
+	// Use a store to only update the context when the devices change
+	const [devicesStore, updateDevicesStore] = createStore<{ devices: Device[] }>(
+		{
+			devices: [],
+		},
+	)
+	createEffect(() => {
+		updateDevicesStore(
+			'devices',
+			reconcile(
+				[
+					...(devicesResource()?.devices ?? []),
+					...(thingyWorldDevicesResource()?.devices ?? []),
+				]
+					.map(addLastUpdated)
+					.sort(byLastUpdated),
+			),
+		)
+	})
+
+	// Refetch devices every minute
 	const i = setInterval(() => {
 		void refetchDevices()
 		void refetchThingyWorldDevices()
@@ -41,14 +69,7 @@ export const DevicesProvider = (props: ParentProps) => {
 	})
 
 	return (
-		<DevicesContext.Provider
-			value={() =>
-				[
-					...(devicesResource()?.devices ?? []).map(addLastUpdated),
-					...(thingyWorldDevicesResource()?.devices ?? []).map(addLastUpdated),
-				].sort(byLastUpdated)
-			}
-		>
+		<DevicesContext.Provider value={() => devicesStore.devices}>
 			{props.children}
 		</DevicesContext.Provider>
 	)
