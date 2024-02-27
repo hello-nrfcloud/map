@@ -26,7 +26,10 @@ export const createMap = (
 			parameters.mapRegion,
 		),
 		zoom: options?.zoom ?? 4,
+		...options,
 	})
+	map.dragRotate.disable()
+	map.touchZoomRotate.disable()
 
 	return map
 }

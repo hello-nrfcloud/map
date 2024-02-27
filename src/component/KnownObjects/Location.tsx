@@ -50,7 +50,6 @@ export const Card = (props: { locations: Geolocation_14201[] }) => {
 			{ lat, lng },
 			{ zoom: 8, attributionControl: false },
 		)
-		map.dragRotate.disable()
 		map.scrollZoom.disable()
 		map.dragPan.disable()
 
