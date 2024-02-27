@@ -13,6 +13,7 @@
   --gap-half: calc(var(--gap) / 2);
   --gap-quart: calc(var(--gap) / 2);
   --border-radius: 2.5px;
+  --box-shadow-size: calc(var(--border-radius) * 2);
 }
 
 @media (min-width: 400px) {
@@ -70,7 +71,7 @@ h2 {
 .boxed {
   padding: var(--gap);
   border-radius: calc(var(--border-radius) * 2);
-  box-shadow: 0 0 13px #00000066;
+  box-shadow: 0 0 var(--box-shadow-size) #00000066;
 }
 
 .boxed + .boxed {

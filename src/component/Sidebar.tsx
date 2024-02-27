@@ -1,23 +1,15 @@
 import { Show, type ParentProps } from 'solid-js'
 import { useNavigation } from '../context/Navigation.js'
-import { linkAsset } from '../util/link.js'
-import {
-	SidebarButton as AppUpdateRequiredButton,
-	Sidebar as AppUpdateRequiredSidebar,
-} from './AppUpdate.js'
-import { DeviceSidebar, SidebarButton as DeviceDetailButton } from './Device.js'
+import { Sidebar as AppUpdateRequiredSidebar } from './AppUpdate.js'
+import { DeviceSidebar } from './Device.js'
 import { Search, Warning } from '../icons/LucideIcon.jsx'
 import { Sidebar as SearchSidebar } from './Search.js'
-import './Sidebar.css'
 import { WIPSidebar } from './WIPSidebar.js'
-import {
-	Sidebar as ViewSourceSidebar,
-	SidebarButton as ViewSourceButton,
-} from './ViewSource.js'
-import {
-	Sidebar as AddDeviceSidebar,
-	SidebarButton as AddDeviceButton,
-} from './AddDevice.js'
+import { Sidebar as ViewSourceSidebar } from './ViewSource.js'
+import { Sidebar as AddDeviceSidebar } from './AddDevice.js'
+import { SidebarNav } from './SidebarNav.jsx'
+
+import './Sidebar.css'
 
 export const Sidebar = () => (
 	<>
@@ -35,29 +27,7 @@ export const SidebarContent = (props: ParentProps<{ class?: string }>) => {
 	return <aside class={`sidebar ${props.class ?? ''}`}>{props.children}</aside>
 }
 
-const SidebarNav = () => {
-	const location = useNavigation()
-	return (
-		<nav class="sidebar">
-			<AppUpdateRequiredButton />
-			<a href={location.linkToHome()} class="button">
-				<img
-					src={linkAsset('logo.svg')}
-					class="logo"
-					alt="hello.nrfcloud.com logo"
-				/>
-			</a>
-			<hr />
-			<WarningButton />
-			<SearchButton />
-			<DeviceDetailButton />
-			<AddDeviceButton />
-			<ViewSourceButton />
-		</nav>
-	)
-}
-
-const SearchButton = () => {
+export const SearchButton = () => {
 	const location = useNavigation()
 
 	return (
@@ -79,7 +49,7 @@ const SearchButton = () => {
 	)
 }
 
-const WarningButton = () => {
+export const WarningButton = () => {
 	const location = useNavigation()
 
 	return (

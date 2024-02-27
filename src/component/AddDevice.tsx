@@ -16,12 +16,14 @@ export const Sidebar = () => {
 						<Close size={20} />
 					</a>
 				</header>
-				<section class="separator">
-					<p>
-						Instructions for adding your device to this application will follow,
-						soon.
-					</p>
-				</section>
+				<div class="scrollable">
+					<section class="separator">
+						<p>
+							Instructions for adding your device to this application will
+							follow, soon.
+						</p>
+					</section>
+				</div>
 			</SidebarContent>
 		</Show>
 	)

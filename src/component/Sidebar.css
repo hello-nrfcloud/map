@@ -1,60 +1,31 @@
-nav.sidebar {
-  background-color: var(--bg-blue-2);
-  width: var(--base-size-sidebar);
-  height: 100vh;
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 1000;
-}
-
-nav.sidebar .logo {
-  padding: calc(var(--border-radius) * 2);
-}
-
-nav.sidebar hr {
-  border-bottom: 1px solid var(--bg-blue-1);
-  width: 100%;
-  padding: 0;
-}
-
-nav.sidebar .button {
-  width: calc(var(--base-size-sidebar) - 1px);
-  height: calc(var(--base-size-sidebar) - 1px);
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  flex-direction: column;
-}
-
-/* Button colors */
-nav.sidebar .active {
-  background-color: var(--bg-blue-3);
-}
-
-nav.sidebar .error {
-  color: var(--color-error);
-}
-
-nav.sidebar .warning {
-  color: var(--color-warning);
-}
-
 aside.sidebar {
-  position: fixed;
-  left: calc(var(--base-size-sidebar) - 1px);
-  top: 0;
-  z-index: 2000;
+  position: relative;
+  margin-left: calc(var(--base-size-sidebar) - 1px);
+  width: auto;
+  z-index: 40;
   background-color: var(--bg-blue-3);
-  height: 100vh;
-  width: calc(100vw - var(--base-size-sidebar) + 1px);
+  padding-bottom: var(--gap);
+  min-height: 100vh;
 }
 
 @media (min-width: 400px) {
   aside.sidebar {
+    position: fixed;
+    left: calc(var(--base-size-sidebar) - 1px);
+    top: 0;
+    max-height: 100vh;
     width: calc(400px - var(--base-size-sidebar));
     border-top-right-radius: calc(var(--base-size-sidebar) / 4);
     border-bottom-right-radius: calc(var(--base-size-sidebar) / 4);
+    margin-left: 0;
+  }
+
+  aside.sidebar > div.scrollable {
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: calc(100vh - var(--base-size-sidebar));
+    scrollbar-color: var(--bg-blue-5) var(--bg-blue-1);
+    scrollbar-width: thin;
   }
 }
 
@@ -66,10 +37,10 @@ aside.sidebar > header {
   margin: 0 var(--gap);
 }
 
-aside.sidebar > section {
+aside.sidebar > div.scrollable > section {
   margin: 0 var(--gap);
 }
-aside.sidebar > footer {
+aside.sidebar > div.scrollable > footer {
   border-top-width: 1px;
   border-top-style: solid;
   border-top-color: rgba(255, 255, 255, 0.5);
@@ -78,11 +49,16 @@ aside.sidebar > footer {
   opacity: 0.8;
   font-size: 90%;
 }
-aside.sidebar > section.separator {
+aside.sidebar > div.scrollable > section.separator {
   border-top-width: 1px;
   border-top-style: solid;
   border-top-color: rgba(255, 255, 255, 0.5);
   padding-top: var(--gap);
+}
+
+@media (min-width: 400px) {
+  aside.sidebar > div.scrollable > section.separator {
+  }
 }
 
 aside.sidebar .close {

@@ -10,8 +10,9 @@ import {
 import { Device as DeviceIcon } from '../icons/Device.js'
 import { AddToSearch, Close } from '../icons/LucideIcon.jsx'
 import { RelativeTime } from './RelativeTime.jsx'
-import './Search.css'
 import { SidebarContent } from './Sidebar.jsx'
+
+import './Search.css'
 
 const parse = (value: string): SearchTerm | undefined => {
 	const [type, term] = value.trim().split(':')
@@ -99,7 +100,9 @@ export const Sidebar = () => {
 						<Close size={20} />
 					</a>
 				</header>
-				<Search />
+				<div class="scrollable">
+					<Search />
+				</div>
 			</SidebarContent>
 		</Show>
 	)

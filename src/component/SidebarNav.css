@@ -1,0 +1,41 @@
+nav.sidebar {
+  background-color: var(--bg-blue-2);
+  width: var(--base-size-sidebar);
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 30;
+}
+
+nav.sidebar .logo {
+  padding: calc(var(--border-radius) * 2);
+}
+
+nav.sidebar hr {
+  border-bottom: 1px solid var(--bg-blue-1);
+  width: 100%;
+  padding: 0;
+}
+
+nav.sidebar .button {
+  width: calc(var(--base-size-sidebar) - 1px);
+  height: calc(var(--base-size-sidebar) - 1px);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+/* Button colors */
+nav.sidebar .active {
+  background-color: var(--bg-blue-3);
+}
+
+nav.sidebar .error {
+  color: var(--color-error);
+}
+
+nav.sidebar .warning {
+  color: var(--color-warning);
+}

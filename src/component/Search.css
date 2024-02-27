@@ -1,5 +1,11 @@
+@media (min-width: 400px) {
+  aside.search .scrollable {
+    padding: var(--box-shadow-size) 0 var(--box-shadow-size) 0;
+  }
+}
+
 aside.search .wrapper {
-  margin: 0 var(--gap);
+  margin: 0 var(--gap) var(--gap) var(--gap);
   --color-forms: #333;
   font-family: var(--condensed-font-family);
 }

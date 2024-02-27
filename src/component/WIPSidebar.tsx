@@ -14,12 +14,14 @@ export const WIPSidebar = () => {
 						<Close size={20} />
 					</a>
 				</header>
-				<section class="separator">
-					<p>
-						This website is under construction and not intended for production
-						use.
-					</p>
-				</section>
+				<div class="scrollable">
+					<section class="separator">
+						<p>
+							This website is under construction and not intended for production
+							use.
+						</p>
+					</section>
+				</div>
 			</SidebarContent>
 		</Show>
 	)
