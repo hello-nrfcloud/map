@@ -14,15 +14,22 @@ import {
 	Expand,
 	Multiple,
 	Search,
+	Favorite,
+	Unfavorite,
 } from '../icons/LucideIcon.jsx'
 import { instanceTs } from '../util/instanceTs.js'
 import { RelativeTime } from './RelativeTime.jsx'
 import { ResourcesDL } from './ResourcesDL.jsx'
 import { SourceInfo } from './SourceInfo.jsx'
 import { SearchTermType } from '../context/Search.js'
-import { useNavigation } from '../context/Navigation.jsx'
+import { useNavigation, type Resource } from '../context/Navigation.jsx'
+import { format } from '../util/lwm2m.js'
+import type { Device } from '../context/Devices.jsx'
 
-export const DescribeInstance = (props: { instance: LwM2MObjectInstance }) => {
+export const DescribeInstance = (props: {
+	instance: LwM2MObjectInstance
+	device: Device
+}) => {
 	const [expanded, setExpanded] = createSignal<boolean>(false)
 	const definition = definitions[props.instance.ObjectID as LwM2MObjectID]
 	const ts = instanceTs(props.instance)
@@ -44,7 +51,7 @@ export const DescribeInstance = (props: { instance: LwM2MObjectInstance }) => {
 										title={`Instance ID: ${instanceId}`}
 										class="multiple-instances"
 									>
-										<Multiple strokeWidth={1} size={14} /> {instanceId}
+										<Multiple strokeWidth={1} size={16} /> {instanceId}
 									</abbr>
 								</Show>
 							</small>
@@ -67,14 +74,17 @@ export const DescribeInstance = (props: { instance: LwM2MObjectInstance }) => {
 					</Show>
 				</header>
 				<Show when={expanded()}>
-					<DescribeResources instance={props.instance} />
+					<DescribeResources device={props.device} instance={props.instance} />
 				</Show>
 			</section>
 		</Show>
 	)
 }
 
-export const DescribeResources = (props: { instance: LwM2MObjectInstance }) => {
+export const DescribeResources = (props: {
+	instance: LwM2MObjectInstance
+	device: Device
+}) => {
 	const definition = definitions[props.instance.ObjectID as LwM2MObjectID]
 	const tsResourceId = timestampResources[definition.ObjectID] as number
 	const location = useNavigation()
@@ -88,6 +98,7 @@ export const DescribeResources = (props: { instance: LwM2MObjectInstance }) => {
 				>
 					{([resourceID, value]) => (
 						<DescribeResource
+							device={props.device}
 							instance={props.instance}
 							info={
 								definition.Resources[
@@ -127,42 +138,77 @@ export const DescribeResources = (props: { instance: LwM2MObjectInstance }) => {
 	)
 }
 
-const DescribeResource = (props: {
+export const DescribeResource = (props: {
 	instance: LwM2MObjectInstance
 	info: LwM2MResourceInfo
 	value: LwM2MResourceValue
+	device: Device
 }) => {
 	const location = useNavigation()
+	const r: Resource = {
+		model: props.device.model,
+		ObjectID: props.instance.ObjectID,
+		ResourceID: props.info.ResourceID,
+	}
+
+	const { value, units } = format(props.value, props.info)
+
 	return (
 		<>
 			<dt>
+				<abbr class="name" title={props.info.Description}>
+					{props.info.Name}
+				</abbr>
 				<span>
-					<small>{props.info.ResourceID}: </small>
-					<abbr title={props.info.Description}>{props.info.Name}</abbr>
+					<span class="resource-info">
+						<small class="object-id">{props.instance.ObjectID}</small>
+						<small class="sep">/</small>
+						<small class="resource-id">{props.info.ResourceID}</small>
+					</span>
+					<nav>
+						<Show
+							when={location.hasResource(r)}
+							fallback={
+								<button
+									title="Add to favorites"
+									type="button"
+									onClick={() => location.toggleResource(r)}
+								>
+									<Favorite strokeWidth={1} size={16} />
+								</button>
+							}
+						>
+							<button
+								title="Remove from favorites"
+								type="button"
+								onClick={() => location.toggleResource(r)}
+							>
+								<Unfavorite strokeWidth={1} size={16} />
+							</button>
+						</Show>
+						<a
+							href={location.link({
+								panel: 'search',
+								search: [
+									{
+										type: SearchTermType.Has,
+										term: `${props.instance.ObjectID}/${props.info.ResourceID}`,
+									},
+								],
+							})}
+							title={`Search for devices that have the object ${props.instance.ObjectID} and the resource ${props.info.ResourceID}`}
+						>
+							<Search strokeWidth={1} size={16} />
+						</a>
+					</nav>
 				</span>
-				<a
-					href={location.link({
-						panel: 'search',
-						search: [
-							{
-								type: SearchTermType.Has,
-								term: `${props.instance.ObjectID}/${props.info.ResourceID}`,
-							},
-						],
-					})}
-					title={`Search for devices that have the object ${props.instance.ObjectID} and the resource ${props.info.ResourceID}`}
-				>
-					<small>
-						<Search strokeWidth={1} size={14} />
-					</small>
-				</a>
 			</dt>
 			<dd>
 				<span>
-					<DescribeValue info={props.info} value={props.value} />
-					<Show
-						when={props.info.Units !== undefined}
-					>{` ${props.info.Units}`}</Show>
+					<span class="value">{value}</span>
+					<Show when={units !== undefined}>
+						<span class="units">{units}</span>
+					</Show>
 				</span>
 				<Show
 					when={
@@ -171,33 +217,26 @@ const DescribeResource = (props: {
 						!/^[0-9]+$/.test(props.value)
 					}
 				>
-					<a
-						href={location.link({
-							panel: 'search',
-							search: [
-								{
-									type: SearchTermType.Has,
-									term: `${props.instance.ObjectID}/${props.info.ResourceID}=${props.value.toString()}`,
-								},
-							],
-						})}
-						title={`Search for devices that have the object ${props.instance.ObjectID} and the resource ${props.info.ResourceID} with the value ${props.value.toString()}`}
-					>
-						<small>
-							<Search strokeWidth={1} size={14} />
-						</small>
-					</a>{' '}
+					<nav>
+						<a
+							href={location.link({
+								panel: 'search',
+								search: [
+									{
+										type: SearchTermType.Has,
+										term: `${props.instance.ObjectID}/${props.info.ResourceID}=${props.value.toString()}`,
+									},
+								],
+							})}
+							title={`Search for devices that have the object ${props.instance.ObjectID} and the resource ${props.info.ResourceID} with the value ${props.value.toString()}`}
+						>
+							<small>
+								<Search strokeWidth={1} size={16} />
+							</small>
+						</a>
+					</nav>
 				</Show>
 			</dd>
 		</>
 	)
-}
-
-const DescribeValue = (props: {
-	value: LwM2MResourceValue
-	info: LwM2MResourceInfo
-}) => {
-	if (props.info.Type === ResourceType.Float && typeof props.value === 'number')
-		return props.value.toFixed(2).replace(/\.00$/, '')
-	return props.value.toString()
 }

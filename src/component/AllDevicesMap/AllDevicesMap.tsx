@@ -1,6 +1,7 @@
 import {
 	LwM2MObjectID,
 	type Geolocation_14201,
+	definitions,
 } from '@hello.nrfcloud.com/proto-lwm2m'
 import {
 	Map as MapLibreGlMap,
@@ -13,9 +14,21 @@ import { useParameters } from '../../context/Parameters.js'
 import { createMap } from '../../map/createMap.js'
 import { newestInstanceFirst } from '../../util/instanceTs.js'
 import { matches } from '../../context/Search.js'
+import { useNavigation } from '../../context/Navigation.jsx'
+import { glyphFonts } from '../../map/glyphFonts.js'
+import {
+	format,
+	isLwM2MObjectID,
+	type ResourceValue,
+} from '../../util/lwm2m.js'
 
 import './AllDevicesMap.css'
-import { useNavigation } from '../../context/Navigation.jsx'
+
+type DeviceInfo = {
+	device: Device
+	location: Geolocation_14201
+	resources: Array<ResourceValue>
+}
 
 export const AllDevicesMap = () => {
 	const parameters = useParameters()
@@ -31,30 +44,36 @@ export const AllDevicesMap = () => {
 	// FIXME: decide what should be used as the "center" of the device
 	const deviceLocations = createMemo(() =>
 		devices()
-			.map<{ device: Device; location: Geolocation_14201 } | undefined>(
-				(device) => {
-					const newestLocation = (device.state ?? [])
-						.filter(
-							(state) => state.ObjectID === LwM2MObjectID.Geolocation_14201,
-						)
-						.sort(newestInstanceFirst)[0]
-					if (newestLocation === undefined) return undefined
-					return {
-						device,
-						location: {
-							...newestLocation,
-							Resources: {
-								...newestLocation?.Resources,
-								99: new Date(newestLocation.Resources[99] as string),
-							},
-						} as Geolocation_14201,
-					}
-				},
-			)
-			.filter(
-				(dl): dl is { device: Device; location: Geolocation_14201 } =>
-					dl !== undefined,
-			),
+			.map<DeviceInfo | undefined>((device) => {
+				const newestLocation = (device.state ?? [])
+					.filter((state) => state.ObjectID === LwM2MObjectID.Geolocation_14201)
+					.sort(newestInstanceFirst)[0]
+				if (newestLocation === undefined) return undefined
+				return {
+					device,
+					location: {
+						...newestLocation,
+						Resources: {
+							...newestLocation?.Resources,
+							99: new Date(newestLocation.Resources[99] as string),
+						},
+					} as Geolocation_14201,
+					resources: location
+						.current()
+						.resources.map(({ ObjectID, ResourceID }) => {
+							if (!isLwM2MObjectID(ObjectID)) return undefined
+							const info = definitions[ObjectID].Resources[ResourceID]
+							if (info === undefined) return undefined
+							const resourceValue = device.state?.find(
+								({ ObjectID: id }) => id === ObjectID,
+							)?.Resources[ResourceID]
+							if (resourceValue === undefined) return undefined
+							return format(resourceValue, info)
+						})
+						.filter((s): s is ResourceValue => s !== undefined),
+				}
+			})
+			.filter((dl): dl is DeviceInfo => dl !== undefined),
 	)
 
 	createEffect(() => {
@@ -65,14 +84,15 @@ export const AllDevicesMap = () => {
 				lat: 63.421065865928355,
 				lng: 10.437128259586967,
 			},
-			{ zoom: 1 },
+			//{ zoom: 1 },
+			{ zoom: 14 },
 		)
 
 		map.on('load', () => {
 			setMapLoaded(true)
 			map.on(
 				'click',
-				'devices-layer',
+				'devices-dots',
 				(e: MapMouseEvent & { features?: MapGeoJSONFeature[] }) => {
 					const id = e.features?.[0]?.properties.id
 					location.navigate({
@@ -80,10 +100,10 @@ export const AllDevicesMap = () => {
 					})
 				},
 			)
-			map.on('mouseenter', 'devices-layer', () => {
+			map.on('mouseenter', 'devices-dots', () => {
 				map.getCanvas().style.cursor = 'pointer'
 			})
-			map.on('mouseleave', 'devices-layer', () => {
+			map.on('mouseleave', 'devices-dots', () => {
 				map.getCanvas().style.cursor = ''
 			})
 		})
@@ -92,9 +112,11 @@ export const AllDevicesMap = () => {
 	createEffect(() => {
 		if (!mapLoaded()) return
 		if (map.getSource('devices-source')) {
-			map.removeLayer('devices-layer')
+			map.removeLayer('devices-dots')
+			map.removeLayer('devices-resources')
 			map.removeSource('devices-source')
 		}
+
 		map.addSource('devices-source', {
 			type: 'geojson',
 			data: {
@@ -105,6 +127,7 @@ export const AllDevicesMap = () => {
 						location: {
 							Resources: { 0: lat, 1: lng },
 						},
+						resources,
 					}) => ({
 						type: 'Feature',
 						geometry: {
@@ -113,6 +136,9 @@ export const AllDevicesMap = () => {
 						},
 						properties: {
 							id,
+							resourceValues: resources
+								.map(({ value, units }) => `${value} ${units ?? ''}`)
+								.join(' '),
 						},
 					}),
 				),
@@ -120,7 +146,7 @@ export const AllDevicesMap = () => {
 		})
 
 		map.addLayer({
-			id: 'devices-layer',
+			id: 'devices-dots',
 			type: 'circle',
 			source: 'devices-source',
 			paint: {
@@ -132,14 +158,54 @@ export const AllDevicesMap = () => {
 		})
 
 		// Make dots bigger when zoomed in
-		map.setPaintProperty('devices-layer', 'circle-radius', [
+		map.setPaintProperty('devices-dots', 'circle-radius', [
 			'interpolate',
-			['exponential', 0.5],
+			['linear'],
 			['zoom'],
-			10, // Zoom start
+			6, // Zoom start
 			2, // start size
-			22, // Zoom end
+			14, // Zoom end
 			10, // end size
+		])
+
+		map.addLayer({
+			id: 'devices-resources',
+			type: 'symbol',
+			source: 'devices-source',
+			layout: {
+				'text-field': ['get', 'resourceValues'],
+				'text-variable-anchor': ['bottom'],
+				'text-radial-offset': 1,
+				'text-justify': 'auto',
+				'text-font': [glyphFonts.bold],
+				'text-size': 10,
+			},
+			paint: {
+				'text-color': '#80ed99',
+				'text-halo-color': '#222222',
+				'text-halo-width': 1,
+				'text-halo-blur': 1,
+			},
+		})
+
+		// Make text bigger when zoomed in
+		map.setLayoutProperty('devices-resources', 'text-size', [
+			'interpolate',
+			['linear'],
+			['zoom'],
+			6, // Zoom start
+			10, // start size
+			14, // Zoom end
+			14, // end size
+		])
+		map.setLayoutProperty('devices-resources', 'text-radial-offset', [
+			'interpolate',
+			['linear'],
+			['zoom'],
+			6, // Zoom start
+			0.5, // start size
+			14, // Zoom end
+			1.5, // end size
 		])
 	})
 

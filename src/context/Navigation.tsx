@@ -7,6 +7,7 @@ import {
 } from 'solid-js'
 import { decode, encode, type Navigation } from './encodeNavigation.js'
 import type { SearchTerm } from './Search.js'
+import { LwM2MObjectID, models } from '@hello.nrfcloud.com/proto-lwm2m'
 
 const Home: Navigation = { panel: 'home' }
 
@@ -38,12 +39,18 @@ export const NavigationProvider = (props: ParentProps) => {
 
 	const linkToHome = () => link(Home)
 
+	const hasResource = (resource: Resource) =>
+		(location().resources ?? []).find(
+			(r) => resourceToString(r) === resourceToString(resource),
+		) !== undefined
+
 	return (
 		<NavigationContext.Provider
 			value={{
 				current: () => ({
 					panel: location().panel,
 					search: location().search ?? [],
+					resources: location().resources ?? [],
 				}),
 				navigate,
 				navigateHome: () => navigate(Home),
@@ -58,6 +65,7 @@ export const NavigationProvider = (props: ParentProps) => {
 				},
 				linkToSearch: (term) =>
 					link({
+						...location(),
 						panel: 'search',
 						search: [term],
 					}),
@@ -68,12 +76,44 @@ export const NavigationProvider = (props: ParentProps) => {
 						search: [...(current.search ?? []), term],
 					})
 				},
+				toggleResource: (resource) => {
+					const current = location()
+					if (!hasResource(resource)) {
+						navigate({
+							...current,
+							resources: [...(current.resources ?? []), resource],
+						})
+					} else {
+						navigate({
+							...current,
+							resources: (current.resources ?? []).filter(
+								(r) => resourceToString(r) !== resourceToString(resource),
+							),
+						})
+					}
+				},
+				hasResource,
 			}}
 		>
 			{props.children}
 		</NavigationContext.Provider>
 	)
 }
+
+export const DeviceModels = [...Object.keys(models), 'world.thingy.rocks']
+
+export type Model = string
+
+export const isModel = (s: unknown): s is Model =>
+	typeof s === 'string' && DeviceModels.includes(s)
+
+export type Resource = {
+	model: Model
+	ObjectID: LwM2MObjectID
+	ResourceID: number
+}
+const resourceToString = ({ ObjectID, ResourceID }: Resource): string =>
+	`${ObjectID}/${ResourceID}`
 
 export const NavigationContext = createContext<{
 	current: Accessor<Required<Navigation>>
@@ -84,8 +124,10 @@ export const NavigationContext = createContext<{
 	linkWithoutSearchTerm: (term: SearchTerm) => string
 	linkToSearch: (term: SearchTerm) => string
 	navigateWithSearchTerm: (term: SearchTerm) => void
+	toggleResource: (resource: Resource) => void
+	hasResource: (resource: Resource) => boolean
 }>({
-	current: () => ({ ...Home, search: [] }),
+	current: () => ({ ...Home, search: [], resources: [] }),
 	navigate: () => undefined,
 	navigateHome: () => undefined,
 	navigateWithSearchTerm: () => undefined,
@@ -94,6 +136,8 @@ export const NavigationContext = createContext<{
 	link: () => '/#',
 	linkWithoutSearchTerm: () => '/#',
 	linkToSearch: () => '/#',
+	toggleResource: () => undefined,
+	hasResource: () => false,
 })
 
 export const useNavigation = () => useContext(NavigationContext)

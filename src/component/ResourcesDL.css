@@ -7,20 +7,52 @@ dl.resources {
   grid-template-rows: auto;
 }
 
-dl.resources dt {
-  font-size: 80%;
-  opacity: 0.8;
-  margin-bottom: var(--gap-quart);
-}
-
-dl.resources dd {
-  margin-bottom: var(--gap-quart);
-  border-bottom: 1px solid #ffffff2a;
-}
-
 dl.resources dt,
 dl.resources dd {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+dl.resources dt {
+  font-size: 80%;
+  opacity: 0.8;
+  flex-wrap: wrap;
+}
+
+dl.resources dd {
+  white-space: nowrap;
+  margin-bottom: var(--gap-quart);
+  border-bottom: 1px solid #ffffff2a;
+  font-weight: 400;
+}
+
+dl.resources .units {
+  font-size: 90%;
+  opacity: 0.8;
+}
+
+dl.resources .units::before {
+  content: " ";
+}
+
+dl.resources dt > span {
+  display: flex;
+  align-items: center;
+}
+
+dl.resources nav {
+  flex-shrink: 0;
+}
+
+dl.resources nav > * {
+  margin-left: var(--gap-quart);
+}
+
+dl.resources .resource-info .sep {
+  opacity: 0.8;
+}
+
+dl.resources dt .name {
+  font-weight: 400;
 }

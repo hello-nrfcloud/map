@@ -16,7 +16,7 @@ section.lwm2m header h2 {
   flex-direction: column;
 }
 
-section.lwm2m small {
+section.lwm2m header small {
   opacity: 0.75;
   font-size: 80%;
 }
@@ -36,14 +36,12 @@ section.lwm2m .multiple-instances {
 .sidebar.device .info-block.expanded {
   margin-bottom: var(--gap);
 }
-.instance-resources .resources {
-  margin-top: var(--gap);
-}
+
 .instance-resources .source-info {
   margin-top: var(--gap-half);
   font-size: 90%;
 }
 
-.instance-resources .resources dd {
-  white-space: nowrap;
+.instance-resources .resources {
+  margin-top: var(--gap);
 }

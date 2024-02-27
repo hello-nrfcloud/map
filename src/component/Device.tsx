@@ -120,7 +120,12 @@ const DeviceInfo = (props: { device: Device }) => {
 					<p>No objects newer than 30 days are available.</p>
 				</div>
 			</Show>
-			<KnownObjects info={deviceInfo()} bat={bat()} locations={locations()} />
+			<KnownObjects
+				device={props.device}
+				info={deviceInfo()}
+				bat={bat()}
+				locations={locations()}
+			/>
 			<Show when={otherObjects().length > 0}>
 				<InfoBlock title={'Other objects'}>
 					<p>
@@ -136,7 +141,7 @@ const DeviceInfo = (props: { device: Device }) => {
 				<For each={otherObjects()}>
 					{(instance) => (
 						<div class="boxed">
-							<DescribeInstance instance={instance} />
+							<DescribeInstance device={props.device} instance={instance} />
 						</div>
 					)}
 				</For>

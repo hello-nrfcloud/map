@@ -10,12 +10,14 @@ void describe('encode() / decode()', () => {
 		assert.deepEqual(decode(encode({ panel: 'about' })), {
 			panel: 'about',
 			search: [],
+			resources: [],
 		}))
 
 	void it('should encode a page URL with an ID', () =>
 		assert.deepEqual(decode(encode({ panel: 'id:42' })), {
 			panel: 'id:42',
 			search: [],
+			resources: [],
 		}))
 
 	void it('should encode search terms', () =>
@@ -37,6 +39,34 @@ void describe('encode() / decode()', () => {
 					{
 						type: SearchTermType.Any,
 						term: 'solar',
+					},
+				],
+				resources: [],
+			},
+		))
+
+	void it('should encode resources to show', () =>
+		assert.deepEqual(
+			decode(
+				encode({
+					panel: 'id:42',
+					resources: [
+						{
+							model: 'PCA20035+solar',
+							ObjectID: 14204,
+							ResourceID: 4,
+						},
+					],
+				}),
+			),
+			{
+				panel: 'id:42',
+				search: [],
+				resources: [
+					{
+						model: 'PCA20035+solar',
+						ObjectID: 14204,
+						ResourceID: 4,
 					},
 				],
 			},

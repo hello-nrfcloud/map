@@ -10,6 +10,7 @@ import {
 	type ParentProps,
 	type Signal,
 	createMemo,
+	createEffect,
 } from 'solid-js'
 import {
 	Icon as DeviceInformationIcon,
@@ -19,83 +20,130 @@ import {
 	Icon as BatteryAndPowerIcon,
 	Card as BatteryAndPowerCard,
 } from './BatteryAndPower.js'
+import { Icon as FavoritesIcon, Card as FavoritesCard } from './Favorites.js'
 import { Icon as LocationIcon, Card as LocationCard } from './Location.js'
 import { DescribeInstance } from '../LwM2M.jsx'
+import type { Device } from '../../context/Devices.jsx'
+import { useNavigation } from '../../context/Navigation.jsx'
 
 import './KnownObjects.css'
 
-type Objects = {
+enum TabType {
+	Info = 'info',
+	Bat = 'bat',
+	Location = 'location',
+	Favorites = 'favorites',
+}
+
+export const KnownObjects = (props: {
+	device: Device
 	info: DeviceInformation_14204 | undefined
 	bat: BatteryAndPower_14202 | undefined
 	locations: Geolocation_14201[]
-}
+}) => {
+	const hasLocations = createMemo(() => props.locations.length > 0)
+	const location = useNavigation()
 
-export const KnownObjects = (objects: Objects) => {
-	const hasLocations = createMemo(() => objects.locations.length > 0)
+	const favoriteResources = createMemo(() =>
+		location
+			.current()
+			.resources.filter(({ model }) => model === props.device.model),
+	)
 
 	const tabs = createMemo(() => {
-		const tabs = []
-		if (objects.info !== undefined) tabs.push('info')
-		if (objects.bat !== undefined) tabs.push('bat')
-		if (hasLocations()) tabs.push('location')
+		const tabs: TabType[] = []
+		if (favoriteResources().length > 0) tabs.push(TabType.Favorites)
+		if (props.info !== undefined) tabs.push(TabType.Info)
+		if (props.bat !== undefined) tabs.push(TabType.Bat)
+		if (hasLocations()) tabs.push(TabType.Location)
 		return tabs
 	})
 
-	const [visibleCard, setVisibleCard] = createSignal<string | undefined>(
-		tabs()[0],
-	)
+	const [visibleCard, setVisibleCard] = createSignal<TabType | undefined>()
+
+	createEffect(() => {
+		setVisibleCard(tabs()[0])
+	})
 
 	return (
 		<section class="known-objects boxed">
 			<nav class="tabs">
-				<Show when={objects.info !== undefined}>
-					<Tab id={'info'} visibleCard={[visibleCard, setVisibleCard]}>
+				<Show when={tabs().includes(TabType.Favorites)}>
+					<Tab
+						id={TabType.Favorites}
+						visibleCard={[visibleCard, setVisibleCard]}
+					>
+						<FavoritesIcon />
+					</Tab>
+				</Show>
+				<Show when={tabs().includes(TabType.Info)}>
+					<Tab id={TabType.Info} visibleCard={[visibleCard, setVisibleCard]}>
 						<DeviceInformationIcon />
 					</Tab>
 				</Show>
-				<Show when={objects.bat !== undefined}>
-					<Tab id={'bat'} visibleCard={[visibleCard, setVisibleCard]}>
+				<Show when={tabs().includes(TabType.Bat)}>
+					<Tab id={TabType.Bat} visibleCard={[visibleCard, setVisibleCard]}>
 						<BatteryAndPowerIcon />
 					</Tab>
 				</Show>
-				<Show when={hasLocations()}>
-					<Tab id={'location'} visibleCard={[visibleCard, setVisibleCard]}>
+				<Show when={tabs().includes(TabType.Location)}>
+					<Tab
+						id={TabType.Location}
+						visibleCard={[visibleCard, setVisibleCard]}
+					>
 						<LocationIcon />
 					</Tab>
 				</Show>
 			</nav>
 			<div class="cards">
-				<Show when={visibleCard() === 'info' && objects.info !== undefined}>
-					<DeviceInformationCard info={objects.info!} />
+				<Show when={visibleCard() === TabType.Favorites}>
+					<FavoritesCard
+						resources={favoriteResources()}
+						device={props.device}
+					/>
 				</Show>
-				<Show when={visibleCard() === 'bat' && objects.bat !== undefined}>
-					<BatteryAndPowerCard bat={objects.bat!} />
+				<Show when={visibleCard() === TabType.Info && props.info !== undefined}>
+					<DeviceInformationCard info={props.info!} />
 				</Show>
-				<Show when={visibleCard() === 'location' && hasLocations}>
-					<LocationCard locations={objects.locations} />
+				<Show when={visibleCard() === TabType.Bat && props.bat !== undefined}>
+					<BatteryAndPowerCard bat={props.bat!} />
+				</Show>
+				<Show when={visibleCard() === TabType.Location && hasLocations}>
+					<LocationCard locations={props.locations} />
 				</Show>
 			</div>
-			<footer>
-				<Show when={visibleCard() === 'info' && objects.info !== undefined}>
-					<DescribeInstance instance={objects.info!} />
-				</Show>
-				<Show when={visibleCard() === 'bat' && objects.bat !== undefined}>
-					<DescribeInstance instance={objects.bat!} />
-				</Show>
-				<Show when={visibleCard() === 'location' && hasLocations}>
-					<For each={objects.locations}>
-						{(location) => <DescribeInstance instance={location} />}
-					</For>
-				</Show>
-			</footer>
+			<Show
+				when={
+					visibleCard() !== undefined &&
+					[TabType.Info, TabType.Bat, TabType.Location].includes(visibleCard()!)
+				}
+			>
+				<footer>
+					<Show
+						when={visibleCard() === TabType.Info && props.info !== undefined}
+					>
+						<DescribeInstance device={props.device} instance={props.info!} />
+					</Show>
+					<Show when={visibleCard() === TabType.Bat && props.bat !== undefined}>
+						<DescribeInstance device={props.device} instance={props.bat!} />
+					</Show>
+					<Show when={visibleCard() === TabType.Location && hasLocations}>
+						<For each={props.locations}>
+							{(location) => (
+								<DescribeInstance device={props.device} instance={location} />
+							)}
+						</For>
+					</Show>
+				</footer>
+			</Show>
 		</section>
 	)
 }
 
 const Tab = (
 	props: ParentProps<{
-		id: string
-		visibleCard: Signal<string | undefined>
+		id: TabType
+		visibleCard: Signal<TabType | undefined>
 	}>,
 ) => {
 	return (

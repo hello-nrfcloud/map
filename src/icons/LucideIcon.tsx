@@ -18,6 +18,8 @@ import {
 	ZoomIn as ZoomInIcon,
 	ZoomOut as ZoomOutIcon,
 	type IconNode,
+	Star,
+	StarOff,
 } from 'lucide'
 import { For } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
@@ -126,4 +128,12 @@ export const ZoomOut = (props: LucideProps) => (
 
 export const Center = (props: LucideProps) => (
 	<LucideIcon icon={LocateFixed} {...props} />
+)
+
+export const Favorite = (props: LucideProps) => (
+	<LucideIcon icon={Star} {...props} />
+)
+
+export const Unfavorite = (props: LucideProps) => (
+	<LucideIcon icon={StarOff} {...props} />
 )
