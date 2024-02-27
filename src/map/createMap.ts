@@ -29,7 +29,7 @@ export const createMap = (
 		...options,
 	})
 	map.dragRotate.disable()
-	map.touchZoomRotate.disable()
+	map.touchZoomRotate.disableRotation()
 
 	return map
 }
