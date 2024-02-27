@@ -9,26 +9,25 @@ import { decode, encode, type Navigation } from './encodeNavigation.js'
 import type { SearchTerm } from './Search.js'
 import { LwM2MObjectID, models } from '@hello.nrfcloud.com/proto-lwm2m'
 
-const Home: Navigation = { panel: 'home' }
+const Home: Navigation = { panel: 'world', resources: [], search: [] }
 
 export const NavigationProvider = (props: ParentProps) => {
-	const [location, setLocation] = createSignal<Navigation>(
+	const [location, setLocation] = createSignal<Required<Navigation>>(
 		decode(window.location.hash.slice(1)) ?? Home,
 	)
-
 	const locationHandler = () =>
 		setLocation(decode(window.location.hash.slice(1)) ?? Home)
 	window.addEventListener('hashchange', locationHandler)
 
 	onCleanup(() => window.removeEventListener('hashchange', locationHandler))
-	const navigate = (next: Navigation) => {
+	const navigate = (next: Partial<Navigation>) => {
 		window.location.hash =
 			encode({
 				...location(),
 				...next,
 			}) ?? ''
 	}
-	const link = (next: Navigation) =>
+	const link = (next: Partial<Navigation>) =>
 		new URL(
 			`${BASE_URL}/#${encode({
 				...location(),
@@ -37,7 +36,7 @@ export const NavigationProvider = (props: ParentProps) => {
 			document.location.href,
 		).toString()
 
-	const linkToHome = () => link(Home)
+	const linkToHome = () => link({ panel: 'world' })
 
 	const hasResource = (resource: Resource) =>
 		(location().resources ?? []).find(
@@ -47,11 +46,7 @@ export const NavigationProvider = (props: ParentProps) => {
 	return (
 		<NavigationContext.Provider
 			value={{
-				current: () => ({
-					panel: location().panel,
-					search: location().search ?? [],
-					resources: location().resources ?? [],
-				}),
+				current: location,
 				navigate,
 				navigateHome: () => navigate(Home),
 				linkToHome,
@@ -117,10 +112,10 @@ const resourceToString = ({ ObjectID, ResourceID }: Resource): string =>
 
 export const NavigationContext = createContext<{
 	current: Accessor<Required<Navigation>>
-	navigate: (next: Navigation) => void
+	navigate: (next: Partial<Navigation>) => void
 	navigateHome: () => void
 	linkToHome: () => string
-	link: (next: Navigation) => string
+	link: (next: Partial<Navigation>) => string
 	linkWithoutSearchTerm: (term: SearchTerm) => string
 	linkToSearch: (term: SearchTerm) => string
 	navigateWithSearchTerm: (term: SearchTerm) => void

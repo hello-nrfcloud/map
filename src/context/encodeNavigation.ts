@@ -4,8 +4,8 @@ import { isLwM2MObjectID } from '../util/lwm2m.js'
 
 export type Navigation = {
 	panel: string
-	search?: SearchTerm[]
-	resources?: Resource[]
+	search: SearchTerm[]
+	resources: Resource[]
 }
 
 enum FieldKey {
