@@ -125,11 +125,22 @@ export const AllDevicesMap = () => {
 			source: 'devices-source',
 			paint: {
 				'circle-color': '#80ed99',
-				'circle-radius': 4,
+				'circle-radius': 2,
 				'circle-stroke-width': 1,
 				'circle-stroke-color': '#2f5a87',
 			},
 		})
+
+		// Make dots bigger when zoomed in
+		map.setPaintProperty('devices-layer', 'circle-radius', [
+			'interpolate',
+			['exponential', 0.5],
+			['zoom'],
+			10, // Zoom start
+			2, // start size
+			22, // Zoom end
+			10, // end size
+		])
 	})
 
 	onCleanup(() => {
