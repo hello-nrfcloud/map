@@ -69,7 +69,7 @@ const Search = () => {
 								<a class="btn" href={location.linkWithoutSearchTerm(term)}>
 									<span>{term.type}:</span>
 									<span>{term.term}</span>
-									<Close size={16} />
+									<Close size={20} />
 								</a>
 							)}
 						</For>

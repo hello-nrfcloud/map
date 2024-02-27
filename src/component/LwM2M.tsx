@@ -51,7 +51,7 @@ export const DescribeInstance = (props: {
 										title={`Instance ID: ${instanceId}`}
 										class="multiple-instances"
 									>
-										<Multiple strokeWidth={1} size={16} /> {instanceId}
+										<Multiple strokeWidth={1} size={20} /> {instanceId}
 									</abbr>
 								</Show>
 							</small>
@@ -112,7 +112,7 @@ export const DescribeResources = (props: {
 			</ResourcesDL>
 			<SourceInfo>
 				<p>
-					<Documentation size={16} strokeWidth={1} />
+					<Documentation size={20} strokeWidth={1} />
 					<a
 						href={`https://github.com/hello-nrfcloud/proto-lwm2m/blob/saga/lwm2m/${props.instance.ObjectID}.xml`}
 						target="_blank"
@@ -122,7 +122,7 @@ export const DescribeResources = (props: {
 					</a>
 				</p>
 				<p>
-					<Search size={16} strokeWidth={1} />
+					<Search size={20} strokeWidth={1} />
 					<a
 						href={location.linkToSearch({
 							type: SearchTermType.Has,
@@ -174,7 +174,7 @@ export const DescribeResource = (props: {
 									type="button"
 									onClick={() => location.toggleResource(r)}
 								>
-									<Favorite strokeWidth={1} size={16} />
+									<Favorite strokeWidth={1} size={20} />
 								</button>
 							}
 						>
@@ -183,7 +183,7 @@ export const DescribeResource = (props: {
 								type="button"
 								onClick={() => location.toggleResource(r)}
 							>
-								<Unfavorite strokeWidth={1} size={16} />
+								<Unfavorite strokeWidth={1} size={20} />
 							</button>
 						</Show>
 						<a
@@ -198,7 +198,7 @@ export const DescribeResource = (props: {
 							})}
 							title={`Search for devices that have the object ${props.instance.ObjectID} and the resource ${props.info.ResourceID}`}
 						>
-							<Search strokeWidth={1} size={16} />
+							<Search strokeWidth={1} size={20} />
 						</a>
 					</nav>
 				</span>
@@ -231,7 +231,7 @@ export const DescribeResource = (props: {
 							title={`Search for devices that have the object ${props.instance.ObjectID} and the resource ${props.info.ResourceID} with the value ${props.value.toString()}`}
 						>
 							<small>
-								<Search strokeWidth={1} size={16} />
+								<Search strokeWidth={1} size={20} />
 							</small>
 						</a>
 					</nav>

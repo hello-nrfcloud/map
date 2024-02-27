@@ -61,23 +61,25 @@ export const DeviceSidebar = () => {
 						<Close size={20} />
 					</a>
 				</header>
-				<Show
-					when={selectedDevice() !== undefined}
-					fallback={
-						<section>
-							<div class="boxed">
-								<p>
-									<code>{deviceId()}</code>
-								</p>
-							</div>
-							<div class="boxed">
-								<p>No state available.</p>
-							</div>
-						</section>
-					}
-				>
-					<DeviceInfo device={selectedDevice()!} />
-				</Show>
+				<div class="scrollable">
+					<Show
+						when={selectedDevice() !== undefined}
+						fallback={
+							<section>
+								<div class="boxed">
+									<p>
+										<code>{deviceId()}</code>
+									</p>
+								</div>
+								<div class="boxed">
+									<p>No state available.</p>
+								</div>
+							</section>
+						}
+					>
+						<DeviceInfo device={selectedDevice()!} />
+					</Show>
+				</div>
 			</SidebarContent>
 		</Show>
 	)
@@ -166,7 +168,7 @@ const DeviceInfo = (props: { device: Device }) => {
 					fallback={
 						<SourceInfo>
 							<p>
-								<Documentation size={16} strokeWidth={1} />
+								<Documentation size={20} strokeWidth={1} />
 								<a
 									href={`https://github.com/hello-nrfcloud/proto-lwm2m/tree/saga/models/${encodeURIComponent(props.device.model)}`}
 									target="_blank"
@@ -175,7 +177,7 @@ const DeviceInfo = (props: { device: Device }) => {
 								</a>
 							</p>
 							<p>
-								<Search size={16} strokeWidth={1} />
+								<Search size={20} strokeWidth={1} />
 								<a
 									href={location.link({
 										panel: 'search',

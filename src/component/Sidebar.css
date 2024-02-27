@@ -56,11 +56,6 @@ aside.sidebar > div.scrollable > section.separator {
   padding-top: var(--gap);
 }
 
-@media (min-width: 400px) {
-  aside.sidebar > div.scrollable > section.separator {
-  }
-}
-
 aside.sidebar .close {
   display: flex;
   justify-content: space-between;
