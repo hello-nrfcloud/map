@@ -14,7 +14,7 @@ const { registryEndpoint } = fromEnv({
 	registryEndpoint: 'REGISTRY_ENDPOINT',
 })(process.env)
 
-const base = trimTrailingSlash(process.env.BASE_URL ?? '')
+const base = trimTrailingSlash(process.env.BASE_URL ?? '/map/')
 
 // https://vitejs.dev/config/
 export default defineConfig({

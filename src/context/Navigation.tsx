@@ -29,7 +29,7 @@ export const NavigationProvider = (props: ParentProps) => {
 	}
 	const link = (next: Navigation) =>
 		new URL(
-			`/#${encode({
+			`${BASE_URL}/#${encode({
 				...location(),
 				...next,
 			})}`,
@@ -90,7 +90,7 @@ export const NavigationContext = createContext<{
 	navigateHome: () => undefined,
 	navigateWithSearchTerm: () => undefined,
 	linkToHome: () =>
-		new URL(`/#${encode(Home)}`, document.location.href).toString(),
+		new URL(`${BASE_URL}/#${encode(Home)}`, document.location.href).toString(),
 	link: () => '/#',
 	linkWithoutSearchTerm: () => '/#',
 	linkToSearch: () => '/#',
