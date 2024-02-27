@@ -4,8 +4,8 @@ import { For, createMemo } from 'solid-js'
 import {
 	definitions,
 	type LwM2MResourceInfo,
-	type LwM2MObjectInstance,
 	type LwM2MResourceValue,
+	LwM2MObjectID,
 } from '@hello.nrfcloud.com/proto-lwm2m'
 import { isLwM2MObjectID } from '../../util/lwm2m.js'
 import type { Device } from '../../context/Devices.jsx'
@@ -32,24 +32,22 @@ export const Card = (props: { resources: Resource[]; device: Device }) => {
 				const instance = props.device.state?.find(
 					({ ObjectID: id }) => id === ObjectID,
 				)
-				if (instance === undefined) return undefined
 				const resourceValue = instance?.Resources[ResourceID]
-				if (resourceValue === undefined) return undefined
 				return {
-					instance: instance as LwM2MObjectInstance,
+					ObjectID,
 					resource,
 					definition,
-					value: resourceValue as LwM2MResourceValue,
+					value: resourceValue as LwM2MResourceValue | undefined,
 				}
 			})
 			.filter(
 				(
 					s,
 				): s is {
-					instance: LwM2MObjectInstance
+					ObjectID: LwM2MObjectID
 					resource: Resource
 					definition: LwM2MResourceInfo
-					value: LwM2MResourceValue
+					value: LwM2MResourceValue | undefined
 				} => s !== undefined,
 			),
 	)
@@ -60,7 +58,7 @@ export const Card = (props: { resources: Resource[]; device: Device }) => {
 				{(resource) => (
 					<DescribeResource
 						device={props.device}
-						instance={resource.instance}
+						ObjectID={resource.ObjectID}
 						info={resource.definition}
 						value={resource.value}
 					/>

@@ -99,7 +99,7 @@ export const DescribeResources = (props: {
 					{([resourceID, value]) => (
 						<DescribeResource
 							device={props.device}
-							instance={props.instance}
+							ObjectID={props.instance.ObjectID}
 							info={
 								definition.Resources[
 									parseInt(resourceID, 10)
@@ -139,19 +139,20 @@ export const DescribeResources = (props: {
 }
 
 export const DescribeResource = (props: {
-	instance: LwM2MObjectInstance
+	ObjectID: LwM2MObjectID
 	info: LwM2MResourceInfo
-	value: LwM2MResourceValue
+	value: LwM2MResourceValue | undefined
 	device: Device
 }) => {
 	const location = useNavigation()
 	const r: Resource = {
 		model: props.device.model,
-		ObjectID: props.instance.ObjectID,
+		ObjectID: props.ObjectID,
 		ResourceID: props.info.ResourceID,
 	}
 
-	const { value, units } = format(props.value, props.info)
+	const v =
+		props.value !== undefined ? format(props.value, props.info) : undefined
 
 	return (
 		<>
@@ -161,7 +162,7 @@ export const DescribeResource = (props: {
 				</abbr>
 				<span>
 					<span class="resource-info">
-						<small class="object-id">{props.instance.ObjectID}</small>
+						<small class="object-id">{props.ObjectID}</small>
 						<small class="sep">/</small>
 						<small class="resource-id">{props.info.ResourceID}</small>
 					</span>
@@ -192,11 +193,11 @@ export const DescribeResource = (props: {
 								search: [
 									{
 										type: SearchTermType.Has,
-										term: `${props.instance.ObjectID}/${props.info.ResourceID}`,
+										term: `${props.ObjectID}/${props.info.ResourceID}`,
 									},
 								],
 							})}
-							title={`Search for devices that have the object ${props.instance.ObjectID} and the resource ${props.info.ResourceID}`}
+							title={`Search for devices that have the object ${props.ObjectID} and the resource ${props.info.ResourceID}`}
 						>
 							<Search strokeWidth={1} size={20} />
 						</a>
@@ -204,37 +205,39 @@ export const DescribeResource = (props: {
 				</span>
 			</dt>
 			<dd>
-				<span>
-					<span class="value">{value}</span>
-					<Show when={units !== undefined}>
-						<span class="units">{units}</span>
+				<Show when={v !== undefined} fallback={<span>&mdash;</span>}>
+					<span>
+						<span class="value">{v!.value}</span>
+						<Show when={v!.units !== undefined}>
+							<span class="units">{v!.units}</span>
+						</Show>
+					</span>
+					<Show
+						when={
+							props.info.Type === ResourceType.String &&
+							typeof props.value === 'string' &&
+							!/^[0-9]+$/.test(props.value)
+						}
+					>
+						<nav>
+							<a
+								href={location.link({
+									panel: 'search',
+									search: [
+										{
+											type: SearchTermType.Has,
+											term: `${props.ObjectID}/${props.info.ResourceID}=${v!.value.toString()}`,
+										},
+									],
+								})}
+								title={`Search for devices that have the object ${props.ObjectID} and the resource ${props.info.ResourceID} with the value ${v!.value.toString()}`}
+							>
+								<small>
+									<Search strokeWidth={1} size={20} />
+								</small>
+							</a>
+						</nav>
 					</Show>
-				</span>
-				<Show
-					when={
-						props.info.Type === ResourceType.String &&
-						typeof props.value === 'string' &&
-						!/^[0-9]+$/.test(props.value)
-					}
-				>
-					<nav>
-						<a
-							href={location.link({
-								panel: 'search',
-								search: [
-									{
-										type: SearchTermType.Has,
-										term: `${props.instance.ObjectID}/${props.info.ResourceID}=${props.value.toString()}`,
-									},
-								],
-							})}
-							title={`Search for devices that have the object ${props.instance.ObjectID} and the resource ${props.info.ResourceID} with the value ${props.value.toString()}`}
-						>
-							<small>
-								<Search strokeWidth={1} size={20} />
-							</small>
-						</a>
-					</nav>
 				</Show>
 			</dd>
 		</>
