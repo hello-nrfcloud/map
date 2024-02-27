@@ -154,7 +154,7 @@ export const AllDevicesMap = () => {
 							id,
 							resourceValues: resources
 								.map(({ value, units }) => `${value} ${units ?? ''}`)
-								.join(' '),
+								.join('\n'),
 						},
 					}),
 				),
