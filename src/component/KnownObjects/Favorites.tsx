@@ -7,7 +7,7 @@ import {
 	type LwM2MResourceValue,
 	LwM2MObjectID,
 } from '@hello.nrfcloud.com/proto-lwm2m'
-import { isLwM2MObjectID } from '../../util/lwm2m.js'
+import { isLwM2MObjectID } from '@hello.nrfcloud.com/proto-lwm2m'
 import type { Device } from '../../context/Devices.jsx'
 import { ResourcesDL } from '../ResourcesDL.jsx'
 import { DescribeResource } from '../LwM2M.jsx'

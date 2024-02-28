@@ -3,6 +3,7 @@ import {
 	type Geolocation_14201,
 	definitions,
 } from '@hello.nrfcloud.com/proto-lwm2m'
+import { isLwM2MObjectID } from '@hello.nrfcloud.com/proto-lwm2m'
 import {
 	Map as MapLibreGlMap,
 	MapMouseEvent,
@@ -16,11 +17,7 @@ import { newestInstanceFirst } from '../../util/instanceTs.js'
 import { matches, type SearchTerm } from '../../context/Search.js'
 import { useNavigation, type Resource } from '../../context/Navigation.jsx'
 import { glyphFonts } from '../../map/glyphFonts.js'
-import {
-	format,
-	isLwM2MObjectID,
-	type ResourceValue,
-} from '../../util/lwm2m.js'
+import { format, type ResourceValue } from '../../util/lwm2m.js'
 import { createStore, reconcile } from 'solid-js/store'
 
 import './AllDevicesMap.css'

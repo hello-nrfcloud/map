@@ -4,7 +4,6 @@ import {
 	type BatteryAndPower_14202,
 	type Geolocation_14201,
 	LwM2MObjectID,
-	LwM2MObjectIDs,
 	type LwM2MResourceValue,
 	type LwM2MResourceInfo,
 	ResourceType,
@@ -36,9 +35,6 @@ export const isGeoLocationArray = (
 		(allMatch, instance) => (!allMatch ? false : isGeoLocation(instance)),
 		true,
 	)
-
-export const isLwM2MObjectID = (n: number): n is LwM2MObjectID =>
-	LwM2MObjectIDs.includes(n)
 
 export type ResourceValue = { value: string; units: string | undefined }
 export const format = (

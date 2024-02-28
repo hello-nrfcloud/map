@@ -1,6 +1,6 @@
 import { isSearchTermType, type SearchTerm } from './Search.js'
 import { isModel, type Resource } from './Navigation.js'
-import { isLwM2MObjectID } from '../util/lwm2m.js'
+import { isLwM2MObjectID } from '@hello.nrfcloud.com/proto-lwm2m'
 
 export type Navigation = {
 	panel: string
