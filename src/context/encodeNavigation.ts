@@ -13,6 +13,8 @@ enum FieldKey {
 	Resources = 'r',
 }
 
+const sep = '!'
+
 export const encode = (
 	navigation?: Partial<Navigation>,
 ): string | undefined => {
@@ -41,13 +43,13 @@ export const encode = (
 			],
 		)
 	}
-	return parts.join('|')
+	return parts.join(sep)
 }
 
 export const decode = (encoded?: string): Navigation | undefined => {
 	if (encoded === undefined) return undefined
 	if (encoded.length === 0) return undefined
-	const [panel, ...rest] = encoded.split('|')
+	const [panel, ...rest] = encoded.split(sep)
 	if (panel === undefined) return undefined
 	if (rest.length === 0) return { panel, search: [], resources: [] }
 	return {
