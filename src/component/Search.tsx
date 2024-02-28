@@ -8,7 +8,7 @@ import {
 	isSearchTermType,
 } from '../context/Search.js'
 import { Device as DeviceIcon } from '../icons/Device.js'
-import { AddToSearch, Close } from '../icons/LucideIcon.jsx'
+import { AddToSearch, Close, Published } from '../icons/LucideIcon.jsx'
 import { RelativeTime } from './RelativeTime.jsx'
 import { SidebarContent } from './Sidebar.jsx'
 
@@ -146,20 +146,24 @@ const DeviceCard = (props: { device: Device }) => {
 	const location = useNavigation()
 	return (
 		<div class="result boxed">
-			<DeviceIcon class="icon" />
+			<span>
+				<DeviceIcon class="icon" />
+			</span>
 			<span>
 				<a href={location.link({ panel: `id:${props.device.id}` })}>
 					<code>{props.device.id}</code>
 				</a>
 				<br />
 				<small>{props.device.model}</small>
-				<br />
+				<small> &middot; </small>
 				<Show
 					when={props.device.lastUpdate !== undefined}
 					fallback={<small>Never updated.</small>}
 				>
 					<small>
-						<RelativeTime time={props.device.lastUpdate!} />
+						<RelativeTime time={props.device.lastUpdate!}>
+							<Published strokeWidth={1} size={16} />
+						</RelativeTime>
 					</small>
 				</Show>
 			</span>

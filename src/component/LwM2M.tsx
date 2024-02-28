@@ -58,7 +58,9 @@ export const DescribeInstance = (props: {
 							</small>
 						</span>
 						<small>
-							<RelativeTime time={ts} />
+							<RelativeTime time={ts}>
+								<Published strokeWidth={1} size={16} />
+							</RelativeTime>
 						</small>
 					</h2>
 					<Show
@@ -166,7 +168,7 @@ export const DescribeResource = (props: {
 					</abbr>
 					<Show when={props.ts !== undefined}>
 						<RelativeTime time={props.ts!}>
-							<Published strokeWidth={1} size={20} />
+							<Published strokeWidth={1} size={16} />
 						</RelativeTime>
 					</Show>
 				</span>

@@ -1,10 +1,7 @@
-time.relative {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+time.relative abbr {
+  margin-left: var(--gap-tiny);
 }
 
 time.relative .icon {
   margin-right: var(--gap-tiny);
-  display: flex;
 }
