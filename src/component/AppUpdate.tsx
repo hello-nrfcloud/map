@@ -1,5 +1,4 @@
 import { useNavigation } from '../context/Navigation.jsx'
-import { reloadLink } from '../util/link.js'
 import { AppUpdateRequired, Close } from '../icons/LucideIcon.jsx'
 import { Show } from 'solid-js'
 import { SidebarContent } from './Sidebar.jsx'
@@ -12,18 +11,9 @@ export const SidebarButton = () => {
 	const updateInfo = useAppUpdate()
 	return (
 		<Show when={updateInfo().updateRequired}>
-			<Show
-				when={location.current().panel === panelId}
-				fallback={
-					<a class="button error" href={location.link({ panel: panelId })}>
-						<AppUpdateRequired strokeWidth={2} />
-					</a>
-				}
-			>
-				<a class="button error active" href={reloadLink()}>
-					<AppUpdateRequired strokeWidth={2} />
-				</a>
-			</Show>
+			<a class="button error" href={location.link({ panel: panelId })}>
+				<AppUpdateRequired strokeWidth={2} />
+			</a>
 		</Show>
 	)
 }
@@ -41,15 +31,17 @@ export const Sidebar = () => {
 							<Close size={20} />
 						</a>
 					</header>
-					<section class="separator">
-						<p>
-							A new version (<code>{updateInfo().releasedVersion}</code>) of
-							this web application is available.
-						</p>
-						<p>
-							Please <a href={reloadLink()}>reload it</a>.
-						</p>
-					</section>
+					<div class="scrollable">
+						<section class="separator">
+							<p>
+								A new version (<code>{updateInfo().releasedVersion}</code>) of
+								this web application is available.
+							</p>
+							<p>
+								Please <a href={location.reloadLink()}>reload it</a>.
+							</p>
+						</section>
+					</div>
 				</SidebarContent>
 			</Show>
 		</Show>

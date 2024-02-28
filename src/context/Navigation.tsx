@@ -4,6 +4,7 @@ import {
 	onCleanup,
 	type ParentProps,
 	type Accessor,
+	createEffect,
 } from 'solid-js'
 import { decode, encode, type Navigation } from './encodeNavigation.js'
 import type { SearchTerm } from './Search.js'
@@ -18,6 +19,14 @@ export const NavigationProvider = (props: ParentProps) => {
 	const locationHandler = () =>
 		setLocation(decode(window.location.hash.slice(1)) ?? Home)
 	window.addEventListener('hashchange', locationHandler)
+
+	// Handle reloads
+	createEffect(() => {
+		const next = new URLSearchParams(document.location.search).get('next')
+		if (next !== null) {
+			window.location.href = link(decode(next) ?? Home)
+		}
+	})
 
 	onCleanup(() => window.removeEventListener('hashchange', locationHandler))
 	const navigate = (next: Partial<Navigation>) => {
@@ -51,6 +60,18 @@ export const NavigationProvider = (props: ParentProps) => {
 				navigateHome: () => navigate(Home),
 				linkToHome,
 				link,
+				reloadLink: () => {
+					const encoded = encode({
+						...location(),
+						panel: 'world',
+					})
+					if (encoded === undefined)
+						return new URL('/', document.location.href).toString()
+					return new URL(
+						`/?${new URLSearchParams({ next: encoded }).toString()}`,
+						document.location.href,
+					).toString()
+				},
 				linkWithoutSearchTerm: (term) => {
 					const current = location()
 					return link({
@@ -115,6 +136,8 @@ export const NavigationContext = createContext<{
 	navigate: (next: Partial<Navigation>) => void
 	navigateHome: () => void
 	linkToHome: () => string
+	// Used to reload the app in case of an update
+	reloadLink: () => string
 	link: (next: Partial<Navigation>) => string
 	linkWithoutSearchTerm: (term: SearchTerm) => string
 	linkToSearch: (term: SearchTerm) => string
@@ -129,6 +152,7 @@ export const NavigationContext = createContext<{
 	linkToHome: () =>
 		new URL(`${BASE_URL}/#${encode(Home)}`, document.location.href).toString(),
 	link: () => '/#',
+	reloadLink: () => '/',
 	linkWithoutSearchTerm: () => '/#',
 	linkToSearch: () => '/#',
 	toggleResource: () => undefined,

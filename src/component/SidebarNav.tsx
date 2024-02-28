@@ -1,5 +1,4 @@
 import { useNavigation } from '../context/Navigation.js'
-import { linkAsset } from '../util/link.js'
 import { SidebarButton as AppUpdateRequiredButton } from './AppUpdate.js'
 import { SidebarButton as DeviceDetailButton } from './Device.js'
 import { SidebarButton as ViewSourceButton } from './ViewSource.js'
@@ -15,7 +14,7 @@ export const SidebarNav = () => {
 			<AppUpdateRequiredButton />
 			<a href={location.linkToHome()} class="button">
 				<img
-					src={linkAsset('logo.svg')}
+					src={`${BASE_URL}/assets/logo.svg`}
 					class="logo"
 					alt="hello.nrfcloud.com logo"
 				/>
