@@ -95,7 +95,7 @@ const isGenericObject = (instance: LwM2MObjectInstance): boolean => {
 const DeviceInfo = (props: { device: Device }) => {
 	const location = useNavigation()
 	const instances = createMemo(() =>
-		(props.device.state ?? []).sort(newestInstanceFirst),
+		[...(props.device.state ?? [])].sort(newestInstanceFirst),
 	)
 	const otherObjects = createMemo(() => instances().filter(isGenericObject))
 	const deviceInfo = createMemo(() => {
