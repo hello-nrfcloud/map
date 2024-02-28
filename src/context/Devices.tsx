@@ -9,8 +9,8 @@ import {
 import { useParameters } from './Parameters.js'
 import { Devices, PublicDevice } from '@hello.nrfcloud.com/proto/hello/map'
 import { type Static } from '@sinclair/typebox'
-import { instanceTs } from '../util/instanceTs.js'
 import { createStore, reconcile } from 'solid-js/store'
+import { instanceTs } from '@hello.nrfcloud.com/proto-lwm2m'
 
 export type Device = Static<typeof PublicDevice> & {
 	lastUpdate: Date | undefined

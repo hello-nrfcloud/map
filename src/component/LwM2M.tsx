@@ -7,6 +7,7 @@ import {
 	type LwM2MResourceValue,
 	type LwM2MResourceInfo,
 	ResourceType,
+	instanceTs,
 } from '@hello.nrfcloud.com/proto-lwm2m'
 import {
 	Collapse,
@@ -17,7 +18,6 @@ import {
 	Favorite,
 	Unfavorite,
 } from '../icons/LucideIcon.jsx'
-import { instanceTs } from '../util/instanceTs.js'
 import { RelativeTime } from './RelativeTime.jsx'
 import { ResourcesDL } from './ResourcesDL.jsx'
 import { SourceInfo } from './SourceInfo.jsx'

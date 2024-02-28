@@ -4,7 +4,7 @@ import { byId, useDevices, type Device } from '../context/Devices.js'
 import { useNavigation } from '../context/Navigation.js'
 import { Device as DeviceIcon } from '../icons/Device.js'
 import { Close, Documentation, NoData, Search } from '../icons/LucideIcon.jsx'
-import { newestInstanceFirst } from '../util/instanceTs.js'
+import { newestInstanceFirst } from '../util/newestInstanceFirst.js'
 import {
 	isBatteryAndPower,
 	isDeviceInformation,
