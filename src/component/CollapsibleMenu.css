@@ -1,0 +1,9 @@
+div.collapsible {
+  display: flex;
+  align-items: center;
+}
+
+div.collapsible .collapsible-close {
+  padding-left: var(--gap-small);
+  margin-left: var(--gap-small);
+}

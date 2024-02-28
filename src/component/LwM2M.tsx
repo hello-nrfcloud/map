@@ -26,6 +26,7 @@ import { SearchTermType } from '../context/Search.js'
 import { useNavigation, type Resource } from '../context/Navigation.jsx'
 import { format } from '../util/lwm2m.js'
 import type { Device } from '../context/Devices.jsx'
+import { CollapsibleMenu } from './CollapsibleMenu.jsx'
 
 export const DescribeInstance = (props: {
 	instance: LwM2MObjectInstance
@@ -184,49 +185,51 @@ export const DescribeResource = (props: {
 						</RelativeTime>
 					</Show>
 				</span>
-				<span class="meta">
-					<span class="resource-info">
-						<small class="object-id">{props.ObjectID}</small>
-						<small class="sep">/</small>
-						<small class="resource-id">{props.info.ResourceID}</small>
-					</span>
-					<nav>
-						<Show
-							when={location.hasResource(r)}
-							fallback={
+				<CollapsibleMenu>
+					<span class="meta">
+						<span class="resource-info">
+							<small class="object-id">{props.ObjectID}</small>
+							<small class="sep">/</small>
+							<small class="resource-id">{props.info.ResourceID}</small>
+						</span>
+						<nav>
+							<Show
+								when={location.hasResource(r)}
+								fallback={
+									<button
+										title="Add to favorites"
+										type="button"
+										onClick={() => location.toggleResource(r)}
+									>
+										<Favorite strokeWidth={1} size={20} />
+									</button>
+								}
+							>
 								<button
-									title="Add to favorites"
+									title="Remove from favorites"
 									type="button"
 									onClick={() => location.toggleResource(r)}
 								>
-									<Favorite strokeWidth={1} size={20} />
+									<Unfavorite strokeWidth={1} size={20} />
 								</button>
-							}
-						>
-							<button
-								title="Remove from favorites"
-								type="button"
-								onClick={() => location.toggleResource(r)}
+							</Show>
+							<a
+								href={location.link({
+									panel: 'search',
+									search: [
+										{
+											type: SearchTermType.Has,
+											term: `${props.ObjectID}/${props.info.ResourceID}`,
+										},
+									],
+								})}
+								title={`Search for devices that have the object ${props.ObjectID} and the resource ${props.info.ResourceID}`}
 							>
-								<Unfavorite strokeWidth={1} size={20} />
-							</button>
-						</Show>
-						<a
-							href={location.link({
-								panel: 'search',
-								search: [
-									{
-										type: SearchTermType.Has,
-										term: `${props.ObjectID}/${props.info.ResourceID}`,
-									},
-								],
-							})}
-							title={`Search for devices that have the object ${props.ObjectID} and the resource ${props.info.ResourceID}`}
-						>
-							<Search strokeWidth={1} size={20} />
-						</a>
-					</nav>
-				</span>
+								<Search strokeWidth={1} size={20} />
+							</a>
+						</nav>
+					</span>
+				</CollapsibleMenu>
 			</dt>
 			<dd>
 				<Show when={v !== undefined} fallback={<span>&mdash;</span>}>
@@ -243,24 +246,26 @@ export const DescribeResource = (props: {
 							!/^[0-9]+$/.test(props.value)
 						}
 					>
-						<nav>
-							<a
-								href={location.link({
-									panel: 'search',
-									search: [
-										{
-											type: SearchTermType.Has,
-											term: `${props.ObjectID}/${props.info.ResourceID}=${v!.value.toString()}`,
-										},
-									],
-								})}
-								title={`Search for devices that have the object ${props.ObjectID} and the resource ${props.info.ResourceID} with the value ${v!.value.toString()}`}
-							>
-								<small>
-									<Search strokeWidth={1} size={20} />
-								</small>
-							</a>
-						</nav>
+						<CollapsibleMenu>
+							<nav>
+								<a
+									href={location.link({
+										panel: 'search',
+										search: [
+											{
+												type: SearchTermType.Has,
+												term: `${props.ObjectID}/${props.info.ResourceID}=${v!.value.toString()}`,
+											},
+										],
+									})}
+									title={`Search for devices that have the object ${props.ObjectID} and the resource ${props.info.ResourceID} with the value ${v!.value.toString()}`}
+								>
+									<small>
+										<Search strokeWidth={1} size={20} />
+									</small>
+								</a>
+							</nav>
+						</CollapsibleMenu>
 					</Show>
 				</Show>
 			</dd>

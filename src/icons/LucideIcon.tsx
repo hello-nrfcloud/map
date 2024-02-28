@@ -21,6 +21,7 @@ import {
 	Star,
 	StarOff,
 	UploadCloud,
+	MoreHorizontal,
 } from 'lucide'
 import { For } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
@@ -141,4 +142,8 @@ export const Unfavorite = (props: LucideProps) => (
 
 export const Published = (props: LucideProps) => (
 	<LucideIcon icon={UploadCloud} {...props} />
+)
+
+export const Menu = (props: LucideProps) => (
+	<LucideIcon icon={MoreHorizontal} {...props} />
 )

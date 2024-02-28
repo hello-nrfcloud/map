@@ -12,18 +12,17 @@ dl.resources dd {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 25px;
 }
 
 dl.resources dd {
   white-space: nowrap;
-  margin-bottom: var(--gap-small);
+  margin-bottom: var(--gap-tiny);
   border-bottom: 1px solid #ffffff2a;
   font-weight: 400;
 }
 
 dl.resources dd + dt {
-  margin-top: var(--gap);
+  margin-top: var(--gap-medium);
 }
 
 dl.resources .units {
