@@ -95,7 +95,7 @@ export const NavigationProvider = (props: ParentProps) => {
 	)
 }
 
-export const DeviceModels = [...Object.keys(models), 'world.thingy.rocks']
+export const DeviceModels = Object.keys(models)
 
 export type Model = string
 

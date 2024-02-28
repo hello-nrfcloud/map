@@ -163,50 +163,34 @@ const DeviceInfo = (props: { device: Device }) => {
 				</p>
 			</InfoBlock>
 			<div class="boxed">
-				<Show
-					when={props.device.model === 'world.thingy.rocks'}
-					fallback={
-						<SourceInfo>
-							<p>
-								<Documentation size={20} strokeWidth={1} />
-								<a
-									href={`https://github.com/hello-nrfcloud/proto-lwm2m/tree/saga/models/${encodeURIComponent(props.device.model)}`}
-									target="_blank"
-								>
-									Model definition for <code>{props.device.model}</code>
-								</a>
-							</p>
-							<p>
-								<Search size={20} strokeWidth={1} />
-								<a
-									href={location.link({
-										panel: 'search',
-										search: [
-											{
-												type: SearchTermType.Model,
-												term: props.device.model,
-											},
-										],
-									})}
-								>
-									Search for all devices with model{' '}
-									<code>{props.device.model}</code>
-								</a>
-							</p>
-						</SourceInfo>
-					}
-				>
-					<SourceInfo>
-						<p>
-							<a
-								href={`https://world.thingy.rocks/#${props.device.id}`}
-								target="_blank"
-							>
-								world.thingy.rocks legacy device
-							</a>
-						</p>
-					</SourceInfo>
-				</Show>
+				<SourceInfo>
+					<p>
+						<Documentation size={20} strokeWidth={1} />
+						<a
+							href={`https://github.com/hello-nrfcloud/proto-lwm2m/tree/saga/models/${encodeURIComponent(props.device.model)}`}
+							target="_blank"
+						>
+							Model definition for <code>{props.device.model}</code>
+						</a>
+					</p>
+					<p>
+						<Search size={20} strokeWidth={1} />
+						<a
+							href={location.link({
+								panel: 'search',
+								search: [
+									{
+										type: SearchTermType.Model,
+										term: props.device.model,
+									},
+								],
+							})}
+						>
+							Search for all devices with model{' '}
+							<code>{props.device.model}</code>
+						</a>
+					</p>
+				</SourceInfo>
 			</div>
 		</section>
 	)
