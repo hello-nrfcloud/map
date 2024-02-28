@@ -66,9 +66,9 @@ export const NavigationProvider = (props: ParentProps) => {
 						panel: 'world',
 					})
 					if (encoded === undefined)
-						return new URL('/', document.location.href).toString()
+						return new URL(`${BASE_URL}/`, document.location.href).toString()
 					return new URL(
-						`/?${new URLSearchParams({ next: encoded }).toString()}`,
+						`${BASE_URL}/?${new URLSearchParams({ next: encoded }).toString()}`,
 						document.location.href,
 					).toString()
 				},
