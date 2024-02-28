@@ -5,6 +5,6 @@ time.relative {
 }
 
 time.relative .icon {
-  margin-right: var(--gap-quart);
+  margin-right: var(--gap-tiny);
   display: flex;
 }

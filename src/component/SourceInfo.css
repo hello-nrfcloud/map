@@ -4,16 +4,16 @@
 }
 
 .source-info a .icon {
-  margin-left: var(--gap-quart);
+  margin-left: var(--gap-tiny);
 }
 
 .source-info .icon {
   flex-shrink: 0;
-  margin-right: var(--gap-quart);
+  margin-right: var(--gap-tiny);
 }
 
 .source-info a .icon {
-  margin-right: var(--gap-quart);
+  margin-right: var(--gap-tiny);
 }
 
 .source-info p + p {

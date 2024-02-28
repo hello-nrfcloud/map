@@ -20,6 +20,7 @@ import {
 	type IconNode,
 	Star,
 	StarOff,
+	UploadCloud,
 } from 'lucide'
 import { For } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
@@ -136,4 +137,8 @@ export const Favorite = (props: LucideProps) => (
 
 export const Unfavorite = (props: LucideProps) => (
 	<LucideIcon icon={StarOff} {...props} />
+)
+
+export const Published = (props: LucideProps) => (
+	<LucideIcon icon={UploadCloud} {...props} />
 )

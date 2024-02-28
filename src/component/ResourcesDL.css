@@ -1,5 +1,5 @@
 dl.resources {
-  margin-top: var(--gap-half);
+  margin-top: var(--gap-medium);
   font-family: var(--condensed-font-family);
   font-weight: 300;
   display: grid;
@@ -12,14 +12,18 @@ dl.resources dd {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-height: 25px;
 }
 
 dl.resources dd {
   white-space: nowrap;
-  margin-bottom: var(--gap-quart);
+  margin-bottom: var(--gap-small);
   border-bottom: 1px solid #ffffff2a;
   font-weight: 400;
-  min-height: 25px;
+}
+
+dl.resources dd + dt {
+  margin-top: var(--gap);
 }
 
 dl.resources .units {
@@ -35,11 +39,11 @@ dl.resources nav {
 }
 
 dl.resources nav > * {
-  margin-left: var(--gap-quart);
+  margin-left: var(--gap-small);
 }
 
 dl.resources time.relative {
-  margin-right: var(--gap-quart);
+  margin-right: var(--gap-small);
 }
 
 dl.resources .resource-info {
@@ -66,10 +70,9 @@ dl.resources dt .info {
   display: flex;
   flex-wrap: wrap;
   flex-shrink: 1;
-  margin-top: 3px;
 }
 dl.resources dt .info .name {
-  margin-right: var(--gap);
+  margin-right: var(--gap-medium);
 }
 
 dl.resources dt .info time.relative {

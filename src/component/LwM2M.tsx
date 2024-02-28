@@ -17,6 +17,7 @@ import {
 	Search,
 	Favorite,
 	Unfavorite,
+	Published,
 } from '../icons/LucideIcon.jsx'
 import { RelativeTime } from './RelativeTime.jsx'
 import { ResourcesDL } from './ResourcesDL.jsx'
@@ -164,7 +165,9 @@ export const DescribeResource = (props: {
 						{props.info.Name}
 					</abbr>
 					<Show when={props.ts !== undefined}>
-						<RelativeTime time={props.ts!} />
+						<RelativeTime time={props.ts!}>
+							<Published strokeWidth={1} size={20} />
+						</RelativeTime>
 					</Show>
 				</span>
 				<span class="meta">

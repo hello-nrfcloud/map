@@ -3,7 +3,7 @@ div.info-block {
 }
 
 div.info-block h2 {
-  margin-bottom: var(--gap-half);
+  margin-bottom: var(--gap-medium);
 }
 
 div.info-block header {

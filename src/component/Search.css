@@ -36,7 +36,7 @@ aside.search form input[type="search"] {
   border-top-color: rgb(129, 129, 129);
   border-left-color: rgb(129, 129, 129);
   background-color: white;
-  padding: 0 calc(var(--gap) / 2);
+  padding: 0 var(--gap-medium);
   flex-grow: 1;
   height: 32px;
 }
@@ -52,7 +52,7 @@ aside.search form button {
   border-left-color: rgb(129, 129, 129);
   background-color: rgb(184, 184, 184);
   height: 32px;
-  padding: 0 calc(var(--gap) / 2);
+  padding: 0 var(--gap-medium);
 }
 
 aside.search form button .icon {
@@ -62,7 +62,7 @@ aside.search form button .icon {
 }
 
 aside.search div.terms {
-  margin-top: calc(var(--gap) / 2);
+  margin-top: var(--gap-medium);
   flex-direction: row;
   display: flex;
   flex-wrap: wrap;
@@ -75,21 +75,21 @@ aside.search div.terms .btn {
   border: 1px solid #00000033;
   background-color: #ffffffde;
   border-radius: var(--border-radius);
-  padding: calc(var(--gap) / 4) calc(var(--gap) / 2);
+  padding: var(--gap-small) var(--gap-medium);
 }
 
 aside.search div.terms .btn {
-  margin-top: calc(var(--gap) / 4);
+  margin-top: var(--gap-small);
   text-decoration: none;
 }
 
 aside.search div.terms .btn:first-child,
 aside.search div.terms .btn + button {
-  margin-right: calc(var(--gap) / 4);
+  margin-right: var(--gap-small);
 }
 
 aside.search div.terms .btn .icon {
-  margin-left: calc(var(--gap) / 2);
+  margin-left: var(--gap-medium);
 }
 
 aside.search section.results {
@@ -103,12 +103,12 @@ aside.search section.results header {
 aside.search section.results .result {
   display: flex;
   align-items: flex-start;
-  margin-left: calc(var(--gap) / 4);
+  margin-left: var(--gap-small);
 }
 
 aside.search section.results .result .icon {
   width: 24px;
-  margin-right: calc(var(--gap) / 2);
+  margin-right: var(--gap-tiny);
   flex-shrink: 0;
 }
 

@@ -9,7 +9,7 @@ aside.device header h1 {
   align-items: center;
 }
 aside.device header h1 .icon {
-  margin-left: var(--gap-quart);
+  margin-left: var(--gap-small);
 }
 
 section.lwm2m header {
@@ -28,7 +28,7 @@ section.lwm2m header small {
 }
 
 section.lwm2m .multiple-instances {
-  margin-left: var(--gap-half);
+  margin-left: var(--gap-medium);
 }
 
 .sidebar.device h1 {
@@ -37,14 +37,14 @@ section.lwm2m .multiple-instances {
 }
 
 .sidebar.device .info-block {
-  margin-bottom: var(--gap-half);
+  margin-bottom: var(--gap-medium);
 }
 .sidebar.device .info-block.expanded {
   margin-bottom: var(--gap);
 }
 
 .instance-resources .source-info {
-  margin-top: var(--gap-half);
+  margin-top: var(--gap-medium);
 }
 
 .instance-resources .resources {
