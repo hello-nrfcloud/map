@@ -22,7 +22,7 @@
     "start": "vite",
     "build": "node --max_old_space_size=8192 ./node_modules/vite/bin/vite.js build --emptyOutDir",
     "prepare": "husky",
-    "test": "find ./ -type f -name *.spec.ts -not -path './node_modules/*' | xargs npx tsx --test --test-reporter spec"
+    "test": "find ./ -type f -name \\*.spec.ts -not -path './node_modules/*' | xargs npx tsx --test --test-reporter spec"
   },
   "devDependencies": {
     "@aws-sdk/client-cloudformation": "3.523.0",
