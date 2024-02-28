@@ -6,7 +6,7 @@
   --bg-blue-1: #003c56;
   --color-warning: #e7c27b;
   --color-error: #ce0d0d;
-  --base-size-sidebar: 40px;
+  --base-size-navbar: 40px;
   --regular-font-family: "Inter Tight", sans-serif;
   --condensed-font-family: "Roboto Condensed", sans-serif;
   --gap: 0.5rem;
@@ -18,7 +18,7 @@
 
 @media (min-width: 400px) {
   :root {
-    --base-size-sidebar: 60px;
+    --base-size-navbar: 60px;
     --gap: 1rem;
     --border-radius: 5px;
   }

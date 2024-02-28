@@ -1,6 +1,6 @@
 nav.sidebar {
   background-color: var(--bg-blue-2);
-  width: var(--base-size-sidebar);
+  width: var(--base-size-navbar);
   height: 100vh;
   position: fixed;
   left: 0;
@@ -19,8 +19,8 @@ nav.sidebar hr {
 }
 
 nav.sidebar .button {
-  width: calc(var(--base-size-sidebar) - 1px);
-  height: calc(var(--base-size-sidebar) - 1px);
+  width: calc(var(--base-size-navbar) - 1px);
+  height: calc(var(--base-size-navbar) - 1px);
   display: flex;
   align-items: center;
   justify-content: space-around;

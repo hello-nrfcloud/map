@@ -6,6 +6,7 @@ import {
 	type LwM2MResourceInfo,
 	type LwM2MResourceValue,
 	LwM2MObjectID,
+	instanceTs,
 } from '@hello.nrfcloud.com/proto-lwm2m'
 import { isLwM2MObjectID } from '@hello.nrfcloud.com/proto-lwm2m'
 import type { Device } from '../../context/Devices.jsx'
@@ -21,6 +22,14 @@ export const Icon = () => (
 	</>
 )
 
+type FavoritedResource = {
+	ObjectID: LwM2MObjectID
+	resource: Resource
+	definition: LwM2MResourceInfo
+	value: LwM2MResourceValue | undefined
+	ts: Date | undefined
+}
+
 export const Card = (props: { resources: Resource[]; device: Device }) => {
 	const resourceValues = createMemo(() =>
 		props.resources
@@ -33,37 +42,35 @@ export const Card = (props: { resources: Resource[]; device: Device }) => {
 					({ ObjectID: id }) => id === ObjectID,
 				)
 				const resourceValue = instance?.Resources[ResourceID]
+				const ts = instance !== undefined ? instanceTs(instance) : undefined
 				return {
 					ObjectID,
 					resource,
 					definition,
 					value: resourceValue as LwM2MResourceValue | undefined,
+					ts,
 				}
 			})
-			.filter(
-				(
-					s,
-				): s is {
-					ObjectID: LwM2MObjectID
-					resource: Resource
-					definition: LwM2MResourceInfo
-					value: LwM2MResourceValue | undefined
-				} => s !== undefined,
-			),
+			.filter((s): s is FavoritedResource => s !== undefined),
 	)
 
 	return (
 		<ResourcesDL>
-			<For each={resourceValues()}>
+			<For each={resourceValues().sort(byNewest)}>
 				{(resource) => (
 					<DescribeResource
 						device={props.device}
 						ObjectID={resource.ObjectID}
 						info={resource.definition}
 						value={resource.value}
+						ts={resource.ts}
 					/>
 				)}
 			</For>
 		</ResourcesDL>
 	)
 }
+
+const byNewest = (r1: FavoritedResource, r2: FavoritedResource) =>
+	(r2.ts?.getTime() ?? Number.MIN_SAFE_INTEGER) -
+	(r1.ts?.getTime() ?? Number.MIN_SAFE_INTEGER)

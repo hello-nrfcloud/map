@@ -2,11 +2,6 @@
   margin-top: var(--gap);
 }
 
-.known-objects time.relative {
-  font-size: 90%;
-  opacity: 0.8;
-}
-
 .known-objects nav.tabs {
   border-bottom: 1px solid #ffffff99;
   display: flex;

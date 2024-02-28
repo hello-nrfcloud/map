@@ -43,7 +43,7 @@ export const DescribeInstance = (props: {
 				<header>
 					<h2>
 						<span>
-							{definition.Name}{' '}
+							<span class="name">{definition.Name} </span>
 							<small>
 								({props.instance.ObjectID})
 								<Show when={instanceId !== 0}>
@@ -142,6 +142,8 @@ export const DescribeResource = (props: {
 	ObjectID: LwM2MObjectID
 	info: LwM2MResourceInfo
 	value: LwM2MResourceValue | undefined
+	// Timestamp when the instance was last updated
+	ts?: Date | undefined
 	device: Device
 }) => {
 	const location = useNavigation()
@@ -157,10 +159,15 @@ export const DescribeResource = (props: {
 	return (
 		<>
 			<dt>
-				<abbr class="name" title={props.info.Description}>
-					{props.info.Name}
-				</abbr>
-				<span>
+				<span class="info">
+					<abbr class="name" title={props.info.Description}>
+						{props.info.Name}
+					</abbr>
+					<Show when={props.ts !== undefined}>
+						<RelativeTime time={props.ts!} />
+					</Show>
+				</span>
+				<span class="meta">
 					<span class="resource-info">
 						<small class="object-id">{props.ObjectID}</small>
 						<small class="sep">/</small>
@@ -206,7 +213,7 @@ export const DescribeResource = (props: {
 			</dt>
 			<dd>
 				<Show when={v !== undefined} fallback={<span>&mdash;</span>}>
-					<span>
+					<span class="resource-value">
 						<span class="value">{v!.value}</span>
 						<Show when={v!.units !== undefined}>
 							<span class="units">{v!.units}</span>

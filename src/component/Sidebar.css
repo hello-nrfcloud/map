@@ -1,6 +1,6 @@
 aside.sidebar {
   position: relative;
-  margin-left: calc(var(--base-size-sidebar) - 1px);
+  margin-left: calc(var(--base-size-navbar) - 1px);
   width: auto;
   z-index: 40;
   background-color: var(--bg-blue-3);
@@ -11,19 +11,19 @@ aside.sidebar {
 @media (min-width: 400px) {
   aside.sidebar {
     position: fixed;
-    left: calc(var(--base-size-sidebar) - 1px);
+    left: calc(var(--base-size-navbar) - 1px);
     top: 0;
     max-height: 100vh;
-    width: calc(400px - var(--base-size-sidebar));
-    border-top-right-radius: calc(var(--base-size-sidebar) / 4);
-    border-bottom-right-radius: calc(var(--base-size-sidebar) / 4);
+    width: calc(400px - var(--base-size-navbar));
+    border-top-right-radius: calc(var(--base-size-navbar) / 4);
+    border-bottom-right-radius: calc(var(--base-size-navbar) / 4);
     margin-left: 0;
   }
 
   aside.sidebar > div.scrollable {
     overflow-y: auto;
     overflow-x: hidden;
-    max-height: calc(100vh - var(--base-size-sidebar));
+    max-height: calc(100vh - var(--base-size-navbar));
     scrollbar-color: var(--bg-blue-5) var(--bg-blue-1);
     scrollbar-width: thin;
   }
@@ -33,7 +33,7 @@ aside.sidebar > header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: var(--base-size-sidebar);
+  height: var(--base-size-navbar);
   margin: 0 var(--gap);
 }
 

@@ -4,7 +4,7 @@ import { createSignal, onCleanup } from 'solid-js'
 import './RelativeTime.css'
 
 export const RelativeTime = (props: { time: Date }) => {
-	const format = () => formatDistanceToNow(props.time, { addSuffix: true })
+	const format = () => formatDistanceToNow(props.time).replace('about ', '~')
 	const [formatted, setFormatted] = createSignal<string>(format())
 
 	const i = setInterval(() => {

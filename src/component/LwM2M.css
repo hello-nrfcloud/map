@@ -45,7 +45,6 @@ section.lwm2m .multiple-instances {
 
 .instance-resources .source-info {
   margin-top: var(--gap-half);
-  font-size: 90%;
 }
 
 .instance-resources .resources {

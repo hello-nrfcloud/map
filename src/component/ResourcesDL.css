@@ -14,31 +14,20 @@ dl.resources dd {
   justify-content: space-between;
 }
 
-dl.resources dt {
-  font-size: 80%;
-  opacity: 0.8;
-  flex-wrap: wrap;
-}
-
 dl.resources dd {
   white-space: nowrap;
   margin-bottom: var(--gap-quart);
   border-bottom: 1px solid #ffffff2a;
   font-weight: 400;
+  min-height: 25px;
 }
 
 dl.resources .units {
-  font-size: 90%;
-  opacity: 0.8;
+  font-weight: 200;
 }
 
 dl.resources .units::before {
   content: " ";
-}
-
-dl.resources dt > span {
-  display: flex;
-  align-items: center;
 }
 
 dl.resources nav {
@@ -49,10 +38,46 @@ dl.resources nav > * {
   margin-left: var(--gap-quart);
 }
 
+dl.resources time.relative {
+  margin-right: var(--gap-quart);
+}
+
+dl.resources .resource-info {
+  display: flex;
+}
+
 dl.resources .resource-info .sep {
   opacity: 0.8;
 }
 
-dl.resources dt .name {
+dl.resources dt {
+  font-size: 90%;
+  opacity: 0.8;
+  align-items: start;
+}
+
+dl.resources dt > span {
+  display: flex;
+  align-items: center;
+}
+
+dl.resources dt .info {
   font-weight: 400;
+  display: flex;
+  flex-wrap: wrap;
+  flex-shrink: 1;
+  margin-top: 3px;
+}
+dl.resources dt .info .name {
+  margin-right: var(--gap);
+}
+
+dl.resources dt .info time.relative {
+  font-weight: 200;
+}
+
+dl.resources dt .meta {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
 }
