@@ -1,4 +1,4 @@
-import { For, Show, createSignal } from 'solid-js'
+import { For, Show, createSignal, createMemo } from 'solid-js'
 import {
 	type LwM2MObjectInstance,
 	definitions,
@@ -91,23 +91,35 @@ export const DescribeResources = (props: {
 	const definition = definitions[props.instance.ObjectID as LwM2MObjectID]
 	const tsResourceId = timestampResources[definition.ObjectID] as number
 	const location = useNavigation()
+
+	const resources = createMemo(() => {
+		const r: { info: LwM2MResourceInfo; value: LwM2MResourceValue }[] = []
+		for (const [resourceID, value] of Object.entries(
+			props.instance.Resources,
+		).filter(([resourceId]) => parseInt(resourceId, 10) !== tsResourceId)) {
+			const ResourceID = parseInt(resourceID, 10)
+			const info = definition.Resources[ResourceID]
+			if (info === undefined) {
+				console.warn(
+					`[DescribeResources]`,
+					`Unknown resource on device ${props.device.id}: ${props.instance.ObjectID}:${ResourceID}`,
+				)
+				continue
+			}
+			r.push({ info, value })
+		}
+		return r
+	})
+
 	return (
 		<div class="instance-resources">
 			<ResourcesDL>
-				<For
-					each={Object.entries(props.instance.Resources).filter(
-						([resourceId]) => parseInt(resourceId, 10) !== tsResourceId,
-					)}
-				>
-					{([resourceID, value]) => (
+				<For each={resources()}>
+					{({ info, value }) => (
 						<DescribeResource
 							device={props.device}
 							ObjectID={props.instance.ObjectID}
-							info={
-								definition.Resources[
-									parseInt(resourceID, 10)
-								] as LwM2MResourceInfo
-							}
+							info={info}
 							value={value}
 						/>
 					)}
