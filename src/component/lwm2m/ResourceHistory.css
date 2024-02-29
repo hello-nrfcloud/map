@@ -1,0 +1,10 @@
+aside.resource-history {
+  margin-top: var(--gap-medium);
+  margin-bottom: var(--gap-medium);
+}
+
+aside.resource-history .chart-container {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2/1;
+}

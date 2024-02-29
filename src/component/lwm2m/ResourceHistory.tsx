@@ -1,16 +1,18 @@
 import {
 	definitions,
-	instanceTs,
 	timestampResources,
 	type LwM2MObjectID,
 	type LwM2MObjectInstance,
 	type LwM2MResourceInfo,
+	ResourceType,
 } from '@hello.nrfcloud.com/proto-lwm2m'
+import { Show, createMemo, createResource } from 'solid-js'
 import type { Device } from '../../context/Devices.js'
-import { createResource, For, Show } from 'solid-js'
 import { useParameters } from '../../context/Parameters.js'
-import { RelativeTime } from '../RelativeTime.jsx'
-import { ResourcesDL } from '../ResourcesDL.jsx'
+import { SizeObserver } from '../SizeObserver.jsx'
+import { HistoryChart } from '../chart/HistoryChart.jsx'
+
+import './ResourceHistory.css'
 
 const fetchHistory =
 	(
@@ -69,49 +71,70 @@ export const ResourceHistory = (props: {
 		fetchHistory(parameters.lwm2mResourceHistoryURL, props),
 	)
 
+	const resourceHistory = createMemo(() => {
+		const ts = tsResource(props.ObjectID)
+		return (history()?.partialInstances ?? [])
+			.filter((partial) => partial[props.resource.ResourceID] !== undefined)
+			.map<
+				[number, Date]
+			>((partial) => [partial[props.resource.ResourceID] as number, new Date(partial[ts] as number)])
+	})
+
 	return (
-		<Show
-			when={!history.loading}
-			fallback={<p class="pad">Loading history...</p>}
-		>
-			<header class="pad">
+		<aside class="resource-history">
+			<header>
 				<h3>History</h3>
 			</header>
-			<ResourcesDL>
-				<For each={history()?.partialInstances}>
-					{(r) => {
-						const ts = instanceTs({
-							ObjectID: props.ObjectID,
-							Resources: r,
-							ObjectInstanceID: props.InstanceID,
-							ObjectVersion: history()!.query.ObjectVersion,
-						})
-						const {
-							ts: persistTs,
-							[tsResource(props.ObjectID)]: tsResourceValue,
-							...rest
-						} = r
-						void persistTs
-						void tsResourceValue
-						return (
-							<>
-								<For each={Object.entries(rest)}>
-									{([ResourceID, Value]) => (
-										<>
-											<dt>{ResourceID}</dt>
-											<dd>{Value.toString() ?? '&mdash;'}</dd>
-										</>
-									)}
-								</For>
-								<dt>Timestamp</dt>
-								<dd>
-									<RelativeTime time={ts} />
-								</dd>
-							</>
-						)
-					}}
-				</For>
-			</ResourcesDL>
-		</Show>
+			<Show when={!history.loading} fallback={<p>Loading history...</p>}>
+				<Show
+					when={resourceHistory().length > 0}
+					fallback={<p>No historical data available.</p>}
+				>
+					<SizeObserver class="chart-container">
+						{(size) => {
+							const min = Math.floor(
+								resourceHistory().reduce(
+									(min, [v]) => (v < min ? v : min),
+									Number.MAX_SAFE_INTEGER,
+								),
+							)
+							const max = Math.ceil(
+								resourceHistory().reduce(
+									(max, [v]) => (v > max ? v : max),
+									Number.MIN_SAFE_INTEGER,
+								),
+							)
+							return (
+								<HistoryChart
+									data={{
+										xAxis: {
+											color: '#ffffff',
+											hideLabels: false,
+											labelEvery: 2 * 60,
+											minutes: 60 * 24,
+											format: (d) => d.toISOString().slice(11, 13),
+										},
+										datasets: [
+											{
+												min: min === max ? Math.floor(min * 0.99) : min,
+												max: max === min ? Math.ceil(max * 1.01) : max,
+												values: resourceHistory().map(([v, ts]) => [v, ts]),
+												color: '#ffffff',
+												format: (v) => {
+													if (props.resource.Type === ResourceType.Float)
+														return v.toFixed(1).replace(/\.0$/, '')
+													return v.toString()
+												},
+											},
+										],
+									}}
+									size={size}
+								/>
+							)
+						}}
+					</SizeObserver>
+				</Show>
+			</Show>
+		</aside>
 	)
 }
