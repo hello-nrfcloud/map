@@ -2,15 +2,21 @@ import { isSearchTermType, type SearchTerm } from './Search.js'
 import { isModel, type Resource } from './Navigation.js'
 import { isLwM2MObjectID } from '@hello.nrfcloud.com/proto-lwm2m'
 
+export type NavigationMapState = {
+	center: { lat: number; lng: number }
+	zoom: number
+}
 export type Navigation = {
 	panel: string
 	search: SearchTerm[]
 	resources: Resource[]
+	map?: NavigationMapState
 }
 
 enum FieldKey {
 	Search = 's',
 	Resources = 'r',
+	Map = 'm',
 }
 
 const sep = '!'
@@ -20,7 +26,7 @@ export const encode = (
 ): string | undefined => {
 	if (navigation === undefined) return ''
 	const parts = []
-	const { panel, search, resources } = navigation
+	const { panel, search, resources, map } = navigation
 	parts.push(panel)
 	if (search !== undefined && search.length > 0) {
 		parts.push(
@@ -43,6 +49,11 @@ export const encode = (
 			],
 		)
 	}
+	if (map !== undefined) {
+		parts.push(
+			`${FieldKey.Map}:${map.zoom}:${map.center.lat},${map.center.lng}`,
+		)
+	}
 	return parts.join(sep)
 }
 
@@ -52,7 +63,7 @@ export const decode = (encoded?: string): Navigation | undefined => {
 	const [panel, ...rest] = encoded.split(sep)
 	if (panel === undefined) return undefined
 	if (rest.length === 0) return { panel, search: [], resources: [] }
-	return {
+	const nav: Navigation = {
 		panel,
 		search: rest
 			.map((s) => {
@@ -80,4 +91,21 @@ export const decode = (encoded?: string): Navigation | undefined => {
 			})
 			.filter((t): t is Resource => t !== undefined),
 	}
+
+	const mapState = rest.find((s) => s.split(':', 2)[0] === FieldKey.Map)
+	if (mapState !== undefined) {
+		const [, zoom, center] = mapState.split(':', 3)
+		const [lat, lng] = (center?.split(',').map((s) => parseFloat(s)) ?? [
+			63.421065865928355, 10.437128259586967,
+		]) as [number, number]
+		nav.map = {
+			zoom: parseInt(zoom ?? '1', 10),
+			center: {
+				lat,
+				lng,
+			},
+		}
+	}
+
+	return nav
 }

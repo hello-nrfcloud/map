@@ -13,7 +13,7 @@ import { LwM2MObjectID, models } from '@hello.nrfcloud.com/proto-lwm2m'
 const Home: Navigation = { panel: 'world', resources: [], search: [] }
 
 export const NavigationProvider = (props: ParentProps) => {
-	const [location, setLocation] = createSignal<Required<Navigation>>(
+	const [location, setLocation] = createSignal<Navigation>(
 		decode(window.location.hash.slice(1)) ?? Home,
 	)
 	const locationHandler = () =>
@@ -132,7 +132,7 @@ const resourceToString = ({ ObjectID, ResourceID }: Resource): string =>
 	`${ObjectID}/${ResourceID}`
 
 export const NavigationContext = createContext<{
-	current: Accessor<Required<Navigation>>
+	current: Accessor<Navigation>
 	navigate: (next: Partial<Navigation>) => void
 	navigateHome: () => void
 	linkToHome: () => string

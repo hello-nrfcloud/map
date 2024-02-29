@@ -55,6 +55,26 @@ export const AllDevicesMap = () => {
 	})
 	const [mapLoaded, setMapLoaded] = createSignal<boolean>(false)
 
+	// Only use this once for initialization
+	const initialNavMapState = location.current().map ?? {
+		center: {
+			lat: 63.421065865928355,
+			lng: 10.437128259586967,
+		},
+		zoom: 1,
+	}
+
+	const updateNavigationMapState = (map: MapLibreGlMap) => {
+		const zoom = map.getZoom()
+		const center = map.getCenter()
+		location.navigate({
+			map: {
+				center,
+				zoom,
+			},
+		})
+	}
+
 	// FIXME: decide what should be used as the "center" of the device
 	const deviceLocations = createMemo(() => {
 		console.log('[World]', `update location`)
@@ -91,15 +111,9 @@ export const AllDevicesMap = () => {
 	})
 
 	createEffect(() => {
-		map = createMap(
-			ref,
-			parameters,
-			{
-				lat: 63.421065865928355,
-				lng: 10.437128259586967,
-			},
-			{ zoom: 1 },
-		)
+		map = createMap(ref, parameters, initialNavMapState.center, {
+			zoom: initialNavMapState.zoom,
+		})
 
 		map.on('load', () => {
 			setMapLoaded(true)
@@ -120,6 +134,9 @@ export const AllDevicesMap = () => {
 				map.getCanvas().style.cursor = ''
 			})
 		})
+
+		map.on('zoomend', () => updateNavigationMapState(map))
+		map.on('moveend', () => updateNavigationMapState(map))
 	})
 
 	createEffect(() => {

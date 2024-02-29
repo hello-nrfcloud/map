@@ -71,4 +71,32 @@ void describe('encode() / decode()', () => {
 				],
 			},
 		))
+
+	void it('should encode the map state', () =>
+		assert.deepEqual(
+			decode(
+				encode({
+					panel: 'world',
+					map: {
+						center: {
+							lat: 63.421065865928355,
+							lng: 10.437128259586967,
+						},
+						zoom: 7,
+					},
+				}),
+			),
+			{
+				panel: 'world',
+				search: [],
+				resources: [],
+				map: {
+					center: {
+						lat: 63.421065865928355,
+						lng: 10.437128259586967,
+					},
+					zoom: 7,
+				},
+			},
+		))
 })
