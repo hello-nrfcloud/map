@@ -22,7 +22,7 @@ import {
 } from './BatteryAndPower.js'
 import { Icon as FavoritesIcon, Card as FavoritesCard } from './Favorites.js'
 import { Icon as LocationIcon, Card as LocationCard } from './Location.js'
-import { DescribeInstance } from '../LwM2M.jsx'
+import { DescribeInstance } from '../lwm2m/DescribeInstance.jsx'
 import type { Device } from '../../context/Devices.jsx'
 import { useNavigation } from '../../context/Navigation.jsx'
 

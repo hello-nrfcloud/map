@@ -11,7 +11,7 @@ import {
 import { isLwM2MObjectID } from '@hello.nrfcloud.com/proto-lwm2m'
 import type { Device } from '../../context/Devices.jsx'
 import { ResourcesDL } from '../ResourcesDL.jsx'
-import { DescribeResource } from '../LwM2M.jsx'
+import { DescribeResource } from '../lwm2m/DescribeResource.jsx'
 
 import './DeviceInformation.css'
 

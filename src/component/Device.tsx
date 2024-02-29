@@ -13,11 +13,11 @@ import {
 import { newestInstanceFirst } from '../util/newestInstanceFirst.js'
 import { InfoBlock } from './InfoBlock.jsx'
 import { KnownObjects } from './KnownObjects/KnownObjects.jsx'
-import { DescribeInstance } from './LwM2M.jsx'
+import { DescribeInstance } from './lwm2m/DescribeInstance.jsx'
 import { SidebarContent } from './Sidebar.js'
 
 import { DescribeModel } from './DescribeModel.jsx'
-import './LwM2M.css'
+import './lwm2m/LwM2M.css'
 
 export const SidebarButton = () => {
 	const location = useNavigation()
