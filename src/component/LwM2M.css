@@ -12,22 +12,22 @@ aside.device header h1 .icon {
   margin-left: var(--gap-small);
 }
 
-section.lwm2m header {
+.lwm2m header {
   display: flex;
   justify-content: space-between;
 }
 
-section.lwm2m header h2 {
+.lwm2m header h2 {
   display: flex;
   flex-direction: column;
 }
 
-section.lwm2m header small {
+.lwm2m header small {
   opacity: 0.75;
   font-size: 80%;
 }
 
-section.lwm2m .multiple-instances {
+.lwm2m .multiple-instances {
   margin-left: var(--gap-medium);
 }
 
@@ -43,10 +43,15 @@ section.lwm2m .multiple-instances {
   margin-bottom: var(--gap);
 }
 
+.instance-resources {
+  padding: var(--gap);
+}
+
 .instance-resources .source-info {
   margin-top: var(--gap-medium);
 }
 
-.instance-resources .resources {
-  margin-top: var(--gap);
+.lwm2m.boxed {
+  padding: 0;
+  margin-top: 0;
 }

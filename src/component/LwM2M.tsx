@@ -1,32 +1,31 @@
-import { For, Show, createSignal, createMemo } from 'solid-js'
 import {
-	type LwM2MObjectInstance,
-	definitions,
 	LwM2MObjectID,
-	timestampResources,
-	type LwM2MResourceValue,
-	type LwM2MResourceInfo,
 	ResourceType,
+	definitions,
 	instanceTs,
+	timestampResources,
+	type LwM2MObjectInstance,
+	type LwM2MResourceInfo,
+	type LwM2MResourceValue,
 } from '@hello.nrfcloud.com/proto-lwm2m'
+import { For, Show, createMemo, createSignal } from 'solid-js'
+import type { Device } from '../context/Devices.jsx'
+import { useNavigation, type Resource } from '../context/Navigation.jsx'
+import { SearchTermType } from '../context/Search.js'
 import {
-	Collapse,
+	Close,
 	Documentation,
-	Expand,
-	Multiple,
-	Search,
 	Favorite,
-	Unfavorite,
 	Published,
+	Search,
+	Unfavorite,
 } from '../icons/LucideIcon.jsx'
+import { format } from '../util/lwm2m.js'
+import { CollapseButton } from './CollapseButton.jsx'
+import { CollapsibleMenu } from './CollapsibleMenu.jsx'
 import { RelativeTime } from './RelativeTime.jsx'
 import { ResourcesDL } from './ResourcesDL.jsx'
-import { SourceInfo } from './SourceInfo.jsx'
-import { SearchTermType } from '../context/Search.js'
-import { useNavigation, type Resource } from '../context/Navigation.jsx'
-import { format } from '../util/lwm2m.js'
-import type { Device } from '../context/Devices.jsx'
-import { CollapsibleMenu } from './CollapsibleMenu.jsx'
+import { DescribeObject } from './lwm2m/DescribeObject.jsx'
 
 export const DescribeInstance = (props: {
 	instance: LwM2MObjectInstance
@@ -35,52 +34,37 @@ export const DescribeInstance = (props: {
 	const [expanded, setExpanded] = createSignal<boolean>(false)
 	const definition = definitions[props.instance.ObjectID as LwM2MObjectID]
 	const ts = instanceTs(props.instance)
-	const instanceId = props.instance.ObjectInstanceID ?? 0
 	return (
 		<Show
 			when={definition !== undefined}
 			fallback={<p>Unknown Object ID: {props.instance.ObjectID}!</p>}
 		>
-			<section class="lwm2m instance">
-				<header>
-					<h2>
-						<span>
-							<span class="name">{definition.Name} </span>
+			<div class="lwm2m">
+				<section class="instance">
+					<header class="rounded-header">
+						<h2>
+							<span>
+								<span class="name">{definition.Name} </span>
+							</span>
 							<small>
-								({props.instance.ObjectID})
-								<Show when={instanceId !== 0}>
-									<abbr
-										title={`Instance ID: ${instanceId}`}
-										class="multiple-instances"
-									>
-										<Multiple strokeWidth={1} size={20} /> {instanceId}
-									</abbr>
-								</Show>
+								<RelativeTime time={ts}>
+									<Published strokeWidth={1} size={16} />
+								</RelativeTime>
 							</small>
-						</span>
-						<small>
-							<RelativeTime time={ts}>
-								<Published strokeWidth={1} size={16} />
-							</RelativeTime>
-						</small>
-					</h2>
-					<Show
-						when={expanded()}
-						fallback={
-							<button type="button" onClick={() => setExpanded(true)}>
-								<Expand strokeWidth={1} />
-							</button>
-						}
-					>
-						<button type="button" onClick={() => setExpanded(false)}>
-							<Collapse strokeWidth={1} />
-						</button>
+						</h2>
+						<CollapseButton expanded={expanded} setExpanded={setExpanded} />
+					</header>
+					<Show when={expanded()}>
+						<DescribeResources
+							device={props.device}
+							instance={props.instance}
+						/>
 					</Show>
-				</header>
+				</section>
 				<Show when={expanded()}>
-					<DescribeResources device={props.device} instance={props.instance} />
+					<DescribeObject instance={props.instance} />
 				</Show>
-			</section>
+			</div>
 		</Show>
 	)
 }
@@ -91,7 +75,6 @@ export const DescribeResources = (props: {
 }) => {
 	const definition = definitions[props.instance.ObjectID as LwM2MObjectID]
 	const tsResourceId = timestampResources[definition.ObjectID] as number
-	const location = useNavigation()
 
 	const resources = createMemo(() => {
 		const r: { info: LwM2MResourceInfo; value: LwM2MResourceValue }[] = []
@@ -126,30 +109,6 @@ export const DescribeResources = (props: {
 					)}
 				</For>
 			</ResourcesDL>
-			<SourceInfo>
-				<p>
-					<Documentation size={20} strokeWidth={1} />
-					<a
-						href={`https://github.com/hello-nrfcloud/proto-lwm2m/blob/saga/lwm2m/${props.instance.ObjectID}.xml`}
-						target="_blank"
-					>
-						LwM2M Object ID: <code>{props.instance.ObjectID}</code>, Version:{' '}
-						<code>{props.instance.ObjectVersion ?? '1.0'}</code>
-					</a>
-				</p>
-				<p>
-					<Search size={20} strokeWidth={1} />
-					<a
-						href={location.linkToSearch({
-							type: SearchTermType.Has,
-							term: props.instance.ObjectID.toString(),
-						})}
-					>
-						Search for all devices with ObjectID{' '}
-						<code>{props.instance.ObjectID}</code>
-					</a>
-				</p>
-			</SourceInfo>
 		</div>
 	)
 }
@@ -162,6 +121,7 @@ export const DescribeResource = (props: {
 	ts?: Date | undefined
 	device: Device
 }) => {
+	const [showDefinition, setShowDefinition] = createSignal<boolean>(false)
 	const location = useNavigation()
 	const r: Resource = {
 		model: props.device.model,
@@ -173,7 +133,15 @@ export const DescribeResource = (props: {
 		props.value !== undefined ? format(props.value, props.info) : undefined
 
 	return (
-		<>
+		<Show
+			when={!showDefinition()}
+			fallback={
+				<DescribeResourceDefinition
+					info={props.info}
+					close={() => setShowDefinition(false)}
+				/>
+			}
+		>
 			<dt>
 				<span class="info">
 					<abbr class="name" title={props.info.Description}>
@@ -186,52 +154,54 @@ export const DescribeResource = (props: {
 					</Show>
 				</span>
 				<CollapsibleMenu>
-					<span class="meta">
-						<span class="resource-info">
-							<small class="object-id">{props.ObjectID}</small>
-							<small class="sep">/</small>
-							<small class="resource-id">{props.info.ResourceID}</small>
-						</span>
-						<nav>
-							<Show
-								when={location.hasResource(r)}
-								fallback={
-									<button
-										title="Add to favorites"
-										type="button"
-										onClick={() => location.toggleResource(r)}
-									>
-										<Favorite strokeWidth={1} size={20} />
-									</button>
-								}
+					<nav>
+						<Show when={!showDefinition()}>
+							<button
+								title="Show definition"
+								type="button"
+								onClick={() => setShowDefinition(true)}
 							>
+								<Documentation strokeWidth={1} size={20} />
+							</button>
+						</Show>
+						<Show
+							when={location.hasResource(r)}
+							fallback={
 								<button
-									title="Remove from favorites"
+									title="Add to favorites"
 									type="button"
 									onClick={() => location.toggleResource(r)}
 								>
-									<Unfavorite strokeWidth={1} size={20} />
+									<Favorite strokeWidth={1} size={20} />
 								</button>
-							</Show>
-							<a
-								href={location.link({
-									panel: 'search',
-									search: [
-										{
-											type: SearchTermType.Has,
-											term: `${props.ObjectID}/${props.info.ResourceID}`,
-										},
-									],
-								})}
-								title={`Search for devices that have the object ${props.ObjectID} and the resource ${props.info.ResourceID}`}
+							}
+						>
+							<button
+								title="Remove from favorites"
+								type="button"
+								onClick={() => location.toggleResource(r)}
 							>
-								<Search strokeWidth={1} size={20} />
-							</a>
-						</nav>
-					</span>
+								<Unfavorite strokeWidth={1} size={20} />
+							</button>
+						</Show>
+						<a
+							href={location.link({
+								panel: 'search',
+								search: [
+									{
+										type: SearchTermType.Has,
+										term: `${props.ObjectID}/${props.info.ResourceID}`,
+									},
+								],
+							})}
+							title={`Search for devices that have the object ${props.ObjectID} and the resource ${props.info.ResourceID}`}
+						>
+							<Search strokeWidth={1} size={20} />
+						</a>
+					</nav>
 				</CollapsibleMenu>
 			</dt>
-			<dd>
+			<dd class="value">
 				<Show when={v !== undefined} fallback={<span>&mdash;</span>}>
 					<span class="resource-value">
 						<span class="value">{v!.value}</span>
@@ -269,6 +239,36 @@ export const DescribeResource = (props: {
 					</Show>
 				</Show>
 			</dd>
-		</>
+		</Show>
 	)
 }
+
+const DescribeResourceDefinition = (props: {
+	info: LwM2MResourceInfo
+	close: () => void
+}) => (
+	<>
+		<dt>
+			<span class="info">
+				<abbr class="name" title={props.info.Description}>
+					<small>{props.info.ResourceID}:</small>
+					{props.info.Name}
+					<Show when={props.info.Units !== undefined}>
+						<small>in {props.info.Units}</small>
+					</Show>
+					<small>({props.info.Type})</small>
+				</abbr>
+			</span>
+			<nav>
+				<button
+					type="button"
+					title="Close definition"
+					onClick={() => props.close()}
+				>
+					<Close strokeWidth={1} size={20} />
+				</button>
+			</nav>
+		</dt>
+		<dd class="value">{props.info.Description}</dd>
+	</>
+)

@@ -67,7 +67,7 @@ export const KnownObjects = (props: {
 
 	return (
 		<section class="known-objects boxed">
-			<nav class="tabs">
+			<nav class="tabs rounded-header">
 				<Show when={tabs().includes(TabType.Favorites)}>
 					<Tab
 						id={TabType.Favorites}

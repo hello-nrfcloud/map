@@ -3,13 +3,9 @@
 }
 
 .known-objects nav.tabs {
-  border-bottom: 1px solid #ffffff99;
   display: flex;
   align-items: flex-end;
-  padding: var(--gap) 0 0 var(--gap);
-  background-color: var(--bg-blue-2);
-  border-top-left-radius: calc(var(--border-radius) * 2);
-  border-top-right-radius: calc(var(--border-radius) * 2);
+  padding-bottom: 0;
 }
 
 .known-objects nav.tabs button {
@@ -42,8 +38,6 @@
 }
 
 .known-objects footer {
-  padding: var(--gap);
-  background-color: var(--bg-blue-3);
   border-bottom-left-radius: calc(var(--border-radius) * 2);
   border-bottom-right-radius: calc(var(--border-radius) * 2);
   border-top: 1px solid var(--bg-blue-1);

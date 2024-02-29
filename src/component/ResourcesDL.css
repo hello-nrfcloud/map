@@ -15,7 +15,6 @@ dl.resources dd {
 }
 
 dl.resources dd {
-  white-space: nowrap;
   margin-bottom: var(--gap-tiny);
   border-bottom: 1px solid #ffffff2a;
   font-weight: 400;
@@ -56,7 +55,6 @@ dl.resources .resource-info .sep {
 dl.resources dt {
   font-size: 90%;
   opacity: 0.8;
-  align-items: start;
 }
 
 dl.resources dt > span {
@@ -78,8 +76,32 @@ dl.resources dt .info time.relative {
   font-weight: 300;
 }
 
-dl.resources dt .meta {
+dl.resources dt nav {
   flex-shrink: 0;
   display: flex;
   align-items: center;
+}
+
+dl.resources dt .info small {
+  font-size: 90%;
+  opacity: 0.8;
+  margin-left: var(--gap-small);
+  margin-right: var(--gap-small);
+}
+
+dl.resources dt .info small + small {
+  margin-right: 0;
+}
+
+dl.resources dt .info small:first-child {
+  margin-left: 0;
+}
+
+dl.resources dt .info small:last-child {
+  margin-right: 0;
+}
+
+dl.resources dd {
+  margin-top: var(--gap-small);
+  overflow: hidden;
 }

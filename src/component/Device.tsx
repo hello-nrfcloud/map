@@ -3,21 +3,20 @@ import { For, Show, createMemo } from 'solid-js'
 import { byId, useDevices, type Device } from '../context/Devices.js'
 import { useNavigation } from '../context/Navigation.js'
 import { Device as DeviceIcon } from '../icons/Device.js'
-import { Close, Documentation, NoData, Search } from '../icons/LucideIcon.jsx'
-import { newestInstanceFirst } from '../util/newestInstanceFirst.js'
+import { Close, NoData } from '../icons/LucideIcon.jsx'
 import {
 	isBatteryAndPower,
 	isDeviceInformation,
 	isGeoLocation,
 	isGeoLocationArray,
 } from '../util/lwm2m.js'
+import { newestInstanceFirst } from '../util/newestInstanceFirst.js'
 import { InfoBlock } from './InfoBlock.jsx'
 import { KnownObjects } from './KnownObjects/KnownObjects.jsx'
 import { DescribeInstance } from './LwM2M.jsx'
 import { SidebarContent } from './Sidebar.js'
-import { SourceInfo } from './SourceInfo.jsx'
-import { SearchTermType } from '../context/Search.js'
 
+import { DescribeModel } from './DescribeModel.jsx'
 import './LwM2M.css'
 
 export const SidebarButton = () => {
@@ -93,7 +92,6 @@ const isGenericObject = (instance: LwM2MObjectInstance): boolean => {
 }
 
 const DeviceInfo = (props: { device: Device }) => {
-	const location = useNavigation()
 	const instances = createMemo(() =>
 		[...(props.device.state ?? [])].sort(newestInstanceFirst),
 	)
@@ -162,36 +160,7 @@ const DeviceInfo = (props: { device: Device }) => {
 					.
 				</p>
 			</InfoBlock>
-			<div class="boxed">
-				<SourceInfo>
-					<p>
-						<Documentation size={20} strokeWidth={1} />
-						<a
-							href={`https://github.com/hello-nrfcloud/proto-lwm2m/tree/saga/models/${encodeURIComponent(props.device.model)}`}
-							target="_blank"
-						>
-							Model definition for <code>{props.device.model}</code>
-						</a>
-					</p>
-					<p>
-						<Search size={20} strokeWidth={1} />
-						<a
-							href={location.link({
-								panel: 'search',
-								search: [
-									{
-										type: SearchTermType.Model,
-										term: props.device.model,
-									},
-								],
-							})}
-						>
-							Search for all devices with model{' '}
-							<code>{props.device.model}</code>
-						</a>
-					</p>
-				</SourceInfo>
-			</div>
+			<DescribeModel device={props.device} />
 		</section>
 	)
 }

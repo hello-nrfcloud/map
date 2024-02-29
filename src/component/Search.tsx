@@ -30,7 +30,7 @@ const Search = () => {
 
 	return (
 		<>
-			<div class="wrapper boxed light">
+			<div class="wrapper boxed pad light">
 				<form
 					onSubmit={(e) => {
 						e.preventDefault()
@@ -145,7 +145,7 @@ const MostRecentDevicesList = () => {
 const DeviceCard = (props: { device: Device }) => {
 	const location = useNavigation()
 	return (
-		<div class="result boxed">
+		<div class="result boxed pad">
 			<span>
 				<DeviceIcon class="icon" />
 			</span>
