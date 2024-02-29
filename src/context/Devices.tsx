@@ -19,9 +19,7 @@ export type Device = Static<typeof PublicDevice> & {
 export const fetchDevices =
 	(url: URL) => async (): Promise<Static<typeof Devices>> => {
 		try {
-			const res = await fetch(url)
-			const devices = await res.json()
-			return devices
+			return (await fetch(url)).json()
 		} catch (err) {
 			throw new Error(
 				`Failed to fetch devices (${url.toString()}): ${(err as Error).message}!`,

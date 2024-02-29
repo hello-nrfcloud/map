@@ -27,6 +27,7 @@ type FavoritedResource = {
 	resource: Resource
 	definition: LwM2MResourceInfo
 	value: LwM2MResourceValue | undefined
+	InstanceID: number
 	ts: Date | undefined
 }
 
@@ -49,6 +50,7 @@ export const Card = (props: { resources: Resource[]; device: Device }) => {
 					definition,
 					value: resourceValue as LwM2MResourceValue | undefined,
 					ts,
+					InstanceID: instance?.ObjectInstanceID ?? 0,
 				}
 			})
 			.filter((s): s is FavoritedResource => s !== undefined),
@@ -64,6 +66,7 @@ export const Card = (props: { resources: Resource[]; device: Device }) => {
 						info={resource.definition}
 						value={resource.value}
 						ts={resource.ts}
+						InstanceID={resource.InstanceID}
 					/>
 				)}
 			</For>

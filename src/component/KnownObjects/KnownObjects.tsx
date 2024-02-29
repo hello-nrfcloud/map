@@ -1,30 +1,30 @@
 import {
-	type DeviceInformation_14204,
 	type BatteryAndPower_14202,
+	type DeviceInformation_14204,
 	type Geolocation_14201,
 } from '@hello.nrfcloud.com/proto-lwm2m'
 import {
 	For,
 	Show,
+	createEffect,
+	createMemo,
 	createSignal,
 	type ParentProps,
 	type Signal,
-	createMemo,
-	createEffect,
 } from 'solid-js'
-import {
-	Icon as DeviceInformationIcon,
-	Card as DeviceInformationCard,
-} from './DeviceInformation.js'
-import {
-	Icon as BatteryAndPowerIcon,
-	Card as BatteryAndPowerCard,
-} from './BatteryAndPower.js'
-import { Icon as FavoritesIcon, Card as FavoritesCard } from './Favorites.js'
-import { Icon as LocationIcon, Card as LocationCard } from './Location.js'
-import { DescribeInstance } from '../lwm2m/DescribeInstance.jsx'
 import type { Device } from '../../context/Devices.jsx'
 import { useNavigation } from '../../context/Navigation.jsx'
+import { DescribeInstance } from '../lwm2m/DescribeInstance.jsx'
+import {
+	Card as BatteryAndPowerCard,
+	Icon as BatteryAndPowerIcon,
+} from './BatteryAndPower.js'
+import {
+	Card as DeviceInformationCard,
+	Icon as DeviceInformationIcon,
+} from './DeviceInformation.js'
+import { Card as FavoritesCard, Icon as FavoritesIcon } from './Favorites.js'
+import { Card as LocationCard, Icon as LocationIcon } from './Location.js'
 
 import './KnownObjects.css'
 
@@ -62,7 +62,7 @@ export const KnownObjects = (props: {
 	const [visibleCard, setVisibleCard] = createSignal<TabType | undefined>()
 
 	createEffect(() => {
-		setVisibleCard(tabs()[0])
+		setVisibleCard(tabs()[1] ?? tabs()[0])
 	})
 
 	return (

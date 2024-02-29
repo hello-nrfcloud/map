@@ -10,6 +10,8 @@ export type Parameters = {
 	// Map sharing
 	devicesAPIURL: URL
 	thingyWorldShadowsURL: URL
+	// Map history
+	lwm2mResourceHistoryURL: URL
 }
 
 export const fetchParameters = (url: URL) => async (): Promise<Parameters> => {
@@ -23,6 +25,7 @@ export const fetchParameters = (url: URL) => async (): Promise<Parameters> => {
 			mapApiKey,
 			mapRegion,
 			cognitoIdentityPoolId,
+			lwm2mResourceHistoryURL,
 		} = params
 		const parsed = {
 			devicesAPIURL: new URL(devicesAPIURL),
@@ -31,6 +34,7 @@ export const fetchParameters = (url: URL) => async (): Promise<Parameters> => {
 			mapApiKey,
 			mapRegion,
 			cognitoIdentityPoolId,
+			lwm2mResourceHistoryURL: new URL(lwm2mResourceHistoryURL),
 		}
 		for (const [k, v] of Object.entries({ devicesAPIURL })) {
 			console.log(`[Parameters]`, k, v)

@@ -47,6 +47,7 @@ export const DescribeResources = (props: {
 							ObjectID={props.instance.ObjectID}
 							info={info}
 							value={value}
+							InstanceID={props.instance.ObjectInstanceID ?? 0}
 						/>
 					)}
 				</For>

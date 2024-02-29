@@ -22,6 +22,7 @@ import {
 	StarOff,
 	UploadCloud,
 	MoreHorizontal,
+	LineChart,
 } from 'lucide'
 import { For } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
@@ -146,4 +147,8 @@ export const Published = (props: LucideProps) => (
 
 export const Menu = (props: LucideProps) => (
 	<LucideIcon icon={MoreHorizontal} {...props} />
+)
+
+export const History = (props: LucideProps) => (
+	<LucideIcon icon={LineChart} {...props} />
 )
