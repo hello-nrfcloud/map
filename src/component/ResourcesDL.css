@@ -105,3 +105,8 @@ dl.resources dd {
   margin-top: var(--gap-small);
   overflow: hidden;
 }
+
+dl.resources dd p {
+  font-weight: 300;
+  font-size: 95%;
+}

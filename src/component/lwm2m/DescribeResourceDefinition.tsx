@@ -16,16 +16,7 @@ export const DescribeResourceDefinition = (props: {
 		<>
 			<dt>
 				<span class="info">
-					<abbr class="name" title={props.info.Description}>
-						<small>
-							{props.ObjectID}/{props.info.ResourceID}:
-						</small>
-						({objectInfo.Name}) {props.info.Name}
-						<Show when={props.info.Units !== undefined}>
-							<small>in {props.info.Units}</small>
-						</Show>
-						<small>({props.info.Type})</small>
-					</abbr>
+					{props.ObjectID}/{props.info.ResourceID}
 				</span>
 				<nav>
 					<button
@@ -37,7 +28,15 @@ export const DescribeResourceDefinition = (props: {
 					</button>
 				</nav>
 			</dt>
-			<dd class="value">{props.info.Description}</dd>
+			<dd class="value">
+				<p>
+					{objectInfo.Name}/<strong>{props.info.Name}</strong>{' '}
+					<Show when={props.info.Units !== undefined}>
+						<span>in {props.info.Units} </span>
+					</Show>
+					(<code>{props.info.Type}</code>): {props.info.Description}
+				</p>
+			</dd>
 		</>
 	)
 }
