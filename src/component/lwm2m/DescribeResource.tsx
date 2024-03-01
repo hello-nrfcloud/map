@@ -74,15 +74,6 @@ export const DescribeResource = (props: {
 									type="button"
 									onClick={() => setShowDefinition(true)}
 								>
-									<History strokeWidth={1} size={20} />
-								</button>
-							</Show>
-							<Show when={!showDefinition()}>
-								<button
-									title="Show definition"
-									type="button"
-									onClick={() => setShowDefinition(true)}
-								>
 									<Documentation strokeWidth={1} size={20} />
 								</button>
 							</Show>
