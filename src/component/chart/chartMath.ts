@@ -13,6 +13,10 @@ export type XAxis = {
 	minutes: number
 	color: string
 	labelEvery: number
+	/**
+	 * The minimum distance between two value labels
+	 */
+	minValueDistancePX: number
 	format: (d: Date) => string
 	hideLabels: boolean
 }

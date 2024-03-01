@@ -108,9 +108,10 @@ export const ResourceHistory = (props: {
 								<HistoryChart
 									data={{
 										xAxis: {
-											color: '#ffffff',
+											color: 'var(--chart-labels)',
 											hideLabels: false,
 											labelEvery: 2 * 60,
+											minValueDistancePX: 40,
 											minutes: 60 * 24,
 											format: (d) => d.toISOString().slice(11, 13),
 										},
@@ -119,10 +120,10 @@ export const ResourceHistory = (props: {
 												min: min === max ? Math.floor(min * 0.99) : min,
 												max: max === min ? Math.ceil(max * 1.01) : max,
 												values: resourceHistory().map(([v, ts]) => [v, ts]),
-												color: '#ffffff',
+												color: 'var(--chart-values)',
 												format: (v) => {
 													if (props.resource.Type === ResourceType.Float)
-														return v.toFixed(1).replace(/\.0$/, '')
+														return v.toFixed(2).replace(/\.00$/, '')
 													return v.toString()
 												},
 											},

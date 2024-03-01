@@ -2,6 +2,8 @@ import type { Size } from '../SizeObserver.jsx'
 import { chartMath, type ChartData } from './chartMath.js'
 import { generateLabels } from './generateLabels.js'
 
+import './HistoryChart.css'
+
 export const HistoryChart = (props: {
 	data: ChartData
 	padding?: number
@@ -33,6 +35,7 @@ export const HistoryChart = (props: {
 				viewBox={`0 0 ${w} ${h}`}
 				version="1.1"
 				xmlns="http://www.w3.org/2000/svg"
+				class="history-chart"
 			>
 				{/* x axis labels and lines */}
 				<g>
@@ -41,9 +44,6 @@ export const HistoryChart = (props: {
 							<path
 								stroke={props.data.xAxis.color}
 								stroke-width={0.5}
-								stroke-linecap={'butt'}
-								stroke-linejoin={'miter'}
-								stroke-miterlimit={4}
 								fill={'none'}
 								d={`M ${
 									m.paddingLeft +
@@ -60,8 +60,9 @@ export const HistoryChart = (props: {
 										}
 										y={h}
 										text-anchor="middle"
-										font-size={fontSize.toString()}
+										font-size={(fontSize * 0.9).toString()}
 										fill={props.data.xAxis.color}
+										class="label"
 									>
 										{label}
 									</text>
@@ -80,17 +81,11 @@ export const HistoryChart = (props: {
 								<path
 									stroke={props.data.xAxis.color}
 									stroke-width={0.5}
-									stroke-linecap={'round'}
-									stroke-linejoin={'round'}
-									stroke-miterlimit={2}
 									d={`M ${xPos},${m.paddingY} h ${length}`}
 								/>
 								<path
 									stroke={props.data.xAxis.color}
 									stroke-width={0.5}
-									stroke-linecap={'round'}
-									stroke-linejoin={'round'}
-									stroke-miterlimit={2}
 									d={`M ${xPos},${m.paddingY + m.yAxisHeight} h ${length}`}
 								/>
 							</>
@@ -113,8 +108,6 @@ export const HistoryChart = (props: {
 							<>
 								<text
 									fill={props.data.xAxis.color}
-									opacity={0.5}
-									font-weight={700}
 									x={xPos}
 									y={m.paddingY + fontSize / 3}
 									text-anchor={anchor}
@@ -124,8 +117,6 @@ export const HistoryChart = (props: {
 								</text>
 								<text
 									fill={props.data.xAxis.color}
-									opacity={0.5}
-									font-weight={700}
 									x={xPos}
 									y={m.paddingY + m.yAxisHeight + fontSize / 3}
 									text-anchor={anchor}
@@ -153,10 +144,7 @@ export const HistoryChart = (props: {
 					return (
 						<path
 							stroke={dataset.color}
-							stroke-width={2}
-							stroke-linecap={'round'}
-							stroke-linejoin={'round'}
-							stroke-miterlimit={2}
+							stroke-width={1}
 							fill={'none'}
 							d={lineDefinition.join(' ')}
 						/>
@@ -165,41 +153,51 @@ export const HistoryChart = (props: {
 				{/* dataset labels */}
 				{props.data.datasets.map((dataset) => {
 					const labels = []
-					for (let i = 0; i < dataset.values.length; i++) {
-						if (i % props.data.xAxis.labelEvery === 0) {
-							const [v, ts] = dataset.values[i] as [number, Date]
-							const x = m.xPosition(ts)
-							if (x === null) continue
-							labels.push(
-								<circle
-									fill={'none'}
-									stroke={dataset.color}
-									stroke-width={2}
-									stroke-linecap={'round'}
-									stroke-linejoin={'round'}
-									stroke-miterlimit={2}
-									cy={m.yPosition(dataset, v)}
-									cx={x}
-									r="6"
-								/>,
-							)
-							labels.push(
-								<text
-									fill={dataset.color}
-									font-weight={700}
-									y={m.yPosition(dataset, v) - m.padding / 2}
-									x={x}
-									text-anchor="middle"
-									font-size={fontSize.toString()}
-								>
-									{dataset.format(v)}
-								</text>,
-							)
+					let lastX = Number.MAX_SAFE_INTEGER
+					let lastY = Number.MAX_SAFE_INTEGER
+					for (const [v, ts] of dataset.values) {
+						const x = m.xPosition(ts)
+						const y = m.yPosition(dataset, v)
+						if (x === null) continue
+						if (
+							distance(x, y, lastX, lastY) < props.data.xAxis.minValueDistancePX
+						) {
+							continue
 						}
+						lastX = x
+						lastY = y
+						labels.push(
+							<circle
+								fill={'none'}
+								stroke={dataset.color}
+								stroke-width={4}
+								cy={y}
+								cx={x}
+								r="1"
+							/>,
+						)
+						labels.push(
+							<text
+								fill={dataset.color}
+								y={y - fontSize / 2}
+								x={x}
+								text-anchor="middle"
+								font-size={fontSize.toString()}
+								class="value"
+							>
+								{dataset.format(v)}
+							</text>,
+						)
 					}
 					return labels
 				})}
 			</svg>
 		</div>
 	)
+}
+
+const distance = (x1: number, y1: number, x2: number, y2: number): number => {
+	const dx = x2 - x1
+	const dy = y2 - y1
+	return Math.sqrt(dx * dx + dy * dy)
 }

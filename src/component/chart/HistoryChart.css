@@ -1,0 +1,8 @@
+svg.history-chart .value {
+  font-weight: 500;
+  text-shadow: 0px 0 3px #000000;
+}
+
+svg.history-chart .label {
+  font-weight: 100;
+}
