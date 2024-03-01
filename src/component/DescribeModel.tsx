@@ -12,7 +12,7 @@ export const DescribeModel = (props: { device: Device }) => {
 	const [expanded, setExpanded] = createSignal<boolean>(false)
 	return (
 		<aside class="model-definition boxed">
-			<header class="rounded-footer">
+			<header class="rounded-header">
 				<h3>
 					<Documentation size={20} strokeWidth={1} />
 					Model definition
