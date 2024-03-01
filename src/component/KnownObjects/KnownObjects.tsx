@@ -23,7 +23,7 @@ import {
 	Card as DeviceInformationCard,
 	Icon as DeviceInformationIcon,
 } from './DeviceInformation.js'
-import { Card as FavoritesCard, Icon as FavoritesIcon } from './Favorites.js'
+import { Card as PinnedCard, Icon as PinnedIcon } from './Pinned.jsx'
 import { Card as LocationCard, Icon as LocationIcon } from './Location.js'
 
 import './KnownObjects.css'
@@ -32,7 +32,7 @@ enum TabType {
 	Info = 'info',
 	Bat = 'bat',
 	Location = 'location',
-	Favorites = 'favorites',
+	Pinned = 'pinned',
 }
 
 export const KnownObjects = (props: {
@@ -52,7 +52,7 @@ export const KnownObjects = (props: {
 
 	const tabs = createMemo(() => {
 		const tabs: TabType[] = []
-		if (favoriteResources().length > 0) tabs.push(TabType.Favorites)
+		if (favoriteResources().length > 0) tabs.push(TabType.Pinned)
 		if (props.info !== undefined) tabs.push(TabType.Info)
 		if (props.bat !== undefined) tabs.push(TabType.Bat)
 		if (hasLocations()) tabs.push(TabType.Location)
@@ -62,18 +62,15 @@ export const KnownObjects = (props: {
 	const [visibleCard, setVisibleCard] = createSignal<TabType | undefined>()
 
 	createEffect(() => {
-		setVisibleCard(tabs()[1] ?? tabs()[0])
+		setVisibleCard(tabs()[0])
 	})
 
 	return (
 		<section class="known-objects boxed">
 			<nav class="tabs rounded-header">
-				<Show when={tabs().includes(TabType.Favorites)}>
-					<Tab
-						id={TabType.Favorites}
-						visibleCard={[visibleCard, setVisibleCard]}
-					>
-						<FavoritesIcon />
+				<Show when={tabs().includes(TabType.Pinned)}>
+					<Tab id={TabType.Pinned} visibleCard={[visibleCard, setVisibleCard]}>
+						<PinnedIcon />
 					</Tab>
 				</Show>
 				<Show when={tabs().includes(TabType.Info)}>
@@ -96,11 +93,8 @@ export const KnownObjects = (props: {
 				</Show>
 			</nav>
 			<div class="cards">
-				<Show when={visibleCard() === TabType.Favorites}>
-					<FavoritesCard
-						resources={favoriteResources()}
-						device={props.device}
-					/>
+				<Show when={visibleCard() === TabType.Pinned}>
+					<PinnedCard resources={favoriteResources()} device={props.device} />
 				</Show>
 				<Show when={visibleCard() === TabType.Info && props.info !== undefined}>
 					<DeviceInformationCard info={props.info!} />

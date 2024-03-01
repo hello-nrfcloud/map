@@ -1,5 +1,5 @@
-import type { Resource } from '../../context/Navigation.jsx'
-import { Favorite } from '../../icons/LucideIcon.jsx'
+import type { Resource } from '../../context/Navigation.js'
+import { PinOnMap } from '../../icons/LucideIcon.js'
 import { For, createMemo } from 'solid-js'
 import {
 	definitions,
@@ -9,20 +9,20 @@ import {
 	instanceTs,
 } from '@hello.nrfcloud.com/proto-lwm2m'
 import { isLwM2MObjectID } from '@hello.nrfcloud.com/proto-lwm2m'
-import type { Device } from '../../context/Devices.jsx'
-import { ResourcesDL } from '../ResourcesDL.jsx'
-import { DescribeResource } from '../lwm2m/DescribeResource.jsx'
+import type { Device } from '../../context/Devices.js'
+import { ResourcesDL } from '../ResourcesDL.js'
+import { DescribeResource } from '../lwm2m/DescribeResource.js'
 
 import './DeviceInformation.css'
 
 export const Icon = () => (
 	<>
-		<Favorite strokeWidth={1} size={24} />
-		<small>Favorites</small>
+		<PinOnMap strokeWidth={1} size={24} />
+		<small>Pinned</small>
 	</>
 )
 
-type FavoritedResource = {
+type PinnedResource = {
 	ObjectID: LwM2MObjectID
 	resource: Resource
 	definition: LwM2MResourceInfo
@@ -53,7 +53,7 @@ export const Card = (props: { resources: Resource[]; device: Device }) => {
 					InstanceID: instance?.ObjectInstanceID ?? 0,
 				}
 			})
-			.filter((s): s is FavoritedResource => s !== undefined),
+			.filter((s): s is PinnedResource => s !== undefined),
 	)
 
 	return (
@@ -74,6 +74,6 @@ export const Card = (props: { resources: Resource[]; device: Device }) => {
 	)
 }
 
-const byNewest = (r1: FavoritedResource, r2: FavoritedResource) =>
+const byNewest = (r1: PinnedResource, r2: PinnedResource) =>
 	(r2.ts?.getTime() ?? Number.MIN_SAFE_INTEGER) -
 	(r1.ts?.getTime() ?? Number.MIN_SAFE_INTEGER)

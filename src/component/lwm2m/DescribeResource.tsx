@@ -10,11 +10,11 @@ import { useNavigation, type Resource } from '../../context/Navigation.js'
 import { SearchTermType } from '../../context/Search.js'
 import {
 	Documentation,
-	Favorite,
 	History,
 	Published,
 	Search,
-	Unfavorite,
+	PinOnMap,
+	UnpinFromMap,
 } from '../../icons/LucideIcon.js'
 import { format } from '../../util/lwm2m.js'
 import { CollapsibleMenu } from '../CollapsibleMenu.js'
@@ -81,20 +81,20 @@ export const DescribeResource = (props: {
 								when={location.hasResource(r)}
 								fallback={
 									<button
-										title="Add to favorites"
+										title="Pin to map"
 										type="button"
 										onClick={() => location.toggleResource(r)}
 									>
-										<Favorite strokeWidth={1} size={20} />
+										<PinOnMap strokeWidth={1} size={20} />
 									</button>
 								}
 							>
 								<button
-									title="Remove from favorites"
+									title="Unpin from map"
 									type="button"
 									onClick={() => location.toggleResource(r)}
 								>
-									<Unfavorite strokeWidth={1} size={20} />
+									<UnpinFromMap strokeWidth={1} size={20} />
 								</button>
 							</Show>
 							<a

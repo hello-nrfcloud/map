@@ -23,6 +23,8 @@ import {
 	UploadCloud,
 	MoreHorizontal,
 	LineChart,
+	MapPin,
+	MapPinOff,
 } from 'lucide'
 import { For } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
@@ -135,6 +137,14 @@ export const Center = (props: LucideProps) => (
 
 export const Favorite = (props: LucideProps) => (
 	<LucideIcon icon={Star} {...props} />
+)
+
+export const PinOnMap = (props: LucideProps) => (
+	<LucideIcon icon={MapPin} {...props} />
+)
+
+export const UnpinFromMap = (props: LucideProps) => (
+	<LucideIcon icon={MapPinOff} {...props} />
 )
 
 export const Unfavorite = (props: LucideProps) => (
