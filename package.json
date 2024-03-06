@@ -33,7 +33,7 @@
     "@hello.nrfcloud.com/proto-lwm2m": "2.8.0",
     "@nordicsemiconductor/cloudformation-helpers": "9.0.3",
     "@nordicsemiconductor/from-env": "3.0.1",
-    "@types/node": "20.11.24",
+    "@types/node": "20.11.25",
     "commitlint": "19.0.3",
     "eslint-plugin-jsx-a11y": "6.8.0",
     "glob": "10.3.10",
