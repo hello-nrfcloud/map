@@ -3,6 +3,7 @@ import {
 	ResourceType,
 	type LwM2MResourceInfo,
 	type LwM2MResourceValue,
+	ModelID,
 } from '@hello.nrfcloud.com/proto-lwm2m'
 import { Show, createSignal } from 'solid-js'
 import type { Device } from '../../context/Devices.js'
@@ -35,7 +36,7 @@ export const DescribeResource = (props: {
 	const [showHistory, setShowHistory] = createSignal<boolean>(false)
 	const location = useNavigation()
 	const r: Resource = {
-		model: props.device.model,
+		model: props.device.model as ModelID,
 		ObjectID: props.ObjectID,
 		ResourceID: props.info.ResourceID,
 	}

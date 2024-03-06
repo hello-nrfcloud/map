@@ -8,7 +8,7 @@ import {
 } from 'solid-js'
 import { decode, encode, type Navigation } from './encodeNavigation.js'
 import type { SearchTerm } from './Search.js'
-import { LwM2MObjectID, models } from '@hello.nrfcloud.com/proto-lwm2m'
+import { LwM2MObjectID, ModelID, models } from '@hello.nrfcloud.com/proto-lwm2m'
 
 const Home: Navigation = { panel: 'world', resources: [], search: [] }
 
@@ -118,13 +118,11 @@ export const NavigationProvider = (props: ParentProps) => {
 
 export const DeviceModels = Object.keys(models)
 
-export type Model = string
-
-export const isModel = (s: unknown): s is Model =>
+export const isModel = (s: unknown): s is ModelID =>
 	typeof s === 'string' && DeviceModels.includes(s)
 
 export type Resource = {
-	model: Model
+	model: ModelID
 	ObjectID: LwM2MObjectID
 	ResourceID: number
 }

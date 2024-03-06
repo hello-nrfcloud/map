@@ -13,6 +13,7 @@ import { RelativeTime } from './RelativeTime.jsx'
 import { SidebarContent } from './Sidebar.jsx'
 
 import './Search.css'
+import { noop } from '../util/noop.js'
 
 const parse = (value: string): SearchTerm | undefined => {
 	const [type, term] = value.trim().split(':')
@@ -31,12 +32,7 @@ const Search = () => {
 	return (
 		<>
 			<div class="wrapper boxed pad light">
-				<form
-					onSubmit={(e) => {
-						e.preventDefault()
-						e.stopPropagation()
-					}}
-				>
+				<form onSubmit={noop}>
 					<label for="search">Enter your search term:</label>
 					<div class="input-group">
 						<input

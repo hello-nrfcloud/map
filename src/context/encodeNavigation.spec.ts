@@ -2,6 +2,7 @@ import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
 import { SearchTermType } from './Search.js'
 import { encode, decode } from './encodeNavigation.js'
+import { ModelID } from '@hello.nrfcloud.com/proto-lwm2m'
 
 void describe('encode() / decode()', () => {
 	void it('should encode an empty state', () => assert.equal(encode(), ''))
@@ -52,7 +53,7 @@ void describe('encode() / decode()', () => {
 					panel: 'id:42',
 					resources: [
 						{
-							model: 'PCA20035+solar',
+							model: ModelID.PCA20035_solar,
 							ObjectID: 14204,
 							ResourceID: 4,
 						},

@@ -8,6 +8,11 @@
   --color-error: #ce0d0d;
   --chart-labels: #ffffff80;
   --chart-values: #80ed99;
+  --color-forms: #333;
+  --color-button: #153e57;
+  --color-border-light: #d3d3d3;
+  --color-border-dark: rgb(129, 129, 129);
+  --color-form-bg: #fff;
   --base-size-navbar: 40px;
   --regular-font-family: "Inter Tight", sans-serif;
   --condensed-font-family: "Roboto Condensed", sans-serif;
@@ -88,13 +93,15 @@ p + p {
   margin-top: 0.75rem;
 }
 
-/* Link with icon */
-a:has(.icon) {
+/* Link with icon, button with icon */
+a:has(.icon),
+button:has(.icon) {
   display: flex;
   align-items: center;
 }
 
-a:has(.icon) .icon {
+a:has(.icon) .icon,
+button:has(.icon) .icon {
   margin-right: var(--gap-tiny);
 }
 
@@ -150,4 +157,66 @@ h6:has(.icon) .icon {
 
 .pad {
   padding: var(--gap);
+}
+
+.pad-b {
+  padding-bottom: var(--gap);
+}
+
+/** Forms **/
+
+form {
+  font-family: var(--condensed-font-family);
+}
+
+form input,
+form select {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: var(--border-radius);
+  border-bottom-color: var(--color-border-light);
+  border-right-color: var(--color-border-light);
+  border-top-color: var(--color-border-dark);
+  border-left-color: var(--color-border-dark);
+  background-color: var(--color-form-bg);
+  padding: 0 var(--gap-medium);
+  flex-grow: 1;
+  height: 32px;
+  color: var(--color-forms);
+  line-height: 32px;
+  width: 100%;
+}
+form select {
+  appearance: menulist;
+}
+
+form button {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: var(--border-radius);
+  border-bottom-color: var(--color-border-light);
+  border-right-color: var(--color-border-light);
+  border-top-color: var(--color-border-dark);
+  border-left-color: var(--color-border-dark);
+  background-color: rgb(184, 184, 184);
+  height: 32px;
+  padding: 0 var(--gap-medium);
+  color: var(--color-button);
+  font-weight: 300;
+}
+
+form label {
+  display: block;
+  margin-bottom: var(--gap-medium);
+}
+
+form .row + .row {
+  margin-top: var(--gap-medium);
+}
+
+form footer {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  margin-top: var(--gap-medium);
 }

@@ -25,6 +25,8 @@ import {
 	LineChart,
 	MapPin,
 	MapPinOff,
+	Clipboard,
+	ClipboardCheck,
 } from 'lucide'
 import { For } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
@@ -161,4 +163,12 @@ export const Menu = (props: LucideProps) => (
 
 export const History = (props: LucideProps) => (
 	<LucideIcon icon={LineChart} {...props} />
+)
+
+export const CopyToClipboard = (props: LucideProps) => (
+	<LucideIcon icon={Clipboard} {...props} />
+)
+
+export const CopiedToClipboard = (props: LucideProps) => (
+	<LucideIcon icon={ClipboardCheck} {...props} />
 )

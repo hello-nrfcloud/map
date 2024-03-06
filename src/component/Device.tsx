@@ -1,4 +1,7 @@
-import { type LwM2MObjectInstance } from '@hello.nrfcloud.com/proto-lwm2m'
+import {
+	ModelID,
+	type LwM2MObjectInstance,
+} from '@hello.nrfcloud.com/proto-lwm2m'
 import { For, Show, createMemo } from 'solid-js'
 import { byId, useDevices, type Device } from '../context/Devices.js'
 import { useNavigation } from '../context/Navigation.js'
@@ -15,8 +18,8 @@ import { InfoBlock } from './InfoBlock.jsx'
 import { KnownObjects } from './KnownObjects/KnownObjects.jsx'
 import { DescribeInstance } from './lwm2m/DescribeInstance.jsx'
 import { SidebarContent } from './Sidebar.js'
-
 import { DescribeModel } from './DescribeModel.jsx'
+
 import './lwm2m/LwM2M.css'
 
 export const SidebarButton = () => {
@@ -65,12 +68,7 @@ export const DeviceSidebar = () => {
 						when={selectedDevice() !== undefined}
 						fallback={
 							<section>
-								<div class="boxed">
-									<p>
-										<code>{deviceId()}</code>
-									</p>
-								</div>
-								<div class="boxed">
+								<div class="boxed pad">
 									<p>No state available.</p>
 								</div>
 							</section>
@@ -160,7 +158,7 @@ const DeviceInfo = (props: { device: Device }) => {
 					.
 				</p>
 			</InfoBlock>
-			<DescribeModel device={props.device} />
+			<DescribeModel model={props.device.model as ModelID} />
 		</section>
 	)
 }

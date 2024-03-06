@@ -6,8 +6,6 @@
 
 aside.search .wrapper {
   margin: 0 var(--gap) var(--gap) var(--gap);
-  --color-forms: #333;
-  font-family: var(--condensed-font-family);
 }
 
 aside.search form {
@@ -25,39 +23,19 @@ aside.search form .input-group {
 }
 
 aside.search form input[type="search"] {
-  color: var(--color-forms);
-  border-style: solid;
-  border-width: 1px;
   border-right-width: 0;
-  border-top-left-radius: var(--border-radius);
-  border-bottom-left-radius: var(--border-radius);
-  border-bottom-color: #d3d3d3;
-  border-right-color: #d3d3d3;
-  border-top-color: rgb(129, 129, 129);
-  border-left-color: rgb(129, 129, 129);
-  background-color: white;
-  padding: 0 var(--gap-medium);
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
   flex-grow: 1;
-  height: 32px;
 }
 
 aside.search form button {
-  border-style: solid;
-  border-width: 1px;
-  border-top-right-radius: var(--border-radius);
-  border-bottom-right-radius: var(--border-radius);
-  border-bottom-color: #d3d3d3;
-  border-right-color: #d3d3d3;
-  border-top-color: rgb(129, 129, 129);
-  border-left-color: rgb(129, 129, 129);
-  background-color: rgb(184, 184, 184);
-  height: 32px;
-  padding: 0 var(--gap-medium);
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 aside.search form button .icon {
   margin-top: 4px;
-  color: #153e57;
   opacity: 0.8;
 }
 

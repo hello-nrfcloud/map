@@ -40,6 +40,9 @@ aside.sidebar > header {
 aside.sidebar > div.scrollable > section {
   margin: 0 var(--gap);
 }
+aside.sidebar > div.scrollable > section + section {
+  margin-top: var(--gap);
+}
 aside.sidebar > div.scrollable > footer {
   border-top-width: 1px;
   border-top-style: solid;
