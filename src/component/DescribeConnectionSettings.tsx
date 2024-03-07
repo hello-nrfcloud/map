@@ -1,4 +1,4 @@
-import { Show, createSignal, For } from 'solid-js'
+import { Show, createSignal } from 'solid-js'
 import { CopyableProp } from './CopyableProp.jsx'
 import { useParameters } from '../context/Parameters.jsx'
 import { CollapseButton } from './CollapseButton.jsx'
@@ -16,22 +16,14 @@ export const DescribeConnectionSettings = (props: { deviceId: string }) => {
 			</header>
 			<Show when={expanded()}>
 				<ResourcesDL class="pad">
-					<For
-						each={
-							[
-								['Client ID', props.deviceId],
-								['MQTT Endpoint', 'mqtt.nrfcloud.com'],
-								[
-									'MQTT SenML topic',
-									`prod/${parameters.nrfCloudTeamId}/m/senml/${props.deviceId}`,
-								],
-								['CoAP Endpoint', 'coap.nrfcloud.com'],
-								['CoAP SenML resource', '/msg/d2c/raw'],
-							] as Array<[string, string]>
-						}
-					>
-						{([k, v]) => <CopyableProp name={k} value={v} />}
-					</For>
+					<CopyableProp name={'Client ID'} value={props.deviceId} />
+					<CopyableProp name={'MQTT Endpoint'} value={'mqtt.nrfcloud.com'} />
+					<CopyableProp
+						name={'MQTT SenML topic'}
+						value={`prod/${parameters.nrfCloudTeamId}/m/senml/${props.deviceId}`}
+					/>
+					<CopyableProp name={'CoAP Endpoint'} value={'coap.nrfcloud.com'} />
+					<CopyableProp name={'CoAP SenML resource'} value={'/msg/d2c/raw'} />
 				</ResourcesDL>
 			</Show>
 		</aside>
