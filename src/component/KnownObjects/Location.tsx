@@ -1,7 +1,7 @@
 import { Center, Map, ZoomIn } from '../../icons/LucideIcon.jsx'
 import { type Geolocation_14201 } from '@hello.nrfcloud.com/proto-lwm2m'
 import { createEffect, onCleanup, createMemo } from 'solid-js'
-import { Map as MapLibreGlMap } from 'maplibre-gl'
+import { Map as MapLibreGlMap, ScaleControl } from 'maplibre-gl'
 import { useParameters } from '../../context/Parameters.jsx'
 import { geoJSONPolygonFromCircle } from '../../map/geoJSONPolygonFromCircle.js'
 import { ZoomOut } from '../../icons/LucideIcon.js'
@@ -13,14 +13,14 @@ import {
 } from '../../map/locationSourceColors.js'
 import { glyphFonts } from '../../map/glyphFonts.js'
 
+import './Location.css'
+
 export const Icon = () => (
 	<>
 		<Map strokeWidth={1} size={24} />
 		<small>Location</small>
 	</>
 )
-
-import './Location.css'
 
 // FIXME: parse JSON dates
 const byAge = (loc1: Geolocation_14201, loc2: Geolocation_14201) =>
@@ -52,6 +52,12 @@ export const Card = (props: { locations: Geolocation_14201[] }) => {
 		)
 		map.scrollZoom.disable()
 		map.dragPan.disable()
+		map.addControl(
+			new ScaleControl({
+				maxWidth: 100,
+				unit: 'metric',
+			}),
+		)
 
 		map.on('load', () => {
 			for (const { Resources } of props.locations) {
@@ -102,6 +108,7 @@ export const Card = (props: { locations: Geolocation_14201[] }) => {
 
 			map.fitBounds(bounds(), {
 				padding: 20,
+				maxZoom: 16,
 			})
 		})
 	})
@@ -121,6 +128,7 @@ export const Card = (props: { locations: Geolocation_14201[] }) => {
 					onClick={() =>
 						map?.fitBounds(bounds(), {
 							padding: 20,
+							maxZoom: 16,
 						})
 					}
 				>
@@ -130,7 +138,7 @@ export const Card = (props: { locations: Geolocation_14201[] }) => {
 					<ZoomOut />
 				</button>
 			</nav>
-			<div class="map" ref={ref} />
+			<div class="map device-map" ref={ref} />
 		</div>
 	)
 }

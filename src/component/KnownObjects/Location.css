@@ -21,3 +21,9 @@ div.map-container nav {
 div.map-container nav button + button {
   margin-top: var(--gap-medium);
 }
+
+div.device-map .maplibregl-ctrl-scale {
+  background-color: transparent;
+  border-color: var(--chart-labels);
+  color: var(--chart-labels);
+}
