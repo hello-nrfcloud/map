@@ -46,7 +46,7 @@
   "dependencies": {
     "@hello.nrfcloud.com/proto": "6.4.23",
     "e118-iin-list": "4.1.2",
-    "lucide": "0.349.0",
+    "lucide": "0.350.0",
     "maplibre-gl": "4.1.0"
   },
   "engines": {
