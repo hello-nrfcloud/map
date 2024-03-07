@@ -30,7 +30,7 @@
     "@bifravst/eslint-config-typescript": "6.0.10",
     "@bifravst/prettier-config": "1.0.0",
     "@commitlint/config-conventional": "19.0.3",
-    "@hello.nrfcloud.com/proto-lwm2m": "3.0.0",
+    "@hello.nrfcloud.com/proto-lwm2m": "3.1.0",
     "@nordicsemiconductor/cloudformation-helpers": "9.0.3",
     "@nordicsemiconductor/from-env": "3.0.1",
     "@types/node": "20.11.25",
