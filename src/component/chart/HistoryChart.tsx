@@ -48,7 +48,7 @@ export const HistoryChart = (props: {
 								d={`M ${
 									m.paddingLeft +
 									m.xSpacing * props.data.xAxis.labelEvery * index
-								},${m.paddingY} v ${m.yAxisHeight}`}
+								},${m.paddingTop} v ${m.yAxisHeight}`}
 							/>
 							{!props.data.xAxis.hideLabels &&
 								index > 0 &&
@@ -81,12 +81,12 @@ export const HistoryChart = (props: {
 								<path
 									stroke={props.data.xAxis.color}
 									stroke-width={0.5}
-									d={`M ${xPos},${m.paddingY} h ${length}`}
+									d={`M ${xPos},${m.paddingTop} h ${length}`}
 								/>
 								<path
 									stroke={props.data.xAxis.color}
 									stroke-width={0.5}
-									d={`M ${xPos},${m.paddingY + m.yAxisHeight} h ${length}`}
+									d={`M ${xPos},${m.paddingTop + m.yAxisHeight} h ${length}`}
 								/>
 							</>
 						)
@@ -109,7 +109,7 @@ export const HistoryChart = (props: {
 								<text
 									fill={props.data.xAxis.color}
 									x={xPos}
-									y={m.paddingY + fontSize / 3}
+									y={m.paddingTop + fontSize / 3}
 									text-anchor={anchor}
 									font-size={fontSize.toString()}
 								>
@@ -118,7 +118,7 @@ export const HistoryChart = (props: {
 								<text
 									fill={props.data.xAxis.color}
 									x={xPos}
-									y={m.paddingY + m.yAxisHeight + fontSize / 3}
+									y={m.paddingTop + m.yAxisHeight + fontSize / 3}
 									text-anchor={anchor}
 									font-size={fontSize.toString()}
 								>
