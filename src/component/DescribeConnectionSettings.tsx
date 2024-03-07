@@ -26,7 +26,7 @@ export const DescribeConnectionSettings = (props: { deviceId: string }) => {
 									`prod/${parameters.nrfCloudTeamId}/m/senml/${props.deviceId}`,
 								],
 								['CoAP Endpoint', 'coap.nrfcloud.com'],
-								['CoAP SenML resource', '/msg/d2c'],
+								['CoAP SenML resource', '/msg/d2c/raw'],
 							] as Array<[string, string]>
 						}
 					>
