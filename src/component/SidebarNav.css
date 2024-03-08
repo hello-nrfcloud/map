@@ -18,6 +18,11 @@ nav.sidebar hr {
   padding: 0;
 }
 
+nav.sidebar .icon.highlight {
+  filter: drop-shadow(0 0 2px var(--color-highlight-shadow));
+  color: var(--color-highlight);
+}
+
 nav.sidebar .button {
   width: calc(var(--base-size-navbar) - 1px);
   height: calc(var(--base-size-navbar) - 1px);

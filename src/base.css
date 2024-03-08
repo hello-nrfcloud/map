@@ -6,8 +6,10 @@
   --bg-blue-1: #003c56;
   --color-warning: #e7c27b;
   --color-error: #ce0d0d;
+  --color-highlight-shadow: #fffaa8;
+  --color-highlight: #80ed99;
   --chart-labels: #ffffff80;
-  --chart-values: #80ed99;
+  --chart-values: var(--color-highlight);
   --color-forms: #333;
   --color-button: #153e57;
   --color-border-light: #d3d3d3;

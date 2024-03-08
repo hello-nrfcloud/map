@@ -27,6 +27,7 @@ import {
 	MapPinOff,
 	Clipboard,
 	ClipboardCheck,
+	Filter,
 } from 'lucide'
 import { For } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
@@ -34,7 +35,6 @@ import { Dynamic } from 'solid-js/web'
 export const LucideIcon = (
 	props: {
 		icon: IconNode
-		class?: string
 	} & LucideProps,
 ) => {
 	const [, attrs, children] = props.icon
@@ -62,6 +62,7 @@ export const LucideIcon = (
 export type LucideProps = {
 	size?: number
 	strokeWidth?: number
+	class?: string
 }
 
 export const Warning = (props: LucideProps) => (
@@ -171,4 +172,8 @@ export const CopyToClipboard = (props: LucideProps) => (
 
 export const CopiedToClipboard = (props: LucideProps) => (
 	<LucideIcon icon={ClipboardCheck} {...props} />
+)
+
+export const ActiveSearch = (props: LucideProps) => (
+	<LucideIcon icon={Filter} {...props} />
 )

@@ -2,7 +2,7 @@ import { Show, type ParentProps } from 'solid-js'
 import { useNavigation } from '../context/Navigation.js'
 import { Sidebar as AppUpdateRequiredSidebar } from './AppUpdate.js'
 import { DeviceSidebar } from './Device.js'
-import { Search, Warning } from '../icons/LucideIcon.jsx'
+import { ActiveSearch, Search, Warning } from '../icons/LucideIcon.jsx'
 import { Sidebar as SearchSidebar } from './Search.js'
 import { WIPSidebar } from './WIPSidebar.js'
 import { Sidebar as ViewSourceSidebar } from './ViewSource.js'
@@ -29,6 +29,7 @@ export const SidebarContent = (props: ParentProps<{ class?: string }>) => {
 
 export const SearchButton = () => {
 	const location = useNavigation()
+	const hasSearch = () => location.current().search.length > 0
 
 	return (
 		<>
@@ -36,18 +37,24 @@ export const SearchButton = () => {
 				when={location.current().panel === 'search'}
 				fallback={
 					<a class="button" href={location.link({ panel: 'search' })}>
-						<Search strokeWidth={2} />
+						<SearchButtonState hasSearch={hasSearch()} />
 					</a>
 				}
 			>
 				<a class="button active" href={location.linkToHome()}>
-					<Search strokeWidth={2} />
+					<SearchButtonState hasSearch={hasSearch()} />
 				</a>
 			</Show>
 			<hr />
 		</>
 	)
 }
+
+const SearchButtonState = (props: { hasSearch: boolean }) => (
+	<Show when={props.hasSearch} fallback={<Search strokeWidth={2} />}>
+		<ActiveSearch class="highlight" strokeWidth={2} />
+	</Show>
+)
 
 export const WarningButton = () => {
 	const location = useNavigation()
