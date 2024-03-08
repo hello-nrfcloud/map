@@ -18,7 +18,7 @@ const logPrefix = `[AppUpdate]`
 
 export const fetchRelease = async (): Promise<SemVer | undefined> => {
 	const url = new URL(
-		`${BASE_URL}/.well-known/release?v=${VERSION}`,
+		`${BASE_URL}/.well-known/release?v=${Date.now()}`,
 		document.location.href,
 	)
 	console.debug(logPrefix, `Checking ${url.toString()}...`)
