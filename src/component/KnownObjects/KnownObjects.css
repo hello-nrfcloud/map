@@ -18,6 +18,10 @@
   font-size: 80%;
 }
 
+.known-objects nav.tabs button .icon {
+  margin: 0;
+}
+
 .known-objects nav.tabs button {
   padding-bottom: var(--gap-medium);
   display: flex;
