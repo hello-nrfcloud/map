@@ -81,7 +81,6 @@ aside.search section.results header {
 aside.search section.results .result {
   display: flex;
   align-items: flex-start;
-  margin-left: var(--gap-small);
 }
 
 aside.search section.results .result .icon {

@@ -136,13 +136,13 @@ const DeviceInfo = (props: { device: Device }) => {
 						.
 					</p>
 				</InfoBlock>
-				<For each={otherObjects()}>
-					{(instance) => (
-						<div class="boxed">
+				<div class="boxed">
+					<For each={otherObjects()}>
+						{(instance) => (
 							<DescribeInstance device={props.device} instance={instance} />
-						</div>
-					)}
-				</For>
+						)}
+					</For>
+				</div>
 			</Show>
 			<InfoBlock title={'Model'}>
 				<p>

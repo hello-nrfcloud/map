@@ -9,9 +9,6 @@
 }
 
 .known-objects nav.tabs button {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   width: 50px;
   font-family: var(--condensed-font-family);
   font-weight: 400;
@@ -22,7 +19,11 @@
 }
 
 .known-objects nav.tabs button {
-  padding: 0 var(--gap) var(--gap-medium) var(--gap);
+  padding-bottom: var(--gap-medium);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   opacity: 0.5;
   border-bottom: 2px solid #ffffff00;
 }
@@ -45,6 +46,10 @@
 
 .known-objects footer .lwm2m.instance + .lwm2m.instance {
   margin-top: var(--gap);
+}
+
+.known-objects footer .lwm2m + .lwm2m {
+  border-top: 1px solid var(--bg-blue-2);
 }
 
 .known-objects .cards .resources {

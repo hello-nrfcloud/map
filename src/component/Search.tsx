@@ -31,46 +31,48 @@ const Search = () => {
 
 	return (
 		<>
-			<div class="wrapper boxed pad light">
-				<form onSubmit={noop}>
-					<label for="search">Enter your search term:</label>
-					<div class="input-group">
-						<input
-							id="search"
-							type="search"
-							placeholder='e.g. "id:<device id>"'
-							ref={input}
-							onKeyUp={(e) => {
-								if (e.key === 'Enter') {
-									const maybeTerm = parse(input.value)
-									if (maybeTerm !== undefined) {
-										location.navigateWithSearchTerm(maybeTerm)
-										input.value = ''
-									} else {
-										// TODO: show error
-										console.error(`Invalid search term: ${input.value}`)
+			<div class="boxed pad light wrapper">
+				<div>
+					<form onSubmit={noop}>
+						<label for="search">Enter your search term:</label>
+						<div class="input-group">
+							<input
+								id="search"
+								type="search"
+								placeholder='e.g. "id:<device id>"'
+								ref={input}
+								onKeyUp={(e) => {
+									if (e.key === 'Enter') {
+										const maybeTerm = parse(input.value)
+										if (maybeTerm !== undefined) {
+											location.navigateWithSearchTerm(maybeTerm)
+											input.value = ''
+										} else {
+											// TODO: show error
+											console.error(`Invalid search term: ${input.value}`)
+										}
 									}
-								}
-							}}
-						/>
-						<button type="button">
-							<AddToSearch size={20} />
-						</button>
-					</div>
-				</form>
-				<Show when={location.current().search.length > 0}>
-					<div class="terms">
-						<For each={location.current().search}>
-							{(term) => (
-								<a class="btn" href={location.linkWithoutSearchTerm(term)}>
-									<span>{term.type}:</span>
-									<span>{term.term}</span>
-									<Close size={20} />
-								</a>
-							)}
-						</For>
-					</div>
-				</Show>
+								}}
+							/>
+							<button type="button">
+								<AddToSearch size={20} />
+							</button>
+						</div>
+					</form>
+					<Show when={location.current().search.length > 0}>
+						<div class="terms">
+							<For each={location.current().search}>
+								{(term) => (
+									<a class="btn" href={location.linkWithoutSearchTerm(term)}>
+										<span>{term.type}:</span>
+										<span>{term.term}</span>
+										<Close size={20} />
+									</a>
+								)}
+							</For>
+						</div>
+					</Show>
+				</div>
 			</div>
 			<Show
 				when={location.current().search.length > 0}
@@ -113,9 +115,11 @@ const SearchResult = (props: { terms: SearchTerm[] }) => {
 			<header>
 				<h2>{results().length} results</h2>
 			</header>
-			<For each={results()} fallback={<p>No matching devices found.</p>}>
-				{(device) => <DeviceCard device={device} />}
-			</For>
+			<div class="boxed">
+				<For each={results()} fallback={<p>No matching devices found.</p>}>
+					{(device) => <DeviceCard device={device} />}
+				</For>
+			</div>
 		</section>
 	)
 }
@@ -128,12 +132,14 @@ const MostRecentDevicesList = () => {
 			<header>
 				<h2>Recently updated devices</h2>
 			</header>
-			<For
-				each={devices().slice(0, 10)}
-				fallback={<p>No matching devices found.</p>}
-			>
-				{(device) => <DeviceCard device={device} />}
-			</For>
+			<div class="boxed">
+				<For
+					each={devices().slice(0, 10)}
+					fallback={<p>No matching devices found.</p>}
+				>
+					{(device) => <DeviceCard device={device} />}
+				</For>
+			</div>
 		</section>
 	)
 }
@@ -141,7 +147,7 @@ const MostRecentDevicesList = () => {
 const DeviceCard = (props: { device: Device }) => {
 	const location = useNavigation()
 	return (
-		<div class="result boxed pad">
+		<div class="result pad">
 			<span>
 				<DeviceIcon class="icon" />
 			</span>

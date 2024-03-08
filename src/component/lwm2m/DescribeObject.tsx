@@ -20,7 +20,7 @@ export const DescribeObject = (props: { instance: LwM2MObjectInstance }) => {
 
 	return (
 		<aside class="object-definition">
-			<header class="rounded-footer">
+			<header class="rounded-footer dark">
 				<h3>
 					<Documentation size={20} strokeWidth={1} />
 					LwM2M Object definition
