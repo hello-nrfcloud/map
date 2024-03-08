@@ -54,7 +54,7 @@ export const ConfirmRequestForm = (props: {
 				Before you can generate device credentials, you need to confirm your
 				email address.
 			</p>
-			<form onSubmit={noop}>
+			<form onSubmit={noop} class="pad-t">
 				<div class="row">
 					<label for="code">
 						Please enter the code you have received via email:

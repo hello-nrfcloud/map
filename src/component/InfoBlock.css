@@ -1,12 +1,8 @@
-div.info-block {
+section.info-block {
   margin: var(--gap) 0;
 }
 
-div.info-block h2 {
-  margin-bottom: var(--gap-medium);
-}
-
-div.info-block header {
+section.info-block header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;

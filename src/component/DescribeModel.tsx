@@ -11,7 +11,7 @@ export const DescribeModel = (props: { model: ModelID }) => {
 	const location = useNavigation()
 	const [expanded, setExpanded] = createSignal<boolean>(false)
 	return (
-		<aside class="model-definition boxed">
+		<aside class="model-definition">
 			<div>
 				<header class="rounded-header">
 					<h3>

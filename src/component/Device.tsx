@@ -125,7 +125,7 @@ const DeviceInfo = (props: { device: Device }) => {
 				locations={locations()}
 			/>
 			<Show when={otherObjects().length > 0}>
-				<InfoBlock title={'Other objects'}>
+				<InfoBlock title={<h2>Other objects</h2>}>
 					<p>
 						These objects have been published by the device in the last 30 days,
 						but there is no custom handling in this application for the data,
@@ -144,7 +144,7 @@ const DeviceInfo = (props: { device: Device }) => {
 					</For>
 				</div>
 			</Show>
-			<InfoBlock title={'Model'}>
+			<InfoBlock title={<h2>Model</h2>}>
 				<p>
 					The model describes each device and optionally defines how data
 					published by a device is transformed. The model definitions are
@@ -158,7 +158,9 @@ const DeviceInfo = (props: { device: Device }) => {
 					.
 				</p>
 			</InfoBlock>
-			<DescribeModel model={props.device.model as ModelID} />
+			<div class="boxed">
+				<DescribeModel model={props.device.model as ModelID} />
+			</div>
 		</section>
 	)
 }

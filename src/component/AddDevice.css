@@ -10,10 +10,6 @@ aside.add-device .add-device-flow .model h3 {
   margin-bottom: var(--gap);
 }
 
-aside.add-device .add-device-flow .known-models .about {
-  margin-bottom: var(--gap);
-}
-
 aside.add-device .add-device-flow pre {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -25,14 +21,8 @@ aside.add-device .add-device-flow dt:has(button) {
   align-items: center;
 }
 
-aside.add-device .add-device-flow h2,
-aside.add-device .add-device-flow h3,
 aside.add-device .add-device-flow p {
   margin-bottom: var(--gap-medium);
-}
-
-aside.add-device .add-device-flow h3 {
-  margin-top: var(--gap);
 }
 
 aside.add-device .add-device-flow dt {

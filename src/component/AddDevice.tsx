@@ -103,14 +103,19 @@ const AddDeviceFlow = () => {
 					<header>
 						<h2>Great!</h2>
 					</header>
-					<p>A new device was registered.</p>
-					<dl>
-						<CopyableProp
-							name={'Device ID'}
-							value={shareDeviceRequest()!.deviceId}
-						/>
-						<CopyableProp name={'Public ID'} value={shareDeviceRequest()!.id} />
-					</dl>
+					<div class="pad-t">
+						<p>A new device was registered.</p>
+						<dl>
+							<CopyableProp
+								name={'Device ID'}
+								value={shareDeviceRequest()!.deviceId}
+							/>
+							<CopyableProp
+								name={'Public ID'}
+								value={shareDeviceRequest()!.id}
+							/>
+						</dl>
+					</div>
 				</section>
 				<ConfirmRequestForm
 					request={shareDeviceRequest()!}
@@ -128,13 +133,15 @@ const AddDeviceFlow = () => {
 					<header>
 						<h2>Awesome!</h2>
 					</header>
-					<p>We will now show data sent by the device on the map.</p>
-					<p>
-						Here is a link to your device:{' '}
-						<a href={location.link({ panel: `id:${confirmed()!.id}` })}>
-							<code>{confirmed()!.id}</code>
-						</a>
-					</p>
+					<div class="pad-t">
+						<p>We will now show data sent by the device on the map.</p>
+						<p>
+							Here is a link to your device:{' '}
+							<a href={location.link({ panel: `id:${confirmed()!.id}` })}>
+								<code>{confirmed()!.id}</code>
+							</a>
+						</p>
+					</div>
 				</section>
 				<CreateDeviceCredentialsForm
 					device={shareDeviceRequest()!}
@@ -160,18 +167,20 @@ const DescribeCredentials = (props: { credentials: DeviceCredentials }) => (
 		<header>
 			<h2>Fantastic!</h2>
 		</header>
-		<p>Use these credentials to connect your device.</p>
-		<dl>
-			<For
-				each={
-					[
-						['Private Key', props.credentials.credentials.privateKey],
-						['Certificate', props.credentials.credentials.certificate],
-					] as Array<[string, string]>
-				}
-			>
-				{([k, v]) => <CopyableProp name={k} value={v} />}
-			</For>
-		</dl>
+		<div class="pad-t">
+			<p>Use these credentials to connect your device.</p>
+			<dl>
+				<For
+					each={
+						[
+							['Private Key', props.credentials.credentials.privateKey],
+							['Certificate', props.credentials.credentials.certificate],
+						] as Array<[string, string]>
+					}
+				>
+					{([k, v]) => <CopyableProp name={k} value={v} />}
+				</For>
+			</dl>
+		</div>
 	</section>
 )

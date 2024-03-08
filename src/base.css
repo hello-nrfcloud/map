@@ -172,6 +172,10 @@ h6:has(.icon) .icon {
   padding-bottom: var(--gap);
 }
 
+.pad-t {
+  padding-top: var(--gap);
+}
+
 /** Forms **/
 
 form {
@@ -194,12 +198,14 @@ form select {
   color: var(--color-forms);
   line-height: 32px;
   width: 100%;
+  display: flex;
+  align-items: center;
 }
 form select {
   appearance: menulist;
 }
 
-form button {
+form button.btn {
   border-style: solid;
   border-width: 1px;
   border-radius: var(--border-radius);

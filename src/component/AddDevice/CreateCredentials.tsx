@@ -49,7 +49,7 @@ export const CreateDeviceCredentialsForm = (props: {
 				In order for your device to be able to publish data, you need to
 				credentials.
 			</p>
-			<form onSubmit={noop}>
+			<form onSubmit={noop} class="pad-t">
 				<footer>
 					<Show
 						when={!credentials.loading}

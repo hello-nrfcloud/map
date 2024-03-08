@@ -2,7 +2,6 @@ import { ModelID, models } from '@hello.nrfcloud.com/proto-lwm2m'
 import { isModel } from '../../context/Navigation.js'
 import { Show, For, createEffect, createSignal, createResource } from 'solid-js'
 import { InfoBlock } from '../InfoBlock.js'
-import { DescribeModel } from '../DescribeModel.js'
 import { noop } from '../../util/noop.js'
 import { useParameters } from '../../context/Parameters.js'
 
@@ -77,6 +76,25 @@ export const AddDeviceForm = (props: {
 							</For>
 						</select>
 					</div>
+					<InfoBlock title={<h3>Known models ({PROTO_LWM2M_VERSION})</h3>}>
+						<div class="about add-device-flow">
+							<p>
+								All devices must use a well-known model definition. Below is a
+								list of defined models.
+							</p>
+							<p>
+								If your model is not available to select, you can add it by
+								creating a PR against{' '}
+								<a
+									href={`https://github.com/hello-nrfcloud/proto-lwm2m/tree/${PROTO_LWM2M_VERSION}/models`}
+									target="_blank"
+								>
+									our protocol repository
+								</a>
+								.
+							</p>
+						</div>
+					</InfoBlock>
 					<div class="row">
 						<label for="email">Provide your email:</label>
 						<input
@@ -86,6 +104,23 @@ export const AddDeviceForm = (props: {
 							ref={emailInput}
 						/>
 					</div>
+					<InfoBlock title={<h3>Why we need your email</h3>}>
+						<p>
+							Sharing cannot be done anonymously, and therefore you need to
+							provide a valid email in order to activate sharing for your
+							device.
+						</p>
+						<p>
+							We will use your email only for contacting you about the devices
+							you have shared.
+						</p>
+						<p>
+							Every 30 days you need to confirm that you wish to continue
+							sharing this device. Otherwise the device and all its public
+							history will be deleted.
+						</p>
+						<p>You can revoke the sharing of the device at any time.</p>
+					</InfoBlock>
 					<footer>
 						<Show
 							when={!shareDeviceRequest.loading}
@@ -101,48 +136,6 @@ export const AddDeviceForm = (props: {
 						</Show>
 					</footer>
 				</form>
-			</section>
-			<section class="add-device-flow">
-				<InfoBlock title="Why we need your email">
-					<p>
-						Sharing cannot be done anonymously, and therefore you need to
-						provide a valid email in order to activate sharing for your device.
-					</p>
-					<p>
-						We will use your email only for contacting you about the devices you
-						have shared.
-					</p>
-					<p>
-						Every 30 days you need to confirm that you wish to continue sharing
-						this device. Otherwise the device and all its public history will be
-						deleted.
-					</p>
-					<p>You can revoke the sharing of the device at any time.</p>
-				</InfoBlock>
-			</section>
-			<section class="known-models add-device-flow">
-				<InfoBlock title="Known models">
-					<div class="about pad-b">
-						<p>
-							All devices must use a well-known model definition. Below is a
-							list of defined models.
-						</p>
-						<p>
-							If your model is not listed, you can add it by creating a PR
-							against{' '}
-							<a
-								href="https://github.com/hello-nrfcloud/proto-lwm2m/tree/saga/models"
-								target="_blank"
-							>
-								our protocol repository
-							</a>
-							.
-						</p>
-					</div>
-					<For each={Object.values(models)}>
-						{(model) => <DescribeModel model={model.id} />}
-					</For>
-				</InfoBlock>
 			</section>
 		</>
 	)
