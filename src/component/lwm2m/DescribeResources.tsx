@@ -20,9 +20,11 @@ export const DescribeResources = (props: {
 
 	const resources = createMemo(() => {
 		const r: { info: LwM2MResourceInfo; value: LwM2MResourceValue }[] = []
-		for (const [resourceID, value] of Object.entries(
-			props.instance.Resources,
-		).filter(([resourceId]) => parseInt(resourceId, 10) !== tsResourceId)) {
+		for (const [resourceID, value] of Object.entries(props.instance.Resources)
+			.filter(
+				(res): res is [string, LwM2MResourceValue] => res[1] !== undefined,
+			)
+			.filter(([resourceId]) => parseInt(resourceId, 10) !== tsResourceId)) {
 			const ResourceID = parseInt(resourceID, 10)
 			const info = definition.Resources[ResourceID]
 			if (info === undefined) {

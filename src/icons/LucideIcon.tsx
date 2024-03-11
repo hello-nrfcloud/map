@@ -1,16 +1,16 @@
 import {
-	AlertTriangle,
+	TriangleAlert,
 	BatteryCharging,
 	ChevronDown,
 	ChevronUp,
 	Clock10,
 	CloudOff,
-	Code2,
+	CodeXml,
 	FileText,
 	Info as InfoIcon,
 	LocateFixed,
 	MapPinned,
-	PlusCircle,
+	CirclePlus,
 	RefreshCcwDot,
 	Search as SearchIcon,
 	SquareStack,
@@ -20,8 +20,8 @@ import {
 	type IconNode,
 	Star,
 	StarOff,
-	UploadCloud,
-	MoreHorizontal,
+	CloudUpload,
+	Ellipsis,
 	LineChart,
 	MapPin,
 	MapPinOff,
@@ -66,7 +66,7 @@ export type LucideProps = {
 }
 
 export const Warning = (props: LucideProps) => (
-	<LucideIcon icon={AlertTriangle} {...props} />
+	<LucideIcon icon={TriangleAlert} {...props} />
 )
 
 export const Close = (props: LucideProps) => <LucideIcon icon={X} {...props} />
@@ -83,7 +83,7 @@ export const AppUpdateRequired = (props: LucideProps) => (
 )
 
 export const ViewSource = (props: LucideProps) => (
-	<LucideIcon icon={Code2} {...props} />
+	<LucideIcon icon={CodeXml} {...props} />
 )
 
 export const Multiple = (props: LucideProps) => (
@@ -111,7 +111,7 @@ export const NoData = (props: LucideProps) => (
 )
 
 export const Add = (props: LucideProps) => (
-	<LucideIcon icon={PlusCircle} {...props} />
+	<LucideIcon icon={CirclePlus} {...props} />
 )
 
 export const Info = (props: LucideProps) => (
@@ -155,11 +155,11 @@ export const Unfavorite = (props: LucideProps) => (
 )
 
 export const Published = (props: LucideProps) => (
-	<LucideIcon icon={UploadCloud} {...props} />
+	<LucideIcon icon={CloudUpload} {...props} />
 )
 
 export const Menu = (props: LucideProps) => (
-	<LucideIcon icon={MoreHorizontal} {...props} />
+	<LucideIcon icon={Ellipsis} {...props} />
 )
 
 export const History = (props: LucideProps) => (
