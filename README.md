@@ -25,8 +25,9 @@ fueled by a vibrant community of innovators.
 ### Key Objectives
 
 - **Promote Nordic Semiconductor cellular IoT solutions**: Showcase real-world
-  deployments of cellular IoT devices powered by Nordic hardware, demonstrating
-  their diverse applications and capabilities to a global audience.
+  deployments of cellular IoT devices powered by Nordic Semiconductor hardware,
+  demonstrating their diverse applications and capabilities to a global
+  audience.
 - **Empower customers**: Provide a platform for customers to easily showcase
   their innovative products built with Nordic technology, increasing brand
   awareness and driving sales.

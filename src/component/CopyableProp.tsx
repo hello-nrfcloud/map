@@ -1,4 +1,4 @@
-import { CopyToClipboardButton } from './CopyToClipboardButton.jsx'
+import { CopyToClipboardButton } from './CopyToClipboardButton.js'
 
 export const CopyableProp = (props: { name: string; value: string }) => (
 	<>

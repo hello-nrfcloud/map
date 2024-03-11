@@ -1,4 +1,4 @@
-import type { Size } from '../SizeObserver.jsx'
+import type { Size } from '../SizeObserver.js'
 import { chartMath, type ChartData } from './chartMath.js'
 import { generateLabels } from './generateLabels.js'
 

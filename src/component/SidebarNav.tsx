@@ -3,7 +3,8 @@ import { SidebarButton as AppUpdateRequiredButton } from './AppUpdate.js'
 import { SidebarButton as DeviceDetailButton } from './Device.js'
 import { SidebarButton as ViewSourceButton } from './ViewSource.js'
 import { SidebarButton as AddDeviceButton } from './AddDevice.js'
-import { WarningButton, SearchButton } from './Sidebar.jsx'
+import { WarningButton, SearchButton } from './Sidebar.js'
+import { SidebarButton as TutorialButton } from './Tutorial.js'
 
 import './SidebarNav.css'
 
@@ -25,6 +26,7 @@ export const SidebarNav = () => {
 			<DeviceDetailButton />
 			<AddDeviceButton />
 			<ViewSourceButton />
+			<TutorialButton />
 		</nav>
 	)
 }

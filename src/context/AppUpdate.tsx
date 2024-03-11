@@ -1,4 +1,4 @@
-import { compare, parse, type SemVer } from 'semver'
+import { compare, type SemVer } from 'semver'
 import { type ParentProps } from 'solid-js'
 import {
 	createContext,
@@ -8,43 +8,13 @@ import {
 	onCleanup,
 	useContext,
 } from 'solid-js'
+import { fetchRelease } from '../resources/fetchRelease.js'
+
+const logPrefix = '[AppUpdate]'
 
 type AppUpdateInfo = {
 	releasedVersion?: string
 	updateRequired: boolean
-}
-
-const logPrefix = `[AppUpdate]`
-
-export const fetchRelease = async (): Promise<SemVer | undefined> => {
-	const url = new URL(
-		`${BASE_URL}/.well-known/release?v=${Date.now()}`,
-		document.location.href,
-	)
-	console.debug(logPrefix, `Checking ${url.toString()}...`)
-	let res: Response
-	try {
-		res = await fetch(url, { mode: 'no-cors' })
-	} catch (err) {
-		console.error(
-			logPrefix,
-			`Failed to fetch ${url.toString()}: ${(err as Error).message}!`,
-		)
-		return undefined
-	}
-	if (!res.ok) {
-		console.error(logPrefix, `Version information not found!`)
-		console.debug(logPrefix, `Not found: ${res.status}`)
-		return undefined
-	}
-	const versionString = (await res.text()).trim().slice(0, 20)
-	const v = parse(versionString)
-	if (v === null) {
-		console.error(logPrefix, `Could not parse response as semver!`)
-		console.debug(logPrefix, versionString)
-		return undefined
-	}
-	return v
 }
 
 export const AppUpdateProvider = (props: ParentProps) => {

@@ -1,40 +1,17 @@
-import { ModelID, models } from '@hello.nrfcloud.com/proto-lwm2m'
+import { models } from '@hello.nrfcloud.com/proto-lwm2m'
 import { isModel } from '../../context/Navigation.js'
 import { Show, For, createEffect, createSignal, createResource } from 'solid-js'
 import { InfoBlock } from '../InfoBlock.js'
 import { noop } from '../../util/noop.js'
 import { useParameters } from '../../context/Parameters.js'
+import {
+	type ShareDeviceRequest,
+	type AddModelRequest,
+	addModel,
+} from '../../resources/addModel.js'
 
 const isEmail = (s?: string) => /.+@.+/.test(s ?? '')
 
-type AddModelRequest = {
-	email: string
-	model: ModelID
-}
-export type ShareDeviceRequest = {
-	'@context': 'https://github.com/hello-nrfcloud/proto/map/share-device-request'
-	// This is the public ID, as it will appear on the map
-	id: string // e.g. 'driveway-addition-fecifork'
-
-	// This is the secret device ID, which will be used by the device to connect
-	deviceId: string // 'map-6ba03279-2d08-4a3c-bb05-1a88889465af'
-}
-const addModel =
-	(url: URL) =>
-	async ({ email, model }: AddModelRequest): Promise<ShareDeviceRequest> => {
-		try {
-			return (
-				await fetch(url, {
-					method: 'POST',
-					body: JSON.stringify({ email, model }),
-				})
-			).json()
-		} catch (err) {
-			throw new Error(
-				`Failed to add a device (${url.toString()}): ${(err as Error).message}!`,
-			)
-		}
-	}
 export const AddDeviceForm = (props: {
 	onRequest: (request: ShareDeviceRequest) => void
 }) => {

@@ -1,0 +1,60 @@
+.tutorial {
+  background-color: var(--color-tutorial-bg);
+  color: var(--color-tutorial-text);
+  border-radius: calc(var(--border-radius) * 2);
+  margin-bottom: var(--gap);
+  margin-top: var(--gap);
+}
+
+.tutorial > * {
+  padding: var(--gap);
+}
+
+.tutorial h1 {
+  font-weight: 200;
+  font-size: 125%;
+}
+
+.tutorial.dialogue h1 {
+  font-size: auto;
+}
+
+.tutorial a,
+.tutorial button.link {
+  text-decoration: underline;
+}
+
+.tutorial.dialogue {
+  position: absolute;
+  z-index: 50;
+  width: calc(100vw - var(--base-size-navbar) - var(--gap));
+  left: calc(var(--base-size-navbar) + var(--gap) / 2);
+  top: calc(var(--gap) / 2);
+  box-shadow: 0 0 10px #00000063;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+@media (min-width: 600px) {
+  .tutorial.dialogue {
+    top: 10vh;
+    left: calc((100vw - 500px) / 2);
+    width: 600px;
+  }
+}
+
+.tutorial > header {
+  background-color: var(--color-tutorial-bg-dark);
+  border-bottom: 1px solid var(--color-tutorial-bg-darker);
+  border-top-left-radius: calc(var(--border-radius) * 2);
+  border-top-right-radius: calc(var(--border-radius) * 2);
+}
+
+.tutorial > footer {
+  background-color: var(--color-tutorial-bg-dark);
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid var(--color-tutorial-bg-darker);
+  border-bottom-left-radius: calc(var(--border-radius) * 2);
+  border-bottom-right-radius: calc(var(--border-radius) * 2);
+}

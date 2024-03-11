@@ -5,7 +5,7 @@ import {
 	type LwM2MObjectInstance,
 } from '@hello.nrfcloud.com/proto-lwm2m'
 import { Show, createSignal } from 'solid-js'
-import type { Device } from '../../context/Devices.js'
+import type { Device } from '../../resources/fetchDevices.js'
 import { Published } from '../../icons/LucideIcon.js'
 import { CollapseButton } from '../CollapseButton.js'
 import { RelativeTime } from '../RelativeTime.js'

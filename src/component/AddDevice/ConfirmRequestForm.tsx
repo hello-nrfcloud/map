@@ -1,29 +1,12 @@
 import { Show, createEffect, createSignal, createResource } from 'solid-js'
 import { noop } from '../../util/noop.js'
 import { useParameters } from '../../context/Parameters.js'
-import type { ShareDeviceRequest } from './AddDeviceForm.js'
+import type { ShareDeviceRequest } from '../../resources/addModel.js'
+import {
+	type OwnershipConfirmed,
+	confirmRequest,
+} from '../../resources/confirmRequest.js'
 
-export type OwnershipConfirmed = {
-	'@context': 'https://github.com/hello-nrfcloud/proto/map/share-device-ownership-confirmed'
-	// Public ID
-	id: string // e.g. "driveway-addition-fecifork"
-}
-const confirmRequest =
-	(url: URL, request: ShareDeviceRequest) =>
-	async (token: string): Promise<OwnershipConfirmed> => {
-		try {
-			return (
-				await fetch(url, {
-					method: 'POST',
-					body: JSON.stringify({ deviceId: request.deviceId, token }),
-				})
-			).json()
-		} catch (err) {
-			throw new Error(
-				`Failed to confirm sharing request for a device (${url.toString()}): ${(err as Error).message}!`,
-			)
-		}
-	}
 export const ConfirmRequestForm = (props: {
 	request: ShareDeviceRequest
 	onConfirmed: (confirmation: OwnershipConfirmed) => void

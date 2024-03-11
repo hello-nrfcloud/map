@@ -11,12 +11,14 @@ export type Navigation = {
 	search: SearchTerm[]
 	resources: Resource[]
 	map?: NavigationMapState
+	tutorial?: string
 }
 
 enum FieldKey {
 	Search = 's',
 	Resources = 'r',
 	Map = 'm',
+	Tutorial = 't',
 }
 
 const sep = '!'
@@ -26,7 +28,7 @@ export const encode = (
 ): string | undefined => {
 	if (navigation === undefined) return ''
 	const parts = []
-	const { panel, search, resources, map } = navigation
+	const { panel, search, resources, map, tutorial } = navigation
 	parts.push(panel)
 	if (search !== undefined && search.length > 0) {
 		parts.push(
@@ -53,6 +55,9 @@ export const encode = (
 		parts.push(
 			`${FieldKey.Map}:${map.zoom}:${map.center.lat},${map.center.lng}`,
 		)
+	}
+	if (tutorial !== undefined) {
+		parts.push(`${FieldKey.Tutorial}:${tutorial}`)
 	}
 	return parts.join(sep)
 }
@@ -105,6 +110,13 @@ export const decode = (encoded?: string): Navigation | undefined => {
 				lng,
 			},
 		}
+	}
+
+	const tutorialState = rest.find(
+		(s) => s.split(':', 2)[0] === FieldKey.Tutorial,
+	)
+	if (tutorialState !== undefined) {
+		nav.tutorial = tutorialState.split(':', 2)[1] as string
 	}
 
 	return nav

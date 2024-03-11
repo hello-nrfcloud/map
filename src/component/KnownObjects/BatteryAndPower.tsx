@@ -1,4 +1,4 @@
-import { Battery } from '../../icons/LucideIcon.jsx'
+import { Battery } from '../../icons/LucideIcon.js'
 import type { BatteryAndPower_14202 } from '@hello.nrfcloud.com/proto-lwm2m'
 import { ResourcesDL } from '../ResourcesDL.js'
 import { Show, createMemo } from 'solid-js'

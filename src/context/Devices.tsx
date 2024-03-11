@@ -7,25 +7,11 @@ import {
 	onCleanup,
 } from 'solid-js'
 import { useParameters } from './Parameters.js'
-import { Devices, PublicDevice } from '@hello.nrfcloud.com/proto/hello/map'
+import { PublicDevice } from '@hello.nrfcloud.com/proto/hello/map'
 import { type Static } from '@sinclair/typebox'
 import { createStore, reconcile } from 'solid-js/store'
 import { instanceTs } from '@hello.nrfcloud.com/proto-lwm2m'
-
-export type Device = Static<typeof PublicDevice> & {
-	lastUpdate: Date | undefined
-}
-
-export const fetchDevices =
-	(url: URL) => async (): Promise<Static<typeof Devices>> => {
-		try {
-			return (await fetch(url)).json()
-		} catch (err) {
-			throw new Error(
-				`Failed to fetch devices (${url.toString()}): ${(err as Error).message}!`,
-			)
-		}
-	}
+import { fetchDevices, type Device } from '../resources/fetchDevices.js'
 
 export const DevicesProvider = (props: ParentProps) => {
 	const parameters = useParameters()

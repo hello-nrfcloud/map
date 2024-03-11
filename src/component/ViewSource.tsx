@@ -1,6 +1,6 @@
 import { useNavigation } from '../context/Navigation.js'
-import { Close, ViewSource } from '../icons/LucideIcon.jsx'
-import { RelativeTime } from './RelativeTime.jsx'
+import { Close, ViewSource } from '../icons/LucideIcon.js'
+import { RelativeTime } from './RelativeTime.js'
 import { SidebarContent } from './Sidebar.js'
 import { Show } from 'solid-js'
 

@@ -6,7 +6,7 @@ import {
 	ModelID,
 } from '@hello.nrfcloud.com/proto-lwm2m'
 import { Show, createSignal } from 'solid-js'
-import type { Device } from '../../context/Devices.js'
+import type { Device } from '../../resources/fetchDevices.js'
 import { useNavigation, type Resource } from '../../context/Navigation.js'
 import { SearchTermType } from '../../context/Search.js'
 import {
@@ -21,7 +21,7 @@ import { format } from '../../util/lwm2m.js'
 import { CollapsibleMenu } from '../CollapsibleMenu.js'
 import { RelativeTime } from '../RelativeTime.js'
 import { DescribeResourceDefinition } from './DescribeResourceDefinition.js'
-import { ResourceHistory } from './ResourceHistory.jsx'
+import { ResourceHistory } from './ResourceHistory.js'
 
 export const DescribeResource = (props: {
 	ObjectID: LwM2MObjectID

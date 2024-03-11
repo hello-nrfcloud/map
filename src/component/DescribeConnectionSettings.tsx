@@ -1,8 +1,8 @@
 import { Show, createSignal } from 'solid-js'
-import { CopyableProp } from './CopyableProp.jsx'
-import { useParameters } from '../context/Parameters.jsx'
-import { CollapseButton } from './CollapseButton.jsx'
-import { ResourcesDL } from './ResourcesDL.jsx'
+import { CopyableProp } from './CopyableProp.js'
+import { useParameters } from '../context/Parameters.js'
+import { CollapseButton } from './CollapseButton.js'
+import { ResourcesDL } from './ResourcesDL.js'
 
 export const DescribeConnectionSettings = (props: { deviceId: string }) => {
 	const parameters = useParameters()

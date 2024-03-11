@@ -10,17 +10,19 @@ import {
 	type MapGeoJSONFeature,
 } from 'maplibre-gl'
 import { onCleanup, createMemo, createSignal, createEffect } from 'solid-js'
-import { useDevices, type Device } from '../../context/Devices.js'
+import { useDevices } from '../../context/Devices.js'
+import { type Device } from '../../resources/fetchDevices.js'
 import { useParameters } from '../../context/Parameters.js'
 import { createMap } from '../../map/createMap.js'
 import { newestInstanceFirst } from '../../util/newestInstanceFirst.js'
 import { matches, type SearchTerm } from '../../context/Search.js'
-import { useNavigation, type Resource } from '../../context/Navigation.jsx'
+import { useNavigation, type Resource } from '../../context/Navigation.js'
 import { glyphFonts } from '../../map/glyphFonts.js'
 import { format, type ResourceValue } from '../../util/lwm2m.js'
 import { createStore, reconcile } from 'solid-js/store'
 
 import './AllDevicesMap.css'
+import { useAllDevicesMapState } from '../../context/AllDeviceMapState.jsx'
 
 type DeviceInfo = {
 	device: Device
@@ -32,6 +34,7 @@ export const AllDevicesMap = () => {
 	const parameters = useParameters()
 	const allDevices = useDevices()
 	const location = useNavigation()
+	const { initial, update, state } = useAllDevicesMapState()
 	let ref!: HTMLDivElement
 	let map: MapLibreGlMap
 
@@ -55,23 +58,12 @@ export const AllDevicesMap = () => {
 	})
 	const [mapLoaded, setMapLoaded] = createSignal<boolean>(false)
 
-	// Only use this once for initialization
-	const initialNavMapState = location.current().map ?? {
-		center: {
-			lat: 63.421065865928355,
-			lng: 10.437128259586967,
-		},
-		zoom: 1,
-	}
-
 	const updateNavigationMapState = (map: MapLibreGlMap) => {
 		const zoom = map.getZoom()
 		const center = map.getCenter()
-		location.navigate({
-			map: {
-				center,
-				zoom,
-			},
+		update({
+			center,
+			zoom,
 		})
 	}
 
@@ -110,9 +102,10 @@ export const AllDevicesMap = () => {
 			.filter((dl): dl is DeviceInfo => dl !== undefined)
 	})
 
+	// Create the initial map
 	createEffect(() => {
-		map = createMap(ref, parameters, initialNavMapState.center, {
-			zoom: initialNavMapState.zoom,
+		map = createMap(ref, parameters, initial.center, {
+			zoom: initial.zoom,
 		})
 
 		map.on('load', () => {
@@ -139,6 +132,7 @@ export const AllDevicesMap = () => {
 		map.on('moveend', () => updateNavigationMapState(map))
 	})
 
+	// Render devices
 	createEffect(() => {
 		if (!mapLoaded()) return
 		if (map.getSource('devices-source')) {
@@ -181,7 +175,7 @@ export const AllDevicesMap = () => {
 			source: 'devices-source',
 			paint: {
 				'circle-color': '#80ed99',
-				'circle-radius': 2,
+				'circle-radius': 10,
 				'circle-stroke-width': 1,
 				'circle-stroke-color': '#222222',
 			},
@@ -237,6 +231,16 @@ export const AllDevicesMap = () => {
 			14, // Zoom end
 			1.5, // end size
 		])
+	})
+
+	// Navigate if triggered from an in-app link
+	createEffect(() => {
+		if (state().apply !== true) return
+		if (!mapLoaded()) return
+		map.flyTo({
+			center: state().center,
+			zoom: state().zoom,
+		})
 	})
 
 	onCleanup(() => {

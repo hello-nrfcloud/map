@@ -9,7 +9,7 @@ import { ResourcesDL } from '../ResourcesDL.js'
 import { SearchTermType } from '../../context/Search.js'
 import { useNavigation } from '../../context/Navigation.js'
 import { CollapsibleMenu } from '../CollapsibleMenu.js'
-import { CollapseButton } from '../CollapseButton.jsx'
+import { CollapseButton } from '../CollapseButton.js'
 
 import './DescribeObject.css'
 

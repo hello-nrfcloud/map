@@ -2,11 +2,12 @@ import {
 	ModelID,
 	type LwM2MObjectInstance,
 } from '@hello.nrfcloud.com/proto-lwm2m'
-import { For, Show, createMemo } from 'solid-js'
-import { byId, useDevices, type Device } from '../context/Devices.js'
+import { createMemo, For, Show } from 'solid-js'
+import { byId, useDevices } from '../context/Devices.js'
 import { useNavigation } from '../context/Navigation.js'
 import { Device as DeviceIcon } from '../icons/Device.js'
-import { Close, NoData } from '../icons/LucideIcon.jsx'
+import { Close, NoData } from '../icons/LucideIcon.js'
+import { type Device } from '../resources/fetchDevices.js'
 import {
 	isBatteryAndPower,
 	isDeviceInformation,
@@ -14,11 +15,12 @@ import {
 	isGeoLocationArray,
 } from '../util/lwm2m.js'
 import { newestInstanceFirst } from '../util/newestInstanceFirst.js'
-import { InfoBlock } from './InfoBlock.jsx'
-import { KnownObjects } from './KnownObjects/KnownObjects.jsx'
-import { DescribeInstance } from './lwm2m/DescribeInstance.jsx'
+import { DescribeModel } from './DescribeModel.js'
+import { InfoBlock } from './InfoBlock.js'
+import { KnownObjects } from './KnownObjects/KnownObjects.js'
+import { DescribeInstance } from './lwm2m/DescribeInstance.js'
 import { SidebarContent } from './Sidebar.js'
-import { DescribeModel } from './DescribeModel.jsx'
+import { TutorialBoxes } from './Tutorial.jsx'
 
 import './lwm2m/LwM2M.css'
 
@@ -124,6 +126,7 @@ const DeviceInfo = (props: { device: Device }) => {
 				bat={bat()}
 				locations={locations()}
 			/>
+			<TutorialBoxes />
 			<Show when={otherObjects().length > 0}>
 				<InfoBlock title={<h2>Other objects</h2>}>
 					<p>

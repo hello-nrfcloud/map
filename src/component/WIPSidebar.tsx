@@ -1,5 +1,5 @@
 import { useNavigation } from '../context/Navigation.js'
-import { Close } from '../icons/LucideIcon.jsx'
+import { Close } from '../icons/LucideIcon.js'
 import { SidebarContent } from './Sidebar.js'
 import { Show } from 'solid-js'
 

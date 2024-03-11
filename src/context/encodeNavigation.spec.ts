@@ -100,4 +100,20 @@ void describe('encode() / decode()', () => {
 				},
 			},
 		))
+
+	void it('should encode the tutorial state', () =>
+		assert.deepEqual(
+			decode(
+				encode({
+					panel: 'world',
+					tutorial: 'start',
+				}),
+			),
+			{
+				panel: 'world',
+				tutorial: 'start',
+				search: [],
+				resources: [],
+			},
+		))
 })

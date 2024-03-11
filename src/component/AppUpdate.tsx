@@ -1,8 +1,8 @@
-import { useNavigation } from '../context/Navigation.jsx'
-import { AppUpdateRequired, Close } from '../icons/LucideIcon.jsx'
+import { useNavigation } from '../context/Navigation.js'
+import { AppUpdateRequired, Close } from '../icons/LucideIcon.js'
 import { Show } from 'solid-js'
-import { SidebarContent } from './Sidebar.jsx'
-import { useAppUpdate } from '../context/AppUpdate.jsx'
+import { SidebarContent } from './Sidebar.js'
+import { useAppUpdate } from '../context/AppUpdate.js'
 
 const panelId = 'app-update'
 

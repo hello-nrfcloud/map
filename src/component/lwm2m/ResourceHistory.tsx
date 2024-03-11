@@ -2,57 +2,17 @@ import {
 	definitions,
 	timestampResources,
 	type LwM2MObjectID,
-	type LwM2MObjectInstance,
 	type LwM2MResourceInfo,
 	ResourceType,
 } from '@hello.nrfcloud.com/proto-lwm2m'
 import { Show, createMemo, createResource } from 'solid-js'
-import type { Device } from '../../context/Devices.js'
+import type { Device } from '../../resources/fetchDevices.js'
 import { useParameters } from '../../context/Parameters.js'
-import { SizeObserver } from '../SizeObserver.jsx'
-import { HistoryChart } from '../chart/HistoryChart.jsx'
+import { SizeObserver } from '../SizeObserver.js'
+import { HistoryChart } from '../chart/HistoryChart.js'
 
 import './ResourceHistory.css'
-
-const fetchHistory =
-	(
-		url: URL,
-		{
-			device,
-			ObjectID,
-			InstanceID,
-		}: {
-			device: Device
-			InstanceID: number
-			ObjectID: LwM2MObjectID
-		},
-	) =>
-	async (): Promise<{
-		'@context': 'https://github.com/hello-nrfcloud/proto/map/history'
-		partialInstances: Array<LwM2MObjectInstance['Resources'] & { ts: string }>
-		query: {
-			InstanceID: number
-			ObjectID: LwM2MObjectID
-			ObjectVersion: string // e.g. '1.0'
-			binIntervalMinutes: number // e.g. 15
-			deviceId: string // e.g. 'pentacid-coxalgia-backheel'
-		}
-	}> => {
-		const queryURL = new URL(
-			`/?${new URLSearchParams({
-				deviceId: device.id,
-				instance: `${ObjectID}/${InstanceID}`,
-			}).toString()}`,
-			url,
-		)
-		try {
-			return (await fetch(queryURL)).json()
-		} catch (err) {
-			throw new Error(
-				`Failed to fetch history (${queryURL.toString()}): ${(err as Error).message}!`,
-			)
-		}
-	}
+import { fetchHistory } from '../../resources/fetchHistory.js'
 
 const tsResource = (ObjectID: LwM2MObjectID): number => {
 	const definition = definitions[ObjectID]

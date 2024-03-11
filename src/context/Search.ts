@@ -1,4 +1,4 @@
-import { type Device } from './Devices.jsx'
+import { type Device } from '../resources/fetchDevices.js'
 
 export enum SearchTermType {
 	Id = 'id',

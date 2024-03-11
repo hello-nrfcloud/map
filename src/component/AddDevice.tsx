@@ -1,22 +1,16 @@
 import { useNavigation } from '../context/Navigation.js'
-import { Close, Add } from '../icons/LucideIcon.jsx'
+import { Close, Add } from '../icons/LucideIcon.js'
 import { SidebarContent } from './Sidebar.js'
 import { Show, createSignal, For } from 'solid-js'
-import {
-	AddDeviceForm,
-	type ShareDeviceRequest,
-} from './AddDevice/AddDeviceForm.js'
-import {
-	ConfirmRequestForm,
-	type OwnershipConfirmed,
-} from './AddDevice/ConfirmRequestForm.js'
+import { AddDeviceForm } from './AddDevice/AddDeviceForm.js'
+import { type ShareDeviceRequest } from '../resources/addModel.js'
+import { ConfirmRequestForm } from './AddDevice/ConfirmRequestForm.js'
+import { type OwnershipConfirmed } from '../resources/confirmRequest.js'
 
-import {
-	CreateDeviceCredentialsForm,
-	type DeviceCredentials,
-} from './AddDevice/CreateCredentials.jsx'
-import { CopyableProp } from './CopyableProp.jsx'
-import { DescribeConnectionSettings } from './DescribeConnectionSettings.jsx'
+import { CreateDeviceCredentialsForm } from './AddDevice/CreateCredentials.js'
+import { type DeviceCredentials } from '../resources/createCredentials.js'
+import { CopyableProp } from './CopyableProp.js'
+import { DescribeConnectionSettings } from './DescribeConnectionSettings.js'
 
 import './AddDevice.css'
 
@@ -37,9 +31,9 @@ export const Sidebar = () => {
 					<section class="separator">
 						<p>
 							<code>hello.nrfcloud.com/map</code> is made to showcase real-world
-							deployments of cellular IoT devices powered by Nordic hardware,
-							demonstrating their diverse applications and capabilities to a
-							global audience.
+							deployments of cellular IoT devices powered by Nordic
+							Semiconductor hardware, demonstrating their diverse applications
+							and capabilities to a global audience.
 						</p>
 						<p>
 							We invite you to participate in this effort by adding your own

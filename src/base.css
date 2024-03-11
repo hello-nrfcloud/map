@@ -4,10 +4,15 @@
   --bg-blue-3: #11456f;
   --bg-blue-2: #094062;
   --bg-blue-1: #003c56;
+  --bg-blue-0: #0c2438;
   --color-warning: #e7c27b;
   --color-error: #ce0d0d;
   --color-highlight-shadow: #fffaa8;
   --color-highlight: #80ed99;
+  --color-tutorial-bg: #e3ea98;
+  --color-tutorial-bg-dark: #c5ca86;
+  --color-tutorial-bg-darker: #8f945f;
+  --color-tutorial-text: #222;
   --chart-labels: #ffffff80;
   --chart-values: var(--color-highlight);
   --color-forms: #333;
@@ -45,6 +50,7 @@ body {
   font-family: var(--regular-font-family);
   font-weight: 200;
   font-style: normal;
+  background-color: var(--bg-blue-0);
 }
 
 code {
@@ -112,10 +118,16 @@ button:has(.icon) .icon {
 }
 
 /* Header with button */
-header:has(> button[aria-expanded]) {
+header:has(> button[aria-expanded]),
+header:has(> button[type="button"]) {
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: space-between;
+}
+
+header:has(> button[aria-expanded]) > .icon,
+header:has(> button[type="button"]) > .icon {
+  margin-left: var(--gap);
 }
 
 /* Headline with icon */

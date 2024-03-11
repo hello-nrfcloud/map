@@ -1,6 +1,7 @@
 import { For, Show, createMemo } from 'solid-js'
-import { useDevices, type Device } from '../context/Devices.js'
-import { useNavigation } from '../context/Navigation.jsx'
+import { useDevices } from '../context/Devices.js'
+import { type Device } from '../resources/fetchDevices.js'
+import { useNavigation } from '../context/Navigation.js'
 import {
 	type SearchTerm,
 	matches,
@@ -8,9 +9,9 @@ import {
 	isSearchTermType,
 } from '../context/Search.js'
 import { Device as DeviceIcon } from '../icons/Device.js'
-import { AddToSearch, Close, Published } from '../icons/LucideIcon.jsx'
-import { RelativeTime } from './RelativeTime.jsx'
-import { SidebarContent } from './Sidebar.jsx'
+import { AddToSearch, Close, Published } from '../icons/LucideIcon.js'
+import { RelativeTime } from './RelativeTime.js'
+import { SidebarContent } from './Sidebar.js'
 
 import './Search.css'
 import { noop } from '../util/noop.js'
@@ -29,6 +30,17 @@ const Search = () => {
 	let input!: HTMLInputElement
 	const location = useNavigation()
 
+	const addTerm = () => {
+		const maybeTerm = parse(input.value)
+		if (maybeTerm !== undefined) {
+			location.navigateWithSearchTerm(maybeTerm)
+			input.value = ''
+		} else {
+			// TODO: show error
+			console.error(`Invalid search term: ${input.value}`)
+		}
+	}
+
 	return (
 		<>
 			<div class="boxed pad light wrapper">
@@ -43,18 +55,17 @@ const Search = () => {
 								ref={input}
 								onKeyUp={(e) => {
 									if (e.key === 'Enter') {
-										const maybeTerm = parse(input.value)
-										if (maybeTerm !== undefined) {
-											location.navigateWithSearchTerm(maybeTerm)
-											input.value = ''
-										} else {
-											// TODO: show error
-											console.error(`Invalid search term: ${input.value}`)
-										}
+										addTerm()
 									}
 								}}
 							/>
-							<button type="button">
+							<button
+								type="button"
+								class="btn"
+								onClick={() => {
+									addTerm()
+								}}
+							>
 								<AddToSearch size={20} />
 							</button>
 						</div>

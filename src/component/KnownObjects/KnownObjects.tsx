@@ -12,9 +12,9 @@ import {
 	type ParentProps,
 	type Signal,
 } from 'solid-js'
-import type { Device } from '../../context/Devices.jsx'
-import { useNavigation } from '../../context/Navigation.jsx'
-import { DescribeInstance } from '../lwm2m/DescribeInstance.jsx'
+import type { Device } from '../../resources/fetchDevices.js'
+import { useNavigation } from '../../context/Navigation.js'
+import { DescribeInstance } from '../lwm2m/DescribeInstance.js'
 import {
 	Card as BatteryAndPowerCard,
 	Icon as BatteryAndPowerIcon,
@@ -23,7 +23,7 @@ import {
 	Card as DeviceInformationCard,
 	Icon as DeviceInformationIcon,
 } from './DeviceInformation.js'
-import { Card as PinnedCard, Icon as PinnedIcon } from './Pinned.jsx'
+import { Card as PinnedCard, Icon as PinnedIcon } from './Pinned.js'
 import { Card as LocationCard, Icon as LocationIcon } from './Location.js'
 
 import './KnownObjects.css'

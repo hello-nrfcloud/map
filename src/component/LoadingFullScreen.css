@@ -1,0 +1,20 @@
+#loading {
+  font-family: var(--condensed-font-family);
+  font-weight: 500;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#loading .icon {
+  animation: spin 2s infinite linear;
+  margin-right: var(--gap-medium);
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}

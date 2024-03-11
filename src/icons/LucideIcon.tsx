@@ -28,6 +28,9 @@ import {
 	Clipboard,
 	ClipboardCheck,
 	Filter,
+	Hourglass,
+	CircleHelp,
+	ChevronRight,
 } from 'lucide'
 import { For } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
@@ -70,6 +73,9 @@ export const Warning = (props: LucideProps) => (
 )
 
 export const Close = (props: LucideProps) => <LucideIcon icon={X} {...props} />
+export const Next = (props: LucideProps) => (
+	<LucideIcon icon={ChevronRight} {...props} />
+)
 export const Search = (props: LucideProps) => (
 	<LucideIcon icon={SearchIcon} {...props} />
 )
@@ -176,4 +182,12 @@ export const CopiedToClipboard = (props: LucideProps) => (
 
 export const ActiveSearch = (props: LucideProps) => (
 	<LucideIcon icon={Filter} {...props} />
+)
+
+export const Loading = (props: LucideProps) => (
+	<LucideIcon icon={Hourglass} {...props} />
+)
+
+export const Tutorial = (props: LucideProps) => (
+	<LucideIcon icon={CircleHelp} {...props} />
 )

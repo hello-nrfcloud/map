@@ -9,7 +9,7 @@ import {
 	instanceTs,
 } from '@hello.nrfcloud.com/proto-lwm2m'
 import { isLwM2MObjectID } from '@hello.nrfcloud.com/proto-lwm2m'
-import type { Device } from '../../context/Devices.js'
+import type { Device } from '../../resources/fetchDevices.js'
 import { ResourcesDL } from '../ResourcesDL.js'
 import { DescribeResource } from '../lwm2m/DescribeResource.js'
 

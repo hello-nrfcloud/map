@@ -7,6 +7,7 @@ import { AppUpdateProvider } from './context/AppUpdate.js'
 
 import 'the-new-css-reset/css/reset.css'
 import './base.css'
+import { AllDevicesMapStateProvider } from './context/AllDeviceMapState.jsx'
 
 const root = document.getElementById('root')
 
@@ -20,7 +21,9 @@ render(
 			<ParametersProvider registryEndpoint={new URL(REGISTRY_ENDPOINT)}>
 				<DevicesProvider>
 					<NavigationProvider>
-						<MapApp />
+						<AllDevicesMapStateProvider>
+							<MapApp />
+						</AllDevicesMapStateProvider>
 					</NavigationProvider>
 				</DevicesProvider>
 			</ParametersProvider>

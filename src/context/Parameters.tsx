@@ -1,5 +1,6 @@
 import { type ParentProps } from 'solid-js'
 import { createContext, createResource, useContext, Show } from 'solid-js'
+import { LoadingFullScreen } from '../component/LoadingFullScreen.js'
 
 export type Parameters = {
 	// Map resources
@@ -92,7 +93,10 @@ export const ParametersProvider = (
 	)
 
 	return (
-		<Show when={parameters() !== undefined} fallback={<div>Loading ...</div>}>
+		<Show
+			when={parameters() !== undefined}
+			fallback={<LoadingFullScreen what="parameters" />}
+		>
 			<ParametersContext.Provider value={parameters()}>
 				{props.children}
 			</ParametersContext.Provider>
