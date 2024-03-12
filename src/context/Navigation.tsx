@@ -10,7 +10,12 @@ import { decode, encode, type Navigation } from './encodeNavigation.js'
 import type { SearchTerm } from './Search.js'
 import { LwM2MObjectID, ModelID, models } from '@hello.nrfcloud.com/proto-lwm2m'
 
-const Home: Navigation = { panel: 'world', resources: [], search: [] }
+const Home: Navigation = {
+	panel: 'world',
+	resources: [],
+	search: [],
+	toggled: [],
+}
 
 export const NavigationProvider = (props: ParentProps) => {
 	const [location, setLocation] = createSignal<Navigation>(

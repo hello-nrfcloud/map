@@ -12,6 +12,7 @@ void describe('encode() / decode()', () => {
 			panel: 'about',
 			search: [],
 			resources: [],
+			toggled: [],
 		}))
 
 	void it('should encode a page URL with an ID', () =>
@@ -19,6 +20,7 @@ void describe('encode() / decode()', () => {
 			panel: 'id:42',
 			search: [],
 			resources: [],
+			toggled: [],
 		}))
 
 	void it('should encode search terms', () =>
@@ -43,6 +45,7 @@ void describe('encode() / decode()', () => {
 					},
 				],
 				resources: [],
+				toggled: [],
 			},
 		))
 
@@ -70,6 +73,7 @@ void describe('encode() / decode()', () => {
 						ResourceID: 4,
 					},
 				],
+				toggled: [],
 			},
 		))
 
@@ -91,6 +95,7 @@ void describe('encode() / decode()', () => {
 				panel: 'world',
 				search: [],
 				resources: [],
+				toggled: [],
 				map: {
 					center: {
 						lat: 63.421065865928355,
@@ -101,19 +106,35 @@ void describe('encode() / decode()', () => {
 			},
 		))
 
-	void it('should encode the tutorial state', () =>
+	void it('should encode the help state', () =>
 		assert.deepEqual(
 			decode(
 				encode({
 					panel: 'world',
-					tutorial: 'start',
+					help: 'start',
 				}),
 			),
 			{
 				panel: 'world',
-				tutorial: 'start',
+				help: 'start',
 				search: [],
 				resources: [],
+				toggled: [],
+			},
+		))
+
+	void it('should encode toggle states', () =>
+		assert.deepEqual(
+			decode(
+				encode({
+					toggled: ['foo', 'bar'],
+				}),
+			),
+			{
+				panel: '',
+				search: [],
+				resources: [],
+				toggled: ['foo', 'bar'],
 			},
 		))
 })
