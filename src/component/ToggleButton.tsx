@@ -1,8 +1,8 @@
 import { Show } from 'solid-js'
-import { useNavigation } from '../context/Navigation.jsx'
+import { useNavigation } from '../context/Navigation.js'
 import { Collapse, Expand } from '../icons/LucideIcon.js'
 
-export const CollapseButton = (props: { id: string }) => {
+export const ToggleButton = (props: { id: string }) => {
 	const nav = useNavigation()
 	return (
 		<Show

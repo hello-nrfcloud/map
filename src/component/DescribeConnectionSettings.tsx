@@ -1,6 +1,6 @@
 import { CopyableProp } from './CopyableProp.js'
 import { useParameters } from '../context/Parameters.js'
-import { CollapseButton } from './CollapseButton.js'
+import { ToggleButton } from './ToggleButton.jsx'
 import { ResourcesDL } from './ResourcesDL.js'
 import { WhenToggled } from './WhenToggled.jsx'
 
@@ -12,7 +12,7 @@ export const DescribeConnectionSettings = (props: { deviceId: string }) => {
 			<div>
 				<header class="pad">
 					<h3>Connection information</h3>
-					<CollapseButton id="connection-information" />
+					<ToggleButton id="connection-information" />
 				</header>
 				<WhenToggled id={'connection-information'}>
 					<ResourcesDL class="pad bg-light">

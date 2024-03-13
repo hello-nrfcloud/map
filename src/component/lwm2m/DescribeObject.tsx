@@ -6,7 +6,7 @@ import {
 import { useNavigation } from '../../context/Navigation.js'
 import { SearchTermType } from '../../context/Search.js'
 import { Documentation, Search, ViewSource } from '../../icons/LucideIcon.js'
-import { CollapseButton } from '../CollapseButton.js'
+import { ToggleButton } from '../ToggleButton.jsx'
 import { CollapsibleMenu } from '../CollapsibleMenu.js'
 import { ResourcesDL } from '../ResourcesDL.js'
 import { WhenToggled } from '../WhenToggled.jsx'
@@ -23,7 +23,7 @@ export const DescribeObject = (props: { instance: LwM2MObjectInstance }) => {
 					<Documentation size={20} strokeWidth={1} />
 					LwM2M Object definition
 				</h3>
-				<CollapseButton id={toggleId} />
+				<ToggleButton id={toggleId} />
 			</header>
 			<WhenToggled id={toggleId}>
 				<ResourcesDL class="pad bg-light">

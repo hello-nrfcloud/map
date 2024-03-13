@@ -2,7 +2,7 @@ import { ModelID, models } from '@hello.nrfcloud.com/proto-lwm2m'
 import { useNavigation } from '../context/Navigation.js'
 import { SearchTermType } from '../context/Search.js'
 import { Documentation, Search, ViewSource } from '../icons/LucideIcon.js'
-import { CollapseButton } from './CollapseButton.js'
+import { ToggleButton } from './ToggleButton.jsx'
 import { CollapsibleMenu } from './CollapsibleMenu.js'
 import { ResourcesDL } from './ResourcesDL.js'
 import { WhenToggled } from './WhenToggled.jsx'
@@ -16,7 +16,7 @@ export const DescribeModel = (props: { model: ModelID }) => {
 					<Documentation size={20} strokeWidth={1} />
 					{props.model}
 				</h3>
-				<CollapseButton id="describe-model" />
+				<ToggleButton id="describe-model" />
 			</header>
 			<WhenToggled id="describe-model">
 				<ResourcesDL class="pad bg-light">
