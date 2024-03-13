@@ -57,6 +57,9 @@ export const NavigationProvider = (props: ParentProps) => {
 			(r) => resourceToString(r) === resourceToString(resource),
 		) !== undefined
 
+	const isToggled = (id: string): boolean =>
+		(location().toggled ?? []).includes(id)
+
 	return (
 		<NavigationContext.Provider
 			value={{
@@ -114,6 +117,32 @@ export const NavigationProvider = (props: ParentProps) => {
 					}
 				},
 				hasResource,
+				isToggled,
+				toggle: (id) => {
+					const current = location()
+					navigate({
+						...current,
+						toggled: isToggled(id)
+							? (current.toggled ?? []).filter((t) => t !== id)
+							: [...(current.toggled ?? []), id],
+					})
+				},
+				toggleBatch: (updates) => {
+					const disableIds = Object.entries(updates)
+						.filter(([, state]) => state === false)
+						.map(([id]) => id)
+					const enabledIds = Object.entries(updates)
+						.filter(([, state]) => state === true)
+						.map(([id]) => id)
+					const current = location()
+					navigate({
+						...current,
+						toggled: [
+							...enabledIds,
+							...current.toggled.filter((i) => !disableIds.includes(i)),
+						],
+					})
+				},
 			}}
 		>
 			{props.children}
@@ -147,6 +176,9 @@ export const NavigationContext = createContext<{
 	navigateWithSearchTerm: (term: SearchTerm) => void
 	toggleResource: (resource: Resource) => void
 	hasResource: (resource: Resource) => boolean
+	toggle: (id: string) => void
+	toggleBatch: (updates: Record<string, boolean>) => void
+	isToggled: (id: string) => boolean
 }>({
 	current: () => ({ ...Home, search: [], resources: [] }),
 	navigate: () => undefined,
@@ -160,6 +192,9 @@ export const NavigationContext = createContext<{
 	linkToSearch: () => '/#',
 	toggleResource: () => undefined,
 	hasResource: () => false,
+	toggle: () => undefined,
+	toggleBatch: () => undefined,
+	isToggled: () => false,
 })
 
 export const useNavigation = () => useContext(NavigationContext)

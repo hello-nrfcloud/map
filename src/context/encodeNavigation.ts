@@ -61,7 +61,7 @@ export const encode = (
 	if (help !== undefined) {
 		parts.push(`${FieldKey.Help}:${help}`)
 	}
-	if (toggled !== undefined) {
+	if (toggled !== undefined && toggled.length > 0) {
 		parts.push([FieldKey.Toggled, ...toggled.map(encodeColon)].join(':'))
 	}
 	return parts.join(sep)

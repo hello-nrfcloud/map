@@ -4,11 +4,12 @@ import {
 	instanceTs,
 	type LwM2MObjectInstance,
 } from '@hello.nrfcloud.com/proto-lwm2m'
-import { Show, createSignal } from 'solid-js'
-import type { Device } from '../../resources/fetchDevices.js'
+import { Show } from 'solid-js'
 import { Published } from '../../icons/LucideIcon.js'
+import type { Device } from '../../resources/fetchDevices.js'
 import { CollapseButton } from '../CollapseButton.js'
 import { RelativeTime } from '../RelativeTime.js'
+import { WhenToggled } from '../WhenToggled.jsx'
 import { DescribeObject } from './DescribeObject.js'
 import { DescribeResources } from './DescribeResources.js'
 
@@ -16,9 +17,9 @@ export const DescribeInstance = (props: {
 	instance: LwM2MObjectInstance
 	device: Device
 }) => {
-	const [expanded, setExpanded] = createSignal<boolean>(false)
 	const definition = definitions[props.instance.ObjectID as LwM2MObjectID]
 	const ts = instanceTs(props.instance)
+	const toggleId = `di;${props.instance.ObjectID}`
 	return (
 		<Show
 			when={definition !== undefined}
@@ -37,18 +38,18 @@ export const DescribeInstance = (props: {
 								</RelativeTime>
 							</small>
 						</h2>
-						<CollapseButton expanded={expanded} setExpanded={setExpanded} />
+						<CollapseButton id={toggleId} />
 					</header>
-					<Show when={expanded()}>
+					<WhenToggled id={toggleId}>
 						<DescribeResources
 							device={props.device}
 							instance={props.instance}
 						/>
-					</Show>
+					</WhenToggled>
 				</section>
-				<Show when={expanded()}>
+				<WhenToggled id={toggleId}>
 					<DescribeObject instance={props.instance} />
-				</Show>
+				</WhenToggled>
 			</div>
 		</Show>
 	)

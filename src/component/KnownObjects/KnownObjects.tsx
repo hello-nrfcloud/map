@@ -3,17 +3,9 @@ import {
 	type DeviceInformation_14204,
 	type Geolocation_14201,
 } from '@hello.nrfcloud.com/proto-lwm2m'
-import {
-	For,
-	Show,
-	createEffect,
-	createMemo,
-	createSignal,
-	type ParentProps,
-	type Signal,
-} from 'solid-js'
-import type { Device } from '../../resources/fetchDevices.js'
+import { For, Show, createMemo, type ParentProps } from 'solid-js'
 import { useNavigation } from '../../context/Navigation.js'
+import type { Device } from '../../resources/fetchDevices.js'
 import { DescribeInstance } from '../lwm2m/DescribeInstance.js'
 import {
 	Card as BatteryAndPowerCard,
@@ -23,8 +15,8 @@ import {
 	Card as DeviceInformationCard,
 	Icon as DeviceInformationIcon,
 } from './DeviceInformation.js'
-import { Card as PinnedCard, Icon as PinnedIcon } from './Pinned.js'
 import { Card as LocationCard, Icon as LocationIcon } from './Location.js'
+import { Card as PinnedCard, Icon as PinnedIcon } from './Pinned.js'
 
 import './KnownObjects.css'
 
@@ -59,75 +51,87 @@ export const KnownObjects = (props: {
 		return tabs
 	})
 
-	const [visibleCard, setVisibleCard] = createSignal<TabType | undefined>()
-
-	createEffect(() => {
-		setVisibleCard(tabs()[0])
-	})
+	const nonSelected = () =>
+		tabs().find((id) => location.isToggled(toggleId(id))) === undefined
+	const isActive = (id: TabType): boolean =>
+		location.isToggled(toggleId(id)) || (nonSelected() && id === tabs()[0])
+	const setActive = (id: TabType): void => {
+		const toggled: Record<string, boolean> = {
+			[toggleId(id)]: true,
+		}
+		for (const offtabId of tabs().filter((i) => i !== id)) {
+			toggled[toggleId(offtabId)] = false
+		}
+		location.toggleBatch(toggled)
+	}
 
 	return (
 		<section class="known-objects boxed">
 			<nav class="tabs rounded-header">
 				<Show when={tabs().includes(TabType.Pinned)}>
-					<Tab id={TabType.Pinned} visibleCard={[visibleCard, setVisibleCard]}>
+					<Tab
+						isActive={isActive(TabType.Pinned)}
+						onClick={() => setActive(TabType.Pinned)}
+					>
 						<PinnedIcon />
 					</Tab>
 				</Show>
 				<Show when={tabs().includes(TabType.Info)}>
-					<Tab id={TabType.Info} visibleCard={[visibleCard, setVisibleCard]}>
+					<Tab
+						isActive={isActive(TabType.Info)}
+						onClick={() => setActive(TabType.Info)}
+					>
 						<DeviceInformationIcon />
 					</Tab>
 				</Show>
 				<Show when={tabs().includes(TabType.Bat)}>
-					<Tab id={TabType.Bat} visibleCard={[visibleCard, setVisibleCard]}>
+					<Tab
+						isActive={isActive(TabType.Bat)}
+						onClick={() => setActive(TabType.Bat)}
+					>
 						<BatteryAndPowerIcon />
 					</Tab>
 				</Show>
 				<Show when={tabs().includes(TabType.Location)}>
 					<Tab
-						id={TabType.Location}
-						visibleCard={[visibleCard, setVisibleCard]}
+						isActive={isActive(TabType.Location)}
+						onClick={() => setActive(TabType.Location)}
 					>
 						<LocationIcon />
 					</Tab>
 				</Show>
 			</nav>
 			<div class="cards">
-				<Show when={visibleCard() === TabType.Pinned}>
+				<Show when={isActive(TabType.Pinned)}>
 					<PinnedCard resources={favoriteResources()} device={props.device} />
 				</Show>
-				<Show when={visibleCard() === TabType.Info && props.info !== undefined}>
+				<Show when={isActive(TabType.Info) && props.info !== undefined}>
 					<DeviceInformationCard info={props.info!} />
 				</Show>
-				<Show when={visibleCard() === TabType.Bat && props.bat !== undefined}>
+				<Show when={isActive(TabType.Bat) && props.bat !== undefined}>
 					<BatteryAndPowerCard bat={props.bat!} />
 				</Show>
-				<Show when={visibleCard() === TabType.Location && hasLocations}>
+				<Show when={isActive(TabType.Location) && hasLocations}>
 					<LocationCard locations={props.locations} />
 				</Show>
 			</div>
-			<Show
-				when={
-					visibleCard() !== undefined &&
-					[TabType.Info, TabType.Bat, TabType.Location].includes(visibleCard()!)
-				}
-			>
+			<Show when={isActive(TabType.Info) && props.info !== undefined}>
 				<footer>
-					<Show
-						when={visibleCard() === TabType.Info && props.info !== undefined}
-					>
-						<DescribeInstance device={props.device} instance={props.info!} />
-					</Show>
-					<Show when={visibleCard() === TabType.Bat && props.bat !== undefined}>
-						<DescribeInstance device={props.device} instance={props.bat!} />
-					</Show>
-					<Show when={visibleCard() === TabType.Location && hasLocations}>
-						<For each={props.locations}>
-							{(location) => (
-								<DescribeInstance device={props.device} instance={location} />
-							)}
-						</For>
-					</Show>
+					<DescribeInstance device={props.device} instance={props.info!} />
+				</footer>
+			</Show>
+			<Show when={isActive(TabType.Bat) && props.bat !== undefined}>
+				<footer>
+					<DescribeInstance device={props.device} instance={props.bat!} />
+				</footer>
+			</Show>
+			<Show when={isActive(TabType.Location) && hasLocations}>
+				<footer>
+					<For each={props.locations}>
+						{(location) => (
+							<DescribeInstance device={props.device} instance={location} />
+						)}
+					</For>
 				</footer>
 			</Show>
 		</section>
@@ -136,17 +140,17 @@ export const KnownObjects = (props: {
 
 const Tab = (
 	props: ParentProps<{
-		id: TabType
-		visibleCard: Signal<TabType | undefined>
+		isActive: boolean
+		onClick: () => void
 	}>,
-) => {
-	return (
-		<button
-			type="button"
-			onClick={() => props.visibleCard[1](props.id)}
-			class={props.visibleCard[0]() === props.id ? 'active' : ''}
-		>
-			{props.children}
-		</button>
-	)
-}
+) => (
+	<button
+		type="button"
+		onClick={props.onClick}
+		class={props.isActive ? 'active' : ''}
+	>
+		{props.children}
+	</button>
+)
+
+const toggleId = (type: TabType): string => `ko;${type}`
