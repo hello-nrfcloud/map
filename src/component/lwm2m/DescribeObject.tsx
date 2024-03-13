@@ -1,22 +1,22 @@
 import {
-	type LwM2MObjectInstance,
-	definitions,
 	LwM2MObjectID,
+	definitions,
+	type LwM2MObjectInstance,
 } from '@hello.nrfcloud.com/proto-lwm2m'
-import { createSignal, Show } from 'solid-js'
-import { Documentation, Search, ViewSource } from '../../icons/LucideIcon.js'
-import { ResourcesDL } from '../ResourcesDL.js'
-import { SearchTermType } from '../../context/Search.js'
 import { useNavigation } from '../../context/Navigation.js'
-import { CollapsibleMenu } from '../CollapsibleMenu.js'
+import { SearchTermType } from '../../context/Search.js'
+import { Documentation, Search, ViewSource } from '../../icons/LucideIcon.js'
 import { CollapseButton } from '../CollapseButton.js'
+import { CollapsibleMenu } from '../CollapsibleMenu.js'
+import { ResourcesDL } from '../ResourcesDL.js'
 
+import { WhenToggled } from '../WhenToggled.jsx'
 import './DescribeObject.css'
 
 export const DescribeObject = (props: { instance: LwM2MObjectInstance }) => {
 	const location = useNavigation()
 	const definition = definitions[props.instance.ObjectID as LwM2MObjectID]
-	const [expanded, setExpanded] = createSignal<boolean>(false)
+	const toggleId = `do;${props.instance.ObjectID}`
 
 	return (
 		<aside class="object-definition">
@@ -25,9 +25,9 @@ export const DescribeObject = (props: { instance: LwM2MObjectInstance }) => {
 					<Documentation size={20} strokeWidth={1} />
 					LwM2M Object definition
 				</h3>
-				<CollapseButton expanded={expanded} setExpanded={setExpanded} />
+				<CollapseButton id={toggleId} />
 			</header>
-			<Show when={expanded()}>
+			<WhenToggled id={toggleId}>
 				<ResourcesDL>
 					<dt>
 						<span class="info">ObjectID</span>
@@ -75,7 +75,7 @@ export const DescribeObject = (props: { instance: LwM2MObjectInstance }) => {
 						</a>
 					</dd>
 				</ResourcesDL>
-			</Show>
+			</WhenToggled>
 		</aside>
 	)
 }

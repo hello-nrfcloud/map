@@ -5,11 +5,10 @@ import { Documentation, Search, ViewSource } from '../icons/LucideIcon.js'
 import { CollapseButton } from './CollapseButton.js'
 import { CollapsibleMenu } from './CollapsibleMenu.js'
 import { ResourcesDL } from './ResourcesDL.js'
-import { createSignal, Show } from 'solid-js'
+import { WhenToggled } from './WhenToggled.jsx'
 
 export const DescribeModel = (props: { model: ModelID }) => {
 	const location = useNavigation()
-	const [expanded, setExpanded] = createSignal<boolean>(false)
 	return (
 		<aside class="model-definition">
 			<div>
@@ -18,9 +17,9 @@ export const DescribeModel = (props: { model: ModelID }) => {
 						<Documentation size={20} strokeWidth={1} />
 						{props.model}
 					</h3>
-					<CollapseButton expanded={expanded} setExpanded={setExpanded} />
+					<CollapseButton id="describe-model" />
 				</header>
-				<Show when={expanded()}>
+				<WhenToggled id="describe-model">
 					<ResourcesDL class="pad">
 						<dt>
 							<span class="info">Model</span>
@@ -64,7 +63,7 @@ export const DescribeModel = (props: { model: ModelID }) => {
 							</a>
 						</dd>
 					</ResourcesDL>
-				</Show>
+				</WhenToggled>
 			</div>
 		</aside>
 	)

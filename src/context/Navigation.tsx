@@ -10,7 +10,12 @@ import { decode, encode, type Navigation } from './encodeNavigation.js'
 import type { SearchTerm } from './Search.js'
 import { LwM2MObjectID, ModelID, models } from '@hello.nrfcloud.com/proto-lwm2m'
 
-const Home: Navigation = { panel: 'world', resources: [], search: [] }
+const Home: Navigation = {
+	panel: 'world',
+	resources: [],
+	search: [],
+	toggled: [],
+}
 
 export const NavigationProvider = (props: ParentProps) => {
 	const [location, setLocation] = createSignal<Navigation>(
@@ -51,6 +56,9 @@ export const NavigationProvider = (props: ParentProps) => {
 		(location().resources ?? []).find(
 			(r) => resourceToString(r) === resourceToString(resource),
 		) !== undefined
+
+	const isToggled = (id: string): boolean =>
+		(location().toggled ?? []).includes(id)
 
 	return (
 		<NavigationContext.Provider
@@ -109,6 +117,32 @@ export const NavigationProvider = (props: ParentProps) => {
 					}
 				},
 				hasResource,
+				isToggled,
+				toggle: (id) => {
+					const current = location()
+					navigate({
+						...current,
+						toggled: isToggled(id)
+							? (current.toggled ?? []).filter((t) => t !== id)
+							: [...(current.toggled ?? []), id],
+					})
+				},
+				toggleBatch: (updates) => {
+					const disableIds = Object.entries(updates)
+						.filter(([, state]) => state === false)
+						.map(([id]) => id)
+					const enabledIds = Object.entries(updates)
+						.filter(([, state]) => state === true)
+						.map(([id]) => id)
+					const current = location()
+					navigate({
+						...current,
+						toggled: [
+							...enabledIds,
+							...current.toggled.filter((i) => !disableIds.includes(i)),
+						],
+					})
+				},
 			}}
 		>
 			{props.children}
@@ -142,6 +176,9 @@ export const NavigationContext = createContext<{
 	navigateWithSearchTerm: (term: SearchTerm) => void
 	toggleResource: (resource: Resource) => void
 	hasResource: (resource: Resource) => boolean
+	toggle: (id: string) => void
+	toggleBatch: (updates: Record<string, boolean>) => void
+	isToggled: (id: string) => boolean
 }>({
 	current: () => ({ ...Home, search: [], resources: [] }),
 	navigate: () => undefined,
@@ -155,6 +192,9 @@ export const NavigationContext = createContext<{
 	linkToSearch: () => '/#',
 	toggleResource: () => undefined,
 	hasResource: () => false,
+	toggle: () => undefined,
+	toggleBatch: () => undefined,
+	isToggled: () => false,
 })
 
 export const useNavigation = () => useContext(NavigationContext)

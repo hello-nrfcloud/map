@@ -1,28 +1,29 @@
-import { Show, type Accessor, type Setter } from 'solid-js'
+import { Show } from 'solid-js'
+import { useNavigation } from '../context/Navigation.jsx'
 import { Collapse, Expand } from '../icons/LucideIcon.js'
 
-export const CollapseButton = (props: {
-	expanded: Accessor<boolean>
-	setExpanded: Setter<boolean>
-}) => (
-	<Show
-		when={props.expanded()}
-		fallback={
+export const CollapseButton = (props: { id: string }) => {
+	const nav = useNavigation()
+	return (
+		<Show
+			when={nav.isToggled(props.id)}
+			fallback={
+				<button
+					type="button"
+					aria-expanded={false}
+					onClick={() => nav.toggle(props.id)}
+				>
+					<Expand size={20} strokeWidth={1} />
+				</button>
+			}
+		>
 			<button
 				type="button"
-				aria-expanded={false}
-				onClick={() => props.setExpanded(true)}
+				aria-expanded={true}
+				onClick={() => nav.toggle(props.id)}
 			>
-				<Expand size={20} strokeWidth={1} />
+				<Collapse size={20} strokeWidth={1} />
 			</button>
-		}
-	>
-		<button
-			type="button"
-			aria-expanded={true}
-			onClick={() => props.setExpanded(false)}
-		>
-			<Collapse size={20} strokeWidth={1} />
-		</button>
-	</Show>
-)
+		</Show>
+	)
+}

@@ -11,14 +11,16 @@ export type Navigation = {
 	search: SearchTerm[]
 	resources: Resource[]
 	map?: NavigationMapState
-	tutorial?: string
+	help?: string
+	toggled: string[]
 }
 
 enum FieldKey {
 	Search = 's',
 	Resources = 'r',
 	Map = 'm',
-	Tutorial = 't',
+	Help = 'h',
+	Toggled = 't',
 }
 
 const sep = '!'
@@ -28,7 +30,7 @@ export const encode = (
 ): string | undefined => {
 	if (navigation === undefined) return ''
 	const parts = []
-	const { panel, search, resources, map, tutorial } = navigation
+	const { panel, search, resources, map, help, toggled } = navigation
 	parts.push(panel)
 	if (search !== undefined && search.length > 0) {
 		parts.push(
@@ -56,8 +58,11 @@ export const encode = (
 			`${FieldKey.Map}:${map.zoom}:${map.center.lat},${map.center.lng}`,
 		)
 	}
-	if (tutorial !== undefined) {
-		parts.push(`${FieldKey.Tutorial}:${tutorial}`)
+	if (help !== undefined) {
+		parts.push(`${FieldKey.Help}:${help}`)
+	}
+	if (toggled !== undefined && toggled.length > 0) {
+		parts.push([FieldKey.Toggled, ...toggled.map(encodeColon)].join(':'))
 	}
 	return parts.join(sep)
 }
@@ -67,7 +72,8 @@ export const decode = (encoded?: string): Navigation | undefined => {
 	if (encoded.length === 0) return undefined
 	const [panel, ...rest] = encoded.split(sep)
 	if (panel === undefined) return undefined
-	if (rest.length === 0) return { panel, search: [], resources: [] }
+	if (rest.length === 0)
+		return { panel, search: [], resources: [], toggled: [] }
 	const nav: Navigation = {
 		panel,
 		search: rest
@@ -95,6 +101,7 @@ export const decode = (encoded?: string): Navigation | undefined => {
 				}
 			})
 			.filter((t): t is Resource => t !== undefined),
+		toggled: [],
 	}
 
 	const mapState = rest.find((s) => s.split(':', 2)[0] === FieldKey.Map)
@@ -112,12 +119,22 @@ export const decode = (encoded?: string): Navigation | undefined => {
 		}
 	}
 
-	const tutorialState = rest.find(
-		(s) => s.split(':', 2)[0] === FieldKey.Tutorial,
-	)
-	if (tutorialState !== undefined) {
-		nav.tutorial = tutorialState.split(':', 2)[1] as string
+	const helpState = rest.find((s) => s.split(':', 2)[0] === FieldKey.Help)
+	if (helpState !== undefined) {
+		nav.help = helpState.split(':', 2)[1] as string
+	}
+
+	const toggledState = rest.find((s) => s.split(':', 2)[0] === FieldKey.Toggled)
+	if (toggledState !== undefined) {
+		const [, ...toggled] = toggledState.split(':')
+		nav.toggled = toggled.map(decodeColon)
 	}
 
 	return nav
 }
+
+const encodeColon = (s: string): string =>
+	s.replaceAll(':', encodeURIComponent(':'))
+
+const decodeColon = (s: string): string =>
+	s.replaceAll(encodeURIComponent(':'), ':')

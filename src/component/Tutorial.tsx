@@ -32,7 +32,7 @@ export const Tutorial = () => {
 					you familiarize yourself with its features.
 				</p>
 				<p>
-					<a href={location.link({ tutorial: 'map' })}>Let's get started!</a>
+					<a href={location.link({ help: 'map' })}>Let's get started!</a>
 				</p>
 			</Box>
 			<Box
@@ -61,7 +61,7 @@ export const Tutorial = () => {
 								apply: true,
 							})
 							location.navigate({
-								tutorial: 'map-select',
+								help: 'map-select',
 								map: {
 									center: {
 										lat: 63.421388236785305,
@@ -84,7 +84,7 @@ export const Tutorial = () => {
 					<a
 						href={location.link({
 							panel: `id:pentacid-coxalgia-backheel`,
-							tutorial: 'other-objects',
+							help: 'other-objects',
 						})}
 					>
 						<code>pentacid-coxalgia-backheel</code>
@@ -185,7 +185,7 @@ export const Tutorial = () => {
 					<Add strokeWidth={1} size={16} /> icon in the sidebar.
 				</p>
 				<p>
-					<a href={location.link({ panel: 'add-device', tutorial: undefined })}>
+					<a href={location.link({ panel: 'add-device', help: undefined })}>
 						Add your device.
 					</a>
 				</p>
@@ -199,7 +199,7 @@ export const SidebarButton = () => {
 
 	return (
 		<>
-			<a class="button" href={location.link({ tutorial: 'start' })}>
+			<a class="button" href={location.link({ help: 'start' })}>
 				<TutorialIcon strokeWidth={2} />
 			</a>
 			<hr />
@@ -216,7 +216,7 @@ export const Box = (
 	}>,
 ) => {
 	const location = useNavigation()
-	const what = () => location.current().tutorial
+	const what = () => location.current().help
 	return (
 		<Show when={what() === props.id}>
 			<aside class={`tutorial ${props.dialogue ?? false ? 'dialogue' : ''}`}>
@@ -226,7 +226,7 @@ export const Box = (
 						type="button"
 						onClick={() =>
 							location.navigate({
-								tutorial: undefined,
+								help: undefined,
 							})
 						}
 					>
@@ -240,7 +240,7 @@ export const Box = (
 							type="button"
 							onClick={() =>
 								location.navigate({
-									tutorial: props.next,
+									help: props.next,
 								})
 							}
 						>
