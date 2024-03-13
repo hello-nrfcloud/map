@@ -87,6 +87,7 @@ h2 {
 .boxed {
   border-radius: calc(var(--border-radius) * 2);
   box-shadow: 0 0 var(--box-shadow-size) #00000066;
+  overflow: hidden;
 }
 
 .boxed + .boxed {
@@ -147,33 +148,6 @@ h4:has(.icon) .icon,
 h5:has(.icon) .icon,
 h6:has(.icon) .icon {
   margin-right: var(--gap-tiny);
-}
-
-.rounded-header {
-  padding: var(--gap);
-  background-color: var(--bg-blue-3);
-  border-bottom: 1px solid var(--bg-blue-1);
-  border-top-left-radius: calc(var(--border-radius) * 2);
-  border-top-right-radius: calc(var(--border-radius) * 2);
-}
-.rounded-header:has(> button[aria-expanded="false"]) {
-  border-bottom: 0;
-  border-bottom-left-radius: calc(var(--border-radius) * 2);
-  border-bottom-right-radius: calc(var(--border-radius) * 2);
-}
-.rounded-footer {
-  padding: var(--gap);
-  background-color: var(--bg-blue-3);
-  border-bottom-left-radius: calc(var(--border-radius) * 2);
-  border-bottom-right-radius: calc(var(--border-radius) * 2);
-}
-.rounded-footer.dark {
-  background-color: var(--bg-blue-2);
-}
-.rounded-footer:has(> button[aria-expanded="true"]) {
-  border-bottom: 1px solid var(--bg-blue-1);
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
 }
 
 .pad {

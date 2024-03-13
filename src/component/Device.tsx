@@ -54,7 +54,7 @@ export const DeviceSidebar = () => {
 	return (
 		<Show when={deviceId() !== undefined}>
 			<SidebarContent class="device">
-				<header>
+				<header class="pad">
 					<h1>
 						<span>{deviceId()}</span>
 						<Show when={selectedDevice() === undefined}>
@@ -161,9 +161,7 @@ const DeviceInfo = (props: { device: Device }) => {
 					.
 				</p>
 			</InfoBlock>
-			<div class="boxed">
-				<DescribeModel model={props.device.model as ModelID} />
-			</div>
+			<DescribeModel model={props.device.model as ModelID} />
 		</section>
 	)
 }

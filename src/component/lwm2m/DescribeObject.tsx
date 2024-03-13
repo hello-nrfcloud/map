@@ -9,9 +9,7 @@ import { Documentation, Search, ViewSource } from '../../icons/LucideIcon.js'
 import { CollapseButton } from '../CollapseButton.js'
 import { CollapsibleMenu } from '../CollapsibleMenu.js'
 import { ResourcesDL } from '../ResourcesDL.js'
-
 import { WhenToggled } from '../WhenToggled.jsx'
-import './DescribeObject.css'
 
 export const DescribeObject = (props: { instance: LwM2MObjectInstance }) => {
 	const location = useNavigation()
@@ -19,8 +17,8 @@ export const DescribeObject = (props: { instance: LwM2MObjectInstance }) => {
 	const toggleId = `do;${props.instance.ObjectID}`
 
 	return (
-		<aside class="object-definition">
-			<header class="rounded-footer dark">
+		<div>
+			<header class="pad">
 				<h3>
 					<Documentation size={20} strokeWidth={1} />
 					LwM2M Object definition
@@ -28,7 +26,7 @@ export const DescribeObject = (props: { instance: LwM2MObjectInstance }) => {
 				<CollapseButton id={toggleId} />
 			</header>
 			<WhenToggled id={toggleId}>
-				<ResourcesDL>
+				<ResourcesDL class="pad bg-light">
 					<dt>
 						<span class="info">ObjectID</span>
 						<CollapsibleMenu>
@@ -76,6 +74,6 @@ export const DescribeObject = (props: { instance: LwM2MObjectInstance }) => {
 					</dd>
 				</ResourcesDL>
 			</WhenToggled>
-		</aside>
+		</div>
 	)
 }

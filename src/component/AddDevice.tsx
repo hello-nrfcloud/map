@@ -93,7 +93,7 @@ const AddDeviceFlow = () => {
 					credentials() === undefined
 				}
 			>
-				<section class="boxed pad add-device-flow">
+				<section class="boxed bg-light pad add-device-flow">
 					<header>
 						<h2>Great!</h2>
 					</header>
@@ -123,7 +123,7 @@ const AddDeviceFlow = () => {
 					credentials() === undefined
 				}
 			>
-				<section class="boxed pad add-device-flow">
+				<section class="boxed bg-light pad add-device-flow">
 					<header>
 						<h2>Awesome!</h2>
 					</header>
@@ -157,7 +157,7 @@ const AddDeviceFlow = () => {
 }
 
 const DescribeCredentials = (props: { credentials: DeviceCredentials }) => (
-	<section class="boxed pad add-device-flow">
+	<section class="boxed bg-light pad add-device-flow">
 		<header>
 			<h2>Fantastic!</h2>
 		</header>

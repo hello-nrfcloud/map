@@ -43,7 +43,7 @@ const Search = () => {
 
 	return (
 		<>
-			<div class="boxed pad light wrapper">
+			<div class="boxed pad wrapper bg-light">
 				<div>
 					<form onSubmit={noop}>
 						<label for="search">Enter your search term:</label>

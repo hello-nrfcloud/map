@@ -23,7 +23,7 @@ export const CreateDeviceCredentialsForm = (props: {
 	})
 
 	return (
-		<section class="boxed pad light add-device-flow">
+		<section class="boxed bg-light pad add-device-flow">
 			<p>
 				In order for your device to be able to publish data, you need to
 				credentials.

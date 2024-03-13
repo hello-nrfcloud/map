@@ -25,9 +25,9 @@ export const DescribeInstance = (props: {
 			when={definition !== undefined}
 			fallback={<p>Unknown Object ID: {props.instance.ObjectID}!</p>}
 		>
-			<div class="lwm2m">
-				<section class="instance">
-					<header class="rounded-header">
+			<section class="lwm2m instance">
+				<div>
+					<header class="pad">
 						<h2>
 							<span>
 								<span class="name">{definition.Name} </span>
@@ -46,11 +46,11 @@ export const DescribeInstance = (props: {
 							instance={props.instance}
 						/>
 					</WhenToggled>
-				</section>
+				</div>
 				<WhenToggled id={toggleId}>
 					<DescribeObject instance={props.instance} />
 				</WhenToggled>
-			</div>
+			</section>
 		</Show>
 	)
 }

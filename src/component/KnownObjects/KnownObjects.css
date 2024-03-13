@@ -38,18 +38,7 @@
 }
 
 .known-objects.boxed {
-  padding: 0;
   margin-top: 0;
-}
-
-.known-objects footer {
-  border-bottom-left-radius: calc(var(--border-radius) * 2);
-  border-bottom-right-radius: calc(var(--border-radius) * 2);
-  border-top: 1px solid var(--bg-blue-1);
-}
-
-.known-objects footer .lwm2m.instance + .lwm2m.instance {
-  margin-top: var(--gap);
 }
 
 .known-objects footer .lwm2m + .lwm2m {

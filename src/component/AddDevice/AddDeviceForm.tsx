@@ -43,7 +43,7 @@ export const AddDeviceForm = (props: {
 
 	return (
 		<>
-			<section class="boxed pad light add-device-flow">
+			<section class="boxed bg-light pad add-device-flow">
 				<form onSubmit={noop}>
 					<div class="row">
 						<label for="model">Select your model:</label>

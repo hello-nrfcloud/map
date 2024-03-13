@@ -10,12 +10,12 @@ export const DescribeConnectionSettings = (props: { deviceId: string }) => {
 	return (
 		<aside class="boxed">
 			<div>
-				<header class="rounded-header">
+				<header class="pad">
 					<h3>Connection information</h3>
 					<CollapseButton id="connection-information" />
 				</header>
 				<WhenToggled id={'connection-information'}>
-					<ResourcesDL class="pad">
+					<ResourcesDL class="pad bg-light">
 						<CopyableProp name={'Client ID'} value={props.deviceId} />
 						<CopyableProp name={'MQTT Endpoint'} value={'mqtt.nrfcloud.com'} />
 						<CopyableProp

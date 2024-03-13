@@ -2,6 +2,7 @@
   background-color: var(--color-tutorial-bg);
   color: var(--color-tutorial-text);
   border-radius: calc(var(--border-radius) * 2);
+  overflow: hidden;
   margin-bottom: var(--gap);
   margin-top: var(--gap);
 }
@@ -46,8 +47,6 @@
 .tutorial > header {
   background-color: var(--color-tutorial-bg-dark);
   border-bottom: 1px solid var(--color-tutorial-bg-darker);
-  border-top-left-radius: calc(var(--border-radius) * 2);
-  border-top-right-radius: calc(var(--border-radius) * 2);
 }
 
 .tutorial > footer {
@@ -55,6 +54,4 @@
   display: flex;
   justify-content: flex-end;
   border-top: 1px solid var(--color-tutorial-bg-darker);
-  border-bottom-left-radius: calc(var(--border-radius) * 2);
-  border-bottom-right-radius: calc(var(--border-radius) * 2);
 }

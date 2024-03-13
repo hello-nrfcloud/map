@@ -67,72 +67,68 @@ export const KnownObjects = (props: {
 
 	return (
 		<section class="known-objects boxed">
-			<nav class="tabs rounded-header">
-				<Show when={tabs().includes(TabType.Pinned)}>
-					<Tab
-						isActive={isActive(TabType.Pinned)}
-						onClick={() => setActive(TabType.Pinned)}
-					>
-						<PinnedIcon />
-					</Tab>
-				</Show>
-				<Show when={tabs().includes(TabType.Info)}>
-					<Tab
-						isActive={isActive(TabType.Info)}
-						onClick={() => setActive(TabType.Info)}
-					>
-						<DeviceInformationIcon />
-					</Tab>
-				</Show>
-				<Show when={tabs().includes(TabType.Bat)}>
-					<Tab
-						isActive={isActive(TabType.Bat)}
-						onClick={() => setActive(TabType.Bat)}
-					>
-						<BatteryAndPowerIcon />
-					</Tab>
-				</Show>
-				<Show when={tabs().includes(TabType.Location)}>
-					<Tab
-						isActive={isActive(TabType.Location)}
-						onClick={() => setActive(TabType.Location)}
-					>
-						<LocationIcon />
-					</Tab>
-				</Show>
-			</nav>
-			<div class="cards">
-				<Show when={isActive(TabType.Pinned)}>
-					<PinnedCard resources={favoriteResources()} device={props.device} />
-				</Show>
-				<Show when={isActive(TabType.Info) && props.info !== undefined}>
-					<DeviceInformationCard info={props.info!} />
-				</Show>
-				<Show when={isActive(TabType.Bat) && props.bat !== undefined}>
-					<BatteryAndPowerCard bat={props.bat!} />
-				</Show>
-				<Show when={isActive(TabType.Location) && hasLocations}>
-					<LocationCard locations={props.locations} />
-				</Show>
+			<div>
+				<nav class="tabs pad">
+					<Show when={tabs().includes(TabType.Pinned)}>
+						<Tab
+							isActive={isActive(TabType.Pinned)}
+							onClick={() => setActive(TabType.Pinned)}
+						>
+							<PinnedIcon />
+						</Tab>
+					</Show>
+					<Show when={tabs().includes(TabType.Info)}>
+						<Tab
+							isActive={isActive(TabType.Info)}
+							onClick={() => setActive(TabType.Info)}
+						>
+							<DeviceInformationIcon />
+						</Tab>
+					</Show>
+					<Show when={tabs().includes(TabType.Bat)}>
+						<Tab
+							isActive={isActive(TabType.Bat)}
+							onClick={() => setActive(TabType.Bat)}
+						>
+							<BatteryAndPowerIcon />
+						</Tab>
+					</Show>
+					<Show when={tabs().includes(TabType.Location)}>
+						<Tab
+							isActive={isActive(TabType.Location)}
+							onClick={() => setActive(TabType.Location)}
+						>
+							<LocationIcon />
+						</Tab>
+					</Show>
+				</nav>
+				<div class="cards bg-light">
+					<Show when={isActive(TabType.Pinned)}>
+						<PinnedCard resources={favoriteResources()} device={props.device} />
+					</Show>
+					<Show when={isActive(TabType.Info) && props.info !== undefined}>
+						<DeviceInformationCard info={props.info!} />
+					</Show>
+					<Show when={isActive(TabType.Bat) && props.bat !== undefined}>
+						<BatteryAndPowerCard bat={props.bat!} />
+					</Show>
+					<Show when={isActive(TabType.Location) && hasLocations}>
+						<LocationCard locations={props.locations} />
+					</Show>
+				</div>
 			</div>
 			<Show when={isActive(TabType.Info) && props.info !== undefined}>
-				<footer>
-					<DescribeInstance device={props.device} instance={props.info!} />
-				</footer>
+				<DescribeInstance device={props.device} instance={props.info!} />
 			</Show>
 			<Show when={isActive(TabType.Bat) && props.bat !== undefined}>
-				<footer>
-					<DescribeInstance device={props.device} instance={props.bat!} />
-				</footer>
+				<DescribeInstance device={props.device} instance={props.bat!} />
 			</Show>
 			<Show when={isActive(TabType.Location) && hasLocations}>
-				<footer>
-					<For each={props.locations}>
-						{(location) => (
-							<DescribeInstance device={props.device} instance={location} />
-						)}
-					</For>
-				</footer>
+				<For each={props.locations}>
+					{(location) => (
+						<DescribeInstance device={props.device} instance={location} />
+					)}
+				</For>
 			</Show>
 		</section>
 	)

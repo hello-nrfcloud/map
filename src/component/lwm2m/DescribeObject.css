@@ -1,8 +1,0 @@
-.lwm2m .object-definition {
-  border-top: 1px solid var(--bg-blue-1);
-}
-
-.lwm2m .object-definition .resources {
-  margin: 0;
-  padding: var(--gap);
-}

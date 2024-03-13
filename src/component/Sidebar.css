@@ -70,10 +70,6 @@ aside.sidebar a {
   text-decoration: underline;
 }
 
-.boxed {
+aside.sidebar .bg-light {
   background-color: var(--bg-blue-4);
-}
-
-.boxed.light {
-  background-color: var(--bg-blue-5);
 }

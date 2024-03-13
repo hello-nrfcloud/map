@@ -40,20 +40,18 @@ export const DescribeResources = (props: {
 	})
 
 	return (
-		<div class="instance-resources">
-			<ResourcesDL>
-				<For each={resources()}>
-					{({ info, value }) => (
-						<DescribeResource
-							device={props.device}
-							ObjectID={props.instance.ObjectID}
-							info={info}
-							value={value}
-							InstanceID={props.instance.ObjectInstanceID ?? 0}
-						/>
-					)}
-				</For>
-			</ResourcesDL>
-		</div>
+		<ResourcesDL class="instance-resources bg-light">
+			<For each={resources()}>
+				{({ info, value }) => (
+					<DescribeResource
+						device={props.device}
+						ObjectID={props.instance.ObjectID}
+						info={info}
+						value={value}
+						InstanceID={props.instance.ObjectInstanceID ?? 0}
+					/>
+				)}
+			</For>
+		</ResourcesDL>
 	)
 }

@@ -32,7 +32,7 @@ export const ConfirmRequestForm = (props: {
 	})
 
 	return (
-		<section class="boxed pad light add-device-flow">
+		<section class="boxed bg-light pad add-device-flow">
 			<p>
 				Before you can generate device credentials, you need to confirm your
 				email address.
