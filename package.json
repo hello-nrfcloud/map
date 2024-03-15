@@ -46,7 +46,7 @@
     "vite-plugin-solid": "2.10.2"
   },
   "dependencies": {
-    "@hello.nrfcloud.com/proto": "6.4.26",
+    "@hello.nrfcloud.com/proto": "6.4.27",
     "@hello.nrfcloud.com/proto-map": "4.0.1",
     "e118-iin-list": "4.1.2",
     "lucide": "0.358.0",
