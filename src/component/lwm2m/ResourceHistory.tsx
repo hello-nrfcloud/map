@@ -52,18 +52,22 @@ export const ResourceHistory = (props: {
 				>
 					<SizeObserver class="chart-container">
 						{(size) => {
-							const min = Math.floor(
-								resourceHistory().reduce(
-									(min, [v]) => (v < min ? v : min),
-									Number.MAX_SAFE_INTEGER,
-								),
-							)
-							const max = Math.ceil(
-								resourceHistory().reduce(
-									(max, [v]) => (v > max ? v : max),
-									Number.MIN_SAFE_INTEGER,
-								),
-							)
+							const min =
+								props.resource.RangeEnumeration?.min ??
+								Math.floor(
+									resourceHistory().reduce(
+										(min, [v]) => (v < min ? v : min),
+										Number.MAX_SAFE_INTEGER,
+									),
+								)
+							const max =
+								props.resource.RangeEnumeration?.max ??
+								Math.ceil(
+									resourceHistory().reduce(
+										(max, [v]) => (v > max ? v : max),
+										Number.MIN_SAFE_INTEGER,
+									),
+								)
 							return (
 								<HistoryChart
 									data={{
