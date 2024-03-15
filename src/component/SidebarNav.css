@@ -1,10 +1,10 @@
 nav.sidebar {
   background-color: var(--bg-blue-2);
   width: var(--base-size-navbar);
-  height: 100vh;
+  height: calc(100vh - var(--base-size-navbar));
   position: fixed;
   left: 0;
-  top: 0;
+  top: var(--base-size-navbar);
   z-index: 30;
 }
 

@@ -20,9 +20,9 @@ import { useNavigation, type Resource } from '../../context/Navigation.js'
 import { glyphFonts } from '../../map/glyphFonts.js'
 import { format, type ResourceValue } from '../../util/lwm2m.js'
 import { createStore, reconcile } from 'solid-js/store'
+import { useAllDevicesMapState } from '../../context/AllDeviceMapState.jsx'
 
 import './AllDevicesMap.css'
-import { useAllDevicesMapState } from '../../context/AllDeviceMapState.jsx'
 
 type DeviceInfo = {
 	device: Device

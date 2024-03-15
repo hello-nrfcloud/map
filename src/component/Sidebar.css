@@ -5,14 +5,14 @@ aside.sidebar {
   z-index: 40;
   background-color: var(--bg-blue-3);
   padding-bottom: var(--gap);
-  min-height: 100vh;
+  min-height: calc(100vh - var(--base-size-navbar));
 }
 
 @media (min-width: 400px) {
   aside.sidebar {
     position: fixed;
     left: calc(var(--base-size-navbar) - 1px);
-    top: 0;
+    top: var(--base-size-navbar);
     max-height: 100vh;
     width: calc(400px - var(--base-size-navbar));
     border-top-right-radius: calc(var(--base-size-navbar) / 4);
