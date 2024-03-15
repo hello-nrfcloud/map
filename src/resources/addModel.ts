@@ -1,4 +1,4 @@
-import { ModelID } from '@hello.nrfcloud.com/proto-lwm2m'
+import { ModelID } from '@hello.nrfcloud.com/proto-map'
 
 export type AddModelRequest = {
 	email: string

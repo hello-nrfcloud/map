@@ -7,7 +7,7 @@ import {
 	type LwM2MResourceValue,
 	type LwM2MResourceInfo,
 	ResourceType,
-} from '@hello.nrfcloud.com/proto-lwm2m'
+} from '@hello.nrfcloud.com/proto-map'
 
 export const isDeviceInformation = (
 	instance?: LwM2MObjectInstance,

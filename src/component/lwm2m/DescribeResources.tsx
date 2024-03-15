@@ -5,7 +5,7 @@ import {
 	type LwM2MObjectInstance,
 	type LwM2MResourceInfo,
 	type LwM2MResourceValue,
-} from '@hello.nrfcloud.com/proto-lwm2m'
+} from '@hello.nrfcloud.com/proto-map'
 import { For, createMemo } from 'solid-js'
 import type { Device } from '../../resources/fetchDevices.js'
 import { ResourcesDL } from '../ResourcesDL.js'

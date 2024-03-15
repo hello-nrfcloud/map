@@ -1,7 +1,7 @@
 import {
 	type LwM2MObjectID,
 	type LwM2MObjectInstance,
-} from '@hello.nrfcloud.com/proto-lwm2m'
+} from '@hello.nrfcloud.com/proto-map'
 import type { Device } from './fetchDevices.js'
 
 export const fetchHistory =

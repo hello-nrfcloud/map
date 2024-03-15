@@ -8,7 +8,7 @@ import {
 } from 'solid-js'
 import { decode, encode, type Navigation } from './encodeNavigation.js'
 import type { SearchTerm } from './Search.js'
-import { LwM2MObjectID, ModelID, models } from '@hello.nrfcloud.com/proto-lwm2m'
+import { LwM2MObjectID, ModelID, models } from '@hello.nrfcloud.com/proto-map'
 
 const Home: Navigation = {
 	panel: 'world',

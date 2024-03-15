@@ -11,7 +11,7 @@ const {
 	dependencies,
 } = pJson
 const version = process.env.VERSION ?? defaultVersion
-const protolwm2mversion = `v${dependencies['@hello.nrfcloud.com/proto-lwm2m']}`
+const protoVersion = `v${dependencies['@hello.nrfcloud.com/proto-map']}`
 const { registryEndpoint } = fromEnv({
 	registryEndpoint: 'REGISTRY_ENDPOINT',
 })(process.env)
@@ -38,6 +38,6 @@ export default defineConfig({
 		REGISTRY_ENDPOINT: JSON.stringify(new URL(registryEndpoint).toString()),
 		BASE_URL: JSON.stringify(base),
 		REPOSITORY_URL: JSON.stringify(repositoryUrl.replace('git+', '')),
-		PROTO_LWM2M_VERSION: JSON.stringify(protolwm2mversion),
+		PROTO_VERSION: JSON.stringify(protoVersion),
 	},
 })

@@ -58,13 +58,13 @@ This is achieved through:
   device registration, eliminating manual configuration and streamlining the
   process. This allows the number of shown devices to grow organically.
 
-- **LwM2M for Universal Data Representation**: LwM2M data objects carry embedded
-  metadata, enabling automatic visualization without custom UI development. The
-  platform supports
-  [various LwM2M objects](https://github.com/hello-nrfcloud/proto-lwm2m) for
+- **LwM2M objects for Universal Data Representation**: LwM2M objects describe
+  data sent by devices, enabling automatic visualization without custom UI
+  development. The platform supports
+  [various LwM2M objects](https://github.com/hello-nrfcloud/proto-map) for
   flexible data representation. This allows any customer to integrate their
-  device's data into the through describing it via an LwM2M object (or reusing
-  an existing one) without the need for custom development.
+  device's data into the platform through describing it via an LwM2M object (or
+  reusing an existing one) without the need for custom development.
 
 - **Customizable User Interface for Personalized Storytelling:**
 

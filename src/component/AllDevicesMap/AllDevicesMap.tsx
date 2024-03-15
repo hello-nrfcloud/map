@@ -2,8 +2,8 @@ import {
 	LwM2MObjectID,
 	type Geolocation_14201,
 	definitions,
-} from '@hello.nrfcloud.com/proto-lwm2m'
-import { isLwM2MObjectID } from '@hello.nrfcloud.com/proto-lwm2m'
+} from '@hello.nrfcloud.com/proto-map'
+import { isLwM2MObjectID } from '@hello.nrfcloud.com/proto-map'
 import {
 	Map as MapLibreGlMap,
 	MapMouseEvent,

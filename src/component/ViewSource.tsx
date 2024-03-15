@@ -48,17 +48,17 @@ export const Sidebar = () => {
 							</a>{' '}
 							will be visible to everyone if it follows the{' '}
 							<a
-								href="https://github.com/hello-nrfcloud/proto-lwm2m"
+								href="https://github.com/hello-nrfcloud/proto-map"
 								target="_blank"
 								rel="noopener noreferrer"
 							>
-								LwM2M object definitions
+								LwM2M object definitions for this project
 							</a>{' '}
-							for this project. This allows anyone to describe the data their
-							device is sending and for the map application interpret arbitrary
-							device information. Certain objects (for example location,
-							environment) will have additional UI features, which can be
-							re-used for all devices that fulfill the object definition.
+							. This allows anyone to describe the data their device is sending
+							and for the map application interpret arbitrary device
+							information. Certain objects (for example location, environment)
+							will have additional UI features, which can be re-used for all
+							devices that fulfill the object definition.
 						</p>
 						<p>
 							This only works if the device connects to nRF Cloud using the{' '}

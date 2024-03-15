@@ -3,7 +3,7 @@ import {
 	definitions,
 	instanceTs,
 	type LwM2MObjectInstance,
-} from '@hello.nrfcloud.com/proto-lwm2m'
+} from '@hello.nrfcloud.com/proto-map'
 import { Show } from 'solid-js'
 import { Multiple, Published } from '../../icons/LucideIcon.js'
 import type { Device } from '../../resources/fetchDevices.js'

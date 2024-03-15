@@ -2,7 +2,7 @@ import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
 import { SearchTermType } from './Search.js'
 import { encode, decode } from './encodeNavigation.js'
-import { ModelID } from '@hello.nrfcloud.com/proto-lwm2m'
+import { ModelID } from '@hello.nrfcloud.com/proto-map'
 
 void describe('encode() / decode()', () => {
 	void it('should encode an empty state', () => assert.equal(encode(), ''))

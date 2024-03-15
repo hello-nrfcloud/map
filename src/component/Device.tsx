@@ -1,7 +1,7 @@
 import {
 	ModelID,
 	type LwM2MObjectInstance,
-} from '@hello.nrfcloud.com/proto-lwm2m'
+} from '@hello.nrfcloud.com/proto-map'
 import { createMemo, For, Show } from 'solid-js'
 import { byId, useDevices } from '../context/Devices.js'
 import { useNavigation } from '../context/Navigation.js'
@@ -153,7 +153,7 @@ const DeviceInfo = (props: { device: Device }) => {
 					published by a device is transformed. The model definitions are
 					published in{' '}
 					<a
-						href={`https://github.com/hello-nrfcloud/proto-lwm2m/tree/saga/models`}
+						href={`https://github.com/hello-nrfcloud/proto-map/tree/saga/models`}
 						target="_blank"
 					>
 						this GitHub repository

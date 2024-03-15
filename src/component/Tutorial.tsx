@@ -10,7 +10,7 @@ import { Expand } from '../icons/LucideIcon.jsx'
 
 import './Tutorial.css'
 import { SearchTermType } from '../context/Search.js'
-import { ModelID } from '@hello.nrfcloud.com/proto-lwm2m'
+import { ModelID } from '@hello.nrfcloud.com/proto-map'
 
 export const Tutorial = () => {
 	const location = useNavigation()
@@ -102,7 +102,7 @@ export const Tutorial = () => {
 				<p>
 					All it takes is to register a custom device type in{' '}
 					<a
-						href="https://github.com/hello-nrfcloud/proto-lwm2m/tree/saga/models"
+						href="https://github.com/hello-nrfcloud/proto-map/tree/saga/models"
 						target="_blank"
 					>
 						our protocol repository
@@ -269,14 +269,14 @@ export const WellKnown = () => (
 export const OtherObjects = () => (
 	<Box
 		id="other-objects"
-		title={<h1>Devices send LwM2M</h1>}
+		title={<h1>Devices send LwM2M objects</h1>}
 		next="show-data-on-map"
 	>
 		<p>
 			All device data is described using LwM2M objects, which have been
 			registered in{' '}
-			<a href="https://github.com/hello-nrfcloud/proto-lwm2m" target="_blank">
-				our LwM2M registry
+			<a href="https://github.com/hello-nrfcloud/proto-map" target="_blank">
+				our protocol repository
 			</a>
 			.
 		</p>

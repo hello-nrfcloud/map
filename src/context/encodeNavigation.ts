@@ -1,6 +1,6 @@
 import { isSearchTermType, type SearchTerm } from './Search.js'
 import { isModel, type Resource } from './Navigation.js'
-import { isLwM2MObjectID } from '@hello.nrfcloud.com/proto-lwm2m'
+import { isLwM2MObjectID } from '@hello.nrfcloud.com/proto-map'
 
 export type NavigationMapState = {
 	center: { lat: number; lng: number }

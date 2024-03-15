@@ -2,7 +2,7 @@ import {
 	type BatteryAndPower_14202,
 	type DeviceInformation_14204,
 	type Geolocation_14201,
-} from '@hello.nrfcloud.com/proto-lwm2m'
+} from '@hello.nrfcloud.com/proto-map'
 import { For, Show, createMemo, type ParentProps } from 'solid-js'
 import { useNavigation } from '../../context/Navigation.js'
 import type { Device } from '../../resources/fetchDevices.js'

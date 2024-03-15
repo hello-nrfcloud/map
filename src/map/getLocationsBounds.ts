@@ -1,4 +1,4 @@
-import { type Geolocation_14201 } from '@hello.nrfcloud.com/proto-lwm2m'
+import { type Geolocation_14201 } from '@hello.nrfcloud.com/proto-map'
 import { LngLatBounds } from 'maplibre-gl'
 import { getPolygonCoordinatesForCircle } from './geoJSONPolygonFromCircle.js'
 

@@ -1,4 +1,4 @@
-import { ModelID, models } from '@hello.nrfcloud.com/proto-lwm2m'
+import { ModelID, models } from '@hello.nrfcloud.com/proto-map'
 import { useNavigation } from '../context/Navigation.js'
 import { SearchTermType } from '../context/Search.js'
 import { Documentation, Search, ViewSource } from '../icons/LucideIcon.js'
@@ -53,7 +53,7 @@ export const DescribeModel = (props: { model: ModelID }) => {
 					</dt>
 					<dd>
 						<a
-							href={`https://github.com/hello-nrfcloud/proto-lwm2m/tree/saga/models/${encodeURIComponent(props.model)}`}
+							href={`https://github.com/hello-nrfcloud/proto-map/tree/saga/models/${encodeURIComponent(props.model)}`}
 							target="_blank"
 							title="View source"
 						>

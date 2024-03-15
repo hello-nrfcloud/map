@@ -4,7 +4,7 @@ import {
 	type LwM2MResourceInfo,
 	type LwM2MResourceValue,
 	ModelID,
-} from '@hello.nrfcloud.com/proto-lwm2m'
+} from '@hello.nrfcloud.com/proto-map'
 import { Show, createSignal } from 'solid-js'
 import type { Device } from '../../resources/fetchDevices.js'
 import { useNavigation, type Resource } from '../../context/Navigation.js'

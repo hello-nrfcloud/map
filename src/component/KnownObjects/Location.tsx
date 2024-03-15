@@ -1,5 +1,5 @@
 import { Center, Map, ZoomIn } from '../../icons/LucideIcon.js'
-import { type Geolocation_14201 } from '@hello.nrfcloud.com/proto-lwm2m'
+import { type Geolocation_14201 } from '@hello.nrfcloud.com/proto-map'
 import { createEffect, onCleanup, createMemo } from 'solid-js'
 import { Map as MapLibreGlMap, ScaleControl } from 'maplibre-gl'
 import { useParameters } from '../../context/Parameters.js'

@@ -2,7 +2,7 @@ import {
 	LwM2MObjectID,
 	definitions,
 	type LwM2MObjectInstance,
-} from '@hello.nrfcloud.com/proto-lwm2m'
+} from '@hello.nrfcloud.com/proto-map'
 import { useNavigation } from '../../context/Navigation.js'
 import { SearchTermType } from '../../context/Search.js'
 import { Documentation, Search, ViewSource } from '../../icons/LucideIcon.js'
@@ -64,7 +64,7 @@ export const DescribeObject = (props: { instance: LwM2MObjectInstance }) => {
 					</dt>
 					<dd>
 						<a
-							href={`https://github.com/hello-nrfcloud/proto-lwm2m/blob/saga/lwm2m/${definition.ObjectID}.xml`}
+							href={`https://github.com/hello-nrfcloud/proto-map/blob/saga/lwm2m/${definition.ObjectID}.xml`}
 							target="_blank"
 							title="View source"
 						>

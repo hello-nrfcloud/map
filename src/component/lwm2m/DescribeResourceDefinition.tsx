@@ -2,7 +2,7 @@ import {
 	LwM2MObjectID,
 	definitions,
 	type LwM2MResourceInfo,
-} from '@hello.nrfcloud.com/proto-lwm2m'
+} from '@hello.nrfcloud.com/proto-map'
 import { Show } from 'solid-js'
 import { Close } from '../../icons/LucideIcon.js'
 

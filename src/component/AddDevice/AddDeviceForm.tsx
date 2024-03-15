@@ -1,4 +1,4 @@
-import { models } from '@hello.nrfcloud.com/proto-lwm2m'
+import { models } from '@hello.nrfcloud.com/proto-map'
 import { isModel } from '../../context/Navigation.js'
 import { Show, For, createEffect, createSignal, createResource } from 'solid-js'
 import { InfoBlock } from '../InfoBlock.js'
@@ -53,7 +53,7 @@ export const AddDeviceForm = (props: {
 							</For>
 						</select>
 					</div>
-					<InfoBlock title={<h3>Known models ({PROTO_LWM2M_VERSION})</h3>}>
+					<InfoBlock title={<h3>Known models ({PROTO_VERSION})</h3>}>
 						<div class="about add-device-flow">
 							<p>
 								All devices must use a well-known model definition. Below is a
@@ -63,7 +63,7 @@ export const AddDeviceForm = (props: {
 								If your model is not available to select, you can add it by
 								creating a PR against{' '}
 								<a
-									href={`https://github.com/hello-nrfcloud/proto-lwm2m/tree/${PROTO_LWM2M_VERSION}/models`}
+									href={`https://github.com/hello-nrfcloud/proto-map/tree/${PROTO_VERSION}/models`}
 									target="_blank"
 								>
 									our protocol repository
