@@ -8,7 +8,7 @@ import {
 } from './packageInfo.js'
 
 export const createConfig = (
-	registryEndpoint: URL | string,
+	registryEndpoint: URL,
 	base: string,
 	plugins: PluginOption[] = [],
 ): UserConfig => {
@@ -16,11 +16,7 @@ export const createConfig = (
 		HOMEPAGE: JSON.stringify(homepage),
 		VERSION: JSON.stringify(version),
 		BUILD_TIME: JSON.stringify(new Date().toISOString()),
-		REGISTRY_ENDPOINT: JSON.stringify(
-			registryEndpoint instanceof URL
-				? registryEndpoint.toString()
-				: new URL(registryEndpoint, 'http://localhost:8080').toString(),
-		),
+		REGISTRY_ENDPOINT: JSON.stringify(registryEndpoint.toString()),
 		BASE_URL: JSON.stringify(base),
 		REPOSITORY_URL: JSON.stringify(repositoryUrl),
 		PROTO_VERSION: JSON.stringify(protoVersion),

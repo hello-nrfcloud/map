@@ -70,7 +70,9 @@ jobs:
 
       - name: Run Playwright tests
         env:
-          REGISTRY_ENDPOINT: ${{ vars.REGISTRY_ENDPOINT }}
+          MAP_REGION: ${{ vars.MAP_REGION }}
+          MAP_NAME: ${{ vars.MAP_NAME }}
+          MAP_API_KEY: ${{ vars.MAP_API_KEY }}
         run: npm run test:e2e
 
       - uses: actions/upload-artifact@v4

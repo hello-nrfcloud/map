@@ -75,3 +75,28 @@ This is achieved through:
   - Offers map-based visualization for geographically distributed deployments.
   - Integrates with external data sources for contextual enrichment (e.g., nRF
     Cloud Location API, Memfault Device Health Metrics, etc. ...).
+
+## Continuous integration
+
+Deploy an instance of the
+[AWS Map resources](https://github.com/hello-nrfcloud/aws-map) to the CI AWS
+account and store the map settings as variables:
+
+```bash
+# Make sure that the `ci` environment exists in this repo
+gh variable set MAP_REGION --env ci --body "<mapRegion>"
+gh variable set MAP_NAME --env ci --body "<mapName>"
+gh variable set MAP_API_KEY --env ci --body "<apiKey>"
+```
+
+## end-to-end tests
+
+End-to-end tests are run completely without a backend using Vite's built-in dev
+server to serve the data.
+
+Make sure to export `MAP_REGION`, `MAP_NAME`, and `MAP_API_KEY` before running
+it.
+
+```bash
+npx vite -c e2e-tests/vite.config.e2e.ts
+```
