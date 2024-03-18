@@ -34,7 +34,7 @@
     "@nordicsemiconductor/cloudformation-helpers": "9.0.3",
     "@nordicsemiconductor/from-env": "3.0.1",
     "@playwright/test": "^1.42.1",
-    "@types/node": "20.11.28",
+    "@types/node": "20.11.29",
     "commitlint": "19.2.0",
     "eslint-plugin-jsx-a11y": "6.8.0",
     "glob": "10.3.10",
