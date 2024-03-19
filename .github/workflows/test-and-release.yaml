@@ -50,7 +50,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    environment: production
+    environment: ci
 
     steps:
       - uses: actions/checkout@v4
