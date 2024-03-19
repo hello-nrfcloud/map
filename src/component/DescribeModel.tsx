@@ -43,11 +43,11 @@ export const DescribeModel = (props: { model: ModelID }) => {
 							</span>
 						</CollapsibleMenu>
 					</dt>
-					<dd>{models[props.model as ModelID].about.title}</dd>
+					<dd>{models[props.model].about.title}</dd>
 					<dt>
 						<span class="info">Description</span>
 					</dt>
-					<dd>{models[props.model as ModelID].about.description}</dd>
+					<dd>{models[props.model].about.description}</dd>
 					<dt>
 						<span class="info">Source</span>
 					</dt>

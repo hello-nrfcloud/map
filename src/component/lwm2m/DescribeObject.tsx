@@ -1,5 +1,4 @@
 import {
-	LwM2MObjectID,
 	definitions,
 	type LwM2MObjectInstance,
 } from '@hello.nrfcloud.com/proto-map'
@@ -13,7 +12,7 @@ import { WhenToggled } from '../WhenToggled.jsx'
 
 export const DescribeObject = (props: { instance: LwM2MObjectInstance }) => {
 	const location = useNavigation()
-	const definition = definitions[props.instance.ObjectID as LwM2MObjectID]
+	const definition = definitions[props.instance.ObjectID]
 	const toggleId = `do;${props.instance.ObjectID}`
 
 	return (

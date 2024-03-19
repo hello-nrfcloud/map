@@ -1,5 +1,4 @@
 import {
-	LwM2MObjectID,
 	definitions,
 	timestampResources,
 	type LwM2MObjectInstance,
@@ -15,7 +14,7 @@ export const DescribeResources = (props: {
 	instance: LwM2MObjectInstance
 	device: Device
 }) => {
-	const definition = definitions[props.instance.ObjectID as LwM2MObjectID]
+	const definition = definitions[props.instance.ObjectID]
 	const tsResourceId = timestampResources[definition.ObjectID] as number
 
 	const resources = createMemo(() => {
