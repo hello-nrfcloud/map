@@ -1,5 +1,4 @@
 import {
-	LwM2MObjectID,
 	definitions,
 	instanceTs,
 	type LwM2MObjectInstance,
@@ -17,7 +16,7 @@ export const DescribeInstance = (props: {
 	instance: LwM2MObjectInstance
 	device: Device
 }) => {
-	const definition = definitions[props.instance.ObjectID as LwM2MObjectID]
+	const definition = definitions[props.instance.ObjectID]
 	const ts = instanceTs(props.instance)
 	const toggleId = `di;${props.instance.ObjectID};${props.instance.ObjectInstanceID ?? 0}`
 	return (
