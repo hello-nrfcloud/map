@@ -31,6 +31,7 @@ const Search = () => {
 	const location = useNavigation()
 
 	const addTerm = () => {
+		if (input.value.length === 0) return
 		const maybeTerm = parse(input.value)
 		if (maybeTerm !== undefined) {
 			location.navigateWithSearchTerm(maybeTerm)

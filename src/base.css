@@ -15,11 +15,13 @@
   --color-tutorial-text: #222;
   --chart-labels: #ffffff80;
   --chart-values: var(--color-highlight);
-  --color-forms: #333;
+  --color-form-text: #fff;
   --color-button: #153e57;
   --color-border-light: #d3d3d3;
-  --color-border-dark: rgb(129, 129, 129);
-  --color-form-bg: #fff;
+  --color-border-default: rgb(129, 129, 129);
+  --color-border-active: #31f3c4;
+  --color-form-bg: #333;
+  --color-form-border-default: #222;
   --base-size-navbar: 40px;
   --regular-font-family: "Inter Tight", sans-serif;
   --condensed-font-family: "Roboto Condensed", sans-serif;
@@ -172,38 +174,61 @@ form input,
 form select {
   border-style: solid;
   border-width: 1px;
-  border-radius: var(--border-radius);
-  border-bottom-color: var(--color-border-light);
-  border-right-color: var(--color-border-light);
-  border-top-color: var(--color-border-dark);
-  border-left-color: var(--color-border-dark);
+  border-radius: calc(var(--border-radius) / 2);
+  border-color: var(--color-form-border-default);
   background-color: var(--color-form-bg);
+  color: var(--color-form-text);
   padding: 0 var(--gap-medium);
   flex-grow: 1;
   height: 32px;
-  color: var(--color-forms);
   line-height: 32px;
   width: 100%;
   display: flex;
   align-items: center;
+  font-weight: 300;
 }
 form select {
   appearance: menulist;
+}
+form input:focus,
+form select:focus,
+form input:focus + button.btn,
+form button.btn:active {
+  border-color: var(--color-border-active);
+}
+
+/* Hack to remove style for auto-filled inputs */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition:
+    background-color 5000000s ease-in-out 0s,
+    color 5000000s ease-in-out 0s;
 }
 
 form button.btn {
   border-style: solid;
   border-width: 1px;
-  border-radius: var(--border-radius);
-  border-bottom-color: var(--color-border-dark);
-  border-right-color: var(--color-border-dark);
-  border-top-color: var(--color-border-light);
-  border-left-color: var(--color-border-light);
-  background-color: rgb(184, 184, 184);
+  border-radius: calc(var(--border-radius) / 2);
+  border-color: var(--color-form-border-default);
+  background-color: var(--color-form-bg);
   height: 32px;
   padding: 0 var(--gap-medium);
-  color: var(--color-button);
+  color: var(--color-form-text);
   font-weight: 300;
+}
+
+form button.btn .icon {
+  opacity: 0.8;
+}
+
+.input-group input + button.btn {
+  border-left: 0;
+}
+.input-group input,
+.input-group input:focus {
+  border-right: 0;
 }
 
 form label {

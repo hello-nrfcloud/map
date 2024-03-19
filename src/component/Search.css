@@ -34,11 +34,6 @@ aside.search form button {
   border-bottom-left-radius: 0;
 }
 
-aside.search form button .icon {
-  margin-top: 4px;
-  opacity: 0.8;
-}
-
 aside.search div.terms {
   margin-top: var(--gap-medium);
   flex-direction: row;
