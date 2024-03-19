@@ -175,7 +175,7 @@ export const AllDevicesMap = () => {
 			source: 'devices-source',
 			paint: {
 				'circle-color': '#80ed99',
-				'circle-radius': 10,
+				'circle-radius': 2,
 				'circle-stroke-width': 1,
 				'circle-stroke-color': '#222222',
 			},
