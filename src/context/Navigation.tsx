@@ -43,7 +43,7 @@ export const NavigationProvider = (props: ParentProps) => {
 	}
 	const link = (next: Partial<Navigation>) =>
 		new URL(
-			`${BASE_URL}/#${encode({
+			`${BASE_URL}#${encode({
 				...location(),
 				...next,
 			})}`,
@@ -74,9 +74,9 @@ export const NavigationProvider = (props: ParentProps) => {
 						panel: 'world',
 					})
 					if (encoded === undefined)
-						return new URL(`${BASE_URL}/`, document.location.href).toString()
+						return new URL(`${BASE_URL}`, document.location.href).toString()
 					return new URL(
-						`${BASE_URL}/?${new URLSearchParams({ next: encoded }).toString()}`,
+						`${BASE_URL}?${new URLSearchParams({ next: encoded }).toString()}`,
 						document.location.href,
 					).toString()
 				},
@@ -185,7 +185,7 @@ export const NavigationContext = createContext<{
 	navigateHome: () => undefined,
 	navigateWithSearchTerm: () => undefined,
 	linkToHome: () =>
-		new URL(`${BASE_URL}/#${encode(Home)}`, document.location.href).toString(),
+		new URL(`${BASE_URL}#${encode(Home)}`, document.location.href).toString(),
 	link: () => '/#',
 	reloadLink: () => '/',
 	linkWithoutSearchTerm: () => '/#',
