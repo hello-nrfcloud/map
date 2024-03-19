@@ -7,7 +7,6 @@ export type Parameters = {
 	mapName: string
 	mapApiKey: string
 	mapRegion: string
-	cognitoIdentityPoolId: string
 	// Map sharing
 	devicesAPIURL: URL
 	thingyWorldShadowsURL: URL
@@ -29,7 +28,6 @@ export const fetchParameters = (url: URL) => async (): Promise<Parameters> => {
 			mapName,
 			mapApiKey,
 			mapRegion,
-			cognitoIdentityPoolId,
 			lwm2mResourceHistoryURL,
 			shareAPIURL,
 			confirmOwnershipAPIURL,
@@ -41,7 +39,6 @@ export const fetchParameters = (url: URL) => async (): Promise<Parameters> => {
 			mapName,
 			mapApiKey,
 			mapRegion,
-			cognitoIdentityPoolId,
 			lwm2mResourceHistoryURL: new URL(lwm2mResourceHistoryURL),
 			shareAPIURL: new URL(shareAPIURL),
 			confirmOwnershipAPIURL: new URL(confirmOwnershipAPIURL),

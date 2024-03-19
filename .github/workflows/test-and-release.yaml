@@ -4,15 +4,9 @@ on:
   push:
   workflow_dispatch:
 
-permissions:
-  contents: write
-  actions: write
-
 jobs:
   tests:
     runs-on: ubuntu-latest
-
-    environment: production
 
     steps:
       - uses: actions/checkout@v4
@@ -41,7 +35,7 @@ jobs:
 
       - name: Ensure it builds
         env:
-          REGISTRY_ENDPOINT: ${{ vars.REGISTRY_ENDPOINT }}
+          REGISTRY_ENDPOINT: https://example.com/
         run: |
           npm run build
 
@@ -50,7 +44,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    environment: production
+    environment: ci
 
     steps:
       - uses: actions/checkout@v4
@@ -70,7 +64,9 @@ jobs:
 
       - name: Run Playwright tests
         env:
-          REGISTRY_ENDPOINT: ${{ vars.REGISTRY_ENDPOINT }}
+          MAP_REGION: ${{ vars.MAP_REGION }}
+          MAP_NAME: ${{ vars.MAP_NAME }}
+          MAP_API_KEY: ${{ vars.MAP_API_KEY }}
         run: npm run test:e2e
 
       - uses: actions/upload-artifact@v4
@@ -82,6 +78,10 @@ jobs:
 
   release:
     if: github.ref == 'refs/heads/saga'
+
+    permissions:
+      actions: write
+      contents: write
 
     needs:
       - tests
