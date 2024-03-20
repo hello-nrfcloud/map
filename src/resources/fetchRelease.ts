@@ -1,10 +1,12 @@
 import { parse, type SemVer } from 'semver'
+import { useViteEnv } from '../context/ViteEnv.tsx'
 
 export const logPrefix = `[fetchRelease]`
 
 export const fetchRelease = async (): Promise<SemVer | undefined> => {
+	const { baseNoEndSlash } = useViteEnv()
 	const url = new URL(
-		`${BASE_URL}/.well-known/release?v=${Date.now()}`,
+		`${baseNoEndSlash}/.well-known/release?v=${Date.now()}`,
 		document.location.href,
 	)
 	console.debug(logPrefix, `Checking ${url.toString()}...`)

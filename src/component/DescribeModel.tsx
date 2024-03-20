@@ -1,6 +1,6 @@
 import { ModelID, models } from '@hello.nrfcloud.com/proto-map'
 import { useNavigation } from '../context/Navigation.js'
-import { SearchTermType } from '../context/Search.js'
+import { SearchTermType } from '../search.ts'
 import { Documentation, Search, ViewSource } from '../icons/LucideIcon.js'
 import { ToggleButton } from './ToggleButton.jsx'
 import { CollapsibleMenu } from './CollapsibleMenu.js'

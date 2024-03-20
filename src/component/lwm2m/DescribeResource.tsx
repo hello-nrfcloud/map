@@ -7,8 +7,8 @@ import {
 } from '@hello.nrfcloud.com/proto-map'
 import { Show, createSignal } from 'solid-js'
 import type { Device } from '../../resources/fetchDevices.js'
-import { useNavigation, type Resource } from '../../context/Navigation.js'
-import { SearchTermType } from '../../context/Search.js'
+import { useNavigation } from '../../context/Navigation.js'
+import { SearchTermType } from '../../search.ts'
 import {
 	Documentation,
 	History,
@@ -22,6 +22,7 @@ import { CollapsibleMenu } from '../CollapsibleMenu.js'
 import { RelativeTime } from '../RelativeTime.js'
 import { DescribeResourceDefinition } from './DescribeResourceDefinition.js'
 import { ResourceHistory } from './ResourceHistory.js'
+import type { PinnedResource } from '../../context/navigation/encodeNavigation.ts'
 
 export const DescribeResource = (props: {
 	ObjectID: LwM2MObjectID
@@ -35,7 +36,7 @@ export const DescribeResource = (props: {
 	const [showDefinition, setShowDefinition] = createSignal<boolean>(false)
 	const [showHistory, setShowHistory] = createSignal<boolean>(false)
 	const location = useNavigation()
-	const r: Resource = {
+	const r: PinnedResource = {
 		model: props.device.model as ModelID,
 		ObjectID: props.ObjectID,
 		ResourceID: props.info.ResourceID,

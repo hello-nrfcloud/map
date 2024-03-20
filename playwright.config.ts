@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test'
 
 const isCI = process.env.CI !== undefined
-const baseURL = 'http://localhost:8080/map'
+const baseURL = 'http://localhost:8080/map/'
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -49,5 +49,7 @@ export default defineConfig({
 		command: 'npm run start:e2e',
 		url: baseURL,
 		reuseExistingServer: !isCI,
+		stderr: 'pipe',
+		stdout: 'pipe',
 	},
 })

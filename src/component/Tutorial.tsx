@@ -9,7 +9,7 @@ import { useAllDevicesMapState } from '../context/AllDeviceMapState.jsx'
 import { Expand } from '../icons/LucideIcon.jsx'
 
 import './Tutorial.css'
-import { SearchTermType } from '../context/Search.js'
+import { SearchTermType } from '../search.ts'
 import { ModelID } from '@hello.nrfcloud.com/proto-map'
 
 export const Tutorial = () => {
@@ -156,7 +156,7 @@ export const Tutorial = () => {
 									lng: 20.590049136261882,
 								},
 							},
-							resources: [
+							pinnedResources: [
 								{
 									model: ModelID.Kartverket_vasstandsdata,
 									ObjectID: 14230,

@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
-import { SearchTermType } from './Search.js'
+import { SearchTermType } from '../../search.ts'
 import { encode, decode } from './encodeNavigation.js'
 import { ModelID } from '@hello.nrfcloud.com/proto-map'
 
@@ -11,7 +11,7 @@ void describe('encode() / decode()', () => {
 		assert.deepEqual(decode(encode({ panel: 'about' })), {
 			panel: 'about',
 			search: [],
-			resources: [],
+			pinnedResources: [],
 			toggled: [],
 		}))
 
@@ -19,7 +19,7 @@ void describe('encode() / decode()', () => {
 		assert.deepEqual(decode(encode({ panel: 'id:42' })), {
 			panel: 'id:42',
 			search: [],
-			resources: [],
+			pinnedResources: [],
 			toggled: [],
 		}))
 
@@ -44,7 +44,7 @@ void describe('encode() / decode()', () => {
 						term: 'solar',
 					},
 				],
-				resources: [],
+				pinnedResources: [],
 				toggled: [],
 			},
 		))
@@ -54,7 +54,7 @@ void describe('encode() / decode()', () => {
 			decode(
 				encode({
 					panel: 'id:42',
-					resources: [
+					pinnedResources: [
 						{
 							model: ModelID.PCA20035_solar,
 							ObjectID: 14204,
@@ -66,7 +66,7 @@ void describe('encode() / decode()', () => {
 			{
 				panel: 'id:42',
 				search: [],
-				resources: [
+				pinnedResources: [
 					{
 						model: 'PCA20035+solar',
 						ObjectID: 14204,
@@ -94,7 +94,7 @@ void describe('encode() / decode()', () => {
 			{
 				panel: 'world',
 				search: [],
-				resources: [],
+				pinnedResources: [],
 				toggled: [],
 				map: {
 					center: {
@@ -118,7 +118,7 @@ void describe('encode() / decode()', () => {
 				panel: 'world',
 				help: 'start',
 				search: [],
-				resources: [],
+				pinnedResources: [],
 				toggled: [],
 			},
 		))
@@ -133,7 +133,7 @@ void describe('encode() / decode()', () => {
 			{
 				panel: '',
 				search: [],
-				resources: [],
+				pinnedResources: [],
 				toggled: ['foo', 'bar'],
 			},
 		))

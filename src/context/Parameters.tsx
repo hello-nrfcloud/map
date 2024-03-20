@@ -1,6 +1,7 @@
 import { type ParentProps } from 'solid-js'
 import { createContext, createResource, useContext, Show } from 'solid-js'
 import { LoadingFullScreen } from '../component/LoadingFullScreen.js'
+import { useViteEnv } from './ViteEnv.tsx'
 
 export type Parameters = {
 	// Map resources
@@ -81,13 +82,9 @@ export const useParameters = () => {
 	return context
 }
 
-export const ParametersProvider = (
-	props: ParentProps<{ registryEndpoint: URL }>,
-) => {
-	const [parameters] = createResource(
-		props.registryEndpoint,
-		fetchParameters(props.registryEndpoint),
-	)
+export const ParametersProvider = (props: ParentProps) => {
+	const { registryEndpoint } = useViteEnv()
+	const [parameters] = createResource(fetchParameters(registryEndpoint))
 
 	return (
 		<Show

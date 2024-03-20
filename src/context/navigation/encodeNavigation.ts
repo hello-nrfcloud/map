@@ -1,6 +1,16 @@
-import { isSearchTermType, type SearchTerm } from './Search.js'
-import { isModel, type Resource } from './Navigation.js'
-import { isLwM2MObjectID } from '@hello.nrfcloud.com/proto-map'
+import { isSearchTermType, type SearchTerm } from '../../search.ts'
+import { isModel } from '../../util/isModel.ts'
+import {
+	isLwM2MObjectID,
+	LwM2MObjectID,
+	ModelID,
+} from '@hello.nrfcloud.com/proto-map'
+
+export type PinnedResource = {
+	model: ModelID
+	ObjectID: LwM2MObjectID
+	ResourceID: number
+}
 
 export type NavigationMapState = {
 	center: { lat: number; lng: number }
@@ -9,7 +19,7 @@ export type NavigationMapState = {
 export type Navigation = {
 	panel: string
 	search: SearchTerm[]
-	resources: Resource[]
+	pinnedResources: PinnedResource[]
 	map?: NavigationMapState
 	help?: string
 	toggled: string[]
@@ -17,7 +27,7 @@ export type Navigation = {
 
 enum FieldKey {
 	Search = 's',
-	Resources = 'r',
+	PinnedResources = 'r',
 	Map = 'm',
 	Help = 'h',
 	Toggled = 't',
@@ -30,7 +40,7 @@ export const encode = (
 ): string | undefined => {
 	if (navigation === undefined) return ''
 	const parts = []
-	const { panel, search, resources, map, help, toggled } = navigation
+	const { panel, search, pinnedResources, map, help, toggled } = navigation
 	parts.push(panel)
 	if (search !== undefined && search.length > 0) {
 		parts.push(
@@ -41,13 +51,13 @@ export const encode = (
 			],
 		)
 	}
-	if (resources !== undefined && resources.length > 0) {
+	if (pinnedResources !== undefined && pinnedResources.length > 0) {
 		parts.push(
 			...[
 				...new Set(
-					resources.map(
+					pinnedResources.map(
 						({ model, ObjectID, ResourceID }) =>
-							`${model}:${FieldKey.Resources}:${ObjectID}/${ResourceID}`,
+							`${model}:${FieldKey.PinnedResources}:${ObjectID}/${ResourceID}`,
 					),
 				),
 			],
@@ -73,7 +83,7 @@ export const decode = (encoded?: string): Navigation | undefined => {
 	const [panel, ...rest] = encoded.split(sep)
 	if (panel === undefined) return undefined
 	if (rest.length === 0)
-		return { panel, search: [], resources: [], toggled: [] }
+		return { panel, search: [], pinnedResources: [], toggled: [] }
 	const nav: Navigation = {
 		panel,
 		search: rest
@@ -84,11 +94,11 @@ export const decode = (encoded?: string): Navigation | undefined => {
 				return { type, term }
 			})
 			.filter((t): t is SearchTerm => t !== undefined),
-		resources: rest
+		pinnedResources: rest
 			.map((s) => {
 				const [model, key, resource] = s.split(':', 3)
 				if (!isModel(model)) return undefined
-				if (key !== FieldKey.Resources) return undefined
+				if (key !== FieldKey.PinnedResources) return undefined
 				const [ObjectID, ResourceID] = (resource?.split('/') ?? []).map((s) =>
 					parseInt(s, 10),
 				)
@@ -100,7 +110,7 @@ export const decode = (encoded?: string): Navigation | undefined => {
 					ResourceID,
 				}
 			})
-			.filter((t): t is Resource => t !== undefined),
+			.filter((t): t is PinnedResource => t !== undefined),
 		toggled: [],
 	}
 

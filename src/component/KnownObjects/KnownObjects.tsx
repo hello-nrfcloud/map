@@ -39,7 +39,7 @@ export const KnownObjects = (props: {
 	const favoriteResources = createMemo(() =>
 		location
 			.current()
-			.resources.filter(({ model }) => model === props.device.model),
+			.pinnedResources.filter(({ model }) => model === props.device.model),
 	)
 
 	const tabs = createMemo(() => {

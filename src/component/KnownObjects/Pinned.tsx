@@ -1,4 +1,3 @@
-import type { Resource } from '../../context/Navigation.js'
 import { PinOnMap } from '../../icons/LucideIcon.js'
 import { For, createMemo } from 'solid-js'
 import {
@@ -12,6 +11,7 @@ import { isLwM2MObjectID } from '@hello.nrfcloud.com/proto-map'
 import type { Device } from '../../resources/fetchDevices.js'
 import { ResourcesDL } from '../ResourcesDL.js'
 import { DescribeResource } from '../lwm2m/DescribeResource.js'
+import type { PinnedResource } from '../../context/navigation/encodeNavigation.ts'
 
 import './DeviceInformation.css'
 
@@ -22,16 +22,19 @@ export const Icon = () => (
 	</>
 )
 
-type PinnedResource = {
+type PinnedResourceInstance = {
 	ObjectID: LwM2MObjectID
-	resource: Resource
+	resource: PinnedResource
 	definition: LwM2MResourceInfo
 	value: LwM2MResourceValue | undefined
 	InstanceID: number
 	ts: Date | undefined
 }
 
-export const Card = (props: { resources: Resource[]; device: Device }) => {
+export const Card = (props: {
+	resources: PinnedResource[]
+	device: Device
+}) => {
 	const resourceValues = createMemo(() =>
 		props.resources
 			.map((resource) => {
@@ -53,7 +56,7 @@ export const Card = (props: { resources: Resource[]; device: Device }) => {
 					InstanceID: instance?.ObjectInstanceID ?? 0,
 				}
 			})
-			.filter((s): s is PinnedResource => s !== undefined),
+			.filter((s): s is PinnedResourceInstance => s !== undefined),
 	)
 
 	return (
@@ -74,6 +77,6 @@ export const Card = (props: { resources: Resource[]; device: Device }) => {
 	)
 }
 
-const byNewest = (r1: PinnedResource, r2: PinnedResource) =>
+const byNewest = (r1: PinnedResourceInstance, r2: PinnedResourceInstance) =>
 	(r2.ts?.getTime() ?? Number.MIN_SAFE_INTEGER) -
 	(r1.ts?.getTime() ?? Number.MIN_SAFE_INTEGER)

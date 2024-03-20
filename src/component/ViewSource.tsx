@@ -1,4 +1,5 @@
 import { useNavigation } from '../context/Navigation.js'
+import { useViteEnv } from '../context/ViteEnv.tsx'
 import { Close, ViewSource } from '../icons/LucideIcon.js'
 import { RelativeTime } from './RelativeTime.js'
 import { SidebarContent } from './Sidebar.js'
@@ -7,6 +8,7 @@ import { Show } from 'solid-js'
 const panelId = 'view-source'
 
 export const Sidebar = () => {
+	const { repositoryURL, version, buildTime } = useViteEnv()
 	const location = useNavigation()
 	return (
 		<Show when={location.current().panel === panelId}>
@@ -73,16 +75,16 @@ export const Sidebar = () => {
 						</p>
 						<p>
 							The source-code for this project can be found on{' '}
-							<a class="button" href={REPOSITORY_URL} target="_blank">
+							<a class="button" href={repositoryURL.toString()} target="_blank">
 								GitHub
 							</a>
 							.
 						</p>
 					</section>
 					<footer>
-						<p>Version: {VERSION}</p>
+						<p>Version: {version}</p>
 						<p>
-							Build time: <RelativeTime time={new Date(BUILD_TIME)} />
+							Build time: <RelativeTime time={buildTime} />
 						</p>
 					</footer>
 				</div>

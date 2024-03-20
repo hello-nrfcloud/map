@@ -7,7 +7,7 @@ import {
 	matches,
 	SearchTermType,
 	isSearchTermType,
-} from '../context/Search.js'
+} from '../search.ts'
 import { Device as DeviceIcon } from '../icons/Device.js'
 import { AddToSearch, Close, Published } from '../icons/LucideIcon.js'
 import { RelativeTime } from './RelativeTime.js'

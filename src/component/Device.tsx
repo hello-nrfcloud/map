@@ -21,6 +21,7 @@ import { KnownObjects } from './KnownObjects/KnownObjects.js'
 import { DescribeInstance } from './lwm2m/DescribeInstance.js'
 import { SidebarContent } from './Sidebar.js'
 import { TutorialBoxes } from './Tutorial.jsx'
+import { useViteEnv } from '../context/ViteEnv.tsx'
 
 import './lwm2m/LwM2M.css'
 
@@ -92,6 +93,7 @@ const isGenericObject = (instance: LwM2MObjectInstance): boolean => {
 }
 
 const DeviceInfo = (props: { device: Device }) => {
+	const { repositoryURL } = useViteEnv()
 	const instances = createMemo(() =>
 		[...(props.device.state ?? [])].sort(newestInstanceFirst),
 	)
@@ -133,7 +135,7 @@ const DeviceInfo = (props: { device: Device }) => {
 						These objects have been published by the device in the last 30 days,
 						but there is no custom handling in this application for the data,
 						yet. Consider creating a feature request{' '}
-						<a href={REPOSITORY_URL} target="_blank">
+						<a href={repositoryURL.toString()} target="_blank">
 							here
 						</a>
 						.

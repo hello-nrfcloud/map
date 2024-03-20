@@ -42,7 +42,6 @@ jobs:
           REGISTRY_ENDPOINT: ${{ vars.REGISTRY_ENDPOINT }}
           DOMAIN_NAME: ${{ vars.DOMAIN_NAME }}
           SENTRY_DSN: ${{ vars.SENTRY_DSN }}
-          BASE_URL: ${{ env.BASE_URL }}
         run: |
           npm run build
           mkdir  ./dist/.well-known

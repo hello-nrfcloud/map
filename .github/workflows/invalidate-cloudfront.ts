@@ -7,6 +7,7 @@ import { stackOutput } from '@nordicsemiconductor/cloudformation-helpers'
 import { glob } from 'glob'
 import { randomUUID } from 'node:crypto'
 import path, { parse } from 'node:path'
+import { encloseWithSlash } from '../../src/util/encloseWithSlash.js'
 
 const cloudFront = new CloudFrontClient({})
 const cloudFormation = new CloudFormationClient({})
@@ -16,13 +17,13 @@ const buildDir = path.join(process.cwd(), 'build', 'client')
 const htmlFiles = await glob('*/**/*.html', {
 	cwd: buildDir,
 })
-const prefix = (process.env.BASE_URL ?? '').replace(/\/*$/, '')
+const base = encloseWithSlash(process.env.BASE_URL ?? '')
 const pathesToInvalidate = [
-	`${prefix}/`,
-	`${prefix}/manifest.json`,
-	`${prefix}/.well-known/release`,
-	...htmlFiles.map((f) => `${prefix}/${encodeURIComponent(f)}`),
-	...htmlFiles.map((f) => `${prefix}/${encodeURIComponent(parse(f).dir)}/`),
+	`${base}`,
+	`${base}manifest.json`,
+	`${base}.well-known/release`,
+	...htmlFiles.map((f) => `${base}${encodeURIComponent(f)}`),
+	...htmlFiles.map((f) => `${base}${encodeURIComponent(parse(f).dir)}/`),
 ]
 
 const stackName = process.env.STACK_NAME ?? 'hello-nrfcloud-web'

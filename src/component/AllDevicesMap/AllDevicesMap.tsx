@@ -15,12 +15,13 @@ import { type Device } from '../../resources/fetchDevices.js'
 import { useParameters } from '../../context/Parameters.js'
 import { createMap } from '../../map/createMap.js'
 import { newestInstanceFirst } from '../../util/newestInstanceFirst.js'
-import { matches, type SearchTerm } from '../../context/Search.js'
-import { useNavigation, type Resource } from '../../context/Navigation.js'
+import { matches, type SearchTerm } from '../../search.ts'
+import { useNavigation } from '../../context/Navigation.js'
 import { glyphFonts } from '../../map/glyphFonts.js'
 import { format, type ResourceValue } from '../../util/lwm2m.js'
 import { createStore, reconcile } from 'solid-js/store'
 import { useAllDevicesMapState } from '../../context/AllDeviceMapState.jsx'
+import type { PinnedResource } from '../../context/navigation/encodeNavigation.ts'
 
 import './AllDevicesMap.css'
 
@@ -41,15 +42,15 @@ export const AllDevicesMap = () => {
 	// Use a store, so the devices only get updated in case the search really changes
 	const [searchConfig, setSearchConfig] = createStore<{
 		search: SearchTerm[]
-		resources: Resource[]
+		resources: PinnedResource[]
 	}>({
 		search: location.current().search,
-		resources: location.current().resources,
+		resources: location.current().pinnedResources,
 	})
 
 	createEffect(() => {
 		setSearchConfig('search', reconcile(location.current().search))
-		setSearchConfig('resources', reconcile(location.current().resources))
+		setSearchConfig('resources', reconcile(location.current().pinnedResources))
 	})
 
 	const matchedDevices = createMemo(() => {
