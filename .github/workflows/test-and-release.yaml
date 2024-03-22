@@ -59,7 +59,7 @@ jobs:
     strategy:
       matrix:
         browser:
-          - chrome
+          - chromium
           - firefox
           - webkit
 
@@ -85,7 +85,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: playwright-report
+          name: playwright-report-${{ matrix.browser }}
           path: playwright-report/
           retention-days: 7
 
