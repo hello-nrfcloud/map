@@ -68,12 +68,20 @@ export const WarningButton = () => {
 			<Show
 				when={location.current().panel === 'warning'}
 				fallback={
-					<a class="button warning" href={location.link({ panel: 'warning' })}>
+					<a
+						class="button warning"
+						href={location.link({ panel: 'warning' })}
+						title="Warning: Under construction!"
+					>
 						<Warning strokeWidth={2} />
 					</a>
 				}
 			>
-				<a class="button warning active" href={location.linkToHome()}>
+				<a
+					class="button warning active"
+					href={location.linkToHome()}
+					title="Warning: Under construction!"
+				>
 					<Warning strokeWidth={2} />
 				</a>
 			</Show>

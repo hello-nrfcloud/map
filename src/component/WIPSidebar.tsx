@@ -10,7 +10,7 @@ export const WIPSidebar = () => {
 			<SidebarContent class="warning" id="warning">
 				<header>
 					<h1>Under construction!</h1>
-					<a href={location.linkToHome()} class="close">
+					<a href={location.linkToHome()} class="close" title="Close">
 						<Close size={20} />
 					</a>
 				</header>
