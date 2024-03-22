@@ -7,7 +7,7 @@ export const WIPSidebar = () => {
 	const location = useNavigation()
 	return (
 		<Show when={location.current().panel === 'warning'}>
-			<SidebarContent class="warning">
+			<SidebarContent class="warning" id="warning">
 				<header>
 					<h1>Under construction!</h1>
 					<a href={location.linkToHome()} class="close">

@@ -9,7 +9,7 @@ const baseURL = 'http://localhost:8080/map/'
 export default defineConfig({
 	testDir: './e2e-tests',
 	/* Run tests in files in parallel */
-	fullyParallel: true,
+	fullyParallel: false,
 	/* Fail the build on CI if you accidentally left test.only in the source code. */
 	forbidOnly: isCI,
 	/* Retry on CI only */
@@ -29,7 +29,7 @@ export default defineConfig({
 	/* Configure projects for major browsers */
 	projects: [
 		{
-			name: 'chromium',
+			name: 'chrome',
 			use: { ...devices['Desktop Chrome'] },
 		},
 

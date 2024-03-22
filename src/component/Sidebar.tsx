@@ -21,8 +21,14 @@ export const Sidebar = () => (
 	</>
 )
 
-export const SidebarContent = (props: ParentProps<{ class?: string }>) => {
-	return <aside class={`sidebar ${props.class ?? ''}`}>{props.children}</aside>
+export const SidebarContent = (
+	props: ParentProps<{ class?: string; id: string }>,
+) => {
+	return (
+		<aside class={`sidebar ${props.class ?? ''}`} id={props.id}>
+			{props.children}
+		</aside>
+	)
 }
 
 export const SearchButton = () => {

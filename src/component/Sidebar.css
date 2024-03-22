@@ -4,8 +4,8 @@ aside.sidebar {
   width: auto;
   z-index: 40;
   background-color: var(--bg-blue-3);
-  padding-bottom: var(--gap);
-  min-height: calc(100vh - var(--base-size-navbar));
+  padding-bottom: calc(var(--gap) / 2);
+  max-height: calc(100vh - var(--base-size-navbar));
 }
 
 @media (min-width: 400px) {
@@ -23,7 +23,7 @@ aside.sidebar {
   aside.sidebar > div.scrollable {
     overflow-y: auto;
     overflow-x: hidden;
-    max-height: calc(100vh - var(--base-size-navbar));
+    max-height: calc(100vh - var(--base-size-navbar) * 2);
     scrollbar-color: var(--bg-blue-5) var(--bg-blue-1);
     scrollbar-width: thin;
   }

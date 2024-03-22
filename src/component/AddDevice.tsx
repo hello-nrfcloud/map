@@ -20,7 +20,7 @@ export const Sidebar = () => {
 	const location = useNavigation()
 	return (
 		<Show when={location.current().panel === panelId}>
-			<SidebarContent class="add-device">
+			<SidebarContent class="add-device" id={panelId}>
 				<header>
 					<h1>Add your device</h1>
 					<a href={location.linkToHome()} class="close">

@@ -56,8 +56,18 @@ const sendJSON = (
 	res: ServerResponse<IncomingMessage>,
 	payload: Record<string, unknown>,
 ): void => {
-	console.debug(`[backend]`, JSON.stringify(payload))
+	console.debug(JSON.stringify(payload))
 	res.setHeader('Content-type', 'application/json; charset=utf-8')
 	res.write(JSON.stringify(payload))
 	res.end()
+}
+
+const base = new URL('http://localhost:8080')
+export const mockBackendApi = {
+	setRelease: async (release: string): Promise<void> => {
+		await fetch(new URL('/api/release', base), {
+			method: 'PUT',
+			body: release,
+		})
+	},
 }

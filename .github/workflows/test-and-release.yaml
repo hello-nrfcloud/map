@@ -46,6 +46,23 @@ jobs:
 
     environment: ci
 
+    env:
+      MAP_REGION: ${{ vars.MAP_REGION }}
+      MAP_NAME: ${{ vars.MAP_NAME }}
+      MAP_API_KEY: ${{ vars.MAP_API_KEY }}
+
+    # Note: It's currently not possible to run test for multiple browsers in
+    # parallel since the `webServer` cannot be defined per project:
+    # https://github.com/microsoft/playwright/issues/22496
+    # However the mock backend server state is manipulated during test runs and
+    # therefore cannot be used in parallel.
+    strategy:
+      matrix:
+        browser:
+          - chrome
+          - firefox
+          - webkit
+
     steps:
       - uses: actions/checkout@v4
         with:
@@ -60,14 +77,10 @@ jobs:
         run: npm ci
 
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+        run: npx playwright install --with-deps ${{ matrix.browser }}
 
       - name: Run Playwright tests
-        env:
-          MAP_REGION: ${{ vars.MAP_REGION }}
-          MAP_NAME: ${{ vars.MAP_NAME }}
-          MAP_API_KEY: ${{ vars.MAP_API_KEY }}
-        run: npm run test:e2e
+        run: npx playwright test -x --project ${{ matrix.browser }}
 
       - uses: actions/upload-artifact@v4
         if: always()

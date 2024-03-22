@@ -54,7 +54,7 @@ export const DeviceSidebar = () => {
 
 	return (
 		<Show when={deviceId() !== undefined}>
-			<SidebarContent class="device">
+			<SidebarContent class="device" id="device">
 				<header class="pad">
 					<h1>
 						<span>{deviceId()}</span>

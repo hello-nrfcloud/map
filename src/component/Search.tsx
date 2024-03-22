@@ -103,7 +103,7 @@ export const Sidebar = () => {
 
 	return (
 		<Show when={location.current().panel === 'search'}>
-			<SidebarContent class="search">
+			<SidebarContent class="search" id="search">
 				<header>
 					<h1>Search {numDevices()} devices</h1>
 					<a href={location.linkToHome()} class="close">
@@ -144,7 +144,7 @@ const MostRecentDevicesList = () => {
 			<header>
 				<h2>Recently updated devices</h2>
 			</header>
-			<div class="boxed">
+			<div class="boxed pad">
 				<For
 					each={devices().slice(0, 10)}
 					fallback={<p>No matching devices found.</p>}

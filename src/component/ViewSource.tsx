@@ -12,7 +12,7 @@ export const Sidebar = () => {
 	const location = useNavigation()
 	return (
 		<Show when={location.current().panel === panelId}>
-			<SidebarContent>
+			<SidebarContent id={panelId}>
 				<header>
 					<h1>View source</h1>
 					<a href={location.linkToHome()} class="close">
@@ -82,7 +82,9 @@ export const Sidebar = () => {
 						</p>
 					</section>
 					<footer>
-						<p>Version: {version}</p>
+						<p>
+							Version: <span data-testId="version">{version}</span>
+						</p>
 						<p>
 							Build time: <RelativeTime time={buildTime} />
 						</p>
@@ -101,12 +103,20 @@ export const SidebarButton = () => {
 			<Show
 				when={location.current().panel === panelId}
 				fallback={
-					<a class="button" href={location.link({ panel: panelId })}>
+					<a
+						class="button"
+						href={location.link({ panel: panelId })}
+						title="View Source"
+					>
 						<ViewSource strokeWidth={2} />
 					</a>
 				}
 			>
-				<a class="button active" href={location.linkToHome()}>
+				<a
+					class="button active"
+					href={location.linkToHome()}
+					title="View Source"
+				>
 					<ViewSource strokeWidth={2} />
 				</a>
 			</Show>
