@@ -6,6 +6,9 @@
   --bg-blue-1: #003c56;
   --bg-blue-0: #0c2438;
   --color-warning: #e7c27b;
+  --color-warning-dark: #c2a163;
+  --color-warning-darker: #a0875a;
+  --color-warning-text: #222222;
   --color-error: #ce0d0d;
   --color-highlight-shadow: #fffaa8;
   --color-highlight: #80ed99;
@@ -50,7 +53,7 @@ body {
   background: #111;
   color: white;
   font-family: var(--regular-font-family);
-  font-weight: 200;
+  font-weight: 300;
   font-style: normal;
   background-color: var(--bg-blue-0);
 }
@@ -193,7 +196,7 @@ form select {
 form input:focus,
 form select:focus,
 form input:focus + button.btn,
-form button.btn:active {
+.btn:active {
   border-color: var(--color-border-active);
 }
 
@@ -207,7 +210,7 @@ input:-webkit-autofill:active {
     color 5000000s ease-in-out 0s;
 }
 
-form button.btn {
+.btn {
   border-style: solid;
   border-width: 1px;
   border-radius: calc(var(--border-radius) / 2);
@@ -217,9 +220,17 @@ form button.btn {
   padding: 0 var(--gap-medium);
   color: var(--color-form-text);
   font-weight: 300;
+  display: inline-block;
+  height: 32px;
+  font-family: var(--condensed-font-family);
 }
 
-form button.btn .icon {
+a.btn {
+  display: inline-block;
+  line-height: 30px;
+}
+
+.btn .icon {
   opacity: 0.8;
 }
 

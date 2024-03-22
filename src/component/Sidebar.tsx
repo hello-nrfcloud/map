@@ -1,6 +1,5 @@
 import { Show, type ParentProps } from 'solid-js'
 import { useNavigation } from '../context/Navigation.js'
-import { Sidebar as AppUpdateRequiredSidebar } from './AppUpdate.js'
 import { DeviceSidebar } from './Device.js'
 import { ActiveSearch, Search, Warning } from '../icons/LucideIcon.js'
 import { Sidebar as SearchSidebar } from './Search.js'
@@ -17,7 +16,6 @@ export const Sidebar = () => (
 		<WIPSidebar />
 		<DeviceSidebar />
 		<SearchSidebar />
-		<AppUpdateRequiredSidebar />
 		<ViewSourceSidebar />
 		<AddDeviceSidebar />
 	</>

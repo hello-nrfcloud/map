@@ -14,7 +14,7 @@ import { useViteEnv } from './ViteEnv.tsx'
 const logPrefix = '[AppUpdate]'
 
 type AppUpdateInfo = {
-	releasedVersion?: string
+	releasedVersion: string
 	updateRequired: boolean
 }
 
@@ -22,6 +22,7 @@ export const AppUpdateProvider = (props: ParentProps) => {
 	const { version } = useViteEnv()
 	const [info, setInfo] = createSignal<AppUpdateInfo>({
 		updateRequired: false,
+		releasedVersion: '0.0.0-development',
 	})
 
 	const [versionResource, { refetch }] = createResource<SemVer | undefined>(
@@ -69,6 +70,7 @@ export const AppUpdateProvider = (props: ParentProps) => {
 
 export const AppUpdateContext = createContext<() => AppUpdateInfo>(() => ({
 	updateRequired: false,
+	releasedVersion: '0.0.0-development',
 }))
 
 export const useAppUpdate = () => useContext(AppUpdateContext)
