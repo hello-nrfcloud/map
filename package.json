@@ -43,7 +43,7 @@
     "husky": "9.0.11",
     "the-new-css-reset": "1.11.2",
     "tsx": "4.7.1",
-    "vite": "5.2.4",
+    "vite": "5.2.6",
     "vite-plugin-solid": "2.10.2"
   },
   "dependencies": {
