@@ -38,7 +38,7 @@
     "@types/node": "20.11.30",
     "commitlint": "19.2.1",
     "eslint-plugin-jsx-a11y": "6.8.0",
-    "glob": "10.3.10",
+    "glob": "10.3.12",
     "globstar": "1.0.0",
     "husky": "9.0.11",
     "the-new-css-reset": "1.11.2",
