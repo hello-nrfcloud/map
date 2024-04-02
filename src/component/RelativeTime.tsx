@@ -7,6 +7,7 @@ const fmt = new Intl.NumberFormat()
 export const RelativeTime = (
 	props: ParentProps<{
 		time: Date
+		class?: string
 	}>,
 ) => {
 	const format = () => distance(props.time)
@@ -22,7 +23,7 @@ export const RelativeTime = (
 
 	return (
 		<time
-			class="relative"
+			class={`relative ${props.class ?? ''}`}
 			dateTime={props.time.toISOString()}
 			title={`${fmt.format(formatted().delta)} ${formatted().unit.long} ago (${props.time.toISOString()})`}
 		>

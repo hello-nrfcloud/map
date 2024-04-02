@@ -15,7 +15,7 @@ export const Sidebar = () => {
 			<SidebarContent id={panelId}>
 				<header>
 					<h1>View source</h1>
-					<a href={location.linkToHome()} class="close">
+					<a href={location.linkToHome()} class="close" title="Close">
 						<Close size={20} />
 					</a>
 				</header>
@@ -86,7 +86,7 @@ export const Sidebar = () => {
 							Version: <span data-testId="version">{version}</span>
 						</p>
 						<p>
-							Build time: <RelativeTime time={buildTime} />
+							Build time: <RelativeTime time={buildTime} class="build-time" />
 						</p>
 					</footer>
 				</div>
