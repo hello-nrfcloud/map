@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import { mockBackendApi } from './mock-backend.ts'
+import { mockBackendApi } from './lib/mock-backend.ts'
 
 test.describe('App-Update notification', () => {
 	test('A notification should appear if the app is outdated', async ({

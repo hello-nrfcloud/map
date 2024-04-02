@@ -1,5 +1,5 @@
 import type { Connect } from 'vite'
-import type { Parameters } from '../src/context/Parameters.tsx'
+import type { Parameters } from '../../src/context/Parameters.tsx'
 import { Context } from '@hello.nrfcloud.com/proto/hello'
 import type { IncomingMessage, ServerResponse } from 'http'
 

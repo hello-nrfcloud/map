@@ -1,30 +1,30 @@
 #app-update-warning {
-  width: 100vw;
-  position: absolute;
-  z-index: 60;
   top: calc(var(--base-size-navbar) + 1rem);
   left: calc(var(--base-size-navbar) + 1rem);
-  width: calc(100vw - var(--base-size-navbar) - 2rem);
-  display: flex;
-  justify-content: center;
-}
-#app-update-warning aside {
+  position: absolute;
+  z-index: 60;
   background-color: var(--color-warning);
   border-radius: calc(var(--border-radius) * 2);
   box-shadow: 0 0 10px #00000063;
-  overflow: hidden;
   color: var(--color-warning-text);
-  width: 100%;
+  width: calc(100vw - var(--base-size-navbar) - 2rem);
   max-width: 450px;
+  overflow: hidden;
 }
 
-#app-update-warning aside header {
+@media (min-width: 450px) {
+  #app-update-warning {
+    left: calc(100vw / 2 - 450px / 2 + 1rem);
+  }
+}
+
+#app-update-warning header {
   background-color: var(--color-warning-dark);
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid var(--color-warning-darker);
 }
 
-#app-update-warning aside header .icon {
+#app-update-warning header .icon {
   color: var(--color-error);
 }

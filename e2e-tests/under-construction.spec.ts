@@ -9,7 +9,6 @@ test('Under Construction Warning', async ({ page }) => {
 		)
 	await expect(warningLoc()).toBeVisible()
 	await expect(page.getByRole('link', { name: 'Close' })).toBeVisible()
-	// FIXME: this can be blocked by the app update warning
-	// await page.getByRole('link', { name: 'Close' }).click()
-	// await expect(warningLoc()).not.toBeVisible()
+	await page.getByRole('link', { name: 'Close' }).click()
+	await expect(warningLoc()).not.toBeVisible()
 })

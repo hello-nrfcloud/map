@@ -1,5 +1,5 @@
 import type { Plugin } from 'vite'
-import type { Parameters } from '../src/context/Parameters.js'
+import type { Parameters } from '../../src/context/Parameters.js'
 import { mockBackend } from './mock-backend.ts'
 
 export const testdataServerPlugin = ({
