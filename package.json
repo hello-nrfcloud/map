@@ -42,7 +42,7 @@
     "globstar": "1.0.0",
     "husky": "9.0.11",
     "the-new-css-reset": "1.11.2",
-    "tsx": "4.7.1",
+    "tsx": "4.7.2",
     "vite": "5.2.8",
     "vite-plugin-solid": "2.10.2"
   },
