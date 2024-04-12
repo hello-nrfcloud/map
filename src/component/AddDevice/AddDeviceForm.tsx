@@ -6,9 +6,9 @@ import { noop } from '../../util/noop.js'
 import { useParameters } from '../../context/Parameters.js'
 import {
 	type ShareDeviceRequest,
-	type AddModelRequest,
-	addModel,
-} from '../../resources/addModel.js'
+	type ShareDevice,
+	shareDevice,
+} from '../../resources/shareDevice.ts'
 import { useViteEnv } from '../../context/ViteEnv.tsx'
 
 const isEmail = (s?: string) => /.+@.+/.test(s ?? '')
@@ -21,10 +21,10 @@ export const AddDeviceForm = (props: {
 	let modelSelect!: HTMLSelectElement
 
 	const params = useParameters()
-	const [createRequest, setRequest] = createSignal<AddModelRequest>()
+	const [createRequest, setRequest] = createSignal<ShareDevice>()
 	const [shareDeviceRequest] = createResource(
 		createRequest,
-		addModel(params.shareAPIURL),
+		shareDevice(params.shareAPIURL),
 	)
 
 	const submit = () => {

@@ -1,7 +1,7 @@
-import type { ShareDeviceRequest } from './addModel.js'
+import type { ShareDeviceRequest } from './shareDevice.ts'
 
 export type OwnershipConfirmed = {
-	'@context': 'https://github.com/hello-nrfcloud/proto/map/share-device-ownership-confirmed'
+	'@context': 'https://github.com/hello-nrfcloud/proto-map/share-device-ownership-confirmed'
 	// Public ID
 	id: string // e.g. "driveway-addition-fecifork"
 }

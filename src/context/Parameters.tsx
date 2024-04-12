@@ -3,47 +3,51 @@ import { createContext, createResource, useContext, Show } from 'solid-js'
 import { LoadingFullScreen } from '../component/LoadingFullScreen.js'
 import { useViteEnv } from './ViteEnv.tsx'
 
-export type Parameters = {
+export type Registry = {
+	nrfCloudTeamId: string
+	// API url
+	mapApiURL: string
 	// Map resources
 	mapName: string
 	mapApiKey: string
 	mapRegion: string
+	// world.thingy.rocks legacy
+	thingyWorldShadowsURL: string
+}
+
+export type Parameters = {
+	nrfCloudTeamId: string
 	// Map sharing
 	devicesAPIURL: URL
-	thingyWorldShadowsURL: URL
 	shareAPIURL: URL
 	confirmOwnershipAPIURL: URL
 	createCredentialsAPIURL: URL
 	// Map history
 	lwm2mResourceHistoryURL: URL
-	nrfCloudTeamId: string
+	// world.thingy.rocks legacy
+	thingyWorldShadowsURL: URL
+	// Map resources
+	mapName: string
+	mapApiKey: string
+	mapRegion: string
 }
 
 export const fetchParameters = (url: URL) => async (): Promise<Parameters> => {
 	try {
 		const res = await fetch(url)
-		const params = await res.json()
-		const {
-			devicesAPIURL,
-			thingyWorldShadowsURL,
-			mapName,
-			mapApiKey,
-			mapRegion,
-			lwm2mResourceHistoryURL,
-			shareAPIURL,
-			confirmOwnershipAPIURL,
-			createCredentialsAPIURL,
-		} = params
-		const parsed = {
-			devicesAPIURL: new URL(devicesAPIURL),
+		const params: Registry = await res.json()
+		const { mapApiURL, thingyWorldShadowsURL, mapName, mapApiKey, mapRegion } =
+			params
+		const parsed: Parameters = {
+			devicesAPIURL: new URL('./devices', mapApiURL),
 			thingyWorldShadowsURL: new URL(thingyWorldShadowsURL),
 			mapName,
 			mapApiKey,
 			mapRegion,
-			lwm2mResourceHistoryURL: new URL(lwm2mResourceHistoryURL),
-			shareAPIURL: new URL(shareAPIURL),
-			confirmOwnershipAPIURL: new URL(confirmOwnershipAPIURL),
-			createCredentialsAPIURL: new URL(createCredentialsAPIURL),
+			lwm2mResourceHistoryURL: new URL('./history', mapApiURL),
+			shareAPIURL: new URL('./share', mapApiURL),
+			confirmOwnershipAPIURL: new URL('./share/confirm', mapApiURL),
+			createCredentialsAPIURL: new URL('./credentials', mapApiURL),
 			nrfCloudTeamId: 'bbfe6b73-a46a-43ad-94bd-8e4b4a7847ce',
 		}
 		for (const [k, v] of Object.entries(parsed)) {

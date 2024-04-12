@@ -3,7 +3,7 @@ import { Close, Add } from '../icons/LucideIcon.js'
 import { SidebarContent } from './Sidebar.js'
 import { Show, createSignal, For } from 'solid-js'
 import { AddDeviceForm } from './AddDevice/AddDeviceForm.js'
-import { type ShareDeviceRequest } from '../resources/addModel.js'
+import { type ShareDeviceRequest } from '../resources/shareDevice.ts'
 import { ConfirmRequestForm } from './AddDevice/ConfirmRequestForm.js'
 import { type OwnershipConfirmed } from '../resources/confirmRequest.js'
 

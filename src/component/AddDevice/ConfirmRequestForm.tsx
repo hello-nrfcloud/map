@@ -1,7 +1,7 @@
 import { Show, createEffect, createSignal, createResource } from 'solid-js'
 import { noop } from '../../util/noop.js'
 import { useParameters } from '../../context/Parameters.js'
-import type { ShareDeviceRequest } from '../../resources/addModel.js'
+import type { ShareDeviceRequest } from '../../resources/shareDevice.ts'
 import {
 	type OwnershipConfirmed,
 	confirmRequest,

@@ -1,4 +1,4 @@
-import { Devices, PublicDevice } from '@hello.nrfcloud.com/proto/hello/map'
+import { Devices, PublicDevice } from '@hello.nrfcloud.com/proto-map/api'
 import { type Static } from '@sinclair/typebox'
 
 export type Device = Static<typeof PublicDevice> & {

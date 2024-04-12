@@ -1,12 +1,12 @@
-import type { Connect } from 'vite'
-import type { Parameters } from '../../src/context/Parameters.tsx'
-import { Context } from '@hello.nrfcloud.com/proto/hello'
+import { Context } from '@hello.nrfcloud.com/proto-map/api'
 import type { IncomingMessage, ServerResponse } from 'http'
+import type { Connect } from 'vite'
+import type { Registry } from '../../src/context/Parameters.tsx'
 
 export const mockBackend = ({
 	registry,
 }: {
-	registry: Parameters
+	registry: Registry
 }): Record<string, Connect.SimpleHandleFunction> => {
 	let release = '0.0.0-development'
 	return {
@@ -14,12 +14,12 @@ export const mockBackend = ({
 			sendJSON(res, generateRegistryResponse(registry)),
 		'/e2e/api/devices': (req, res) =>
 			sendJSON(res, {
-				'@context': Context.map.devices,
+				'@context': Context.devices,
 				devices: [],
 			}),
 		'/e2e/api/thingyWorldShadows': (req, res) =>
 			sendJSON(res, {
-				'@context': Context.map.devices,
+				'@context': Context.devices,
 				devices: [],
 			}),
 		'/map/.well-known/release': (req, res) => {
@@ -39,8 +39,8 @@ export const mockBackend = ({
 }
 
 const generateRegistryResponse = (
-	registry: Parameters,
-): Parameters & {
+	registry: Registry,
+): Registry & {
 	'@ts': string // e.g. '2024-03-06T14:42:12.690Z'
 	'@version': 1
 	'@context': 'https://github.com/hello-nrfcloud/public-parameter-registry-aws-js'

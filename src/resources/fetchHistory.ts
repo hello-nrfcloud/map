@@ -18,7 +18,8 @@ export const fetchHistory =
 		},
 	) =>
 	async (): Promise<{
-		'@context': 'https://github.com/hello-nrfcloud/proto/map/history'
+		// FIXME: add to proto-map
+		'@context': 'https://github.com/hello-nrfcloud/proto-map/history'
 		partialInstances: Array<LwM2MObjectInstance['Resources'] & { ts: string }>
 		query: {
 			InstanceID: number
@@ -29,7 +30,7 @@ export const fetchHistory =
 		}
 	}> => {
 		const queryURL = new URL(
-			`/?${new URLSearchParams({
+			`?${new URLSearchParams({
 				deviceId: device.id,
 				instance: `${ObjectID}/${InstanceID}`,
 			}).toString()}`,

@@ -1,5 +1,5 @@
 export type DeviceCredentials = {
-	'@context': 'https://github.com/hello-nrfcloud/proto/map/device-credentials'
+	'@context': 'https://github.com/hello-nrfcloud/proto-map/device-credentials'
 	credentials: {
 		privateKey: string
 		certificate: string

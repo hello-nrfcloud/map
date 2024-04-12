@@ -1,11 +1,11 @@
 import type { Plugin } from 'vite'
-import type { Parameters } from '../../src/context/Parameters.js'
+import type { Registry } from '../../src/context/Parameters.js'
 import { mockBackend } from './mock-backend.ts'
 
 export const testdataServerPlugin = ({
 	registry,
 }: {
-	registry: Parameters
+	registry: Registry
 }): Plugin => ({
 	name: 'testdata-server',
 	configureServer: (server) => {

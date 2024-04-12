@@ -7,7 +7,7 @@ import {
 	onCleanup,
 } from 'solid-js'
 import { useParameters } from './Parameters.js'
-import { PublicDevice } from '@hello.nrfcloud.com/proto/hello/map'
+import { PublicDevice } from '@hello.nrfcloud.com/proto-map/api'
 import { type Static } from '@sinclair/typebox'
 import { createStore, reconcile } from 'solid-js/store'
 import { instanceTs } from '@hello.nrfcloud.com/proto-map'
