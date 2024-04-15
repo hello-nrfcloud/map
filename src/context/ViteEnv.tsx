@@ -14,6 +14,7 @@ type ViteEnv = {
 	buildTime: Date
 	repositoryURL: URL
 	protoVersion: string
+	apiURL: URL
 }
 
 const env: ViteEnv = {
@@ -25,6 +26,7 @@ const env: ViteEnv = {
 	buildTime: new Date(BUILD_TIME),
 	repositoryURL: new URL(REPOSITORY_URL),
 	protoVersion: PROTO_VERSION,
+	apiURL: new URL(API_URL),
 }
 
 export const ViteEnvContext = createContext<ViteEnv>(env)

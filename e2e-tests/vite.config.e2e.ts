@@ -11,18 +11,22 @@ const { mapRegion, mapName, mapApiKey } = fromEnv({
 
 const base = 'http://localhost:8080'
 
-export default createConfig(new URL('/e2e/registry.json', base), '/map', [
-	testdataServerPlugin({
-		registry: {
-			mapRegion,
-			mapName,
-			mapApiKey,
-			mapApiURL: new URL('/e2e/api/', base).toString(),
-			thingyWorldShadowsURL: new URL(
-				'/e2e/api/thingyWorldShadows',
-				base,
-			).toString(),
-			nrfCloudTeamId: randomUUID(),
-		},
-	}),
-])
+export default createConfig(
+	new URL('/e2e/api/', base),
+	new URL('/e2e/registry.json', base),
+	'/map',
+	[
+		testdataServerPlugin({
+			registry: {
+				mapRegion,
+				mapName,
+				mapApiKey,
+				thingyWorldShadowsURL: new URL(
+					'/e2e/api/thingyWorldShadows',
+					base,
+				).toString(),
+				nrfCloudTeamId: randomUUID(),
+			},
+		}),
+	],
+)

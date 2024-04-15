@@ -9,6 +9,7 @@ import {
 import { encloseWithSlash } from '../src/util/encloseWithSlash.ts'
 
 export const createConfig = (
+	apiURL: URL,
 	registryEndpoint: URL,
 	base: string,
 	plugins: PluginOption[] = [],
@@ -22,6 +23,7 @@ export const createConfig = (
 		BASE_URL: JSON.stringify(baseSlashed),
 		REPOSITORY_URL: JSON.stringify(repositoryUrl),
 		PROTO_VERSION: JSON.stringify(protoVersion),
+		API_URL: JSON.stringify(apiURL.toString()),
 	}
 	for (const [k, v] of Object.entries(define)) {
 		console.debug(`[vite define] ${k}:`, v)

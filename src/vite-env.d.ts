@@ -10,3 +10,4 @@ declare const REGISTRY_ENDPOINT: string
 declare const BASE_URL: string
 declare const REPOSITORY_URL: string
 declare const PROTO_VERSION: string
+declare const API_URL: string
