@@ -14,3 +14,13 @@ test('View source should display the build time', async ({ page }) => {
 	assert.equal(new Date(buildTime ?? '0').getTime() < Date.now(), true)
 	await page.getByRole('link', { name: 'Close' }).click()
 })
+
+test('view-source should display the version', async ({ page }) => {
+	await page.goto('/')
+	await page.getByRole('link', { name: 'View Source' }).click()
+	await page.locator('#view-source .scrollable').click()
+	await page.mouse.wheel(0, 1000)
+	await expect(page.getByTestId('backend-version')).toHaveText(
+		'0.0.0-development',
+	)
+})

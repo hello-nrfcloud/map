@@ -12,6 +12,11 @@ export const mockBackend = ({
 	return {
 		'/e2e/registry.json': (req, res) =>
 			sendJSON(res, generateRegistryResponse(registry)),
+		'/e2e/api/health': (req, res) =>
+			sendJSON(res, {
+				'@context': Context.named('api/health'),
+				version: '0.0.0-development',
+			}),
 		'/e2e/api/devices': (req, res) =>
 			sendJSON(res, {
 				'@context': Context.devices,
@@ -56,9 +61,11 @@ const sendJSON = (
 	res: ServerResponse<IncomingMessage>,
 	payload: Record<string, unknown>,
 ): void => {
-	console.debug(JSON.stringify(payload))
+	const payloadJSON = JSON.stringify(payload)
+	console.debug(`>`, payloadJSON)
 	res.setHeader('Content-type', 'application/json; charset=utf-8')
-	res.write(JSON.stringify(payload))
+	res.setHeader('Content-length', payloadJSON.length.toString())
+	res.write(payloadJSON)
 	res.end()
 }
 

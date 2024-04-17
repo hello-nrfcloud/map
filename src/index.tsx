@@ -4,8 +4,9 @@ import { ParametersProvider } from './context/Parameters.js'
 import { DevicesProvider } from './context/Devices.js'
 import { NavigationProvider } from './context/Navigation.js'
 import { AppUpdateProvider } from './context/AppUpdate.js'
-import { AllDevicesMapStateProvider } from './context/AllDeviceMapState.jsx'
-import { ViteEnvProvider } from './context/ViteEnv.tsx'
+import { AllDevicesMapStateProvider } from './context/AllDeviceMapState.js'
+import { ViteEnvProvider } from './context/ViteEnv.js'
+import { APIHealthProvider } from './context/APIHealth.js'
 
 import 'the-new-css-reset/css/reset.css'
 import './base.css'
@@ -21,13 +22,15 @@ render(
 		<ViteEnvProvider>
 			<AppUpdateProvider>
 				<ParametersProvider>
-					<DevicesProvider>
-						<NavigationProvider>
-							<AllDevicesMapStateProvider>
-								<MapApp />
-							</AllDevicesMapStateProvider>
-						</NavigationProvider>
-					</DevicesProvider>
+					<APIHealthProvider>
+						<DevicesProvider>
+							<NavigationProvider>
+								<AllDevicesMapStateProvider>
+									<MapApp />
+								</AllDevicesMapStateProvider>
+							</NavigationProvider>
+						</DevicesProvider>
+					</APIHealthProvider>
 				</ParametersProvider>
 			</AppUpdateProvider>
 		</ViteEnvProvider>

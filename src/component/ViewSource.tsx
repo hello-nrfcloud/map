@@ -1,3 +1,4 @@
+import { useAPIHealth } from '../context/APIHealth.tsx'
 import { useNavigation } from '../context/Navigation.js'
 import { useViteEnv } from '../context/ViteEnv.tsx'
 import { Close, ViewSource } from '../icons/LucideIcon.js'
@@ -10,6 +11,7 @@ const panelId = 'view-source'
 export const Sidebar = () => {
 	const { repositoryURL, version, buildTime } = useViteEnv()
 	const location = useNavigation()
+	const apiHealth = useAPIHealth()
 	return (
 		<Show when={location.current().panel === panelId}>
 			<SidebarContent id={panelId}>
@@ -83,10 +85,38 @@ export const Sidebar = () => {
 					</section>
 					<footer>
 						<p>
-							Version: <span data-testId="version">{version}</span>
+							Version: <code data-testId="version">{version}</code> &middot;{' '}
+							<a
+								href="https://github.com/hello-nrfcloud/map/releases"
+								target="_blank"
+							>
+								Release notes
+							</a>
 						</p>
 						<p>
-							Build time: <RelativeTime time={buildTime} class="build-time" />
+							built <RelativeTime time={buildTime} class="build-time" /> ago
+						</p>
+						<Show when={apiHealth() !== undefined}>
+							<p>
+								Backend version:{' '}
+								<code data-testId="backend-version">
+									{apiHealth()!.version}
+								</code>{' '}
+								&middot;{' '}
+								<a
+									href="https://github.com/hello-nrfcloud/map-backend/releases"
+									target="_blank"
+								>
+									Release notes
+								</a>
+							</p>
+						</Show>
+						<p>
+							©{' '}
+							<Show when={new Date().getFullYear() > 2024} fallback={2024}>
+								2024–{new Date().getFullYear()}
+							</Show>{' '}
+							Nordic Semiconductor. All rights reserved.
 						</p>
 					</footer>
 				</div>
