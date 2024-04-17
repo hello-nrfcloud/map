@@ -1,7 +1,7 @@
 import { Show, createSignal, onCleanup } from 'solid-js'
 import { useParameters } from '../context/Parameters.tsx'
 
-import { NoData } from '../icons/LucideIcon.tsx'
+import { NoConnection } from '../icons/LucideIcon.tsx'
 import './APIHealth.css'
 
 export const APIHealth = () => {
@@ -29,7 +29,7 @@ export const APIHealth = () => {
 	return (
 		<Show when={!apiHealthy()}>
 			<aside id="api-health-warning">
-				<NoData />
+				<NoConnection />
 				<strong>Not connected!</strong>
 			</aside>
 		</Show>

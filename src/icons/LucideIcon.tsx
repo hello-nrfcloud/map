@@ -31,6 +31,7 @@ import {
 	Hourglass,
 	CircleHelp,
 	ChevronRight,
+	ZapOff,
 } from 'lucide'
 import { For } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
@@ -114,6 +115,10 @@ export const Documentation = (props: LucideProps) => (
 
 export const NoData = (props: LucideProps) => (
 	<LucideIcon icon={CloudOff} {...props} />
+)
+
+export const NoConnection = (props: LucideProps) => (
+	<LucideIcon icon={ZapOff} {...props} />
 )
 
 export const Add = (props: LucideProps) => (
