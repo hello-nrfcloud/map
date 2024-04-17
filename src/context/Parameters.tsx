@@ -15,6 +15,8 @@ export type Registry = {
 
 export type Parameters = {
 	nrfCloudTeamId: string
+	// General API resources
+	apiHealthURL: URL
 	// Map sharing
 	devicesAPIURL: URL
 	shareAPIURL: URL
@@ -46,6 +48,7 @@ export const fetchParameters =
 				shareAPIURL: new URL('./share', apiURL),
 				confirmOwnershipAPIURL: new URL('./share/confirm', apiURL),
 				createCredentialsAPIURL: new URL('./credentials', apiURL),
+				apiHealthURL: new URL('./health', apiURL),
 				nrfCloudTeamId: 'bbfe6b73-a46a-43ad-94bd-8e4b4a7847ce',
 			}
 			for (const [k, v] of Object.entries(parsed)) {

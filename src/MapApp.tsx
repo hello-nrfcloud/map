@@ -1,3 +1,4 @@
+import { APIHealth } from './component/APIHealth.tsx'
 import { AllDevicesMap } from './component/AllDevicesMap/AllDevicesMap.js'
 import { UpdateAvailable } from './component/AppUpdate.tsx'
 import { NordicHeader } from './component/NordicHeader.jsx'
@@ -7,6 +8,7 @@ import { Tutorial } from './component/Tutorial.js'
 export const MapApp = () => {
 	return (
 		<>
+			<APIHealth />
 			<UpdateAvailable />
 			<NordicHeader />
 			<Sidebar />
