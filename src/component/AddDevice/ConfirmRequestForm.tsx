@@ -1,15 +1,18 @@
 import { Show, createEffect, createSignal, createResource } from 'solid-js'
 import { noop } from '../../util/noop.js'
 import { useParameters } from '../../context/Parameters.js'
-import type { ShareDeviceRequest } from '../../resources/shareDevice.ts'
-import {
-	type OwnershipConfirmed,
-	confirmRequest,
-} from '../../resources/confirmRequest.js'
+import { confirmRequest } from '../../resources/confirmRequest.js'
+import type {
+	ShareDeviceOwnershipConfirmed,
+	ShareDeviceRequest,
+} from '@hello.nrfcloud.com/proto-map/api'
+import type { Static } from '@sinclair/typebox'
 
 export const ConfirmRequestForm = (props: {
-	request: ShareDeviceRequest
-	onConfirmed: (confirmation: OwnershipConfirmed) => void
+	request: Static<typeof ShareDeviceRequest>
+	onConfirmed: (
+		confirmation: Static<typeof ShareDeviceOwnershipConfirmed>,
+	) => void
 }) => {
 	let codeInput!: HTMLInputElement
 
@@ -34,7 +37,7 @@ export const ConfirmRequestForm = (props: {
 	return (
 		<section class="boxed bg-light pad add-device-flow">
 			<p>
-				Before you can generate device credentials, you need to confirm your
+				Before your device's data can be published, you need to confirm your
 				email address.
 			</p>
 			<form onSubmit={noop} class="pad-t">

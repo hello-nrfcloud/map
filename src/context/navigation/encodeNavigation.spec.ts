@@ -1,7 +1,7 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
 import { SearchTermType } from '../../search.ts'
-import { encode, decode } from './encodeNavigation.js'
+import { encode, decode, type Navigation } from './encodeNavigation.js'
 import { ModelID } from '@hello.nrfcloud.com/proto-map'
 
 void describe('encode() / decode()', () => {
@@ -137,4 +137,17 @@ void describe('encode() / decode()', () => {
 				toggled: ['foo', 'bar'],
 			},
 		))
+
+	void it('should encode a query string', () => {
+		const { query } = decode(
+			encode({
+				query: new URLSearchParams({
+					fingerprint: '29a.rarm8b',
+					model: 'PCA20035:solar',
+				}),
+			}),
+		) as Navigation
+		assert.equal(query?.get('fingerprint'), '29a.rarm8b')
+		assert.equal(query?.get('model'), 'PCA20035:solar')
+	})
 })

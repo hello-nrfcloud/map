@@ -1,7 +1,13 @@
 import { Context } from '@hello.nrfcloud.com/proto-map/api'
+import { Context as HelloContext } from '@hello.nrfcloud.com/proto/hello'
 import type { IncomingMessage, ServerResponse } from 'http'
 import type { Connect } from 'vite'
 import type { Registry } from '../../src/context/Parameters.tsx'
+import http from 'node:http'
+import { randomUUID } from 'crypto'
+
+const deviceIdentities: Record<string, string> = {}
+const publicDeviceIds: Record<string, string> = {}
 
 export const mockBackend = ({
 	registry,
@@ -27,11 +33,49 @@ export const mockBackend = ({
 				'@context': Context.devices,
 				devices: [],
 			}),
+		'/e2e/hello-api/device': (req, res) => {
+			const fingerprint = new URLSearchParams(
+				req.originalUrl?.split('?')[1],
+			).get('fingerprint')
+			if (fingerprint === null) return anError(res, 400)
+			if (deviceIdentities[fingerprint] === undefined) {
+				deviceIdentities[fingerprint] =
+					`oob-${352656166600000 + Math.floor(Math.random() * 100_000)}`
+			}
+			return sendJSON(res, {
+				'@context': HelloContext.deviceIdentity,
+				id: deviceIdentities[fingerprint],
+				model: 'PCA20035+solar',
+			})
+		},
+		'/e2e/api/share/confirm': async (req, res) => {
+			const { token, deviceId } = await getJSON(req)
+			if (token !== 'ABCDEF') return anError(res, 400)
+			return sendJSON(res, {
+				'@context': Context.shareDevice.ownershipConfirmed,
+				id: publicDeviceIds[deviceId],
+			})
+		},
+		'/e2e/api/share': async (req, res) => {
+			const { fingerprint } = await getJSON(req)
+			const deviceId = deviceIdentities[fingerprint]
+			if (deviceId === undefined) {
+				return anError(res, 404)
+			}
+			const id = randomUUID()
+			publicDeviceIds[deviceId] = id
+			return sendJSON(res, {
+				'@context': Context.shareDevice.request,
+				id,
+				deviceId,
+			})
+		},
 		'/map/.well-known/release': (req, res) => {
 			res.setHeader('Content-type', 'text/plain; charset=utf-8')
 			res.write(release)
 			res.end()
 		},
+		// Modifies the internal state of the mock backend
 		'/api/release': (req, res) => {
 			if (req.method === 'PUT')
 				req.on('data', (d) => {
@@ -78,3 +122,29 @@ export const mockBackendApi = {
 		})
 	},
 }
+
+export const anError = (
+	res: ServerResponse<IncomingMessage>,
+	statusCode: number,
+): void => {
+	res.statusCode = statusCode
+	res.end()
+}
+
+const getJSON = async (
+	req: http.IncomingMessage,
+): Promise<Record<string, any>> =>
+	new Promise((resolve, reject) => {
+		let requestData = ''
+		req.on('data', (data) => {
+			requestData += data
+		})
+		req.on('end', () => {
+			try {
+				const jsonData = JSON.parse(requestData)
+				resolve(jsonData)
+			} catch (error) {
+				reject(error)
+			}
+		})
+	})

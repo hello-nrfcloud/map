@@ -1,13 +1,17 @@
 import { CopyToClipboardButton } from './CopyToClipboardButton.js'
 
-export const CopyableProp = (props: { name: string; value: string }) => (
+export const CopyableProp = (props: {
+	name: string
+	value: string
+	['data-testId']?: string
+}) => (
 	<>
 		<dt>
 			<span>{props.name}</span>
 			<CopyToClipboardButton value={props.value} />
 		</dt>
 		<dd>
-			<pre>{props.value}</pre>
+			<pre data-testId={props['data-testId']}>{props.value}</pre>
 		</dd>
 	</>
 )

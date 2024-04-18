@@ -11,6 +11,8 @@ export type Registry = {
 	mapRegion: string
 	// world.thingy.rocks legacy
 	thingyWorldShadowsURL: string
+	// Backend API
+	helloApiURL: string
 }
 
 export type Parameters = {
@@ -30,6 +32,8 @@ export type Parameters = {
 	mapName: string
 	mapApiKey: string
 	mapRegion: string
+	// Backend API
+	helloApiURL: URL
 }
 
 export const fetchParameters =
@@ -37,7 +41,13 @@ export const fetchParameters =
 		try {
 			const res = await fetch(registryURL)
 			const params: Registry = await res.json()
-			const { thingyWorldShadowsURL, mapName, mapApiKey, mapRegion } = params
+			const {
+				thingyWorldShadowsURL,
+				mapName,
+				mapApiKey,
+				mapRegion,
+				helloApiURL,
+			} = params
 			const parsed: Parameters = {
 				devicesAPIURL: new URL('./devices', apiURL),
 				thingyWorldShadowsURL: new URL(thingyWorldShadowsURL),
@@ -50,6 +60,7 @@ export const fetchParameters =
 				createCredentialsAPIURL: new URL('./credentials', apiURL),
 				apiHealthURL: new URL('./health', apiURL),
 				nrfCloudTeamId: 'bbfe6b73-a46a-43ad-94bd-8e4b4a7847ce',
+				helloApiURL: new URL(helloApiURL),
 			}
 			for (const [k, v] of Object.entries(parsed)) {
 				console.debug(`[Parameters]`, k, v instanceof URL ? v.toString() : v)

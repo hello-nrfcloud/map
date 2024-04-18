@@ -56,7 +56,7 @@ export const NavigationProvider = (props: ParentProps) => {
 			document.location.href,
 		).toString()
 
-	const linkToHome = () => link({ panel: 'world' })
+	const linkToHome = () => link({ panel: 'world', query: undefined })
 
 	const hasResource = (resource: PinnedResource) =>
 		(location().pinnedResources ?? []).find(

@@ -1,23 +1,17 @@
 import { useNavigation } from '../context/Navigation.js'
 import { Close, Add } from '../icons/LucideIcon.js'
 import { SidebarContent } from './Sidebar.js'
-import { Show, createSignal, For } from 'solid-js'
-import { AddDeviceForm } from './AddDevice/AddDeviceForm.js'
-import { type ShareDeviceRequest } from '../resources/shareDevice.ts'
-import { ConfirmRequestForm } from './AddDevice/ConfirmRequestForm.js'
-import { type OwnershipConfirmed } from '../resources/confirmRequest.js'
-
-import { CreateDeviceCredentialsForm } from './AddDevice/CreateCredentials.js'
-import { type DeviceCredentials } from '../resources/createCredentials.js'
-import { CopyableProp } from './CopyableProp.js'
-import { DescribeConnectionSettings } from './DescribeConnectionSettings.js'
+import { Show } from 'solid-js'
 
 import './AddDevice.css'
+import { AddCustomDeviceFlow } from './AddDevice/AddCustomDeviceFlow.tsx'
+import { AddDeviceByFingerprintFlow } from './AddDevice/AddDeviceByFingerprintFlow.tsx'
 
 const panelId = 'add-device'
 
 export const Sidebar = () => {
 	const location = useNavigation()
+	const fingerprint = location.current().query?.get('fingerprint')
 	return (
 		<Show when={location.current().panel === panelId}>
 			<SidebarContent class="add-device" id={panelId}>
@@ -40,7 +34,12 @@ export const Sidebar = () => {
 							devices to the map.
 						</p>
 					</section>
-					<AddDeviceFlow />
+					<Show
+						when={fingerprint !== undefined}
+						fallback={<AddCustomDeviceFlow />}
+					>
+						<AddDeviceByFingerprintFlow fingerprint={fingerprint!} />
+					</Show>
 				</div>
 			</SidebarContent>
 		</Show>
@@ -68,113 +67,3 @@ export const SidebarButton = () => {
 		</>
 	)
 }
-
-const AddDeviceFlow = () => {
-	const [shareDeviceRequest, setShareDeviceRequest] =
-		createSignal<ShareDeviceRequest>()
-	const [confirmed, setConfirmed] = createSignal<OwnershipConfirmed>()
-	const location = useNavigation()
-	const [credentials, setCredentials] = createSignal<DeviceCredentials>()
-	return (
-		<>
-			<Show
-				when={
-					shareDeviceRequest() === undefined &&
-					confirmed() === undefined &&
-					credentials() === undefined
-				}
-			>
-				<AddDeviceForm onRequest={setShareDeviceRequest} />
-			</Show>
-			<Show
-				when={
-					shareDeviceRequest() !== undefined &&
-					confirmed() === undefined &&
-					credentials() === undefined
-				}
-			>
-				<section class="boxed bg-light pad add-device-flow">
-					<header>
-						<h2>Great!</h2>
-					</header>
-					<div class="pad-t">
-						<p>A new device was registered.</p>
-						<dl>
-							<CopyableProp
-								name={'Device ID'}
-								value={shareDeviceRequest()!.deviceId}
-							/>
-							<CopyableProp
-								name={'Public ID'}
-								value={shareDeviceRequest()!.id}
-							/>
-						</dl>
-					</div>
-				</section>
-				<ConfirmRequestForm
-					request={shareDeviceRequest()!}
-					onConfirmed={setConfirmed}
-				/>
-			</Show>
-			<Show
-				when={
-					shareDeviceRequest() !== undefined &&
-					confirmed() !== undefined &&
-					credentials() === undefined
-				}
-			>
-				<section class="boxed bg-light pad add-device-flow">
-					<header>
-						<h2>Awesome!</h2>
-					</header>
-					<div class="pad-t">
-						<p>We will now show data sent by the device on the map.</p>
-						<p>
-							Here is a link to your device:{' '}
-							<a href={location.link({ panel: `id:${confirmed()!.id}` })}>
-								<code>{confirmed()!.id}</code>
-							</a>
-						</p>
-					</div>
-				</section>
-				<CreateDeviceCredentialsForm
-					device={shareDeviceRequest()!}
-					onCredentials={setCredentials}
-				/>
-			</Show>
-			<Show
-				when={credentials() !== undefined && shareDeviceRequest() !== undefined}
-			>
-				<DescribeCredentials credentials={credentials()!} />
-				<section>
-					<DescribeConnectionSettings
-						deviceId={shareDeviceRequest()!.deviceId}
-					/>
-				</section>
-			</Show>
-		</>
-	)
-}
-
-const DescribeCredentials = (props: { credentials: DeviceCredentials }) => (
-	<section class="boxed bg-light pad add-device-flow">
-		<header>
-			<h2>Fantastic!</h2>
-		</header>
-		<div class="pad-t">
-			<p>Use these credentials to connect your device.</p>
-			<dl>
-				<For
-					each={
-						[
-							['Private Key', props.credentials.credentials.privateKey],
-							['Certificate', props.credentials.credentials.certificate],
-						] as Array<[string, string]>
-					}
-				>
-					{([k, v]) => <CopyableProp name={k} value={v} />}
-				</For>
-			</dl>
-		</div>
-	</section>
-)

@@ -25,6 +25,8 @@
   --color-border-active: #31f3c4;
   --color-form-bg: #333;
   --color-form-border-default: #222;
+  --color-progress-fg: #305074;
+  --color-progress-bg: #283b5e;
   --base-size-navbar: 40px;
   --regular-font-family: "Inter Tight", sans-serif;
   --condensed-font-family: "Roboto Condensed", sans-serif;
@@ -256,4 +258,14 @@ form footer {
   display: flex;
   justify-content: end;
   margin-top: var(--gap-medium);
+}
+
+/* UL */
+ul {
+  margin-bottom: var(--gap-medium);
+  list-style: circle;
+}
+ul li {
+  margin-left: 1.5rem;
+  margin-bottom: 0.25rem;
 }

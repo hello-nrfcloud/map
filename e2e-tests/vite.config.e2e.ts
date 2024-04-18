@@ -26,6 +26,7 @@ export default createConfig(
 					base,
 				).toString(),
 				nrfCloudTeamId: randomUUID(),
+				helloApiURL: new URL('/e2e/hello-api/', base).toString(),
 			},
 		}),
 	],

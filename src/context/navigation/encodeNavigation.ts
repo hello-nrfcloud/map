@@ -23,6 +23,7 @@ export type Navigation = {
 	map?: NavigationMapState
 	help?: string
 	toggled: string[]
+	query?: URLSearchParams
 }
 
 enum FieldKey {
@@ -40,8 +41,11 @@ export const encode = (
 ): string | undefined => {
 	if (navigation === undefined) return ''
 	const parts = []
-	const { panel, search, pinnedResources, map, help, toggled } = navigation
-	parts.push(panel)
+	const { panel, search, pinnedResources, map, help, toggled, query } =
+		navigation
+	let panelWithQuery = `${panel ?? ''}`
+	if (query !== undefined) panelWithQuery += '?' + query.toString()
+	parts.push(panelWithQuery)
 	if (search !== undefined && search.length > 0) {
 		parts.push(
 			...[
@@ -80,10 +84,22 @@ export const encode = (
 export const decode = (encoded?: string): Navigation | undefined => {
 	if (encoded === undefined) return undefined
 	if (encoded.length === 0) return undefined
-	const [panel, ...rest] = encoded.split(sep)
+	const [panelWithQuery, ...rest] = encoded.split(sep)
+	if (panelWithQuery === undefined) return undefined
+	const [panel, queryString] = panelWithQuery.split('?', 2)
+	let query: URLSearchParams | undefined = undefined
+	if (queryString !== undefined) query = new URLSearchParams(queryString)
 	if (panel === undefined) return undefined
-	if (rest.length === 0)
-		return { panel, search: [], pinnedResources: [], toggled: [] }
+	if (rest.length === 0) {
+		const nav: Navigation = {
+			panel,
+			search: [],
+			pinnedResources: [],
+			toggled: [],
+		}
+		if (query !== undefined) nav.query = query
+		return nav
+	}
 	const nav: Navigation = {
 		panel,
 		search: rest
@@ -113,6 +129,7 @@ export const decode = (encoded?: string): Navigation | undefined => {
 			.filter((t): t is PinnedResource => t !== undefined),
 		toggled: [],
 	}
+	if (query !== undefined) nav.query = query
 
 	const mapState = rest.find((s) => s.split(':', 2)[0] === FieldKey.Map)
 	if (mapState !== undefined) {

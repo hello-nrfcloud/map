@@ -6,7 +6,7 @@ import { createMemo, For, Show } from 'solid-js'
 import { byId, useDevices } from '../context/Devices.js'
 import { useNavigation } from '../context/Navigation.js'
 import { Device as DeviceIcon } from '../icons/Device.js'
-import { Close, NoData } from '../icons/LucideIcon.js'
+import { Close } from '../icons/LucideIcon.js'
 import { type Device } from '../resources/fetchDevices.js'
 import {
 	isBatteryAndPower,
@@ -58,9 +58,6 @@ export const DeviceSidebar = () => {
 				<header class="pad">
 					<h1>
 						<span>{deviceId()}</span>
-						<Show when={selectedDevice() === undefined}>
-							<NoData strokeWidth={1} size={20} />
-						</Show>
 					</h1>
 					<a href={location.linkToHome()} class="close">
 						<Close size={20} />

@@ -29,6 +29,13 @@ aside.device header h1 .icon {
 .sidebar.device h1 {
   font-family: var(--condensed-font-family);
   font-weight: 100;
+  max-width: calc(100% - var(--gap));
+}
+
+.sidebar.device h1 span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .sidebar.device .info-block {

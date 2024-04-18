@@ -1,13 +1,13 @@
-import type { ShareDeviceRequest } from './shareDevice.ts'
-
-export type OwnershipConfirmed = {
-	'@context': 'https://github.com/hello-nrfcloud/proto-map/share-device-ownership-confirmed'
-	// Public ID
-	id: string // e.g. "driveway-addition-fecifork"
-}
+import type {
+	ShareDeviceRequest,
+	ShareDeviceOwnershipConfirmed,
+} from '@hello.nrfcloud.com/proto-map/api'
+import type { Static } from '@sinclair/typebox'
 export const confirmRequest =
-	(url: URL, request: ShareDeviceRequest) =>
-	async (token: string): Promise<OwnershipConfirmed> => {
+	(url: URL, request: Static<typeof ShareDeviceRequest>) =>
+	async (
+		token: string,
+	): Promise<Static<typeof ShareDeviceOwnershipConfirmed>> => {
 		try {
 			return (
 				await fetch(url, {

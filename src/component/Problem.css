@@ -1,0 +1,21 @@
+aside.problem {
+  width: 100%;
+  background-color: var(--bg-blue-5);
+  border: 2px solid var(--color-warning-darker);
+  border-radius: calc(var(--border-radius));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+aside.problem h1 {
+  background-color: var(--color-warning);
+  padding: var(--gap-medium);
+  color: var(--color-warning-text);
+  border-bottom: 1px solid var(--color-warning-darker);
+}
+aside.problem p {
+  padding: var(--gap-medium);
+  background-color: var(--color-warning-dark);
+  color: var(--color-warning-text);
+}
