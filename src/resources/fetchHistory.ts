@@ -1,8 +1,12 @@
-import {
-	type LwM2MObjectID,
-	type LwM2MObjectInstance,
-} from '@hello.nrfcloud.com/proto-map'
+import { type LwM2MObjectID } from '@hello.nrfcloud.com/proto-map'
+import { ResourceHistory } from '@hello.nrfcloud.com/proto-map/api'
+import { typedFetch } from '@hello.nrfcloud.com/proto/hello'
+import type { Static } from '@sinclair/typebox'
 import type { Device } from './fetchDevices.js'
+
+const fetchResourceHistory = typedFetch({
+	responseBodySchema: ResourceHistory,
+})
 
 export const fetchHistory =
 	(
@@ -17,18 +21,7 @@ export const fetchHistory =
 			ObjectID: LwM2MObjectID
 		},
 	) =>
-	async (): Promise<{
-		// FIXME: add to proto-map
-		'@context': 'https://github.com/hello-nrfcloud/proto-map/history'
-		partialInstances: Array<LwM2MObjectInstance['Resources'] & { ts: string }>
-		query: {
-			InstanceID: number
-			ObjectID: LwM2MObjectID
-			ObjectVersion: string // e.g. '1.0'
-			binIntervalMinutes: number // e.g. 15
-			deviceId: string // e.g. 'pentacid-coxalgia-backheel'
-		}
-	}> => {
+	async (): Promise<Static<typeof ResourceHistory>> => {
 		const queryURL = new URL(
 			`?${new URLSearchParams({
 				deviceId: device.id,
@@ -36,11 +29,11 @@ export const fetchHistory =
 			}).toString()}`,
 			url,
 		)
-		try {
-			return (await fetch(queryURL)).json()
-		} catch (err) {
+		const res = await fetchResourceHistory(queryURL)
+		if ('error' in res) {
 			throw new Error(
-				`Failed to fetch history (${queryURL.toString()}): ${(err as Error).message}!`,
+				`Failed to fetch history (${queryURL.toString()}): ${JSON.stringify(res.error)}!`,
 			)
 		}
+		return res.result
 	}

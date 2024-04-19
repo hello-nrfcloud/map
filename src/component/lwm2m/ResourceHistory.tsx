@@ -10,9 +10,9 @@ import type { Device } from '../../resources/fetchDevices.js'
 import { useParameters } from '../../context/Parameters.js'
 import { SizeObserver } from '../SizeObserver.js'
 import { HistoryChart } from '../chart/HistoryChart.js'
+import { fetchHistory } from '../../resources/fetchHistory.js'
 
 import './ResourceHistory.css'
-import { fetchHistory } from '../../resources/fetchHistory.js'
 
 const tsResource = (ObjectID: LwM2MObjectID): number => {
 	const definition = definitions[ObjectID]
@@ -35,9 +35,11 @@ export const ResourceHistory = (props: {
 		const ts = tsResource(props.ObjectID)
 		return (history()?.partialInstances ?? [])
 			.filter((partial) => partial[props.resource.ResourceID] !== undefined)
-			.map<
-				[number, Date]
-			>((partial) => [partial[props.resource.ResourceID] as number, new Date(partial[ts] as number)])
+			.map<[number, Date]>((partial) => [
+				partial[props.resource.ResourceID] as number,
+				new Date(partial[ts] as number),
+			])
+			.sort(([, a], [, b]) => b.getTime() - a.getTime())
 	})
 
 	return (
