@@ -54,7 +54,7 @@ export const AllDevicesMap = () => {
 	})
 
 	const matchedDevices = createMemo(() => {
-		console.log('[World]', 'update devices')
+		console.debug('[AllDevicesMap]', 'update devices')
 		return allDevices().filter(matches(searchConfig.search))
 	})
 	const [mapLoaded, setMapLoaded] = createSignal<boolean>(false)
@@ -70,7 +70,7 @@ export const AllDevicesMap = () => {
 
 	// FIXME: decide what should be used as the "center" of the device
 	const deviceLocations = createMemo(() => {
-		console.log('[World]', `update location`)
+		console.debug('[AllDevicesMap]', `update location`)
 		return matchedDevices()
 			.map<DeviceInfo | undefined>((device) => {
 				const newestLocation = (device.state ?? [])
