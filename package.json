@@ -36,7 +36,7 @@
     "@nordicsemiconductor/from-env": "3.0.1",
     "@playwright/test": "1.43.1",
     "@types/node": "20.12.7",
-    "commitlint": "19.2.2",
+    "commitlint": "19.3.0",
     "eslint-plugin-jsx-a11y": "6.8.0",
     "glob": "10.3.12",
     "globstar": "1.0.0",
