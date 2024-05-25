@@ -1,7 +1,7 @@
 import {
 	instanceTs,
 	type LwM2MObjectInstance,
-} from '@hello.nrfcloud.com/proto-map'
+} from '@hello.nrfcloud.com/proto-map/lwm2m'
 
 export const newestInstanceFirst = (
 	i1: LwM2MObjectInstance,

@@ -1,7 +1,5 @@
-import {
-	ModelID,
-	type LwM2MObjectInstance,
-} from '@hello.nrfcloud.com/proto-map'
+import { type LwM2MObjectInstance } from '@hello.nrfcloud.com/proto-map/lwm2m'
+import type { ModelID } from '@hello.nrfcloud.com/proto-map/models'
 import { createMemo, For, Show } from 'solid-js'
 import { byId, useDevices } from '../context/Devices.js'
 import { useNavigation } from '../context/Navigation.js'

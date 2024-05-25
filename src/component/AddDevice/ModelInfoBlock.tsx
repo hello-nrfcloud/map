@@ -1,4 +1,4 @@
-import { models } from '@hello.nrfcloud.com/proto-map'
+import { models } from '@hello.nrfcloud.com/proto-map/models'
 import { For } from 'solid-js'
 import { useViteEnv } from '../../context/ViteEnv.tsx'
 import { InfoBlock } from '../InfoBlock.js'

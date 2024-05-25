@@ -10,7 +10,7 @@ test('Add an out-of-box experience device using its fingerprint', async ({
 		`/#add-device?${new URLSearchParams({ fingerprint }).toString()}`,
 	)
 	await expect(page.getByTestId('device-model')).toBeVisible()
-	await expect(page.getByTestId('device-model')).toHaveText('PCA20035+solar')
+	await expect(page.getByTestId('device-model')).toHaveText('thingy91x')
 	await expect(page.getByTestId('device-deviceId')).toBeVisible()
 	await expect(page.getByTestId('device-deviceId')).toHaveText(
 		/oob-3526561666[0-9]+/,

@@ -1,10 +1,10 @@
+import type { LwM2MObjectID } from '@hello.nrfcloud.com/proto-map/lwm2m'
 import {
-	LwM2MObjectID,
 	ResourceType,
 	type LwM2MResourceInfo,
 	type LwM2MResourceValue,
-	ModelID,
-} from '@hello.nrfcloud.com/proto-map'
+} from '@hello.nrfcloud.com/proto-map/lwm2m'
+import type { ModelID } from '@hello.nrfcloud.com/proto-map/models'
 import { Show, createSignal } from 'solid-js'
 import type { Device } from '../../resources/fetchDevices.js'
 import { useNavigation } from '../../context/Navigation.js'

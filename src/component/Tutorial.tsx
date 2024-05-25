@@ -10,7 +10,7 @@ import { Expand } from '../icons/LucideIcon.jsx'
 
 import './Tutorial.css'
 import { SearchTermType } from '../search.ts'
-import { ModelID } from '@hello.nrfcloud.com/proto-map'
+import { ModelID } from '@hello.nrfcloud.com/proto-map/models'
 
 export const Tutorial = () => {
 	const location = useNavigation()

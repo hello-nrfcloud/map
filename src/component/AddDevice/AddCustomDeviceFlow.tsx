@@ -1,6 +1,6 @@
 import { Show, createSignal } from 'solid-js'
 import { AddDeviceForm } from './AddDeviceForm.tsx'
-import {
+import type {
 	ShareDeviceOwnershipConfirmed,
 	ShareDeviceRequest,
 } from '@hello.nrfcloud.com/proto-map/api'

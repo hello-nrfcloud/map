@@ -1,4 +1,4 @@
-import { models } from '@hello.nrfcloud.com/proto-map'
+import type { models } from '@hello.nrfcloud.com/proto-map/models'
 import {
 	Show,
 	createEffect,

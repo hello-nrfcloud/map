@@ -1,7 +1,7 @@
 import {
 	definitions,
 	type LwM2MObjectInstance,
-} from '@hello.nrfcloud.com/proto-map'
+} from '@hello.nrfcloud.com/proto-map/lwm2m'
 import { useNavigation } from '../../context/Navigation.js'
 import { SearchTermType } from '../../search.ts'
 import { Documentation, Search, ViewSource } from '../../icons/LucideIcon.js'

@@ -3,7 +3,7 @@ import { Context as HelloContext } from '@hello.nrfcloud.com/proto/hello'
 import type { IncomingMessage, ServerResponse } from 'http'
 import type { Connect } from 'vite'
 import type { Registry } from '../../src/context/Parameters.tsx'
-import http from 'node:http'
+import type http from 'node:http'
 import { randomUUID } from 'crypto'
 
 const deviceIdentities: Record<string, string> = {}
@@ -45,7 +45,7 @@ export const mockBackend = ({
 			return sendJSON(res, {
 				'@context': HelloContext.deviceIdentity,
 				id: deviceIdentities[fingerprint],
-				model: 'PCA20035+solar',
+				model: 'thingy91x',
 			})
 		},
 		'/e2e/api/share/confirm': async (req, res) => {

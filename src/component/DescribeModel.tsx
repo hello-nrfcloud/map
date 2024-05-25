@@ -1,4 +1,5 @@
-import { ModelID, models } from '@hello.nrfcloud.com/proto-map'
+import type { ModelID } from '@hello.nrfcloud.com/proto-map/models'
+import { models } from '@hello.nrfcloud.com/proto-map/models'
 import { useNavigation } from '../context/Navigation.js'
 import { SearchTermType } from '../search.ts'
 import { Documentation, Search, ViewSource } from '../icons/LucideIcon.js'

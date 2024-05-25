@@ -1,11 +1,10 @@
-import { type LwM2MObjectID } from '@hello.nrfcloud.com/proto-map'
-import { ResourceHistory } from '@hello.nrfcloud.com/proto-map/api'
-import { typedFetch } from '@hello.nrfcloud.com/proto/hello'
+import { type LwM2MObjectID } from '@hello.nrfcloud.com/proto-map/lwm2m'
+import { typedFetch, LwM2MObjectHistory } from '@hello.nrfcloud.com/proto/hello'
 import type { Static } from '@sinclair/typebox'
 import type { Device } from './fetchDevices.js'
 
 const fetchResourceHistory = typedFetch({
-	responseBodySchema: ResourceHistory,
+	responseBodySchema: LwM2MObjectHistory,
 })
 
 export const fetchHistory =
@@ -21,7 +20,7 @@ export const fetchHistory =
 			ObjectID: LwM2MObjectID
 		},
 	) =>
-	async (): Promise<Static<typeof ResourceHistory>> => {
+	async (): Promise<Static<typeof LwM2MObjectHistory>> => {
 		const queryURL = new URL(
 			`?${new URLSearchParams({
 				deviceId: device.id,

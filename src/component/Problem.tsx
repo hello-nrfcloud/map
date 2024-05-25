@@ -1,6 +1,6 @@
 import { type ParentProps } from 'solid-js'
 import { Warning } from '../icons/LucideIcon.tsx'
-import { ProblemDetail } from '@hello.nrfcloud.com/proto/hello'
+import type { ProblemDetail } from '@hello.nrfcloud.com/proto/hello'
 import type { Static } from '@sinclair/typebox'
 import './Problem.css'
 

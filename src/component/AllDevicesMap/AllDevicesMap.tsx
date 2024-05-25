@@ -2,13 +2,10 @@ import {
 	LwM2MObjectID,
 	type Geolocation_14201,
 	definitions,
-} from '@hello.nrfcloud.com/proto-map'
-import { isLwM2MObjectID } from '@hello.nrfcloud.com/proto-map'
-import {
-	Map as MapLibreGlMap,
-	MapMouseEvent,
-	type MapGeoJSONFeature,
-} from 'maplibre-gl'
+} from '@hello.nrfcloud.com/proto-map/lwm2m'
+import { isLwM2MObjectID } from '@hello.nrfcloud.com/proto-map/lwm2m'
+import type { Map as MapLibreGlMap, MapMouseEvent } from 'maplibre-gl'
+import { type MapGeoJSONFeature } from 'maplibre-gl'
 import { onCleanup, createMemo, createSignal, createEffect } from 'solid-js'
 import { useDevices } from '../../context/Devices.js'
 import { type Device } from '../../resources/fetchDevices.js'

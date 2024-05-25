@@ -1,10 +1,8 @@
 import { isSearchTermType, type SearchTerm } from '../../search.ts'
 import { isModel } from '../../util/isModel.ts'
-import {
-	isLwM2MObjectID,
-	LwM2MObjectID,
-	ModelID,
-} from '@hello.nrfcloud.com/proto-map'
+import type { LwM2MObjectID } from '@hello.nrfcloud.com/proto-map/lwm2m'
+import { isLwM2MObjectID } from '@hello.nrfcloud.com/proto-map/lwm2m'
+import type { ModelID } from '@hello.nrfcloud.com/proto-map/models'
 
 export type PinnedResource = {
 	model: ModelID

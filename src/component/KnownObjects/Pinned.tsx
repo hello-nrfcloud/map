@@ -1,13 +1,13 @@
 import { PinOnMap } from '../../icons/LucideIcon.js'
 import { For, createMemo } from 'solid-js'
+import type { LwM2MObjectID } from '@hello.nrfcloud.com/proto-map/lwm2m'
 import {
 	definitions,
 	type LwM2MResourceInfo,
 	type LwM2MResourceValue,
-	LwM2MObjectID,
 	instanceTs,
-} from '@hello.nrfcloud.com/proto-map'
-import { isLwM2MObjectID } from '@hello.nrfcloud.com/proto-map'
+} from '@hello.nrfcloud.com/proto-map/lwm2m'
+import { isLwM2MObjectID } from '@hello.nrfcloud.com/proto-map/lwm2m'
 import type { Device } from '../../resources/fetchDevices.js'
 import { ResourcesDL } from '../ResourcesDL.js'
 import { DescribeResource } from '../lwm2m/DescribeResource.js'

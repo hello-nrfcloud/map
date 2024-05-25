@@ -2,7 +2,7 @@ import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
 import { SearchTermType } from '../../search.ts'
 import { encode, decode, type Navigation } from './encodeNavigation.js'
-import { ModelID } from '@hello.nrfcloud.com/proto-map'
+import { ModelID } from '@hello.nrfcloud.com/proto-map/models'
 
 void describe('encode() / decode()', () => {
 	void it('should encode an empty state', () => assert.equal(encode(), ''))
@@ -56,7 +56,7 @@ void describe('encode() / decode()', () => {
 					panel: 'id:42',
 					pinnedResources: [
 						{
-							model: ModelID.PCA20035_solar,
+							model: ModelID.Thingy91x,
 							ObjectID: 14204,
 							ResourceID: 4,
 						},
@@ -68,7 +68,7 @@ void describe('encode() / decode()', () => {
 				search: [],
 				pinnedResources: [
 					{
-						model: 'PCA20035+solar',
+						model: 'thingy91x',
 						ObjectID: 14204,
 						ResourceID: 4,
 					},

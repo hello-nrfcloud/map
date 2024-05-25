@@ -1,4 +1,4 @@
-import { ModelID } from '@hello.nrfcloud.com/proto-map'
+import type { ModelID } from '@hello.nrfcloud.com/proto-map/models'
 import type { ShareDeviceRequest } from '@hello.nrfcloud.com/proto-map/api'
 import type { Static } from '@sinclair/typebox'
 

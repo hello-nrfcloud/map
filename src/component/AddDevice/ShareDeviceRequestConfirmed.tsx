@@ -1,6 +1,6 @@
 import { useNavigation } from '../../context/Navigation.tsx'
 import type { ParentProps } from 'solid-js'
-import { ShareDeviceOwnershipConfirmed } from '@hello.nrfcloud.com/proto-map/api'
+import type { ShareDeviceOwnershipConfirmed } from '@hello.nrfcloud.com/proto-map/api'
 import { type Static } from '@sinclair/typebox'
 
 export const ShareDeviceRequestConfirmed = (
