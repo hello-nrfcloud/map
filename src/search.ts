@@ -48,9 +48,10 @@ const termMatchesDevice = (term: SearchTerm, device: Device) => {
 			tokens.push(
 				...(device.state ?? [])
 					.map(({ ObjectID, Resources }) =>
-						Object.entries(Resources).map(
-							([ResourceId, Value]) => `${ObjectID}/${ResourceId}=${Value}`,
-						),
+						Object.entries(Resources).map(([ResourceId, Value]) => {
+							if (Array.isArray(Value)) return ''
+							return `${ObjectID}/${ResourceId}=${Value}`
+						}),
 					)
 					.flat(),
 			)
