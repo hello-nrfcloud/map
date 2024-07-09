@@ -116,10 +116,17 @@ const sendJSON = (
 const base = new URL('http://localhost:8080')
 export const mockBackendApi = {
 	setRelease: async (release: string): Promise<void> => {
-		await fetch(new URL('/api/release', base), {
-			method: 'PUT',
-			body: release,
-		})
+		try {
+			const url = new URL('/api/release', base)
+			console.debug(`Setting release to ${release}`, url.toString())
+			await fetch(url, {
+				method: 'PUT',
+				body: release,
+			})
+		} catch (err) {
+			console.error(err)
+			throw err
+		}
 	},
 }
 
