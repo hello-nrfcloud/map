@@ -107,7 +107,7 @@ const sendJSON = (
 	res.end()
 }
 
-const base = new URL('http://localhost:8080')
+const base = new URL('http://localhost:8080/				')
 export const mockBackendApi = {
 	setRelease: async (release: string): Promise<void> => {
 		try {
