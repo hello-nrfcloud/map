@@ -17,7 +17,7 @@
   ],
   "author": "Nordic Semiconductor ASA | nordicsemi.no",
   "license": "BSD-3-Clause",
-  "description": "Show public devices on a map",
+  "description": "Show thousands of public cellular IoT devices on a map",
   "scripts": {
     "start": "vite",
     "start:e2e": "vite -c e2e-tests/vite.config.e2e.ts",
