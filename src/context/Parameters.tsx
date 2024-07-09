@@ -9,8 +9,6 @@ export type Registry = {
 	mapName: string
 	mapApiKey: string
 	mapRegion: string
-	// world.thingy.rocks legacy
-	thingyWorldShadowsURL: string
 	// Backend API
 	helloApiURL: string
 }
@@ -26,8 +24,6 @@ export type Parameters = {
 	createCredentialsAPIURL: URL
 	// Map history
 	lwm2mResourceHistoryURL: URL
-	// world.thingy.rocks legacy
-	thingyWorldShadowsURL: URL
 	// Map resources
 	mapName: string
 	mapApiKey: string
@@ -41,16 +37,9 @@ export const fetchParameters =
 		try {
 			const res = await fetch(registryURL)
 			const params: Registry = await res.json()
-			const {
-				thingyWorldShadowsURL,
-				mapName,
-				mapApiKey,
-				mapRegion,
-				helloApiURL,
-			} = params
+			const { mapName, mapApiKey, mapRegion, helloApiURL } = params
 			const parsed: Parameters = {
 				devicesAPIURL: new URL('./devices', apiURL),
-				thingyWorldShadowsURL: new URL(thingyWorldShadowsURL),
 				mapName,
 				mapApiKey,
 				mapRegion,

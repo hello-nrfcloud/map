@@ -19,8 +19,6 @@ export const DevicesProvider = (props: ParentProps) => {
 		parameters,
 		fetchDevices(parameters.devicesAPIURL),
 	)
-	const [thingyWorldDevicesResource, { refetch: refetchThingyWorldDevices }] =
-		createResource(parameters, fetchDevices(parameters.thingyWorldShadowsURL))
 
 	// Use a store to only update the context when the devices change
 	const [devicesStore, updateDevicesStore] = createStore<{ devices: Device[] }>(
@@ -32,10 +30,7 @@ export const DevicesProvider = (props: ParentProps) => {
 		updateDevicesStore(
 			'devices',
 			reconcile(
-				[
-					...(devicesResource()?.devices ?? []),
-					...(thingyWorldDevicesResource()?.devices ?? []),
-				]
+				[...(devicesResource()?.devices ?? [])]
 					.map(addLastUpdated)
 					.sort(byLastUpdated),
 			),
@@ -45,7 +40,6 @@ export const DevicesProvider = (props: ParentProps) => {
 	// Refetch devices every minute
 	const i = setInterval(() => {
 		void refetchDevices()
-		void refetchThingyWorldDevices()
 	}, 1000 * 60)
 
 	onCleanup(() => {
@@ -70,7 +64,10 @@ export const byId =
 
 const addLastUpdated = (device: Static<typeof PublicDevice>): Device => ({
 	...device,
-	lastUpdate: (device.state ?? []).map(instanceTs).sort(desc)[0],
+	lastUpdate: (device.state ?? [])
+		.map(instanceTs)
+		.map((ts) => new Date(ts * 1000))
+		.sort(desc)[0],
 })
 
 const desc = (d1: Date, d2: Date) => d2.getTime() - d1.getTime()

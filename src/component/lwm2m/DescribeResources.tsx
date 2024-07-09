@@ -15,7 +15,7 @@ export const DescribeResources = (props: {
 	device: Device
 }) => {
 	const definition = definitions[props.instance.ObjectID]
-	const tsResourceId = timestampResources[definition.ObjectID] as number
+	const tsResourceId = timestampResources.get(definition.ObjectID) as number
 
 	const resources = createMemo(() => {
 		const r: { info: LwM2MResourceInfo; value: LwM2MResourceValue }[] = []

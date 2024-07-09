@@ -30,7 +30,7 @@ export const DescribeResource = (props: {
 	info: LwM2MResourceInfo
 	value: LwM2MResourceValue | undefined
 	// Timestamp when the instance was last updated
-	ts?: Date | undefined
+	ts?: number | undefined
 	device: Device
 }) => {
 	const [showDefinition, setShowDefinition] = createSignal<boolean>(false)
@@ -63,7 +63,7 @@ export const DescribeResource = (props: {
 							{props.info.Name}
 						</abbr>
 						<Show when={props.ts !== undefined}>
-							<RelativeTime time={props.ts!}>
+							<RelativeTime time={new Date(props.ts! * 1000)}>
 								<Published strokeWidth={1} size={16} />
 							</RelativeTime>
 						</Show>

@@ -28,7 +28,7 @@ type PinnedResourceInstance = {
 	definition: LwM2MResourceInfo
 	value: LwM2MResourceValue | undefined
 	InstanceID: number
-	ts: Date | undefined
+	ts: number | undefined
 }
 
 export const Card = (props: {
@@ -78,5 +78,4 @@ export const Card = (props: {
 }
 
 const byNewest = (r1: PinnedResourceInstance, r2: PinnedResourceInstance) =>
-	(r2.ts?.getTime() ?? Number.MIN_SAFE_INTEGER) -
-	(r1.ts?.getTime() ?? Number.MIN_SAFE_INTEGER)
+	(r2.ts ?? Number.MIN_SAFE_INTEGER) - (r1.ts ?? Number.MIN_SAFE_INTEGER)

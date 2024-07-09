@@ -21,10 +21,6 @@ export default createConfig(
 				mapRegion,
 				mapName,
 				mapApiKey,
-				thingyWorldShadowsURL: new URL(
-					'/e2e/api/thingyWorldShadows',
-					base,
-				).toString(),
 				nrfCloudTeamId: randomUUID(),
 				helloApiURL: new URL('/e2e/hello-api/', base).toString(),
 			},

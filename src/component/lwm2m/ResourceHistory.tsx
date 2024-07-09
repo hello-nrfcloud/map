@@ -16,7 +16,7 @@ import './ResourceHistory.css'
 
 const tsResource = (ObjectID: LwM2MObjectID): number => {
 	const definition = definitions[ObjectID]
-	return timestampResources[definition.ObjectID] as number // All registered objects must have a timestamp resource
+	return timestampResources.get(definition.ObjectID) as number // All registered objects must have a timestamp resource
 }
 
 export const ResourceHistory = (props: {
@@ -37,7 +37,7 @@ export const ResourceHistory = (props: {
 			.filter((partial) => partial[props.resource.ResourceID] !== undefined)
 			.map<[number, Date]>((partial) => [
 				partial[props.resource.ResourceID] as number,
-				new Date(partial[ts] as number),
+				new Date((partial[ts] as number) * 1000),
 			])
 			.sort(([, a], [, b]) => b.getTime() - a.getTime())
 	})

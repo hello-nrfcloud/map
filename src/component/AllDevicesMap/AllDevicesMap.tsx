@@ -76,13 +76,7 @@ export const AllDevicesMap = () => {
 				if (newestLocation === undefined) return undefined
 				return {
 					device,
-					location: {
-						...newestLocation,
-						Resources: {
-							...newestLocation?.Resources,
-							99: new Date(newestLocation.Resources[99] as string),
-						},
-					} as Geolocation_14201,
+					location: newestLocation as Geolocation_14201,
 					resources: searchConfig.resources
 						.map(({ ObjectID, ResourceID }) => {
 							if (!isLwM2MObjectID(ObjectID)) return undefined

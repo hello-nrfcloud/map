@@ -43,7 +43,7 @@ export const DescribeInstance = (props: {
 								</Show>
 							</span>
 							<small>
-								<RelativeTime time={ts}>
+								<RelativeTime time={new Date(ts * 1000)}>
 									<Published strokeWidth={1} size={16} />
 								</RelativeTime>
 							</small>
