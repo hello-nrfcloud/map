@@ -32,6 +32,10 @@ export const createConfig = (
 	return defineConfig({
 		plugins: [solidPlugin(), ...plugins],
 		base: baseSlashed,
+		preview: {
+			host: 'localhost',
+			port: 8080,
+		},
 		server: {
 			host: 'localhost',
 			port: 8080,

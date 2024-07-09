@@ -16,24 +16,19 @@ export const mockBackend = ({
 }): Record<string, Connect.SimpleHandleFunction> => {
 	let release = '0.0.0-development'
 	return {
-		'/e2e/registry.json': (req, res) =>
+		'GET /e2e/registry.json': (req, res) =>
 			sendJSON(res, generateRegistryResponse(registry)),
-		'/e2e/api/health': (req, res) =>
+		'GET /e2e/api/health': (req, res) =>
 			sendJSON(res, {
 				'@context': Context.named('api/health'),
 				version: '0.0.0-development',
 			}),
-		'/e2e/api/devices': (req, res) =>
+		'GET /e2e/api/devices': (req, res) =>
 			sendJSON(res, {
 				'@context': Context.devices,
 				devices: [],
 			}),
-		'/e2e/api/thingyWorldShadows': (req, res) =>
-			sendJSON(res, {
-				'@context': Context.devices,
-				devices: [],
-			}),
-		'/e2e/hello-api/device': (req, res) => {
+		'GET /e2e/hello-api/device': (req, res) => {
 			const fingerprint = new URLSearchParams(
 				req.originalUrl?.split('?')[1],
 			).get('fingerprint')
@@ -48,7 +43,7 @@ export const mockBackend = ({
 				model: 'thingy91x',
 			})
 		},
-		'/e2e/api/share/confirm': async (req, res) => {
+		'POST /e2e/api/share/confirm': async (req, res) => {
 			const { token, deviceId } = await getJSON(req)
 			if (token !== 'ABCDEF') return anError(res, 400)
 			return sendJSON(res, {
@@ -56,7 +51,7 @@ export const mockBackend = ({
 				id: publicDeviceIds[deviceId],
 			})
 		},
-		'/e2e/api/share': async (req, res) => {
+		'POST /e2e/api/share': async (req, res) => {
 			const { fingerprint } = await getJSON(req)
 			const deviceId = deviceIdentities[fingerprint]
 			if (deviceId === undefined) {
@@ -70,17 +65,16 @@ export const mockBackend = ({
 				deviceId,
 			})
 		},
-		'/map/.well-known/release': (req, res) => {
+		'GET /map/.well-known/release': (req, res) => {
 			res.setHeader('Content-type', 'text/plain; charset=utf-8')
 			res.write(release)
 			res.end()
 		},
 		// Modifies the internal state of the mock backend
-		'/api/release': (req, res) => {
-			if (req.method === 'PUT')
-				req.on('data', (d) => {
-					release = d.toString().trim()
-				})
+		'PUT /api/release': (req, res) => {
+			req.on('data', (d) => {
+				release = d.toString().trim()
+			})
 			res.statusCode = 202
 			res.end()
 		},
