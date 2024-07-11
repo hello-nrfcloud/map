@@ -20,7 +20,7 @@ export const DescribeConnectionSettings = (props: { deviceId: string }) => {
 						<CopyableProp name={'MQTT Endpoint'} value={'mqtt.nrfcloud.com'} />
 						<CopyableProp
 							name={'MQTT SenML topic'}
-							value={`prod/${parameters.nrfCloudTeamId}/m/senml/${props.deviceId}`}
+							value={`prod/${parameters.nrfCloudTeamId}/m/d/${props.deviceId}/d2c/senml		`}
 						/>
 						<CopyableProp name={'CoAP Endpoint'} value={'coap.nrfcloud.com'} />
 						<CopyableProp name={'CoAP SenML resource'} value={'/msg/d2c/raw'} />
