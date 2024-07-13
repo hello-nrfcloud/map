@@ -1,7 +1,7 @@
 import { randomUUID } from 'crypto'
 import { createConfig } from '../vite/config.js'
 import { testdataServerPlugin } from './lib/testDataServerPlugin.ts'
-import { fromEnv } from '@nordicsemiconductor/from-env'
+import { fromEnv } from '@bifravst/from-env'
 
 const { mapRegion, mapName, mapApiKey } = fromEnv({
 	mapRegion: 'MAP_REGION',
