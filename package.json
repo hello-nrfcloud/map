@@ -47,7 +47,7 @@
     "vite-plugin-solid": "2.10.2"
   },
   "dependencies": {
-    "@hello.nrfcloud.com/proto": "14.1.7",
+    "@hello.nrfcloud.com/proto": "14.1.8",
     "@hello.nrfcloud.com/proto-map": "13.2.2",
     "@sinclair/typebox": "0.32.34",
     "e118-iin-list": "4.1.4",
