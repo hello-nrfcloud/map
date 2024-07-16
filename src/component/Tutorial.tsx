@@ -219,7 +219,7 @@ export const Box = (
 	const what = () => location.current().help
 	return (
 		<Show when={what() === props.id}>
-			<aside class={`tutorial ${props.dialogue ?? false ? 'dialogue' : ''}`}>
+			<aside class={`tutorial ${(props.dialogue ?? false) ? 'dialogue' : ''}`}>
 				<header>
 					{props.title}
 					<button
