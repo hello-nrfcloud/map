@@ -37,7 +37,10 @@ export const Problem = (
 			<Warning /> A problem occurred!
 		</h1>
 		<p>
-			{props.problem.title} (<code>{props.problem.status}</code>)
+			{props.problem.title}{' '}
+			<Show when={props.problem.status !== undefined}>
+				(<code>{props.problem.status}</code>)
+			</Show>
 			<Show when={props.problem.detail !== undefined}>
 				<br />
 				<small>{props.problem.detail!}</small>
