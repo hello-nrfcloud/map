@@ -144,7 +144,7 @@ const MostRecentDevicesList = () => {
 			<header>
 				<h2>Recently updated devices</h2>
 			</header>
-			<div class="boxed pad">
+			<div class="boxed">
 				<For
 					each={devices().slice(0, 10)}
 					fallback={<p>No matching devices found.</p>}
