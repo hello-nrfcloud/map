@@ -16,14 +16,13 @@ export const ShareDeviceRequestConfirmed = (
 			</header>
 			<div class="pad-t">
 				<p>
-					Here is a link to your device:{' '}
 					<a
 						href={location.link({
 							panel: `id:${props.confirmed.id}`,
 							query: undefined,
 						})}
 					>
-						<code>{props.confirmed.id}</code>
+						Here is a link to your device <code>{props.confirmed.id}</code>
 					</a>
 				</p>
 			</div>
