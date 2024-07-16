@@ -68,6 +68,10 @@ export const DeviceSidebar = () => {
 							<section>
 								<div class="boxed pad">
 									<p>No state available.</p>
+									<p>
+										Due to caching it may take up to 10 minutes for recent
+										device data to be visible.
+									</p>
 								</div>
 							</section>
 						}
