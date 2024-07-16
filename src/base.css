@@ -19,6 +19,7 @@
   --chart-labels: #ffffff80;
   --chart-values: var(--color-highlight);
   --color-form-text: #fff;
+  --color-form-text-disabled: #aaa;
   --color-button: #153e57;
   --color-border-light: #d3d3d3;
   --color-border-default: rgb(129, 129, 129);
@@ -97,11 +98,11 @@ h2 {
   overflow: hidden;
 }
 
-.boxed + .boxed {
+.boxed+.boxed {
   margin-top: var(--gap);
 }
 
-.boxed > *:not(:first-child) {
+.boxed>*:not(:first-child) {
   border-top: 1px solid var(--bg-blue-2);
 }
 
@@ -109,7 +110,7 @@ p {
   line-height: 135%;
 }
 
-p + p {
+p+p {
   margin-top: 0.75rem;
 }
 
@@ -133,8 +134,8 @@ header:has(> button[type="button"]) {
   justify-content: space-between;
 }
 
-header:has(> button[aria-expanded]) > .icon,
-header:has(> button[type="button"]) > .icon {
+header:has(> button[aria-expanded])>.icon,
+header:has(> button[type="button"])>.icon {
   margin-left: var(--gap);
 }
 
@@ -192,15 +193,18 @@ form select {
   align-items: center;
   font-weight: 300;
 }
+
 form select {
   appearance: menulist;
 }
+
 form input:focus,
 form select:focus,
-form input:focus + button.btn,
-.btn:active {
+form input:focus+button.btn,
+.btn:active:not(:disabled) {
   border-color: var(--color-border-active);
 }
+
 
 /* Hack to remove style for auto-filled inputs */
 input:-webkit-autofill,
@@ -227,6 +231,11 @@ input:-webkit-autofill:active {
   font-family: var(--condensed-font-family);
 }
 
+.btn:disabled {
+  background-color: var(--color-form-bg);
+  color: var(--color-form-text-disabled);
+}
+
 a.btn {
   display: inline-block;
   line-height: 30px;
@@ -236,9 +245,10 @@ a.btn {
   opacity: 0.8;
 }
 
-.input-group input + button.btn {
+.input-group input+button.btn {
   border-left: 0;
 }
+
 .input-group input,
 .input-group input:focus {
   border-right: 0;
@@ -249,7 +259,7 @@ form label {
   margin-bottom: var(--gap-medium);
 }
 
-form .row + .row {
+form .row+.row {
   margin-top: var(--gap-medium);
 }
 
@@ -265,6 +275,7 @@ ul {
   margin-bottom: var(--gap-medium);
   list-style: circle;
 }
+
 ul li {
   margin-left: 1.5rem;
   margin-bottom: 0.25rem;

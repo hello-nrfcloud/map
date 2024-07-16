@@ -10,6 +10,7 @@ import { useParameters } from '../../context/Parameters.js'
 import { type ShareDevice, shareDevice } from '../../resources/shareDevice.ts'
 import type { Static } from '@sinclair/typebox'
 import type { ShareDeviceRequest } from '@hello.nrfcloud.com/proto-map/api'
+import { Problem } from '../Problem.tsx'
 
 export const ShareDeviceSubmit = (
 	props: ParentProps<{
@@ -44,22 +45,29 @@ export const ShareDeviceSubmit = (
 
 	createEffect(() => {
 		if (shareDeviceRequest() === undefined) return
+		if (shareDeviceRequest.error !== undefined) return
+		if (shareDeviceRequest.loading) return
+		console.log('ShareDeviceSubmit', shareDeviceRequest())
 		props.onRequest(shareDeviceRequest()!)
 	})
 
 	return (
 		<footer>
-			<Show
-				when={!shareDeviceRequest.loading}
-				fallback={
-					<button type="button" class="btn" disabled>
-						Loading ...
-					</button>
-				}
-			>
-				<button type="button" class="btn" onClick={() => submit()}>
+			<Show when={!shareDeviceRequest.loading && shareDeviceRequest.error === undefined && shareDeviceRequest()
+				=== undefined}>
+				<button type="button" class="btn" onClick={() => submit()} disabled={props.email === undefined}>
 					continue
 				</button>
+			</Show>
+			<Show
+				when={shareDeviceRequest.loading}
+			>
+				<button type="button" class="btn" disabled>
+					Loading ...
+				</button>
+			</Show>
+			<Show when={shareDeviceRequest.error}>
+				<Problem problem={shareDeviceRequest.error} />
 			</Show>
 		</footer>
 	)

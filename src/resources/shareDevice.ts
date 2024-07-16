@@ -15,6 +15,22 @@ export type ShareDevice = {
 export const shareDevice =
 	(url: URL) =>
 	async (req: ShareDevice): Promise<Static<typeof ShareDeviceRequest>> => {
+		// Use similar approach as in
+
+		/*
+		const res = await deviceInfoFetcher(
+			new URL(
+				`./device?${new URLSearchParams({ fingerprint }).toString()}`,
+				apiURL,
+			),
+		)
+		if ('error' in res) {
+			console.error(res.error)
+			throw new ProblemDetailError(res.error)
+		}
+		return res.result
+		*/
+
 		try {
 			return (
 				await fetch(url, {
