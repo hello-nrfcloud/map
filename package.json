@@ -34,7 +34,7 @@
     "@bifravst/from-env": "3.0.2",
     "@bifravst/prettier-config": "1.0.4",
     "@commitlint/config-conventional": "19.2.2",
-    "@playwright/test": "1.45.1",
+    "@playwright/test": "1.45.2",
     "@types/node": "20.14.10",
     "@types/semver": "^7.5.8",
     "commitlint": "19.3.0",
@@ -47,7 +47,7 @@
     "vite-plugin-solid": "2.10.2"
   },
   "dependencies": {
-    "@hello.nrfcloud.com/proto": "14.1.9",
+    "@hello.nrfcloud.com/proto": "14.2.0",
     "@hello.nrfcloud.com/proto-map": "13.2.3",
     "@sinclair/typebox": "0.32.34",
     "e118-iin-list": "4.1.4",

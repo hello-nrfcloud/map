@@ -7,7 +7,7 @@ test('Add an out-of-box experience device using its fingerprint', async ({
 	const fingerprint = `29a.${generateCode()}`
 	// The link is opened from the device page on hello.nrfcloud.com
 	await page.goto(
-		`/#add-device?${new URLSearchParams({ fingerprint }).toString()}`,
+		`/#add-device?${new URLSearchParams({ fingerprint, model: 'thingy91x' }).toString()}`,
 	)
 	await expect(page.getByTestId('device-model')).toBeVisible()
 	await expect(page.getByTestId('device-model')).toHaveText('thingy91x')

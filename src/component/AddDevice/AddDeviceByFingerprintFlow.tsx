@@ -1,29 +1,32 @@
-import { DeviceIdentity, typedFetch } from '@hello.nrfcloud.com/proto/hello'
-import type { Static } from '@sinclair/typebox'
-import { type ParentProps, createSignal, Show, createResource } from 'solid-js'
-import { useParameters } from '../../context/Parameters.tsx'
-import { Progress } from '../Progress.tsx'
-import { Problem } from '../Problem.tsx'
-import { noop } from '../../util/noop.ts'
-import { ModelInfoBlock } from './ModelInfoBlock.tsx'
-import { EmailInput } from './EmailInput.tsx'
-import { ShareDeviceSubmit } from './ShareDeviceSubmit.tsx'
 import type {
 	ShareDeviceOwnershipConfirmed,
 	ShareDeviceRequest,
 } from '@hello.nrfcloud.com/proto-map/api'
-import { ShareDeviceRequestCreated } from './ShareDeviceRequestCreated.tsx'
+import type { Model } from '@hello.nrfcloud.com/proto-map/models'
+import { DeviceIdentity, typedFetch } from '@hello.nrfcloud.com/proto/hello'
+import type { Static } from '@sinclair/typebox'
+import { type ParentProps, Show, createResource, createSignal } from 'solid-js'
+import { useParameters } from '../../context/Parameters.tsx'
+import { noop } from '../../util/noop.ts'
+import { Problem, ProblemDetailError } from '../Problem.tsx'
+import { Progress } from '../Progress.tsx'
 import { ConfirmRequestForm } from './ConfirmRequestForm.tsx'
+import { EmailInput } from './EmailInput.tsx'
+import { ModelInfoBlock } from './ModelInfoBlock.tsx'
 import { ShareDeviceRequestConfirmed } from './ShareDeviceRequestConfirmed.tsx'
+import { ShareDeviceRequestCreated } from './ShareDeviceRequestCreated.tsx'
+import { ShareDeviceSubmit } from './ShareDeviceSubmit.tsx'
 
-const fetchDeviceInfo = (
-	apiURL: URL,
-	fingerprint: string,
-): (() => Promise<Static<typeof DeviceIdentity>>) => {
-	const deviceInfoFetcher = typedFetch({
-		responseBodySchema: DeviceIdentity,
-	})
-	return async () => {
+const deviceInfoFetcher = typedFetch({
+	responseBodySchema: DeviceIdentity,
+})
+
+const fetchDeviceInfo =
+	(
+		apiURL: URL,
+		fingerprint: string,
+	): (() => Promise<Static<typeof DeviceIdentity> | undefined>) =>
+	async () => {
 		const res = await deviceInfoFetcher(
 			new URL(
 				`./device?${new URLSearchParams({ fingerprint }).toString()}`,
@@ -32,15 +35,15 @@ const fetchDeviceInfo = (
 		)
 		if ('error' in res) {
 			console.error(res.error)
-			throw new Error(res.error.title)
+			throw new ProblemDetailError(res.error)
 		}
 		return res.result
 	}
-}
 
 export const AddDeviceByFingerprintFlow = (
 	props: ParentProps<{
 		fingerprint: string
+		model: Model
 	}>,
 ) => {
 	const [shareDeviceRequest, setShareDeviceRequest] =
@@ -55,6 +58,7 @@ export const AddDeviceByFingerprintFlow = (
 			>
 				<AddDeviceByFingerprintForm
 					fingerprint={props.fingerprint}
+					model={props.model}
 					onRequest={setShareDeviceRequest}
 				/>
 			</Show>
@@ -82,13 +86,14 @@ export const AddDeviceByFingerprintFlow = (
 export const AddDeviceByFingerprintForm = (
 	props: ParentProps<{
 		fingerprint: string
+		model: Model
 		onRequest: (request: Static<typeof ShareDeviceRequest>) => void
 	}>,
 ) => {
 	const parameters = useParameters()
-	const [deviceInfo] = createResource<Static<typeof DeviceIdentity>>(
-		fetchDeviceInfo(parameters.helloApiURL, props.fingerprint),
-	)
+	const [deviceInfo] = createResource<
+		Static<typeof DeviceIdentity> | undefined
+	>(fetchDeviceInfo(parameters.helloApiURL, props.fingerprint))
 	const [email, setEmail] = createSignal<string>()
 
 	return (
@@ -97,13 +102,15 @@ export const AddDeviceByFingerprintForm = (
 				<Progress title={`Fetching device...`} />
 			</Show>
 			<Show when={deviceInfo.error}>
-				<Problem
-					problem={{
-						title: `Failed to fetch device information for fingerprint ${props.fingerprint}!`,
-					}}
-				/>
+				<Problem problem={deviceInfo.error} />
 			</Show>
-			<Show when={deviceInfo() !== undefined}>
+			<Show
+				when={
+					!deviceInfo.loading &&
+					deviceInfo.error === undefined &&
+					deviceInfo() !== undefined
+				}
+			>
 				<section class="boxed bg-light pad add-device-flow">
 					<form onSubmit={noop}>
 						<div class="row">
@@ -115,7 +122,8 @@ export const AddDeviceByFingerprintForm = (
 							<p class="label">
 								<span>Your model:</span>
 								<br />
-								<code data-testId="device-model">{deviceInfo()!.model}</code>
+								{props.model.about.title} (
+								<code data-testId="device-model">{props.model.id}</code>)
 							</p>
 						</div>
 						<ModelInfoBlock />

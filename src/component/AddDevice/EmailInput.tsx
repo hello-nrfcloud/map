@@ -10,7 +10,7 @@ export const EmailInput = (
 	return (
 		<>
 			<div class="row">
-				<label for="email">Provide your email:</label>
+				<label for="email">Please provide your email:</label>
 				<input
 					id="email"
 					type="email"

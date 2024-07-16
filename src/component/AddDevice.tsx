@@ -2,16 +2,31 @@ import { useNavigation } from '../context/Navigation.js'
 import { Close, Add } from '../icons/LucideIcon.js'
 import { SidebarContent } from './Sidebar.js'
 import { Show } from 'solid-js'
-
-import './AddDevice.css'
 import { AddCustomDeviceFlow } from './AddDevice/AddCustomDeviceFlow.tsx'
 import { AddDeviceByFingerprintFlow } from './AddDevice/AddDeviceByFingerprintFlow.tsx'
+import {
+	type ModelID,
+	models,
+	type Model,
+} from '@hello.nrfcloud.com/proto-map/models'
+
+import './AddDevice.css'
+import { Problem } from './Problem.tsx'
+import { ModelInfoBlock } from './AddDevice/ModelInfoBlock.tsx'
 
 const panelId = 'add-device'
 
 export const Sidebar = () => {
 	const location = useNavigation()
-	const fingerprint = location.current().query?.get('fingerprint')
+	const fingerprint = () => location.current().query?.get('fingerprint')
+	const modelParam = () => location.current().query?.get('model')
+	const hasModelParam = () => modelParam() !== undefined
+	const model = (): Model | undefined => {
+		const modelId = Object.keys(models).find(
+			(modelId) => modelId === modelParam(),
+		) as ModelID | undefined
+		return models[modelId!]
+	}
 	return (
 		<Show when={location.current().panel === panelId}>
 			<SidebarContent class="add-device" id={panelId}>
@@ -34,11 +49,39 @@ export const Sidebar = () => {
 							devices to the map.
 						</p>
 					</section>
-					<Show
-						when={fingerprint !== undefined}
-						fallback={<AddCustomDeviceFlow />}
-					>
-						<AddDeviceByFingerprintFlow fingerprint={fingerprint!} />
+					<Show when={hasModelParam()}>
+						<Show
+							when={model() !== undefined}
+							fallback={
+								<section>
+									<Show
+										when={modelParam() !== null}
+										fallback={
+											<Problem
+												problem={{
+													title: `No model ID provided.`,
+												}}
+											/>
+										}
+									>
+										<Problem
+											problem={{
+												title: `The provided model ID "${modelParam()}" is not valid.`,
+											}}
+										/>
+										<ModelInfoBlock />
+									</Show>
+								</section>
+							}
+						>
+							<AddDeviceByFingerprintFlow
+								fingerprint={fingerprint()!}
+								model={model()!}
+							/>
+						</Show>
+					</Show>
+					<Show when={!hasModelParam()}>
+						<AddCustomDeviceFlow />
 					</Show>
 				</div>
 			</SidebarContent>
