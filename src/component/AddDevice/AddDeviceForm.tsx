@@ -27,7 +27,7 @@ export const AddDeviceForm = (props: {
 				<EmailInput onUpdate={setEmail} />
 				<ShareDeviceSubmit
 					email={email()}
-					model={modelSelect.value as keyof typeof models}
+					model={models[modelSelect.value as keyof typeof models]}
 					onRequest={props.onRequest}
 				/>
 			</form>

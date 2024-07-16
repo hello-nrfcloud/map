@@ -1,21 +1,21 @@
-import type { models } from '@hello.nrfcloud.com/proto-map/models'
+import type { ShareDeviceRequest } from '@hello.nrfcloud.com/proto-map/api'
+import type { Model } from '@hello.nrfcloud.com/proto-map/models'
+import type { Static } from '@sinclair/typebox'
 import {
 	Show,
 	createEffect,
-	createSignal,
 	createResource,
+	createSignal,
 	type ParentProps,
 } from 'solid-js'
 import { useParameters } from '../../context/Parameters.js'
-import { type ShareDevice, shareDevice } from '../../resources/shareDevice.ts'
-import type { Static } from '@sinclair/typebox'
-import type { ShareDeviceRequest } from '@hello.nrfcloud.com/proto-map/api'
+import { shareDevice, type ShareDevice } from '../../resources/shareDevice.ts'
 import { Problem } from '../Problem.tsx'
 
 export const ShareDeviceSubmit = (
 	props: ParentProps<{
 		email?: string
-		model?: keyof typeof models
+		model: Model
 		fingerprint?: string
 		onRequest: (request: Static<typeof ShareDeviceRequest>) => void
 	}>,
@@ -29,18 +29,11 @@ export const ShareDeviceSubmit = (
 
 	const submit = () => {
 		if (props.email === undefined) return
-		if (props.model !== undefined) {
-			setRequest({
-				email: props.email,
-				model: props.model,
-			})
-		}
-		if (props.fingerprint !== undefined) {
-			setRequest({
-				email: props.email,
-				fingerprint: props.fingerprint,
-			})
-		}
+		setRequest({
+			email: props.email,
+			fingerprint: props.fingerprint,
+			model: props.model.id,
+		})
 	}
 
 	createEffect(() => {
@@ -53,15 +46,23 @@ export const ShareDeviceSubmit = (
 
 	return (
 		<footer>
-			<Show when={!shareDeviceRequest.loading && shareDeviceRequest.error === undefined && shareDeviceRequest()
-				=== undefined}>
-				<button type="button" class="btn" onClick={() => submit()} disabled={props.email === undefined}>
+			<Show
+				when={
+					!shareDeviceRequest.loading &&
+					shareDeviceRequest.error === undefined &&
+					shareDeviceRequest() === undefined
+				}
+			>
+				<button
+					type="button"
+					class="btn"
+					onClick={() => submit()}
+					disabled={props.email === undefined}
+				>
 					continue
 				</button>
 			</Show>
-			<Show
-				when={shareDeviceRequest.loading}
-			>
+			<Show when={shareDeviceRequest.loading}>
 				<button type="button" class="btn" disabled>
 					Loading ...
 				</button>

@@ -132,6 +132,7 @@ export const AddDeviceByFingerprintForm = (
 							onRequest={props.onRequest}
 							fingerprint={props.fingerprint}
 							email={email()}
+							model={props.model}
 						/>
 					</form>
 				</section>

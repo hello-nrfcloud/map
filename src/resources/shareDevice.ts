@@ -1,6 +1,12 @@
+import { ShareDeviceRequest } from '@hello.nrfcloud.com/proto-map/api'
 import type { ModelID } from '@hello.nrfcloud.com/proto-map/models'
-import type { ShareDeviceRequest } from '@hello.nrfcloud.com/proto-map/api'
+import { typedFetch } from '@hello.nrfcloud.com/proto/hello'
 import type { Static } from '@sinclair/typebox'
+import { ProblemDetailError } from '../component/Problem.tsx'
+
+const shareDeviceRequest = typedFetch({
+	responseBodySchema: ShareDeviceRequest,
+})
 
 export type ShareDevice = {
 	email: string
@@ -10,37 +16,16 @@ export type ShareDevice = {
 	  }
 	| {
 			fingerprint: string
+			model: ModelID
 	  }
 )
 export const shareDevice =
 	(url: URL) =>
 	async (req: ShareDevice): Promise<Static<typeof ShareDeviceRequest>> => {
-		// Use similar approach as in
-
-		/*
-		const res = await deviceInfoFetcher(
-			new URL(
-				`./device?${new URLSearchParams({ fingerprint }).toString()}`,
-				apiURL,
-			),
-		)
+		const res = await shareDeviceRequest(url, req, { method: 'POST' })
 		if ('error' in res) {
 			console.error(res.error)
 			throw new ProblemDetailError(res.error)
 		}
 		return res.result
-		*/
-
-		try {
-			return (
-				await fetch(url, {
-					method: 'POST',
-					body: JSON.stringify(req),
-				})
-			).json()
-		} catch (err) {
-			throw new Error(
-				`Failed to add a device (${url.toString()}): ${(err as Error).message}!`,
-			)
-		}
 	}
