@@ -4,7 +4,8 @@ import type { IncomingMessage, ServerResponse } from 'http'
 import type { Connect } from 'vite'
 import type { Registry } from '../../src/context/Parameters.tsx'
 import type http from 'node:http'
-import { randomUUID } from 'crypto'
+import { randomWords } from '@bifravst/random-words'
+import { models } from '@hello.nrfcloud.com/proto-map/models'
 
 const deviceIdentities: Record<string, string> = {}
 const publicDeviceIds: Record<string, string> = {}
@@ -52,12 +53,15 @@ export const mockBackend = ({
 			})
 		},
 		'POST /e2e/api/share': async (req, res) => {
-			const { fingerprint } = await getJSON(req)
+			const { fingerprint, model } = await getJSON(req)
 			const deviceId = deviceIdentities[fingerprint]
 			if (deviceId === undefined) {
 				return anError(res, 404)
 			}
-			const id = randomUUID()
+			if (models[model as keyof typeof models] === undefined) {
+				return anError(res, 404)
+			}
+			const id = randomWords({ numWords: 3 }).join('-')
 			publicDeviceIds[deviceId] = id
 			return sendJSON(res, {
 				'@context': Context.shareDevice.request,

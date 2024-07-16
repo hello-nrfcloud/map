@@ -16,6 +16,7 @@ test('Add an out-of-box experience device using its fingerprint', async ({
 		/oob-3526561666[0-9]+/,
 	)
 	await page.getByPlaceholder('e.g. "alex@example.com').fill('alex@example.com')
+	await page.getByPlaceholder('e.g. "alex@example.com').blur()
 	await page.getByRole('button', { name: 'continue' }).click()
 	await expect(page.getByText('Your device was registered.')).toBeVisible()
 	await expect(page.getByTestId('device-id')).toBeVisible()

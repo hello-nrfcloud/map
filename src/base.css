@@ -98,11 +98,11 @@ h2 {
   overflow: hidden;
 }
 
-.boxed+.boxed {
+.boxed + .boxed {
   margin-top: var(--gap);
 }
 
-.boxed>*:not(:first-child) {
+.boxed > *:not(:first-child) {
   border-top: 1px solid var(--bg-blue-2);
 }
 
@@ -110,7 +110,7 @@ p {
   line-height: 135%;
 }
 
-p+p {
+p + p {
   margin-top: 0.75rem;
 }
 
@@ -134,8 +134,8 @@ header:has(> button[type="button"]) {
   justify-content: space-between;
 }
 
-header:has(> button[aria-expanded])>.icon,
-header:has(> button[type="button"])>.icon {
+header:has(> button[aria-expanded]) > .icon,
+header:has(> button[type="button"]) > .icon {
   margin-left: var(--gap);
 }
 
@@ -200,11 +200,10 @@ form select {
 
 form input:focus,
 form select:focus,
-form input:focus+button.btn,
+form input:focus + button.btn,
 .btn:active:not(:disabled) {
   border-color: var(--color-border-active);
 }
-
 
 /* Hack to remove style for auto-filled inputs */
 input:-webkit-autofill,
@@ -245,7 +244,7 @@ a.btn {
   opacity: 0.8;
 }
 
-.input-group input+button.btn {
+.input-group input + button.btn {
   border-left: 0;
 }
 
@@ -259,7 +258,7 @@ form label {
   margin-bottom: var(--gap-medium);
 }
 
-form .row+.row {
+form .row + .row {
   margin-top: var(--gap-medium);
 }
 
