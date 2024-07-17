@@ -15,6 +15,7 @@ export type Registry = {
 
 export type Parameters = {
 	nrfCloudTeamId: string
+	apiURL: URL
 	// General API resources
 	apiHealthURL: URL
 	// Map sharing
@@ -22,8 +23,6 @@ export type Parameters = {
 	shareAPIURL: URL
 	confirmOwnershipAPIURL: URL
 	createCredentialsAPIURL: URL
-	// Map history
-	lwm2mResourceHistoryURL: URL
 	// Map resources
 	mapName: string
 	mapApiKey: string
@@ -39,11 +38,11 @@ export const fetchParameters =
 			const params: Registry = await res.json()
 			const { mapName, mapApiKey, mapRegion, helloApiURL } = params
 			const parsed: Parameters = {
+				apiURL,
 				devicesAPIURL: new URL('./devices', apiURL),
 				mapName,
 				mapApiKey,
 				mapRegion,
-				lwm2mResourceHistoryURL: new URL('./history', apiURL),
 				shareAPIURL: new URL('./share', apiURL),
 				confirmOwnershipAPIURL: new URL('./share/confirm', apiURL),
 				createCredentialsAPIURL: new URL('./credentials', apiURL),

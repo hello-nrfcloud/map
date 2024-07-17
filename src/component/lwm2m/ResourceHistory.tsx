@@ -26,10 +26,7 @@ export const ResourceHistory = (props: {
 	InstanceID: number
 }) => {
 	const parameters = useParameters()
-	const [history] = createResource(
-		parameters,
-		fetchHistory(parameters.lwm2mResourceHistoryURL, props),
-	)
+	const [history] = createResource(parameters, fetchHistory(parameters, props))
 
 	const resourceHistory = createMemo(() => {
 		const ts = tsResource(props.ObjectID)
