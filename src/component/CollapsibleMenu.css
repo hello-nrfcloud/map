@@ -1,9 +1,9 @@
-div.collapsible {
+nav.collapsible {
   display: flex;
   align-items: center;
 }
 
-div.collapsible .collapsible-close {
+nav.collapsible .collapsible-close {
   padding-left: var(--gap-small);
   margin-left: var(--gap-small);
 }

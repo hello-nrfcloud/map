@@ -8,6 +8,7 @@ aside.device header h1 {
   display: flex;
   align-items: center;
 }
+
 aside.device header h1 .icon {
   margin-left: var(--gap-small);
 }
@@ -41,6 +42,7 @@ aside.device header h1 .icon {
 .sidebar.device .info-block {
   margin-bottom: var(--gap-medium);
 }
+
 .sidebar.device .info-block.expanded {
   margin-bottom: var(--gap);
 }
@@ -51,6 +53,18 @@ aside.device header h1 .icon {
 
 .instance-resources .source-info {
   margin-top: var(--gap-medium);
+}
+
+.instance-resources dd.value.multiple {
+  display: initial;
+}
+
+.instance-resources
+  dd.value.multiple
+  span.resource-value
+  + span.resource-value:before {
+  content: ", ";
+  opacity: 0.5;
 }
 
 .lwm2m.boxed {

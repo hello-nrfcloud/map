@@ -2,10 +2,12 @@ import { type ParentProps, createSignal, Show } from 'solid-js'
 import { Close, Menu as MenuIcon } from '../icons/LucideIcon.js'
 import './CollapsibleMenu.css'
 
-export const CollapsibleMenu = (props: ParentProps) => {
+export const CollapsibleMenu = (props: ParentProps<{ class?: string }>) => {
 	const [collapsed, setCollapsed] = createSignal<boolean>(true)
 	return (
-		<div class={`collapsible ${collapsed() ? 'collapsed' : 'open'}`}>
+		<nav
+			class={`collapsible ${collapsed() ? 'collapsed' : 'open'} ${props.class ?? ''}`}
+		>
 			<Show
 				when={!collapsed()}
 				fallback={
@@ -18,8 +20,8 @@ export const CollapsibleMenu = (props: ParentProps) => {
 					</button>
 				}
 			>
-				<div class="children">{props.children}</div>
-				<div class="collapsible-close">
+				<span class="children">{props.children}</span>
+				<span class="collapsible-close">
 					<button
 						type="button"
 						title="collapse"
@@ -27,8 +29,8 @@ export const CollapsibleMenu = (props: ParentProps) => {
 					>
 						<Close strokeWidth={1} size={20} />
 					</button>
-				</div>
+				</span>
 			</Show>
-		</div>
+		</nav>
 	)
 }

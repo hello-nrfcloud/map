@@ -28,25 +28,21 @@ export const DescribeObject = (props: { instance: LwM2MObjectInstance }) => {
 				<ResourcesDL class="pad bg-light">
 					<dt>
 						<span class="info">ObjectID</span>
-						<CollapsibleMenu>
-							<span class="meta">
-								<nav>
-									<a
-										href={location.link({
-											panel: 'search',
-											search: [
-												{
-													type: SearchTermType.Has,
-													term: definition.ObjectID.toString(),
-												},
-											],
-										})}
-										title={`Search for devices that have the object ${definition.ObjectID}`}
-									>
-										<Search strokeWidth={1} size={20} />
-									</a>
-								</nav>
-							</span>
+						<CollapsibleMenu class="meta">
+							<a
+								href={location.link({
+									panel: 'search',
+									search: [
+										{
+											type: SearchTermType.Has,
+											term: definition.ObjectID.toString(),
+										},
+									],
+								})}
+								title={`Search for devices that have the object ${definition.ObjectID}`}
+							>
+								<Search strokeWidth={1} size={20} />
+							</a>
 						</CollapsibleMenu>
 					</dt>
 					<dd>{definition.ObjectID}</dd>
