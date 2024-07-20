@@ -21,7 +21,7 @@ export const mockBackend = ({
 			sendJSON(res, generateRegistryResponse(registry)),
 		'GET /e2e/api/health': (req, res) =>
 			sendJSON(res, {
-				'@context': Context.named('api/health'),
+				'@context': Context.apiHealth,
 				version: '0.0.0-development',
 			}),
 		'GET /e2e/api/devices': (req, res) =>

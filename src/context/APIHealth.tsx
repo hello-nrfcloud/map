@@ -12,7 +12,7 @@ import { Type, type Static } from '@sinclair/typebox'
 import { useViteEnv } from './ViteEnv.tsx'
 
 const ApiHealth = Type.Object({
-	'@context': Type.Literal(Context.named('api/health').toString()),
+	'@context': Type.Literal(Context.apiHealth.toString()),
 	version: Type.String({ minLength: 1 }),
 })
 

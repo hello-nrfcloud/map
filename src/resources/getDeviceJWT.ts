@@ -11,7 +11,7 @@ import type { Device } from './fetchDevices.js'
 
 const deviceJWT = typedFetch({
 	responseBodySchema: Type.Object({
-		'@context': Type.Literal(Context.named('jwt').toString()),
+		'@context': Type.Literal(Context.deviceJWT.toString()),
 		jwt: Type.String(),
 		id: PublicDeviceId,
 		deviceId: DeviceId,
@@ -28,10 +28,7 @@ export const getDeviceJWT =
 			device: Device
 		},
 	) =>
-	async (): Promise<{
-		jwt: string
-		deviceId: string
-	}> => {
+	async (): Promise<string> => {
 		const queryURL = new URL(
 			`./device/${encodeURIComponent(device.id)}/jwt`,
 			apiUrl,
@@ -40,5 +37,5 @@ export const getDeviceJWT =
 		if ('error' in res) {
 			throw new ProblemDetailError(res.error)
 		}
-		return res.result
+		return res.result.jwt
 	}

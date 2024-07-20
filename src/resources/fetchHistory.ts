@@ -26,9 +26,9 @@ export const fetchHistory =
 	async (): Promise<Static<typeof LwM2MObjectHistory>> => {
 		const deviceJWT = await getDeviceJWT(apiURL, { device })()
 		const queryURL = new URL(
-			`./device/${deviceJWT.deviceId}/history/${ObjectID}/${InstanceID}?${new URLSearchParams(
+			`./device/${device.deviceId}/history/${ObjectID}/${InstanceID}?${new URLSearchParams(
 				{
-					jwt: deviceJWT.jwt,
+					jwt: deviceJWT,
 					timeSpan: 'lastDay',
 				},
 			).toString()}`,
