@@ -7,6 +7,7 @@ import {
 	version,
 } from './packageInfo.js'
 import { encloseWithSlash } from '../src/util/encloseWithSlash.ts'
+import { tutorialContentPlugin } from '../tutorial/tutorialContentPlugin.ts'
 
 export const createConfig = (
 	apiURL: URL,
@@ -30,7 +31,7 @@ export const createConfig = (
 	}
 	// https://vitejs.dev/config/
 	return defineConfig({
-		plugins: [solidPlugin(), ...plugins],
+		plugins: [solidPlugin(), tutorialContentPlugin(), ...plugins],
 		base: baseSlashed,
 		preview: {
 			host: 'localhost',

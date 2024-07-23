@@ -18,7 +18,6 @@ import { InfoBlock } from './InfoBlock.js'
 import { KnownObjects } from './KnownObjects/KnownObjects.js'
 import { DescribeInstance } from './lwm2m/DescribeInstance.js'
 import { SidebarContent } from './Sidebar.js'
-import { TutorialBoxes } from './Tutorial.jsx'
 import { useViteEnv } from '../context/ViteEnv.tsx'
 
 import './lwm2m/LwM2M.css'
@@ -127,7 +126,6 @@ const DeviceInfo = (props: { device: Device }) => {
 				bat={bat()}
 				locations={locations()}
 			/>
-			<TutorialBoxes />
 			<Show when={otherObjects().length > 0}>
 				<InfoBlock title={<h2>Other objects</h2>}>
 					<p>

@@ -3,6 +3,7 @@ import { isModel } from '../../util/isModel.ts'
 import type { LwM2MObjectID } from '@hello.nrfcloud.com/proto-map/lwm2m'
 import { isLwM2MObjectID } from '@hello.nrfcloud.com/proto-map/lwm2m'
 import type { ModelID } from '@hello.nrfcloud.com/proto-map/models'
+import type { TutorialContent } from '../../../tutorial/tutorialContentPlugin.ts'
 
 export type PinnedResource = {
 	model: ModelID
@@ -19,7 +20,7 @@ export type Navigation = {
 	search: SearchTerm[]
 	pinnedResources: PinnedResource[]
 	map?: NavigationMapState
-	help?: string
+	tutorial?: keyof TutorialContent
 	toggled: string[]
 	query?: URLSearchParams
 }
@@ -28,7 +29,7 @@ enum FieldKey {
 	Search = 's',
 	PinnedResources = 'r',
 	Map = 'm',
-	Help = 'h',
+	Tutorial = 'T',
 	Toggled = 't',
 }
 
@@ -39,7 +40,7 @@ export const encode = (
 ): string | undefined => {
 	if (navigation === undefined) return ''
 	const parts = []
-	const { panel, search, pinnedResources, map, help, toggled, query } =
+	const { panel, search, pinnedResources, map, tutorial, toggled, query } =
 		navigation
 	let panelWithQuery = `${panel ?? ''}`
 	if (query !== undefined) panelWithQuery += '?' + query.toString()
@@ -70,8 +71,8 @@ export const encode = (
 			`${FieldKey.Map}:${map.zoom}:${map.center.lat},${map.center.lng}`,
 		)
 	}
-	if (help !== undefined) {
-		parts.push(`${FieldKey.Help}:${help}`)
+	if (tutorial !== undefined) {
+		parts.push(`${FieldKey.Tutorial}:${tutorial}`)
 	}
 	if (toggled !== undefined && toggled.length > 0) {
 		parts.push([FieldKey.Toggled, ...toggled.map(encodeColon)].join(':'))
@@ -144,9 +145,9 @@ export const decode = (encoded?: string): Navigation | undefined => {
 		}
 	}
 
-	const helpState = rest.find((s) => s.split(':', 2)[0] === FieldKey.Help)
+	const helpState = rest.find((s) => s.split(':', 2)[0] === FieldKey.Tutorial)
 	if (helpState !== undefined) {
-		nav.help = helpState.split(':', 2)[1] as string
+		nav.tutorial = helpState.split(':', 2)[1] as string
 	}
 
 	const toggledState = rest.find((s) => s.split(':', 2)[0] === FieldKey.Toggled)
