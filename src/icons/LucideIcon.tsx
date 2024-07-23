@@ -33,6 +33,8 @@ import {
 	ChevronRight,
 	ZapOff,
 	ChevronLeft,
+	CircleCheckBig,
+	CircleDashed,
 } from 'lucide'
 import { For } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
@@ -199,4 +201,12 @@ export const Loading = (props: LucideProps) => (
 
 export const Tutorial = (props: LucideProps) => (
 	<LucideIcon icon={CircleHelp} {...props} />
+)
+
+export const Done = (props: LucideProps) => (
+	<LucideIcon icon={CircleCheckBig} {...props} />
+)
+
+export const ToDo = (props: LucideProps) => (
+	<LucideIcon icon={CircleDashed} {...props} />
 )

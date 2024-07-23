@@ -1,8 +1,8 @@
 import { type ParentProps, Show } from 'solid-js'
 import { useNavigation } from '../../context/Navigation.tsx'
-import { Close, Next, Prev } from '../../icons/LucideIcon.tsx'
+import { Close, ToDo, Done, Next, Prev } from '../../icons/LucideIcon.tsx'
 import type { TutorialEntryType } from '../../../tutorial/tutorialContentPlugin.ts'
-import { decode } from '../../context/navigation/encodeNavigation.ts'
+import { decode, encode } from '../../context/navigation/encodeNavigation.ts'
 import { useAllDevicesMapState } from '../../context/AllDeviceMapState.tsx'
 
 import './TutorialBox.css'
@@ -15,11 +15,33 @@ export const TutorialBox = (
 	const location = useNavigation()
 	const { update: updateMapState } = useAllDevicesMapState()
 	const what = () => location.current().tutorial
+
+	const hasDone = () => props.tutorial.done !== undefined
+
+	const completed = (): boolean => {
+		const done = props.tutorial.done
+		if (done === undefined) return false
+		const locationMatch = done.locationMatch
+		if (locationMatch === undefined) return false
+		if (
+			(encode(location.current())?.includes(locationMatch) ?? false) === false
+		)
+			return false
+		return true
+	}
+
 	return (
 		<Show when={what() === props.tutorial.id}>
 			<aside class="tutorial dialogue">
-				<header>
-					<span>Tutorial</span>
+				<header class={completed() ? 'completed' : ''}>
+					<span>
+						<Show when={hasDone()} fallback={<span>Tutorial</span>}>
+							<Show when={completed()} fallback={<ToDo />}>
+								<Done />
+							</Show>
+							<span class="pad-s">Tutorial</span>
+						</Show>
+					</span>
 					<button
 						type="button"
 						onClick={() =>

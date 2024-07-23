@@ -48,6 +48,13 @@
 .tutorial > header {
   background-color: var(--color-tutorial-bg-dark);
   border-bottom: 1px solid var(--color-tutorial-bg-darker);
+  display: flex;
+  align-items: center;
+}
+
+.tutorial > header span {
+  display: flex;
+  align-items: center;
 }
 
 .tutorial > footer {
@@ -55,4 +62,8 @@
   display: flex;
   justify-content: space-between;
   border-top: 1px solid var(--color-tutorial-bg-darker);
+}
+
+.tutorial > header.completed {
+  background-color: var(--color-tutorial-bg-completed);
 }

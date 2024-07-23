@@ -1,6 +1,8 @@
 ---
 next:
   id: data-on-map
+done:
+  locationMatch: di;14205;0
 ---
 
 # Devices send LwM2M objects

@@ -4,6 +4,7 @@ import path from 'node:path'
 import { loadMarkdownContentFromFile } from './loadMarkdownFromFile.ts'
 import { Type, type Static } from '@sinclair/typebox'
 import { validateWithTypeBox } from '@hello.nrfcloud.com/proto'
+import { decode } from '../src/context/navigation/encodeNavigation.ts'
 
 const __dirname = import.meta.dirname
 const tutorialDir = path.join(__dirname, '..', 'docs', 'tutorial')
@@ -14,6 +15,11 @@ export const TutorialEntry = Type.Object({
 	next: Type.Optional(
 		Type.Object({
 			id: Type.String({ minLength: 1 }),
+		}),
+	),
+	done: Type.Optional(
+		Type.Object({
+			locationMatch: Type.String({ minLength: 1 }),
 		}),
 	),
 })
@@ -81,6 +87,16 @@ export const tutorialContentPlugin = (): Plugin => {
 					console.debug(`[Tutorial]`, `(next)`, file.id, '🡒', file.next.id)
 					// Set prev
 					next.prev = { id: file.id }
+				}
+
+				// Make sure locationMatch can be parsed
+				for (const file of files) {
+					if (file.done === undefined) continue
+					if (decode(file.done.locationMatch) === undefined) {
+						throw new Error(
+							`[Tutorial:done] '${file.id}' has invalid locationMatch '${file.done.locationMatch}'`,
+						)
+					}
 				}
 
 				return `export const content = ${JSON.stringify(content)}`
