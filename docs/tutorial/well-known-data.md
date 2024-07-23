@@ -1,6 +1,5 @@
 ---
-next:
-  id: custom-devices
+next: custom-devices
 ---
 
 # Well known objects

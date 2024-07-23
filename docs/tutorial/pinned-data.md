@@ -1,6 +1,6 @@
 ---
-next:
-  id: well-known-data
+next: well-known-data
+highlight: .known-objects
 ---
 
 # Pinned data

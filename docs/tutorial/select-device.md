@@ -1,8 +1,6 @@
 ---
-next:
-  id: lwm2m-data
-done:
-  locationMatch: id:plumiped-placeman-confrier
+next: lwm2m-data
+done: id:plumiped-placeman-confrier
 ---
 
 # Select a device

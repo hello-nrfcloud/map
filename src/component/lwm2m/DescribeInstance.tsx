@@ -24,7 +24,9 @@ export const DescribeInstance = (props: {
 			when={definition !== undefined}
 			fallback={<p>Unknown Object ID: {props.instance.ObjectID}!</p>}
 		>
-			<section class="lwm2m instance">
+			<section
+				class={`lwm2m instance ObjectID-${props.instance.ObjectID} ObjectInstanceID-${props.instance.ObjectInstanceID ?? '0'}`}
+			>
 				<div>
 					<header class="pad">
 						<h2>

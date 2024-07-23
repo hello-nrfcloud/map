@@ -15,6 +15,7 @@ export const CollapsibleMenu = (props: ParentProps<{ class?: string }>) => {
 						type="button"
 						title="open"
 						onClick={() => setCollapsed(false)}
+						class="collapsible-open"
 					>
 						<MenuIcon strokeWidth={1} size={20} />
 					</button>
@@ -26,6 +27,7 @@ export const CollapsibleMenu = (props: ParentProps<{ class?: string }>) => {
 						type="button"
 						title="collapse"
 						onClick={() => setCollapsed(true)}
+						class="collapsible-close"
 					>
 						<Close strokeWidth={1} size={20} />
 					</button>

@@ -1,8 +1,7 @@
 ---
-next:
-  id: data-on-map
-done:
-  locationMatch: di;14205;0
+next: data-on-map
+done: di;14205;0
+highlight: .lwm2m.instance.ObjectID-14205 button[aria-expanded=false]
 ---
 
 # Devices send LwM2M objects

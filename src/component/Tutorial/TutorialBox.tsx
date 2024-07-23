@@ -1,11 +1,12 @@
 import { type ParentProps, Show } from 'solid-js'
-import { useNavigation } from '../../context/Navigation.tsx'
-import { Close, ToDo, Done, Next, Prev } from '../../icons/LucideIcon.tsx'
 import type { TutorialEntryType } from '../../../tutorial/tutorialContentPlugin.ts'
-import { decode, encode } from '../../context/navigation/encodeNavigation.ts'
 import { useAllDevicesMapState } from '../../context/AllDeviceMapState.tsx'
+import { useNavigation } from '../../context/Navigation.tsx'
+import { decode } from '../../context/navigation/encodeNavigation.ts'
+import { Close, Done, Next, Prev, ToDo } from '../../icons/LucideIcon.tsx'
 
 import './TutorialBox.css'
+import { isDone } from './isDone.tsx'
 
 export const TutorialBox = (
 	props: ParentProps<{
@@ -18,17 +19,7 @@ export const TutorialBox = (
 
 	const hasDone = () => props.tutorial.done !== undefined
 
-	const completed = (): boolean => {
-		const done = props.tutorial.done
-		if (done === undefined) return false
-		const locationMatch = done.locationMatch
-		if (locationMatch === undefined) return false
-		if (
-			(encode(location.current())?.includes(locationMatch) ?? false) === false
-		)
-			return false
-		return true
-	}
+	const completed = (): boolean => isDone(props.tutorial, location)
 
 	return (
 		<Show when={what() === props.tutorial.id}>
@@ -98,7 +89,7 @@ export const TutorialBox = (
 								type="button"
 								onClick={() =>
 									location.navigate({
-										tutorial: props.tutorial.prev!.id,
+										tutorial: props.tutorial.prev,
 									})
 								}
 							>
@@ -110,7 +101,7 @@ export const TutorialBox = (
 								type="button"
 								onClick={() =>
 									location.navigate({
-										tutorial: props.tutorial.next!.id,
+										tutorial: props.tutorial.next,
 									})
 								}
 							>

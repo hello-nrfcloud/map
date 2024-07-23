@@ -1,13 +1,10 @@
 ---
-next:
-  id: pinned-data
+next: data-on-map-2
+highlight:
+  .lwm2m.instance.ObjectID-14205 dt.ResourceID-0 button.collapsible-open
 ---
 
 # Show this data on the Map
 
 All data can be shown on the map. Select the `⋯` icon next to _Temperature_ to
 show the context menu.
-
-Then click on `📍` icon to show the data on the map.
-
-You can show multiple values on the map.

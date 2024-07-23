@@ -57,7 +57,7 @@ export const DescribeResource = (props: {
 					/>
 				}
 			>
-				<dt>
+				<dt class={`ResourceID-${props.info.ResourceID}`}>
 					<span class="info">
 						<abbr class="name" title={props.info.Description}>
 							{props.info.Name}
@@ -85,6 +85,7 @@ export const DescribeResource = (props: {
 									title="Pin to map"
 									type="button"
 									onClick={() => location.toggleResource(r)}
+									class="pin-to-map"
 								>
 									<PinOnMap strokeWidth={1} size={20} />
 								</button>
@@ -114,7 +115,9 @@ export const DescribeResource = (props: {
 						</a>
 					</CollapsibleMenu>
 				</dt>
-				<dd class={`value ${props.info.Multiple ? 'multiple' : ''}`}>
+				<dd
+					class={`ResourceID-${props.info.ResourceID} value ${props.info.Multiple ? 'multiple' : ''}`}
+				>
 					<DescribeValue value={props.value} info={props.info} />
 					<Show
 						when={

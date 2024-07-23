@@ -1,0 +1,7 @@
+#tutorial-highlight {
+  position: absolute;
+  border: 3px dotted var(--color-tutorial-highlight);
+  z-index: 50;
+  pointer-events: none;
+  border-radius: 5px;
+}

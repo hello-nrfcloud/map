@@ -28,7 +28,7 @@
 
 .tutorial.dialogue {
   position: absolute;
-  z-index: 50;
+  z-index: 51;
   width: calc(100vw - var(--base-size-navbar) - var(--gap));
   left: calc(var(--base-size-navbar) + var(--gap) / 2);
   top: calc(var(--gap) / 2);

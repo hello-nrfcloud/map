@@ -13,13 +13,26 @@ export const TutorialEntry = Type.Object({
 	id: Type.String({ minLength: 1 }),
 	html: Type.String({ minLength: 1 }),
 	next: Type.Optional(
-		Type.Object({
-			id: Type.String({ minLength: 1 }),
+		Type.String({
+			minLength: 1,
+			title: 'Next',
+			description: 'ID of the next tutorial',
 		}),
 	),
 	done: Type.Optional(
-		Type.Object({
-			locationMatch: Type.String({ minLength: 1 }),
+		Type.String({
+			minLength: 1,
+			title: 'Location Match',
+			description:
+				'Marks the current tutorial as done when the location contains this string',
+		}),
+	),
+	highlight: Type.Optional(
+		Type.String({
+			minLength: 1,
+			title: 'Highlight',
+			description:
+				'CSS selector targeting an element that should be highlighted',
 		}),
 	),
 })
@@ -27,9 +40,7 @@ export const TutorialEntry = Type.Object({
 const validate = validateWithTypeBox(TutorialEntry)
 
 export type TutorialEntryType = Static<typeof TutorialEntry> & {
-	prev?: {
-		id: string
-	}
+	prev?: string
 }
 
 export type TutorialContent = Record<string, TutorialEntryType> & {
@@ -78,23 +89,23 @@ export const tutorialContentPlugin = (): Plugin => {
 				// Make sure links work
 				for (const file of files) {
 					if (file.next === undefined) continue
-					const next = content[file.next.id]
+					const next = content[file.next]
 					if (next === undefined) {
 						throw new Error(
-							`[Tutorial:next] '${file.id}' references non-existent tutorial '${file.next.id}'`,
+							`[Tutorial:next] '${file.id}' references non-existent tutorial '${file.next}'`,
 						)
 					}
-					console.debug(`[Tutorial]`, `(next)`, file.id, '🡒', file.next.id)
+					console.debug(`[Tutorial]`, `(next)`, file.id, '🡒', file.next)
 					// Set prev
-					next.prev = { id: file.id }
+					next.prev = file.id
 				}
 
 				// Make sure locationMatch can be parsed
 				for (const file of files) {
 					if (file.done === undefined) continue
-					if (decode(file.done.locationMatch) === undefined) {
+					if (decode(file.done) === undefined) {
 						throw new Error(
-							`[Tutorial:done] '${file.id}' has invalid locationMatch '${file.done.locationMatch}'`,
+							`[Tutorial:done] '${file.id}' has invalid locationMatch '${file.done}'`,
 						)
 					}
 				}

@@ -1,6 +1,5 @@
 ---
-next:
-  id: add-your-device
+next: add-your-device
 ---
 
 # Customize the map

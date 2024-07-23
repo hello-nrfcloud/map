@@ -1,6 +1,5 @@
 ---
-next:
-  id: map
+next: map
 ---
 
 # Welcome to `hello.nrfcloud.com/map`

@@ -1,6 +1,5 @@
 ---
-next:
-  id: customize-map
+next: customize-map
 ---
 
 # Custom devices
