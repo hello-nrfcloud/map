@@ -28,7 +28,7 @@
 
 .tutorial.dialogue {
   position: absolute;
-  z-index: 51;
+  z-index: 50;
   width: calc(100vw - var(--base-size-navbar) - var(--gap));
   left: calc(var(--base-size-navbar) + var(--gap) / 2);
   top: calc(var(--gap) / 2);
@@ -62,8 +62,21 @@
   display: flex;
   justify-content: space-between;
   border-top: 1px solid var(--color-tutorial-bg-darker);
+  padding: 0;
 }
 
-.tutorial > header.completed {
+.tutorial.completed > header {
+  background-color: var(--color-tutorial-bg-completed);
+}
+
+.tutorial > footer button {
+  display: block;
+  height: 100%;
+  width: auto;
+  aspect-ratio: 1/1;
+  padding: 0.75rem;
+}
+
+.tutorial.completed > footer button.next {
   background-color: var(--color-tutorial-bg-completed);
 }

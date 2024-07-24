@@ -23,8 +23,8 @@ export const TutorialBox = (
 
 	return (
 		<Show when={what() === props.tutorial.id}>
-			<aside class="tutorial dialogue">
-				<header class={completed() ? 'completed' : ''}>
+			<aside class={`tutorial dialogue ${completed() ? 'completed' : ''}`}>
+				<header>
 					<span>
 						<Show when={hasDone()} fallback={<span>Tutorial</span>}>
 							<Show when={completed()} fallback={<ToDo />}>
@@ -92,6 +92,7 @@ export const TutorialBox = (
 										tutorial: props.tutorial.prev,
 									})
 								}
+								class="prev"
 							>
 								<Prev />
 							</button>
@@ -104,6 +105,7 @@ export const TutorialBox = (
 										tutorial: props.tutorial.next,
 									})
 								}
+								class="next"
 							>
 								<Next />
 							</button>

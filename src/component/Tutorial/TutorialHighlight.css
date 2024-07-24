@@ -1,7 +1,25 @@
 #tutorial-highlight {
   position: absolute;
-  border: 3px dotted var(--color-tutorial-highlight);
-  z-index: 50;
+  border: 2px dotted var(--color-tutorial-highlight);
+  z-index: 51;
   pointer-events: none;
   border-radius: 5px;
+  animation: scale-down 0.5s 3 ease-in-out;
+}
+
+@keyframes scale-down {
+  0% {
+    scale: 1;
+    border-width: 2px;
+  }
+
+  50% {
+    scale: 1.5;
+    border-width: 4px;
+  }
+
+  100% {
+    scale: 1;
+    border-width: 2px;
+  }
 }
