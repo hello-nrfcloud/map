@@ -79,4 +79,5 @@
 
 .tutorial.completed > footer button:last-child {
   background-color: var(--color-tutorial-bg-completed);
+  border-left: 1px solid var(--color-tutorial-bg-completed-darker);
 }

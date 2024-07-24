@@ -34,7 +34,6 @@ export const DescribeResource = (props: {
 	device: Device
 }) => {
 	const [showDefinition, setShowDefinition] = createSignal<boolean>(false)
-	const [showHistory, setShowHistory] = createSignal<boolean>(false)
 	const location = useNavigation()
 	const r: PinnedResource = {
 		model: props.device.model as ModelID,
@@ -44,6 +43,9 @@ export const DescribeResource = (props: {
 
 	const v =
 		props.value !== undefined ? format(props.value, props.info) : undefined
+
+	const chartId = () =>
+		`chart;${props.ObjectID}/${props.InstanceID}/${props.info.ResourceID}`
 
 	return (
 		<>
@@ -68,7 +70,9 @@ export const DescribeResource = (props: {
 							</RelativeTime>
 						</Show>
 					</span>
-					<CollapsibleMenu id={`${props.ObjectID}/${props.info.ResourceID}/dt`}>
+					<CollapsibleMenu
+						id={`${props.ObjectID}/${props.info.ResourceID}/info`}
+					>
 						<Show when={!showDefinition()}>
 							<button
 								title="Show definition"
@@ -126,7 +130,7 @@ export const DescribeResource = (props: {
 						}
 					>
 						<CollapsibleMenu
-							id={`${props.ObjectID}/${props.info.ResourceID}/dd`}
+							id={`${props.ObjectID}/${props.info.ResourceID}/value`}
 						>
 							<Show when={isSearchable(props.info, props.value)}>
 								<a
@@ -147,9 +151,9 @@ export const DescribeResource = (props: {
 							<Show when={hasHistory(props.info)}>
 								<button
 									type="button"
-									title={`Graph the history of the ${props.info.Name} resource.`}
+									title={`Graph the history of the ${props.info.Name} resource`}
 									class="button"
-									onClick={() => setShowHistory((s) => !s)}
+									onClick={() => location.toggle(chartId())}
 								>
 									<History strokeWidth={1} size={20} />
 								</button>
@@ -158,7 +162,7 @@ export const DescribeResource = (props: {
 					</Show>
 				</dd>
 			</Show>
-			<Show when={showHistory()}>
+			<Show when={location.isToggled(chartId())}>
 				<ResourceHistory
 					device={props.device}
 					ObjectID={props.ObjectID}

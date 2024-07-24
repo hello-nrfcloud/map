@@ -5,7 +5,7 @@ highlight:
   - LwM2M object 14205
   - Resource 0
   - Open context menu
-done: 0:14205/0/dt
+done: cm;0:14205/0/info
 ---
 
 # Show this data on the Map

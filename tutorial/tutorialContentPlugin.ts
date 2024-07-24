@@ -95,6 +95,8 @@ export const tutorialContentPlugin = (): Plugin => {
 				// Make sure links work
 				for (const file of files) {
 					if (file.next === undefined) continue
+					if (file.next === file.id)
+						throw new Error(`[Tutorial:next] '${file.id}' references itself`)
 					const next = content[file.next]
 					if (next === undefined) {
 						throw new Error(

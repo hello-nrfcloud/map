@@ -1,5 +1,5 @@
 ---
-next: custom-devices
+next: historical-data
 highlight:
   - Known objects
   - Location

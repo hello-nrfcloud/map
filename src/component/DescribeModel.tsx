@@ -12,7 +12,7 @@ export const DescribeModel = (props: { model: ModelID }) => {
 	const location = useNavigation()
 	const model = models[props.model]
 	return (
-		<aside class="model-definition boxed">
+		<aside class="model-definition boxed" title="Model">
 			<header class="pad">
 				<h3>
 					<Documentation size={20} strokeWidth={1} />

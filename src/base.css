@@ -16,7 +16,8 @@
   --color-tutorial-bg-dark: #c5ca86;
   --color-tutorial-bg-darker: #8f945f;
   --color-tutorial-highlight: #fff100;
-  --color-tutorial-bg-completed: rgb(80, 202, 125);
+  --color-tutorial-bg-completed: rgb(80, 200, 120);
+  --color-tutorial-bg-completed-darker: rgb(40, 100, 60);
   --color-tutorial-text: #222;
   --chart-labels: #ffffff80;
   --chart-values: var(--color-highlight);
