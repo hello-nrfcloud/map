@@ -57,7 +57,7 @@ export const DescribeResource = (props: {
 					/>
 				}
 			>
-				<dt class={`ResourceID-${props.info.ResourceID}`}>
+				<dt title={`Resource ${props.info.ResourceID}`}>
 					<span class="info">
 						<abbr class="name" title={props.info.Description}>
 							{props.info.Name}
@@ -68,7 +68,7 @@ export const DescribeResource = (props: {
 							</RelativeTime>
 						</Show>
 					</span>
-					<CollapsibleMenu>
+					<CollapsibleMenu id={`${props.ObjectID}/${props.info.ResourceID}/dt`}>
 						<Show when={!showDefinition()}>
 							<button
 								title="Show definition"
@@ -116,7 +116,8 @@ export const DescribeResource = (props: {
 					</CollapsibleMenu>
 				</dt>
 				<dd
-					class={`ResourceID-${props.info.ResourceID} value ${props.info.Multiple ? 'multiple' : ''}`}
+					class={`value ${props.info.Multiple ? 'multiple' : ''}`}
+					title={`Value of resource ${props.info.ResourceID}`}
 				>
 					<DescribeValue value={props.value} info={props.info} />
 					<Show
@@ -124,7 +125,9 @@ export const DescribeResource = (props: {
 							isSearchable(props.info, props.value) || hasHistory(props.info)
 						}
 					>
-						<CollapsibleMenu>
+						<CollapsibleMenu
+							id={`${props.ObjectID}/${props.info.ResourceID}/dd`}
+						>
 							<Show when={isSearchable(props.info, props.value)}>
 								<a
 									href={location.link({

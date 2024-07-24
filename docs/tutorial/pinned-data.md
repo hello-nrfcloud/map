@@ -1,6 +1,7 @@
 ---
 next: well-known-data
-highlight: .known-objects
+highlight:
+  - Known objects
 ---
 
 # Pinned data

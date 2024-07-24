@@ -1,4 +1,10 @@
-import { type ParentProps, Show } from 'solid-js'
+import {
+	type ParentProps,
+	Show,
+	createSignal,
+	createEffect,
+	onCleanup,
+} from 'solid-js'
 import type { TutorialEntryType } from '../../../tutorial/tutorialContentPlugin.ts'
 import { useAllDevicesMapState } from '../../context/AllDeviceMapState.tsx'
 import { useNavigation } from '../../context/Navigation.tsx'
@@ -13,25 +19,39 @@ export const TutorialBox = (
 		tutorial: TutorialEntryType
 	}>,
 ) => {
+	const [autoCompleted, setAutoCompleted] = createSignal(false)
 	const location = useNavigation()
 	const { update: updateMapState } = useAllDevicesMapState()
 	const what = () => location.current().tutorial
 
 	const hasDone = () => props.tutorial.done !== undefined
 
-	const completed = (): boolean => isDone(props.tutorial, location)
+	const completed = (): boolean =>
+		autoCompleted() || isDone(props.tutorial, location)
+
+	// Automatically mark as done, if no done state is set
+	createEffect(() => {
+		if (hasDone()) return
+		const t = setTimeout(() => {
+			setAutoCompleted(true)
+		}, 1500)
+		onCleanup(() => {
+			clearTimeout(t)
+		})
+	})
 
 	return (
 		<Show when={what() === props.tutorial.id}>
-			<aside class={`tutorial dialogue ${completed() ? 'completed' : ''}`}>
+			<aside
+				class={`tutorial dialogue ${completed() ? 'completed' : ''}`}
+				title="Tutorial"
+			>
 				<header>
 					<span>
-						<Show when={hasDone()} fallback={<span>Tutorial</span>}>
-							<Show when={completed()} fallback={<ToDo />}>
-								<Done />
-							</Show>
-							<span class="pad-s">Tutorial</span>
+						<Show when={completed()} fallback={<ToDo />}>
+							<Done />
 						</Show>
+						<span class="pad-s">Tutorial</span>
 					</span>
 					<button
 						type="button"
@@ -92,7 +112,7 @@ export const TutorialBox = (
 										tutorial: props.tutorial.prev,
 									})
 								}
-								class="prev"
+								title="Previous"
 							>
 								<Prev />
 							</button>
@@ -105,7 +125,7 @@ export const TutorialBox = (
 										tutorial: props.tutorial.next,
 									})
 								}
-								class="next"
+								title="Next"
 							>
 								<Next />
 							</button>

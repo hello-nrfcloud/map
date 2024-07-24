@@ -1,10 +1,14 @@
 ---
 next: data-on-map-2
 highlight:
-  .lwm2m.instance.ObjectID-14205 dt.ResourceID-0 button.collapsible-open
+  - Other objects
+  - LwM2M object 14205
+  - Resource 0
+  - Open context menu
+done: 0:14205/0/dt
 ---
 
 # Show this data on the Map
 
 All data can be shown on the map. Select the `⋯` icon next to _Temperature_ to
-show the context menu.
+open the context menu.

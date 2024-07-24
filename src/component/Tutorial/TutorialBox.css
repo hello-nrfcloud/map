@@ -77,6 +77,6 @@
   padding: 0.75rem;
 }
 
-.tutorial.completed > footer button.next {
+.tutorial.completed > footer button:last-child {
   background-color: var(--color-tutorial-bg-completed);
 }

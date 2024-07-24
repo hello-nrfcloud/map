@@ -18,13 +18,13 @@ export const DescribeModel = (props: { model: ModelID }) => {
 					<Documentation size={20} strokeWidth={1} />
 					{model.about.title}
 				</h3>
-				<ToggleButton id="describe-model" />
+				<ToggleButton title="definition" id="describe-model" />
 			</header>
 			<WhenToggled id="describe-model">
 				<ResourcesDL class="pad bg-light">
 					<dt>
 						<span class="info">ID</span>
-						<CollapsibleMenu class="meta">
+						<CollapsibleMenu id={`model-${props.model}`} class="meta">
 							<a
 								href={location.link({
 									panel: 'search',

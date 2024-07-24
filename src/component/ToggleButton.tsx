@@ -2,7 +2,7 @@ import { Show } from 'solid-js'
 import { useNavigation } from '../context/Navigation.js'
 import { Collapse, Expand } from '../icons/LucideIcon.js'
 
-export const ToggleButton = (props: { id: string }) => {
+export const ToggleButton = (props: { id: string; title: string }) => {
 	const nav = useNavigation()
 	return (
 		<Show
@@ -12,6 +12,7 @@ export const ToggleButton = (props: { id: string }) => {
 					type="button"
 					aria-expanded={false}
 					onClick={() => nav.toggle(props.id)}
+					title={`Show ${props.title}`}
 				>
 					<Expand size={20} strokeWidth={1} />
 				</button>
@@ -21,6 +22,7 @@ export const ToggleButton = (props: { id: string }) => {
 				type="button"
 				aria-expanded={true}
 				onClick={() => nav.toggle(props.id)}
+				title={`Hide ${props.title}`}
 			>
 				<Collapse size={20} strokeWidth={1} />
 			</button>

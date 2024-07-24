@@ -28,12 +28,18 @@ export const TutorialEntry = Type.Object({
 		}),
 	),
 	highlight: Type.Optional(
-		Type.String({
-			minLength: 1,
-			title: 'Highlight',
-			description:
-				'CSS selector targeting an element that should be highlighted',
-		}),
+		Type.Array(
+			Type.String({
+				minLength: 1,
+				title: 'Title',
+				description: 'A title value',
+			}),
+			{
+				title: 'Highlight selectors',
+				description:
+					'A list of titles that are used to locate the element that should be highlighted',
+			},
+		),
 	),
 })
 

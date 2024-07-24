@@ -21,7 +21,9 @@ export const TutorialHighlight = (
 			setHighlight(undefined)
 			return
 		}
-		const el = document.querySelector(highlight)
+		const selector = highlight.map((title) => `[title="${title}"]`).join(' ')
+		const el = document.querySelector(selector)
+		console.log(selector, el)
 		setHighlight(el?.getBoundingClientRect() ?? undefined)
 	})
 

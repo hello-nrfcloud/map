@@ -12,7 +12,10 @@ export const DescribeConnectionSettings = (props: { deviceId: string }) => {
 			<div>
 				<header class="pad">
 					<h3>Connection information</h3>
-					<ToggleButton id="connection-information" />
+					<ToggleButton
+						title="connection information"
+						id="connection-information"
+					/>
 				</header>
 				<WhenToggled id={'connection-information'}>
 					<ResourcesDL class="pad bg-light">

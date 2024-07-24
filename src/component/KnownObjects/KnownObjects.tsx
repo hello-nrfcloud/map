@@ -66,7 +66,7 @@ export const KnownObjects = (props: {
 	}
 
 	return (
-		<section class="known-objects boxed">
+		<section title="Known objects" class="known-objects boxed">
 			<div>
 				<nav class="tabs pad">
 					<Show when={tabs().includes(TabType.Pinned)}>
@@ -97,6 +97,7 @@ export const KnownObjects = (props: {
 						<Tab
 							isActive={isActive(TabType.Location)}
 							onClick={() => setActive(TabType.Location)}
+							title="Location"
 						>
 							<LocationIcon />
 						</Tab>
@@ -138,12 +139,14 @@ const Tab = (
 	props: ParentProps<{
 		isActive: boolean
 		onClick: () => void
+		title?: string
 	}>,
 ) => (
 	<button
 		type="button"
 		onClick={props.onClick}
 		class={props.isActive ? 'active' : ''}
+		title={props.title ?? ''}
 	>
 		{props.children}
 	</button>

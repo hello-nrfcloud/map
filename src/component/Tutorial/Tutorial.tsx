@@ -33,7 +33,6 @@ export const Tutorial = () => {
 			<Show when={currentTutorial() !== undefined}>
 				<TutorialHighlight tutorial={currentTutorial()!} />
 			</Show>
-
 			<For each={Object.entries(content)}>
 				{([id, content]) => (
 					<Show when={what() === id}>

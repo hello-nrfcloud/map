@@ -1,5 +1,6 @@
 ---
 next: customize-map
+done: model:kartverket-vasstandsdata
 ---
 
 # Custom devices

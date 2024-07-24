@@ -25,7 +25,8 @@ export const DescribeInstance = (props: {
 			fallback={<p>Unknown Object ID: {props.instance.ObjectID}!</p>}
 		>
 			<section
-				class={`lwm2m instance ObjectID-${props.instance.ObjectID} ObjectInstanceID-${props.instance.ObjectInstanceID ?? '0'}`}
+				class="lwm2m instance"
+				title={`LwM2M object ${props.instance.ObjectID}`}
 			>
 				<div>
 					<header class="pad">
@@ -50,7 +51,7 @@ export const DescribeInstance = (props: {
 								</RelativeTime>
 							</small>
 						</h2>
-						<ToggleButton id={toggleId} />
+						<ToggleButton title="resources" id={toggleId} />
 					</header>
 					<WhenToggled id={toggleId}>
 						<DescribeResources
