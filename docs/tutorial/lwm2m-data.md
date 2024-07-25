@@ -12,7 +12,9 @@ highlight:
 All device data is described using LwM2M objects, which have been registered in
 [our protocol repository](https://github.com/hello-nrfcloud/proto-map) .
 
-This allows us to display arbitrary device data in a user-friendly way, with
-detail explanation of each value.
+This allows the application to display device data in a user-friendly way, with
+detailed explanation of each value and serves as a generic protocol that is
+independent of device type and connection.
 
-Click the `⌄` icon of _Environment_ to explore the data this device has sent.
+Click the `⌄` icon of _Environment_ to explore some of the data this device has
+sent.

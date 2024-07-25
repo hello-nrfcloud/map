@@ -5,10 +5,14 @@ highlight:
   - LwM2M object 14205
   - Resource 0
   - Open context menu
-done: cm;0:14205/0/info
+done: cm;14205/0/info
 ---
 
 # Show this data on the Map
 
-All data can be shown on the map. Select the `⋯` icon next to _Temperature_ to
-open the context menu.
+You can see that the device has reported temperature and other environment data.
+
+All values can be added to the map. This way you can build a map of devices and
+data points for your specific use case.
+
+Select the `⋯` icon next to _Temperature_ to open the context menu.

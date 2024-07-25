@@ -12,4 +12,4 @@ done: thingy91x:r:14205/0
 
 Now click the `📍` icon to show the data on the map.
 
-You can show multiple values on the map.
+You can also show multiple values on the map. If you want you can also add
