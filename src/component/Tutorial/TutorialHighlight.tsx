@@ -1,34 +1,44 @@
-import { type ParentProps, Show, createEffect, createSignal } from 'solid-js'
-import type { TutorialEntryType } from '../../../tutorial/tutorialContentPlugin.ts'
+import { content } from 'map:tutorial-content'
+import { Show, createEffect, createSignal } from 'solid-js'
 import { useNavigation } from '../../context/Navigation.tsx'
+import { isDone } from './isDone.ts'
 
 import './TutorialHighlight.css'
-import { isDone } from './isDone.tsx'
 
-export const TutorialHighlight = (
-	props: ParentProps<{
-		tutorial: TutorialEntryType
-	}>,
-) => {
+export const TutorialHighlight = () => {
 	const location = useNavigation()
 	const [highlight, setHighlight] = createSignal<DOMRect | undefined>()
+	const what = () => location.current().tutorial
 
-	const completed = (): boolean => isDone(props.tutorial, location)
+	const currentTutorial = () => {
+		const currentTutorialId = what()
+		if (currentTutorialId === undefined) return
+		return content[currentTutorialId]
+	}
+
+	const completed = (): boolean => {
+		const t = currentTutorial()
+		return t !== undefined && isDone(t, location)
+	}
 
 	createEffect(() => {
-		const highlight = props.tutorial.highlight
+		const highlight = currentTutorial()?.highlight
 		if (highlight === undefined) {
 			setHighlight(undefined)
 			return
 		}
 		const selector = highlight.map((title) => `[title="${title}"]`).join(' ')
-		const el = document.querySelector(selector)
-		console.log(selector, el)
-		setHighlight(el?.getBoundingClientRect() ?? undefined)
+		setHighlight(document.querySelector(selector)?.getBoundingClientRect())
 	})
 
 	return (
-		<Show when={!completed() && highlight() !== undefined}>
+		<Show
+			when={
+				currentTutorial() !== undefined &&
+				!completed() &&
+				highlight() !== undefined
+			}
+		>
 			<div
 				id="tutorial-highlight"
 				style={{

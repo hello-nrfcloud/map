@@ -1,7 +1,5 @@
 header.nordic {
-  height: var(--base-size-navbar);
   background-color: white;
-  width: 100vw;
   display: flex;
   align-items: center;
 }
@@ -21,6 +19,7 @@ header.nordic .text {
     width: 40px;
     margin-left: calc((var(--base-size-navbar) - 40px) / 2);
   }
+
   header.nordic .text {
     height: 24px;
     margin-left: 10px;

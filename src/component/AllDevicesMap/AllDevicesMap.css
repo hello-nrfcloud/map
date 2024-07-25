@@ -1,9 +1,0 @@
-#alldevices {
-  width: 100vw;
-  height: calc(100vh - var(--base-size-navbar));
-  color: #333;
-  position: absolute;
-  top: var(--base-size-navbar);
-  left: 0;
-  z-index: 10;
-}

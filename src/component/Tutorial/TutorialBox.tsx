@@ -10,7 +10,7 @@ import { useAllDevicesMapState } from '../../context/AllDeviceMapState.tsx'
 import { useNavigation } from '../../context/Navigation.tsx'
 import { decode } from '../../context/navigation/encodeNavigation.ts'
 import { Close, Done, Next, Prev, ToDo } from '../../icons/LucideIcon.tsx'
-import { isDone } from './isDone.tsx'
+import { isDone } from './isDone.ts'
 
 import './TutorialBox.css'
 
@@ -43,27 +43,9 @@ export const TutorialBox = (
 	return (
 		<Show when={what() === props.tutorial.id}>
 			<aside
-				class={`tutorial dialogue ${completed() ? 'completed' : ''}`}
+				class={`tutorial ${completed() ? 'completed' : ''}`}
 				title="Tutorial"
 			>
-				<header>
-					<span>
-						<Show when={completed()} fallback={<ToDo />}>
-							<Done />
-						</Show>
-						<span class="pad-s">Tutorial</span>
-					</span>
-					<button
-						type="button"
-						onClick={() =>
-							location.navigate({
-								tutorial: undefined,
-							})
-						}
-					>
-						<Close />
-					</button>
-				</header>
 				<section
 					innerHTML={props.tutorial.html}
 					onClick={(ev) => {
@@ -104,32 +86,57 @@ export const TutorialBox = (
 					}
 				>
 					<footer>
-						<Show when={props.tutorial.prev !== undefined} fallback={<span />}>
+						<span class="controls">
+							<Show
+								when={props.tutorial.prev !== undefined}
+								fallback={<span />}
+							>
+								<button
+									type="button"
+									onClick={() =>
+										location.navigate({
+											tutorial: props.tutorial.prev,
+										})
+									}
+									title="Previous"
+								>
+									<Prev />
+								</button>
+							</Show>
 							<button
 								type="button"
 								onClick={() =>
 									location.navigate({
-										tutorial: props.tutorial.prev,
+										tutorial: undefined,
 									})
 								}
-								title="Previous"
 							>
-								<Prev />
+								<Close />
 							</button>
-						</Show>
-						<Show when={props.tutorial.next !== undefined} fallback={<span />}>
-							<button
-								type="button"
-								onClick={() =>
-									location.navigate({
-										tutorial: props.tutorial.next,
-									})
-								}
-								title="Next"
+						</span>
+						<span class="controls">
+							<span>
+								<Show when={completed()} fallback={<ToDo class="not-done" />}>
+									<Done class="done" />
+								</Show>
+							</span>
+							<Show
+								when={props.tutorial.next !== undefined}
+								fallback={<span />}
 							>
-								<Next />
-							</button>
-						</Show>
+								<button
+									type="button"
+									onClick={() =>
+										location.navigate({
+											tutorial: props.tutorial.next,
+										})
+									}
+									title="Next"
+								>
+									<Next />
+								</button>
+							</Show>
+						</span>
 					</footer>
 				</Show>
 			</aside>

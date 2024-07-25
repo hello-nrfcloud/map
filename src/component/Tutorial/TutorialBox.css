@@ -1,10 +1,7 @@
 .tutorial {
   background-color: var(--color-tutorial-bg);
   color: var(--color-tutorial-text);
-  border-radius: calc(var(--border-radius) * 2);
-  overflow: hidden;
-  margin-bottom: var(--gap);
-  margin-top: var(--gap);
+  border-top: 1px solid var(--color-tutorial-bg-dark);
 }
 
 .tutorial > * {
@@ -17,44 +14,9 @@
   margin-bottom: 0.5rem;
 }
 
-.tutorial.dialogue h1 {
-  font-size: auto;
-}
-
 .tutorial a,
 .tutorial button.link {
   text-decoration: underline;
-}
-
-.tutorial.dialogue {
-  position: absolute;
-  z-index: 50;
-  width: calc(100vw - var(--base-size-navbar) - var(--gap));
-  left: calc(var(--base-size-navbar) + var(--gap) / 2);
-  top: calc(var(--gap) / 2);
-  box-shadow: 0 0 10px #00000063;
-  margin-bottom: 0;
-  margin-top: 0;
-}
-
-@media (min-width: 600px) {
-  .tutorial.dialogue {
-    top: 10vh;
-    left: calc((100vw - 500px) / 2);
-    width: 600px;
-  }
-}
-
-.tutorial > header {
-  background-color: var(--color-tutorial-bg-dark);
-  border-bottom: 1px solid var(--color-tutorial-bg-darker);
-  display: flex;
-  align-items: center;
-}
-
-.tutorial > header span {
-  display: flex;
-  align-items: center;
 }
 
 .tutorial > footer {
@@ -63,21 +25,30 @@
   justify-content: space-between;
   border-top: 1px solid var(--color-tutorial-bg-darker);
   padding: 0;
+  width: var(--size-sidebar);
 }
 
-.tutorial.completed > header {
-  background-color: var(--color-tutorial-bg-completed);
-}
-
-.tutorial > footer button {
+.tutorial > footer span.controls > * {
   display: block;
-  height: 100%;
+  height: calc(var(--base-size-navbar) * 0.85);
   width: auto;
   aspect-ratio: 1/1;
   padding: 0.75rem;
 }
 
-.tutorial.completed > footer button:last-child {
+.tutorial > footer span.controls {
+  display: flex;
+}
+
+.tutorial.completed > footer span.controls:last-child button {
   background-color: var(--color-tutorial-bg-completed);
   border-left: 1px solid var(--color-tutorial-bg-completed-darker);
+}
+
+.tutorial .done {
+  color: var(--color-tutorial-bg-completed-darker);
+}
+
+.tutorial .not-done {
+  opacity: 0.5;
 }

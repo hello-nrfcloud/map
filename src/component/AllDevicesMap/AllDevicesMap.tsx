@@ -20,8 +20,6 @@ import { createStore, reconcile } from 'solid-js/store'
 import { useAllDevicesMapState } from '../../context/AllDeviceMapState.jsx'
 import type { PinnedResource } from '../../context/navigation/encodeNavigation.ts'
 
-import './AllDevicesMap.css'
-
 type DeviceInfo = {
 	device: Device
 	location: Geolocation_14201

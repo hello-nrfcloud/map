@@ -17,7 +17,7 @@ import { DescribeModel } from './DescribeModel.js'
 import { InfoBlock } from './InfoBlock.js'
 import { KnownObjects } from './KnownObjects/KnownObjects.js'
 import { DescribeInstance } from './lwm2m/DescribeInstance.js'
-import { SidebarContent } from './Sidebar.js'
+import { SidebarContent } from './Sidebar/SidebarContent.tsx'
 import { useViteEnv } from '../context/ViteEnv.tsx'
 
 import './lwm2m/LwM2M.css'

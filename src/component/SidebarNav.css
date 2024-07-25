@@ -1,11 +1,9 @@
 nav.sidebar {
   background-color: var(--bg-blue-2);
-  width: var(--base-size-navbar);
-  height: calc(100vh - var(--base-size-navbar));
-  position: fixed;
-  left: 0;
-  top: var(--base-size-navbar);
-  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
 }
 
 nav.sidebar .logo {
@@ -24,8 +22,9 @@ nav.sidebar .icon.highlight {
 }
 
 nav.sidebar .button {
-  width: calc(var(--base-size-navbar) - 1px);
-  height: calc(var(--base-size-navbar) - 1px);
+  width: calc(100% - 1px);
+  height: auto;
+  aspect-ratio: 1/1;
   display: flex;
   align-items: center;
   justify-content: space-around;
