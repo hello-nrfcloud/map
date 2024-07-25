@@ -23,13 +23,11 @@ export const Sidebar = () => (
 
 export const SidebarContent = (
 	props: ParentProps<{ class?: string; id: string }>,
-) => {
-	return (
-		<aside class={`sidebar ${props.class ?? ''}`} id={props.id}>
-			{props.children}
-		</aside>
-	)
-}
+) => (
+	<aside class={`sidebar ${props.class ?? ''}`} id={props.id}>
+		{props.children}
+	</aside>
+)
 
 export const SearchButton = () => {
 	const location = useNavigation()

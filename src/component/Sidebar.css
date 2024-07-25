@@ -14,7 +14,7 @@ aside.sidebar {
     left: calc(var(--base-size-navbar) - 1px);
     top: var(--base-size-navbar);
     max-height: 100vh;
-    width: calc(400px - var(--base-size-navbar));
+    width: calc(var(--size-sidebar) - var(--base-size-navbar));
     border-top-right-radius: calc(var(--base-size-navbar) / 4);
     border-bottom-right-radius: calc(var(--base-size-navbar) / 4);
     margin-left: 0;

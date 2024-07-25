@@ -1,5 +1,5 @@
 import { content } from 'map:tutorial-content'
-import { For, Show } from 'solid-js'
+import { For, Show, createEffect } from 'solid-js'
 import { useNavigation } from '../../context/Navigation.tsx'
 import { Tutorial as TutorialIcon } from '../../icons/LucideIcon.tsx'
 import { TutorialBox } from './TutorialBox.tsx'
@@ -27,6 +27,18 @@ export const Tutorial = () => {
 		if (currentTutorialId === undefined) return
 		return content[currentTutorialId]
 	}
+
+	createEffect(() => {
+		const root = document.getElementById('root')
+
+		if (root === null) return
+		const className = root.className.replaceAll('with-tutorial', '').trim()
+		if (what() === undefined) {
+			root.className = className
+		} else {
+			root.className = className + ' with-tutorial'
+		}
+	})
 
 	return (
 		<>

@@ -10,9 +10,9 @@ import { useAllDevicesMapState } from '../../context/AllDeviceMapState.tsx'
 import { useNavigation } from '../../context/Navigation.tsx'
 import { decode } from '../../context/navigation/encodeNavigation.ts'
 import { Close, Done, Next, Prev, ToDo } from '../../icons/LucideIcon.tsx'
+import { isDone } from './isDone.tsx'
 
 import './TutorialBox.css'
-import { isDone } from './isDone.tsx'
 
 export const TutorialBox = (
 	props: ParentProps<{
