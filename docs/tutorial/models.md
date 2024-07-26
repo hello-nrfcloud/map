@@ -3,7 +3,7 @@ highlight:
   - Model
   - Show definition
 next: model-search
-done: t:describe-model
+done: describe-model
 ---
 
 # Models
