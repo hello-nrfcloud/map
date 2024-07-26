@@ -58,11 +58,13 @@ export const TutorialHighlight = () => {
 		document.addEventListener('touchstart', hide, { passive: true })
 		document.addEventListener('touchend', onTouchEnd, { passive: true })
 		document.addEventListener('wheel', onWheelEnd, { passive: true })
+		document.addEventListener('hashchange', show)
 
 		onCleanup(() => {
 			document.removeEventListener('touchstart', hide)
 			document.removeEventListener('touchend', onTouchEnd)
 			document.removeEventListener('wheel', onWheelEnd)
+			document.removeEventListener('hashchange', show)
 		})
 	})
 
