@@ -4,10 +4,13 @@ import { useNavigation } from '../../context/Navigation.tsx'
 import { isDone } from './isDone.ts'
 
 import './TutorialHighlight.css'
+import { ScrollDown } from '../../icons/LucideIcon.tsx'
 
 export const TutorialHighlight = () => {
 	const location = useNavigation()
 	const [highlight, setHighlight] = createSignal<DOMRect | undefined>()
+	const [scrollToMarker, setScrollToMarker] = createSignal(false)
+
 	const what = () => location.current().tutorial
 
 	const currentTutorial = () => {
@@ -68,23 +71,50 @@ export const TutorialHighlight = () => {
 		})
 	})
 
+	createEffect(() => {
+		const hl = highlight()
+		if (hl === undefined) {
+			setScrollToMarker(false)
+			return
+		}
+		setScrollToMarker(
+			hl.top > document.documentElement.getBoundingClientRect().bottom,
+		)
+	})
+
 	return (
-		<Show
-			when={
-				currentTutorial() !== undefined &&
-				!completed() &&
-				highlight() !== undefined
-			}
-		>
-			<div
-				id="tutorial-highlight"
-				style={{
-					top: highlight()!.top - 5 + 'px',
-					left: highlight()!.left - 5 + 'px',
-					width: highlight()!.width + 10 + 'px',
-					height: highlight()!.height + 10 + 'px',
-				}}
-			></div>
-		</Show>
+		<>
+			<Show
+				when={
+					currentTutorial() !== undefined &&
+					!completed() &&
+					highlight() !== undefined
+				}
+			>
+				<div
+					id="tutorial-highlight"
+					style={{
+						top: highlight()!.top - 5 + 'px',
+						left: highlight()!.left - 5 + 'px',
+						width: highlight()!.width + 10 + 'px',
+						height: highlight()!.height + 10 + 'px',
+					}}
+				></div>
+			</Show>
+			<Show when={highlight() !== undefined && scrollToMarker()}>
+				<div
+					id="tutorial-scrolltomarker"
+					style={{
+						top:
+							document.documentElement.getBoundingClientRect().bottom -
+							64 +
+							'px',
+						left: highlight()!.left - (64 - highlight()!.width) / 2 + 'px',
+					}}
+				>
+					<ScrollDown size={64} />
+				</div>
+			</Show>
+		</>
 	)
 }

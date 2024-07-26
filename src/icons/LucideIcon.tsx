@@ -35,6 +35,7 @@ import {
 	ChevronLeft,
 	CircleCheckBig,
 	CircleDashed,
+	ArrowDownToLine,
 } from 'lucide'
 import { For } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
@@ -209,4 +210,8 @@ export const Done = (props: LucideProps) => (
 
 export const ToDo = (props: LucideProps) => (
 	<LucideIcon icon={CircleDashed} {...props} />
+)
+
+export const ScrollDown = (props: LucideProps) => (
+	<LucideIcon icon={ArrowDownToLine} {...props} />
 )
