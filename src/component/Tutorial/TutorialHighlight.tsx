@@ -72,6 +72,7 @@ export const TutorialHighlight = () => {
 	})
 
 	createEffect(() => {
+		if (completed()) return
 		const hl = highlight()
 		if (hl === undefined) {
 			setScrollToMarker(false)
