@@ -1,0 +1,51 @@
+#tutorial-highlight {
+  position: fixed;
+  border: 2px dotted var(--color-tutorial-highlight);
+  z-index: 51;
+  pointer-events: none;
+  border-radius: 5px;
+  animation: scale-down 0.5s 3 ease-in-out;
+}
+
+@keyframes scale-down {
+  0% {
+    scale: 1;
+    border-width: 2px;
+  }
+
+  50% {
+    scale: 1.5;
+    border-width: 4px;
+  }
+
+  100% {
+    scale: 1;
+    border-width: 2px;
+  }
+}
+
+#tutorial-scrolltomarker {
+  position: fixed;
+  width: 64px;
+  height: 64px;
+  color: var(--color-tutorial-highlight);
+  z-index: 52;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: bounce 0.5s 3 ease-in-out;
+}
+
+@keyframes bounce {
+  0% {
+    scale: 1;
+  }
+
+  50% {
+    scale: 1.5;
+  }
+
+  100% {
+    scale: 1;
+  }
+}

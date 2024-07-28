@@ -34,7 +34,6 @@ export const DescribeResource = (props: {
 	device: Device
 }) => {
 	const [showDefinition, setShowDefinition] = createSignal<boolean>(false)
-	const [showHistory, setShowHistory] = createSignal<boolean>(false)
 	const location = useNavigation()
 	const r: PinnedResource = {
 		model: props.device.model as ModelID,
@@ -44,6 +43,9 @@ export const DescribeResource = (props: {
 
 	const v =
 		props.value !== undefined ? format(props.value, props.info) : undefined
+
+	const chartId = () =>
+		`chart;${props.ObjectID}/${props.InstanceID}/${props.info.ResourceID}`
 
 	return (
 		<>
@@ -57,7 +59,7 @@ export const DescribeResource = (props: {
 					/>
 				}
 			>
-				<dt>
+				<dt title={`Resource ${props.info.ResourceID}`}>
 					<span class="info">
 						<abbr class="name" title={props.info.Description}>
 							{props.info.Name}
@@ -68,7 +70,9 @@ export const DescribeResource = (props: {
 							</RelativeTime>
 						</Show>
 					</span>
-					<CollapsibleMenu>
+					<CollapsibleMenu
+						id={`${props.ObjectID}/${props.info.ResourceID}/info`}
+					>
 						<Show when={!showDefinition()}>
 							<button
 								title="Show definition"
@@ -85,6 +89,7 @@ export const DescribeResource = (props: {
 									title="Pin to map"
 									type="button"
 									onClick={() => location.toggleResource(r)}
+									class="pin-to-map"
 								>
 									<PinOnMap strokeWidth={1} size={20} />
 								</button>
@@ -114,14 +119,19 @@ export const DescribeResource = (props: {
 						</a>
 					</CollapsibleMenu>
 				</dt>
-				<dd class={`value ${props.info.Multiple ? 'multiple' : ''}`}>
+				<dd
+					class={`value ${props.info.Multiple ? 'multiple' : ''}`}
+					title={`Value of resource ${props.info.ResourceID}`}
+				>
 					<DescribeValue value={props.value} info={props.info} />
 					<Show
 						when={
 							isSearchable(props.info, props.value) || hasHistory(props.info)
 						}
 					>
-						<CollapsibleMenu>
+						<CollapsibleMenu
+							id={`${props.ObjectID}/${props.info.ResourceID}/value`}
+						>
 							<Show when={isSearchable(props.info, props.value)}>
 								<a
 									href={location.link({
@@ -141,9 +151,9 @@ export const DescribeResource = (props: {
 							<Show when={hasHistory(props.info)}>
 								<button
 									type="button"
-									title={`Graph the history of the ${props.info.Name} resource.`}
+									title={`Graph the history of the ${props.info.Name} resource`}
 									class="button"
-									onClick={() => setShowHistory((s) => !s)}
+									onClick={() => location.toggle(chartId())}
 								>
 									<History strokeWidth={1} size={20} />
 								</button>
@@ -152,7 +162,7 @@ export const DescribeResource = (props: {
 					</Show>
 				</dd>
 			</Show>
-			<Show when={showHistory()}>
+			<Show when={location.isToggled(chartId())}>
 				<ResourceHistory
 					device={props.device}
 					ObjectID={props.ObjectID}

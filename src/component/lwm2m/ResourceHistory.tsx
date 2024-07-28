@@ -44,7 +44,14 @@ export const ResourceHistory = (props: {
 			<header>
 				<h3>History</h3>
 			</header>
-			<Show when={!history.loading} fallback={<p>Loading history...</p>}>
+			<Show
+				when={!history.loading}
+				fallback={
+					<div class="chart-container">
+						<p>Loading history...</p>
+					</div>
+				}
+			>
 				<Show
 					when={resourceHistory().length > 0}
 					fallback={<p>No historical data available.</p>}

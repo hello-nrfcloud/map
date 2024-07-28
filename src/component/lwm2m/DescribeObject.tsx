@@ -22,13 +22,16 @@ export const DescribeObject = (props: { instance: LwM2MObjectInstance }) => {
 					<Documentation size={20} strokeWidth={1} />
 					LwM2M Object definition
 				</h3>
-				<ToggleButton id={toggleId} />
+				<ToggleButton id={toggleId} title="resources" />
 			</header>
 			<WhenToggled id={toggleId}>
 				<ResourcesDL class="pad bg-light">
 					<dt>
 						<span class="info">ObjectID</span>
-						<CollapsibleMenu class="meta">
+						<CollapsibleMenu
+							id={`object-${props.instance.ObjectID}`}
+							class="meta"
+						>
 							<a
 								href={location.link({
 									panel: 'search',

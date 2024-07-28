@@ -15,6 +15,9 @@
   --color-tutorial-bg: #e3ea98;
   --color-tutorial-bg-dark: #c5ca86;
   --color-tutorial-bg-darker: #8f945f;
+  --color-tutorial-highlight: #fff100;
+  --color-tutorial-bg-completed: rgb(80, 200, 120);
+  --color-tutorial-bg-completed-darker: rgb(40, 100, 60);
   --color-tutorial-text: #222;
   --chart-labels: #ffffff80;
   --chart-values: var(--color-highlight);
@@ -29,6 +32,7 @@
   --color-progress-fg: #305074;
   --color-progress-bg: #283b5e;
   --base-size-navbar: 40px;
+  --size-sidebar: 400px;
   --regular-font-family: "Inter Tight", sans-serif;
   --condensed-font-family: "Roboto Condensed", sans-serif;
   --gap: 0.5rem;
@@ -44,6 +48,12 @@
     --base-size-navbar: 60px;
     --gap: 1rem;
     --border-radius: 5px;
+  }
+}
+
+@media (min-width: 600px) {
+  :root {
+    --size-sidebar: 500px;
   }
 }
 
@@ -168,6 +178,14 @@ h6:has(.icon) .icon {
 
 .pad-t {
   padding-top: var(--gap);
+}
+
+.pad-s {
+  padding-left: var(--gap);
+}
+
+.pad-e {
+  padding-right: var(--gap);
 }
 
 /** Forms **/

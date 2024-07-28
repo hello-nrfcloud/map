@@ -3,7 +3,7 @@ import { useNavigation } from '../context/Navigation.js'
 import { useViteEnv } from '../context/ViteEnv.tsx'
 import { Close, ViewSource } from '../icons/LucideIcon.js'
 import { RelativeTime } from './RelativeTime.js'
-import { SidebarContent } from './Sidebar.js'
+import { SidebarContent } from './Sidebar/SidebarContent.tsx'
 import { Show } from 'solid-js'
 
 const panelId = 'view-source'

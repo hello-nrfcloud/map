@@ -106,17 +106,17 @@ void describe('encode() / decode()', () => {
 			},
 		))
 
-	void it('should encode the help state', () =>
+	void it('should encode the tutorial state', () =>
 		assert.deepEqual(
 			decode(
 				encode({
 					panel: 'world',
-					help: 'start',
+					tutorial: 'start',
 				}),
 			),
 			{
 				panel: 'world',
-				help: 'start',
+				tutorial: 'start',
 				search: [],
 				pinnedResources: [],
 				toggled: [],

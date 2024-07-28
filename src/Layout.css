@@ -1,0 +1,49 @@
+#layout {
+  display: grid;
+  grid-template-columns: var(--base-size-navbar) auto;
+  grid-template-rows: var(--base-size-navbar) auto auto;
+  width: 100vw;
+  height: 100vh;
+}
+
+header.nordic {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+nav.sidebar {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 2;
+  grid-row-end: 4;
+}
+
+#alldevices {
+  grid-column-start: 2;
+  grid-column-end: 4;
+  grid-row-start: 2;
+  grid-row-end: 4;
+}
+
+#sidebar {
+  position: fixed;
+  top: var(--base-size-navbar);
+  left: var(--base-size-navbar);
+  width: var(--size-sidebar);
+  height: calc(100vh - var(--base-size-navbar));
+  display: flex;
+  flex-direction: column;
+  z-index: 30;
+}
+
+#sidebar > aside.tutorial {
+  flex-shrink: 0;
+}
+
+#sidebar > aside.sidebar {
+  flex-shrink: 1;
+  flex-grow: 0;
+  overflow: hidden;
+}

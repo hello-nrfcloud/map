@@ -1,0 +1,54 @@
+.tutorial {
+  background-color: var(--color-tutorial-bg);
+  color: var(--color-tutorial-text);
+  border-top: 1px solid var(--color-tutorial-bg-dark);
+}
+
+.tutorial > * {
+  padding: var(--gap);
+}
+
+.tutorial h1 {
+  font-weight: 200;
+  font-size: 125%;
+  margin-bottom: 0.5rem;
+}
+
+.tutorial a,
+.tutorial button.link {
+  text-decoration: underline;
+}
+
+.tutorial > footer {
+  background-color: var(--color-tutorial-bg-dark);
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--color-tutorial-bg-darker);
+  padding: 0;
+  width: var(--size-sidebar);
+}
+
+.tutorial > footer span.controls > * {
+  display: block;
+  height: calc(var(--base-size-navbar) * 0.85);
+  width: auto;
+  aspect-ratio: 1/1;
+  padding: 0.75rem;
+}
+
+.tutorial > footer span.controls {
+  display: flex;
+}
+
+.tutorial.completed > footer span.controls:last-child button {
+  background-color: var(--color-tutorial-bg-completed);
+  border-left: 1px solid var(--color-tutorial-bg-completed-darker);
+}
+
+.tutorial .done {
+  color: var(--color-tutorial-bg-completed-darker);
+}
+
+.tutorial .not-done {
+  opacity: 0.5;
+}

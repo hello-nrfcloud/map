@@ -1,6 +1,6 @@
 import { useNavigation } from '../context/Navigation.js'
 import { Close, Add } from '../icons/LucideIcon.js'
-import { SidebarContent } from './Sidebar.js'
+import { SidebarContent } from './Sidebar/SidebarContent.tsx'
 import { Show } from 'solid-js'
 import { AddCustomDeviceFlow } from './AddDevice/AddCustomDeviceFlow.tsx'
 import { AddDeviceByFingerprintFlow } from './AddDevice/AddDeviceByFingerprintFlow.tsx'

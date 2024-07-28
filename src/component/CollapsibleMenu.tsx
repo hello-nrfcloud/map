@@ -1,20 +1,25 @@
-import { type ParentProps, createSignal, Show } from 'solid-js'
+import { type ParentProps, Show } from 'solid-js'
 import { Close, Menu as MenuIcon } from '../icons/LucideIcon.js'
 import './CollapsibleMenu.css'
+import { useNavigation } from '../context/Navigation.tsx'
 
-export const CollapsibleMenu = (props: ParentProps<{ class?: string }>) => {
-	const [collapsed, setCollapsed] = createSignal<boolean>(true)
+export const CollapsibleMenu = (
+	props: ParentProps<{ id: string; title?: string; class?: string }>,
+) => {
+	const navigation = useNavigation()
+	const toggleId = () => `cm;${props.id}`
+	const expanded = () => navigation.current().toggled.includes(toggleId())
 	return (
 		<nav
-			class={`collapsible ${collapsed() ? 'collapsed' : 'open'} ${props.class ?? ''}`}
+			class={`collapsible ${!expanded() ? 'collapsed' : 'open'} ${props.class ?? ''}`}
 		>
 			<Show
-				when={!collapsed()}
+				when={expanded()}
 				fallback={
 					<button
 						type="button"
-						title="open"
-						onClick={() => setCollapsed(false)}
+						onClick={() => navigation.toggle(toggleId())}
+						title={`Open ${props.title ?? 'context menu'}`}
 					>
 						<MenuIcon strokeWidth={1} size={20} />
 					</button>
@@ -24,8 +29,9 @@ export const CollapsibleMenu = (props: ParentProps<{ class?: string }>) => {
 				<span class="collapsible-close">
 					<button
 						type="button"
-						title="collapse"
-						onClick={() => setCollapsed(true)}
+						title={`Collapse ${props.title ?? 'context menu'}`}
+						onClick={() => navigation.toggle(toggleId())}
+						class="collapsible-close"
 					>
 						<Close strokeWidth={1} size={20} />
 					</button>
