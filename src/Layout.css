@@ -31,7 +31,7 @@ nav.sidebar {
   position: fixed;
   top: var(--base-size-navbar);
   left: var(--base-size-navbar);
-  width: var(--size-sidebar);
+  width: min(calc(100vw - var(--base-size-navbar)), var(--size-sidebar));
   height: calc(100vh - var(--base-size-navbar));
   display: flex;
   flex-direction: column;
