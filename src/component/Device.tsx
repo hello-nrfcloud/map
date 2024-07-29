@@ -21,6 +21,11 @@ import { SidebarContent } from './Sidebar/SidebarContent.tsx'
 import { useViteEnv } from '../context/ViteEnv.tsx'
 
 import './lwm2m/LwM2M.css'
+import {
+	ScrollToMarker,
+	TutorialHighlight,
+} from './Tutorial/TutorialHighlight.tsx'
+import { content } from 'map:tutorial-content'
 
 export const SidebarButton = () => {
 	const location = useNavigation()
@@ -37,6 +42,7 @@ export const SidebarButton = () => {
 }
 
 export const DeviceSidebar = () => {
+	let scrollableRef: HTMLDivElement | undefined
 	const location = useNavigation()
 	const devices = useDevices()
 	const deviceId = createMemo(() =>
@@ -49,6 +55,8 @@ export const DeviceSidebar = () => {
 		return id !== undefined ? devices().find(byId(id)) : undefined
 	})
 
+	const tutorial = () => content[location.current().tutorial ?? '']
+
 	return (
 		<Show when={deviceId() !== undefined}>
 			<SidebarContent class="device" id="device">
@@ -60,7 +68,11 @@ export const DeviceSidebar = () => {
 						<Close size={20} />
 					</a>
 				</header>
-				<div class="scrollable">
+				<div
+					class="scrollable"
+					style={{ position: 'relative' }}
+					ref={scrollableRef}
+				>
 					<Show
 						when={selectedDevice() !== undefined}
 						fallback={
@@ -75,6 +87,13 @@ export const DeviceSidebar = () => {
 							</section>
 						}
 					>
+						<Show when={tutorial() !== undefined}>
+							<TutorialHighlight
+								tutorial={tutorial()!}
+								parent={scrollableRef!}
+							/>
+							<ScrollToMarker tutorial={tutorial()!} parent={scrollableRef!} />
+						</Show>
 						<DeviceInfo device={selectedDevice()!} />
 					</Show>
 				</div>
