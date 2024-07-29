@@ -41,6 +41,8 @@
   --gap-tiny: calc(var(--gap) / 4);
   --border-radius: 2.5px;
   --box-shadow-size: calc(var(--border-radius) * 2);
+  /* This will be adjusted using JavaScript because for our case, we need to set the height of the app to be the innerHeight of the window, which is not what it is on mobile browsers. */
+  --app-height: 100vh;
 }
 
 @media (min-width: 400px) {
@@ -61,7 +63,7 @@ html,
 body {
   height: 100%;
   width: 100%;
-  min-height: 100vh;
+  min-height: var(--app-height);
   min-width: 100vw;
   background: #111;
   color: white;
