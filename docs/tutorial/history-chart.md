@@ -8,6 +8,4 @@ highlight:
 done: chart;14205/0/0
 ---
 
-# History
-
 Click the `📈` icon to show a history chart for this resource.

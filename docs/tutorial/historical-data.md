@@ -8,8 +8,6 @@ highlight:
 done: cm;14205/0/value
 ---
 
-# History
-
 We provide a 30 day history for all numerical values.
 
 Click the `⋯` icon next to _Temperature value_ to show the context menu.

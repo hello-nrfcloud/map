@@ -5,7 +5,7 @@ highlight:
   - Next
 ---
 
-# Welcome to `hello.nrfcloud.com/map`
+This is the tutorial.
 
 Boxes like this one will walk you through this application and help you
 familiarize yourself with its features.

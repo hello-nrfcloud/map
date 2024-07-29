@@ -6,8 +6,6 @@ highlight:
 done: ko;location
 ---
 
-# Well known objects
-
 While all LwM2M objects can be visualized by the application, for some objects
 we provide dedicated UI elements which better represent the data.
 

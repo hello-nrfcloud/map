@@ -6,8 +6,6 @@ next: model-search
 done: describe-model
 ---
 
-# Models
-
 All devices have a model, which is also defined in our
 [protocol repository](https://github.com/hello-nrfcloud/proto-map).
 

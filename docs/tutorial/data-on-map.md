@@ -8,8 +8,6 @@ highlight:
 done: cm;14205/0/info
 ---
 
-# Show this data on the Map
-
 You can see that the device has reported temperature and other environment data.
 
 All values can be added to the map. This way you can build a map of devices and

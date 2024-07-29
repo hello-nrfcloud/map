@@ -7,8 +7,6 @@ highlight:
   - Show resources
 ---
 
-# Devices send LwM2M objects
-
 All device data is described using LwM2M objects, which have been registered in
 [our protocol repository](https://github.com/hello-nrfcloud/proto-map) .
 
