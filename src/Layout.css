@@ -39,6 +39,10 @@ nav.sidebar {
   pointer-events: none;
 }
 
+#sidebar > * {
+  pointer-events: auto;
+}
+
 #sidebar > aside.tutorial {
   flex-shrink: 0;
 }
