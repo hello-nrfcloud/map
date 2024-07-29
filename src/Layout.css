@@ -36,6 +36,7 @@ nav.sidebar {
   display: flex;
   flex-direction: column;
   z-index: 30;
+  pointer-events: none;
 }
 
 #sidebar > aside.tutorial {
