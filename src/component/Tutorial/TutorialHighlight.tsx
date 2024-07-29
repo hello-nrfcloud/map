@@ -29,7 +29,6 @@ export const TutorialHighlight = () => {
 
 		// Tutorial has no highlight
 		if (highlight === undefined) {
-			setHighlight(undefined)
 			return
 		}
 
@@ -68,6 +67,7 @@ export const TutorialHighlight = () => {
 			document.removeEventListener('touchend', onTouchEnd)
 			document.removeEventListener('wheel', onWheelEnd)
 			document.removeEventListener('hashchange', show)
+			hide()
 		})
 	})
 
