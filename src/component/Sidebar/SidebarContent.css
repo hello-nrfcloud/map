@@ -2,14 +2,12 @@ aside.sidebar {
   background-color: var(--bg-blue-3);
 }
 
-@media (min-width: 400px) {
-  aside.sidebar > div.scrollable {
-    overflow-y: auto;
-    overflow-x: hidden;
-    scrollbar-color: var(--bg-blue-5) var(--bg-blue-1);
-    scrollbar-width: thin;
-    max-height: calc(100% - var(--base-size-navbar));
-  }
+aside.sidebar > div.scrollable {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-color: var(--bg-blue-5) var(--bg-blue-1);
+  scrollbar-width: thin;
+  max-height: calc(100% - var(--base-size-navbar));
 }
 
 aside.sidebar > header {
