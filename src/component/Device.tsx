@@ -19,13 +19,10 @@ import { KnownObjects } from './KnownObjects/KnownObjects.js'
 import { DescribeInstance } from './lwm2m/DescribeInstance.js'
 import { SidebarContent } from './Sidebar/SidebarContent.tsx'
 import { useViteEnv } from '../context/ViteEnv.tsx'
+import { TutorialHighlight } from './Tutorial/TutorialHighlight.tsx'
+import { content } from 'map:tutorial-content'
 
 import './lwm2m/LwM2M.css'
-import {
-	ScrollToMarker,
-	TutorialHighlight,
-} from './Tutorial/TutorialHighlight.tsx'
-import { content } from 'map:tutorial-content'
 
 export const SidebarButton = () => {
 	const location = useNavigation()
@@ -92,7 +89,6 @@ export const DeviceSidebar = () => {
 								tutorial={tutorial()!}
 								parent={scrollableRef!}
 							/>
-							<ScrollToMarker tutorial={tutorial()!} parent={scrollableRef!} />
 						</Show>
 						<DeviceInfo device={selectedDevice()!} />
 					</Show>

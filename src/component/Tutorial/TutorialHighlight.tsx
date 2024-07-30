@@ -1,35 +1,65 @@
-import { useNavigation } from '../../context/Navigation.tsx'
-import { isDone } from './isDone.ts'
-import { ScrollDown } from '../../icons/LucideIcon.tsx'
+import { createEffect, createSignal, Show, onCleanup } from 'solid-js'
 import type { TutorialEntryType } from '../../../tutorial/tutorialContentPlugin.ts'
-import { createSignal, createEffect, Show } from 'solid-js'
+import { useNavigation } from '../../context/Navigation.tsx'
+import { ScrollDown } from '../../icons/LucideIcon.tsx'
+import { isDone } from './isDone.ts'
 
 import './TutorialHighlight.css'
+
+type Box = {
+	top: number
+	left: number
+	width: number
+	height: number
+}
 
 export const TutorialHighlight = (props: {
 	tutorial: TutorialEntryType
 	parent: Element
 }) => {
-	const [box, setBox] = createSignal<{
-		top: number
-		left: number
-		width: number
-		height: number
-	}>()
+	const [box, setBox] = createSignal<Box>()
+	const [highlight, setHighlight] = createSignal<Element>()
+	const [needsPointer, setNeedsPointer] = createSignal(false)
 
 	createEffect(() => {
-		const t = getHighlight(props.tutorial, useNavigation())
-		if (t === undefined) return
-		if (t.highlight === null) return
-		if (t.completed) return
-		const targetBox = t.highlight.getBoundingClientRect()
-		const parentBox = props.parent.getBoundingClientRect()
-		setBox({
-			top: targetBox.top - parentBox.top + props.parent.scrollTop,
-			left: targetBox.left - parentBox.left,
-			width: targetBox.width,
-			height: targetBox.height,
-		})
+		setHighlight(
+			getHighlight(props.tutorial, useNavigation()).highlight ?? undefined,
+		)
+	})
+
+	createEffect(() => {
+		setBox(
+			(() => {
+				const t = getHighlight(props.tutorial, useNavigation())
+				if (t === undefined) return
+				if (t.highlight === null) return
+				if (t.completed) return
+				const targetBox = t.highlight.getBoundingClientRect()
+				const parentBox = props.parent.getBoundingClientRect()
+				return {
+					top: targetBox.top - parentBox.top + props.parent.scrollTop,
+					left: targetBox.left - parentBox.left,
+					width: targetBox.width,
+					height: targetBox.height,
+				}
+			})(),
+		)
+	})
+
+	createEffect(() => {
+		if (highlight() === undefined) return
+		const obs = new IntersectionObserver(
+			(entries) => {
+				setNeedsPointer(!(entries[0]?.isIntersecting ?? false))
+			},
+			{
+				root: props.parent,
+			},
+		)
+
+		obs.observe(highlight()!)
+
+		onCleanup(() => obs.disconnect())
 	})
 
 	return (
@@ -43,6 +73,13 @@ export const TutorialHighlight = (props: {
 					height: box()!.height + 10 + 'px',
 				}}
 			></div>
+			<Show when={needsPointer()}>
+				<ScrollToMarker
+					parent={props.parent}
+					tutorial={props.tutorial}
+					targetBox={box()!}
+				/>
+			</Show>
 		</Show>
 	)
 }
@@ -50,28 +87,35 @@ export const TutorialHighlight = (props: {
 export const ScrollToMarker = (props: {
 	tutorial: TutorialEntryType
 	parent: Element
+	targetBox: Box
 }) => {
-	const t = getHighlight(props.tutorial, useNavigation())
-	if (t === undefined) return null
-	if (t.highlight === null) return null
-	if (t.completed) return null
+	const size = 64
+	const [top, setTop] = createSignal<number>()
 
-	const hl = t.highlight.getBoundingClientRect()
-	if (hl.top < document.documentElement.getBoundingClientRect().bottom)
-		return null
-	const center = hl.left + hl.width / 2
+	createEffect(() => {
+		const parentBox = props.parent.getBoundingClientRect()
+		if (
+			parentBox.top + props.targetBox.top >
+			document.documentElement.clientHeight
+		) {
+			setTop(document.documentElement.clientHeight - parentBox.top - size)
+		} else {
+			setTop(undefined)
+		}
+	})
 
 	return (
-		<div
-			class="tutorial-scrolltomarker"
-			style={{
-				top:
-					document.documentElement.getBoundingClientRect().bottom - 64 + 'px',
-				left: center - 64 / 2 + 'px',
-			}}
-		>
-			<ScrollDown size={64} />
-		</div>
+		<Show when={top() !== undefined}>
+			<div
+				class="tutorial-scrolltomarker"
+				style={{
+					top: `${top()!}px`,
+					left: `${props.targetBox.left + props.targetBox.width / 2 - size / 2}px`,
+				}}
+			>
+				<ScrollDown size={64} />
+			</div>
+		</Show>
 	)
 }
 

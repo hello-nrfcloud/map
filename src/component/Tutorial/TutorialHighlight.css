@@ -1,5 +1,4 @@
 .tutorial-highlight {
-  position: fixed;
   border: 2px dotted var(--color-tutorial-highlight);
   z-index: 51;
   pointer-events: none;
@@ -26,7 +25,6 @@
 }
 
 .tutorial-scrolltomarker {
-  position: fixed;
   width: 64px;
   height: 64px;
   color: var(--color-tutorial-highlight);
