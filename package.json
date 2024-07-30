@@ -36,7 +36,7 @@
     "@bifravst/random-words": "8.0.2",
     "@commitlint/config-conventional": "19.2.2",
     "@playwright/test": "1.45.3",
-    "@types/node": "20.14.13",
+    "@types/node": "22.0.0",
     "@types/semver": "^7.5.8",
     "commitlint": "19.3.0",
     "eslint-plugin-jsx-a11y": "6.9.0",
@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "@hello.nrfcloud.com/proto": "14.2.4",
-    "@hello.nrfcloud.com/proto-map": "14.1.1",
+    "@hello.nrfcloud.com/proto-map": "14.1.2",
     "@sinclair/typebox": "0.32.35",
     "e118-iin-list": "4.1.4",
     "lucide": "0.417.0",
