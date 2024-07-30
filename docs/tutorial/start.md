@@ -1,8 +1,5 @@
 ---
 next: map
-highlight:
-  - Tutorial
-  - Next
 ---
 
 This is the tutorial.
