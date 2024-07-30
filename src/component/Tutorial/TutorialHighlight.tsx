@@ -1,121 +1,135 @@
-import { content } from 'map:tutorial-content'
-import { Show, createEffect, createSignal, onCleanup } from 'solid-js'
+import { createEffect, createSignal, Show, onCleanup } from 'solid-js'
+import type { TutorialEntryType } from '../../../tutorial/tutorialContentPlugin.ts'
 import { useNavigation } from '../../context/Navigation.tsx'
+import { ScrollDown } from '../../icons/LucideIcon.tsx'
 import { isDone } from './isDone.ts'
 
 import './TutorialHighlight.css'
-import { ScrollDown } from '../../icons/LucideIcon.tsx'
 
-export const TutorialHighlight = () => {
-	const location = useNavigation()
-	const [highlight, setHighlight] = createSignal<DOMRect | undefined>()
-	const [scrollToMarker, setScrollToMarker] = createSignal(false)
+type Box = {
+	top: number
+	left: number
+	width: number
+	height: number
+}
 
-	const what = () => location.current().tutorial
-
-	const currentTutorial = () => {
-		const currentTutorialId = what()
-		if (currentTutorialId === undefined) return
-		return content[currentTutorialId]
-	}
-
-	const completed = (): boolean => {
-		const t = currentTutorial()
-		return t !== undefined && isDone(t, location)
-	}
+export const TutorialHighlight = (props: {
+	tutorial: TutorialEntryType
+	parent: Element
+}) => {
+	const [box, setBox] = createSignal<Box>()
+	const [highlight, setHighlight] = createSignal<Element>()
+	const [needsPointer, setNeedsPointer] = createSignal(false)
 
 	createEffect(() => {
-		const highlight = currentTutorial()?.highlight
-
-		// Tutorial has no highlight
-		if (highlight === undefined) {
-			return
-		}
-
-		// Find the element to highlight
-		const selector = highlight.map((title) => `[title="${title}"]`).join(' ')
-		const target = document.querySelector(selector)
-
-		// Highlight the element (or remove the highlight if the element is not found)
-		const show = () => {
-			setHighlight(target?.getBoundingClientRect())
-		}
-		show()
-
-		if (target === null) return
-
-		// Update the highlight position when the content changes based on user interaction
-		const hide = () => {
-			setHighlight(undefined)
-		}
-
-		const onComplete = (timeout: number) => {
-			setTimeout(show, timeout)
-		}
-		const onTouchEnd = () => onComplete(1000)
-		const onWheelEnd = () => {
-			hide()
-			onComplete(250)
-		}
-		document.addEventListener('touchstart', hide, { passive: true })
-		document.addEventListener('touchend', onTouchEnd, { passive: true })
-		document.addEventListener('wheel', onWheelEnd, { passive: true })
-		document.addEventListener('hashchange', show)
-
-		onCleanup(() => {
-			document.removeEventListener('touchstart', hide)
-			document.removeEventListener('touchend', onTouchEnd)
-			document.removeEventListener('wheel', onWheelEnd)
-			document.removeEventListener('hashchange', show)
-			hide()
-		})
-	})
-
-	createEffect(() => {
-		if (completed()) return
-		const hl = highlight()
-		if (hl === undefined) {
-			setScrollToMarker(false)
-			return
-		}
-		setScrollToMarker(
-			hl.top > document.documentElement.getBoundingClientRect().bottom,
+		setHighlight(
+			getHighlight(props.tutorial, useNavigation()).highlight ?? undefined,
 		)
 	})
 
-	return (
-		<>
-			<Show
-				when={
-					currentTutorial() !== undefined &&
-					!completed() &&
-					highlight() !== undefined
+	createEffect(() => {
+		setBox(
+			(() => {
+				const t = getHighlight(props.tutorial, useNavigation())
+				if (t === undefined) return
+				if (t.highlight === null) return
+				if (t.completed) return
+				const targetBox = t.highlight.getBoundingClientRect()
+				const parentBox = props.parent.getBoundingClientRect()
+				return {
+					top: targetBox.top - parentBox.top + props.parent.scrollTop,
+					left: targetBox.left - parentBox.left,
+					width: targetBox.width,
+					height: targetBox.height,
 				}
-			>
-				<div
-					id="tutorial-highlight"
-					style={{
-						top: highlight()!.top - 5 + 'px',
-						left: highlight()!.left - 5 + 'px',
-						width: highlight()!.width + 10 + 'px',
-						height: highlight()!.height + 10 + 'px',
-					}}
-				></div>
+			})(),
+		)
+	})
+
+	createEffect(() => {
+		if (highlight() === undefined) return
+		const obs = new IntersectionObserver(
+			(entries) => {
+				setNeedsPointer(!(entries[0]?.isIntersecting ?? false))
+			},
+			{
+				root: props.parent,
+			},
+		)
+
+		obs.observe(highlight()!)
+
+		onCleanup(() => obs.disconnect())
+	})
+
+	return (
+		<Show when={box() !== undefined}>
+			<div
+				class="tutorial-highlight"
+				style={{
+					top: box()!.top - 5 + 'px',
+					left: box()!.left - 5 + 'px',
+					width: box()!.width + 10 + 'px',
+					height: box()!.height + 10 + 'px',
+				}}
+			></div>
+			<Show when={needsPointer()}>
+				<ScrollToMarker
+					parent={props.parent}
+					tutorial={props.tutorial}
+					targetBox={box()!}
+				/>
 			</Show>
-			<Show when={highlight() !== undefined && scrollToMarker()}>
-				<div
-					id="tutorial-scrolltomarker"
-					style={{
-						top:
-							document.documentElement.getBoundingClientRect().bottom -
-							64 +
-							'px',
-						left: highlight()!.left - (64 - highlight()!.width) / 2 + 'px',
-					}}
-				>
-					<ScrollDown size={64} />
-				</div>
-			</Show>
-		</>
+		</Show>
 	)
+}
+
+export const ScrollToMarker = (props: {
+	tutorial: TutorialEntryType
+	parent: Element
+	targetBox: Box
+}) => {
+	const size = 64
+	const [top, setTop] = createSignal<number>()
+
+	createEffect(() => {
+		const parentBox = props.parent.getBoundingClientRect()
+		if (
+			parentBox.top + props.targetBox.top >
+			document.documentElement.clientHeight
+		) {
+			setTop(document.documentElement.clientHeight - parentBox.top - size)
+		} else {
+			setTop(undefined)
+		}
+	})
+
+	return (
+		<Show when={top() !== undefined}>
+			<div
+				class="tutorial-scrolltomarker"
+				style={{
+					top: `${top()!}px`,
+					left: `${props.targetBox.left + props.targetBox.width / 2 - size / 2}px`,
+				}}
+			>
+				<ScrollDown size={64} />
+			</div>
+		</Show>
+	)
+}
+
+const getHighlight = (
+	tutorial: TutorialEntryType,
+	location: ReturnType<typeof useNavigation>,
+): { completed: boolean; highlight: Element | null } => {
+	return {
+		completed: isDone(tutorial, location),
+		highlight:
+			tutorial.highlight !== undefined
+				? document.querySelector(
+						tutorial.highlight.map((title) => `[title="${title}"]`).join(' '),
+					)
+				: null,
+	}
 }
