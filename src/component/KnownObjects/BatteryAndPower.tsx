@@ -1,9 +1,14 @@
 import { Battery } from '../../icons/LucideIcon.js'
-import type { BatteryAndPower_14202 } from '@hello.nrfcloud.com/proto-map/lwm2m'
+import {
+	definitions,
+	LwM2MObjectID,
+	type BatteryAndPower_14202,
+} from '@hello.nrfcloud.com/proto-map/lwm2m'
 import { ResourcesDL } from '../ResourcesDL.js'
 import { Show, createMemo } from 'solid-js'
 
 import './DeviceInformation.css'
+import { DescribeScalarValue } from '../lwm2m/DescribeScalarValue.tsx'
 
 export const Icon = () => (
 	<>
@@ -19,31 +24,44 @@ export const Card = (props: { bat: BatteryAndPower_14202 }) => {
 	const temp = createMemo(() => props.bat.Resources[3])
 	const ttf = createMemo(() => props.bat.Resources[4])
 	const tte = createMemo(() => props.bat.Resources[5])
+	const info = definitions[LwM2MObjectID.BatteryAndPower_14202].Resources
 	return (
 		<ResourcesDL>
 			<Show when={SoC() !== undefined}>
 				<dt>State of charge</dt>
-				<dd>{SoC()!} %</dd>
+				<dd>
+					<DescribeScalarValue value={SoC()!} info={info[0]!} />
+				</dd>
 			</Show>
 			<Show when={voltage() !== undefined}>
 				<dt>Voltage</dt>
-				<dd>{voltage()!} V</dd>
+				<dd>
+					<DescribeScalarValue value={voltage()!} info={info[1]!} />
+				</dd>
 			</Show>
 			<Show when={current() !== undefined}>
 				<dt>Current</dt>
-				<dd>{current()!} mA</dd>
+				<dd>
+					<DescribeScalarValue value={current()!} info={info[2]!} />
+				</dd>
 			</Show>
 			<Show when={temp() !== undefined}>
 				<dt>Temperature</dt>
-				<dd>{temp()!}°C</dd>
+				<dd>
+					<DescribeScalarValue value={temp()!} info={info[3]!} />
+				</dd>
 			</Show>
 			<Show when={ttf() !== undefined}>
 				<dt>Time to full</dt>
-				<dd>{ttf()!} s</dd>
+				<dd>
+					<DescribeScalarValue value={ttf()!} info={info[4]!} />
+				</dd>
 			</Show>
 			<Show when={tte() !== undefined}>
 				<dt>Time to empty</dt>
-				<dd>{tte()!} s</dd>
+				<dd>
+					<DescribeScalarValue value={tte()!} info={info[5]!} />
+				</dd>
 			</Show>
 		</ResourcesDL>
 	)

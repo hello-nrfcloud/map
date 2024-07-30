@@ -23,6 +23,7 @@ import { RelativeTime } from '../RelativeTime.js'
 import { DescribeResourceDefinition } from './DescribeResourceDefinition.js'
 import { ResourceHistory } from './ResourceHistory.js'
 import type { PinnedResource } from '../../context/navigation/encodeNavigation.ts'
+import { DescribeScalarValue } from './DescribeScalarValue.tsx'
 
 export const DescribeResource = (props: {
 	ObjectID: LwM2MObjectID
@@ -202,19 +203,3 @@ const DescribeValue = (props: {
 		</Show>
 	</Show>
 )
-
-const DescribeScalarValue = (props: {
-	value: string | number | boolean
-	info: LwM2MResourceInfo
-}) => {
-	const v =
-		props.value !== undefined ? format(props.value, props.info) : undefined
-	return (
-		<span class="resource-value">
-			<span class="value">{v!.value}</span>
-			<Show when={v!.units !== undefined}>
-				<span class="units">{v!.units}</span>
-			</Show>
-		</span>
-	)
-}
