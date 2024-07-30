@@ -25,7 +25,7 @@ export const TutorialHighlight = (props: {
 		const targetBox = t.highlight.getBoundingClientRect()
 		const parentBox = props.parent.getBoundingClientRect()
 		setBox({
-			top: targetBox.top - parentBox.top,
+			top: targetBox.top - parentBox.top + props.parent.scrollTop,
 			left: targetBox.left - parentBox.left,
 			width: targetBox.width,
 			height: targetBox.height,
