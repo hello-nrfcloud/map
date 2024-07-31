@@ -13,7 +13,7 @@ const parseMarkdown = remark()
 	.use(frontmatter, ['yaml'])
 	.use(extract, { yaml: yaml.parse })
 	.use(remark2rehype)
-	.use(rehypeExternalLinks, { rel: ['noopener noreferer'], target: '_blank' })
+	.use(rehypeExternalLinks, { rel: ['noopener noreferrer'], target: '_blank' })
 	.use(format)
 	.use(html)
 

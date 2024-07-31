@@ -13,8 +13,9 @@ import {
 import './AddDevice.css'
 import { Problem } from './Problem.js'
 import { ModelInfoBlock } from './AddDevice/ModelInfoBlock.js'
+import { panelId as ProtocolPanelId } from './Protocol.tsx'
 
-const panelId = 'add-device'
+export const panelId = 'add-device'
 
 export const Sidebar = () => {
 	const location = useNavigation()
@@ -47,6 +48,14 @@ export const Sidebar = () => {
 						<p>
 							We invite you to participate in this effort by adding your own
 							devices to the map.
+						</p>
+						<p>
+							After registering your device, you will have the necessary device
+							credentials to start publishing data. Please refer to the{' '}
+							<a href={location.link({ panel: ProtocolPanelId })}>
+								protocol definition
+							</a>{' '}
+							for more information.
 						</p>
 					</section>
 					<Show when={hasModelParam()}>

@@ -19,7 +19,11 @@ export const AddDeviceForm = (props: {
 					<label for="model">Select your model:</label>
 					<select id="model" ref={modelSelect}>
 						<For each={Object.values(models)}>
-							{(model) => <option value={model.id}>{model.about.title}</option>}
+							{(model) => (
+								<option value={model.id}>
+									{model.about.title} ({model.id})
+								</option>
+							)}
 						</For>
 					</select>
 				</div>

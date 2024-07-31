@@ -1,14 +1,14 @@
 import { Show, createEffect, createResource, createSignal } from 'solid-js'
 import { useParameters } from '../../context/Parameters.js'
 import { noop } from '../../util/noop.js'
-import {
-	type DeviceCredentials,
-	createCredentials,
-} from '../../resources/createCredentials.js'
+import { createCredentials } from '../../resources/createCredentials.js'
+import type { DeviceCredentials } from '@hello.nrfcloud.com/proto-map/api'
+import type { Static } from '@sinclair/typebox'
+import { Problem } from '../Problem.tsx'
 
 export const CreateDeviceCredentialsForm = (props: {
 	device: { deviceId: string }
-	onCredentials: (credentials: DeviceCredentials) => void
+	onCredentials: (credentials: Static<typeof DeviceCredentials>) => void
 }) => {
 	const parameters = useParameters()
 	const [doCreate, setDoCreate] = createSignal<boolean>(false)
@@ -30,14 +30,15 @@ export const CreateDeviceCredentialsForm = (props: {
 			</p>
 			<form onSubmit={noop} class="pad-t">
 				<footer>
-					<Show
-						when={!credentials.loading}
-						fallback={
-							<button type="button" class="btn" disabled>
-								Loading ...
-							</button>
-						}
-					>
+					<Show when={credentials.loading}>
+						<button type="button" class="btn" disabled>
+							Loading ...
+						</button>
+					</Show>
+					<Show when={credentials.error !== undefined}>
+						<Problem problem={credentials.error} />
+					</Show>
+					<Show when={!credentials.loading && credentials() === undefined}>
 						<button type="button" class="btn" onClick={() => setDoCreate(true)}>
 							create credentials
 						</button>

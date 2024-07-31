@@ -37,6 +37,7 @@ import {
 	CircleDashed,
 	ArrowDownToLine,
 	MessageSquareHeart,
+	RadioTower,
 } from 'lucide'
 import { For } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
@@ -219,4 +220,8 @@ export const ScrollDown = (props: LucideProps) => (
 
 export const Feedback = (props: LucideProps) => (
 	<LucideIcon icon={MessageSquareHeart} {...props} />
+)
+
+export const Protocol = (props: LucideProps) => (
+	<LucideIcon icon={RadioTower} {...props} />
 )

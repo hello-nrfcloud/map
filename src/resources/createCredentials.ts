@@ -1,23 +1,22 @@
-export type DeviceCredentials = {
-	'@context': 'https://github.com/hello-nrfcloud/proto-map/device-credentials'
-	credentials: {
-		privateKey: string
-		certificate: string
-	}
-}
+import { typedFetch } from '@hello.nrfcloud.com/proto/hello'
+import { DeviceCredentials } from '@hello.nrfcloud.com/proto-map/api'
+import type { Static } from '@sinclair/typebox'
+import { ProblemDetailError } from '../component/Problem.tsx'
+
+const fetchCredentials = typedFetch({
+	responseBodySchema: DeviceCredentials,
+})
+
 export const createCredentials =
 	(url: URL, device: { deviceId: string }) =>
-	async (): Promise<DeviceCredentials> => {
-		try {
-			return (
-				await fetch(url, {
-					method: 'POST',
-					body: JSON.stringify({ deviceId: device.deviceId }),
-				})
-			).json()
-		} catch (err) {
-			throw new Error(
-				`Failed to confirm sharing request for a device (${url.toString()}): ${(err as Error).message}!`,
-			)
+	async (): Promise<Static<typeof DeviceCredentials>> => {
+		const res = await fetchCredentials(
+			url,
+			{ deviceId: device.deviceId },
+			{ method: 'POST' },
+		)
+		if ('error' in res) {
+			throw new ProblemDetailError(res.error)
 		}
+		return res.result
 	}
