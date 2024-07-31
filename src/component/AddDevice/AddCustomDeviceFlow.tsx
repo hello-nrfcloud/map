@@ -1,17 +1,17 @@
 import { Show, createSignal } from 'solid-js'
-import { AddDeviceForm } from './AddDeviceForm.tsx'
+import { AddDeviceForm } from './AddDeviceForm.js'
 import type {
 	ShareDeviceOwnershipConfirmed,
 	ShareDeviceRequest,
 } from '@hello.nrfcloud.com/proto-map/api'
-import { ConfirmRequestForm } from './ConfirmRequestForm.tsx'
+import { ConfirmRequestForm } from './ConfirmRequestForm.js'
 import { type Static } from '@sinclair/typebox'
-import { CreateDeviceCredentialsForm } from './CreateCredentials.tsx'
+import { CreateDeviceCredentialsForm } from './CreateCredentials.js'
 import { type DeviceCredentials } from '../../resources/createCredentials.ts'
-import { DescribeConnectionSettings } from '../DescribeConnectionSettings.tsx'
-import { DescribeCredentials } from './DescribeCredentials.tsx'
-import { ShareDeviceRequestCreated } from './ShareDeviceRequestCreated.tsx'
-import { ShareDeviceRequestConfirmed } from './ShareDeviceRequestConfirmed.tsx'
+import { DescribeConnectionSettings } from '../DescribeConnectionSettings.js'
+import { DescribeCredentials } from './DescribeCredentials.js'
+import { ShareDeviceRequestCreated } from './ShareDeviceRequestCreated.js'
+import { ShareDeviceRequestConfirmed } from './ShareDeviceRequestConfirmed.js'
 
 export const AddCustomDeviceFlow = () => {
 	const [shareDeviceRequest, setShareDeviceRequest] =

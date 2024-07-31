@@ -8,7 +8,7 @@ import { ResourcesDL } from '../ResourcesDL.js'
 import { Show, createMemo } from 'solid-js'
 
 import './DeviceInformation.css'
-import { DescribeScalarValue } from '../lwm2m/DescribeScalarValue.tsx'
+import { DescribeScalarValue } from '../lwm2m/DescribeScalarValue.js'
 
 export const Icon = () => (
 	<>

@@ -36,6 +36,7 @@ import {
 	CircleCheckBig,
 	CircleDashed,
 	ArrowDownToLine,
+	MessageSquareHeart,
 } from 'lucide'
 import { For } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
@@ -214,4 +215,8 @@ export const ToDo = (props: LucideProps) => (
 
 export const ScrollDown = (props: LucideProps) => (
 	<LucideIcon icon={ArrowDownToLine} {...props} />
+)
+
+export const Feedback = (props: LucideProps) => (
+	<LucideIcon icon={MessageSquareHeart} {...props} />
 )

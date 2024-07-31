@@ -13,7 +13,7 @@ import {
 	type PinnedResource,
 } from './navigation/encodeNavigation.ts'
 import type { SearchTerm } from '../search.ts'
-import { useViteEnv } from './ViteEnv.tsx'
+import { useViteEnv } from './ViteEnv.js'
 
 const Home: Navigation = {
 	panel: 'world',

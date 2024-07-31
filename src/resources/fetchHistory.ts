@@ -3,8 +3,8 @@ import { typedFetch, LwM2MObjectHistory } from '@hello.nrfcloud.com/proto/hello'
 import type { Static } from '@sinclair/typebox'
 import type { Device } from './fetchDevices.js'
 import { getDeviceJWT } from './getDeviceJWT.ts'
-import type { Parameters } from '../context/Parameters.tsx'
-import { ProblemDetailError } from '../component/Problem.tsx'
+import type { Parameters } from '../context/Parameters.js'
+import { ProblemDetailError } from '../component/Problem.js'
 
 const fetchResourceHistory = typedFetch({
 	responseBodySchema: LwM2MObjectHistory,

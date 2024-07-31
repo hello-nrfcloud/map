@@ -6,10 +6,10 @@ import {
 	onCleanup,
 } from 'solid-js'
 import type { TutorialEntryType } from '../../../tutorial/tutorialContentPlugin.ts'
-import { useAllDevicesMapState } from '../../context/AllDeviceMapState.tsx'
-import { useNavigation } from '../../context/Navigation.tsx'
+import { useAllDevicesMapState } from '../../context/AllDeviceMapState.js'
+import { useNavigation } from '../../context/Navigation.js'
 import { decode } from '../../context/navigation/encodeNavigation.ts'
-import { Close, Done, Next, Prev, ToDo } from '../../icons/LucideIcon.tsx'
+import { Close, Done, Next, Prev, ToDo } from '../../icons/LucideIcon.js'
 import { isDone } from './isDone.ts'
 
 import './TutorialBox.css'

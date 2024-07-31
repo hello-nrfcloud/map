@@ -23,7 +23,7 @@ import { RelativeTime } from '../RelativeTime.js'
 import { DescribeResourceDefinition } from './DescribeResourceDefinition.js'
 import { ResourceHistory } from './ResourceHistory.js'
 import type { PinnedResource } from '../../context/navigation/encodeNavigation.ts'
-import { DescribeScalarValue } from './DescribeScalarValue.tsx'
+import { DescribeScalarValue } from './DescribeScalarValue.js'
 
 export const DescribeResource = (props: {
 	ObjectID: LwM2MObjectID

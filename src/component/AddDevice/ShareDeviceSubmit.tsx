@@ -10,7 +10,7 @@ import {
 } from 'solid-js'
 import { useParameters } from '../../context/Parameters.js'
 import { shareDevice, type ShareDevice } from '../../resources/shareDevice.ts'
-import { Problem } from '../Problem.tsx'
+import { Problem } from '../Problem.js'
 
 export const ShareDeviceSubmit = (
 	props: ParentProps<{

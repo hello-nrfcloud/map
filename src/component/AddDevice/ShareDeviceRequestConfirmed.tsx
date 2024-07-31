@@ -1,4 +1,4 @@
-import { useNavigation } from '../../context/Navigation.tsx'
+import { useNavigation } from '../../context/Navigation.js'
 import type { ParentProps } from 'solid-js'
 import type { ShareDeviceOwnershipConfirmed } from '@hello.nrfcloud.com/proto-map/api'
 import { type Static } from '@sinclair/typebox'

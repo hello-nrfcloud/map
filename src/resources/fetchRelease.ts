@@ -1,5 +1,5 @@
 import { parse, type SemVer } from 'semver'
-import { useViteEnv } from '../context/ViteEnv.tsx'
+import { useViteEnv } from '../context/ViteEnv.js'
 
 export const logPrefix = `[fetchRelease]`
 

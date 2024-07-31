@@ -9,7 +9,7 @@ import {
 import { Context } from '@hello.nrfcloud.com/proto-map/api'
 import { typedFetch } from '@hello.nrfcloud.com/proto/hello'
 import { Type, type Static } from '@sinclair/typebox'
-import { useViteEnv } from './ViteEnv.tsx'
+import { useViteEnv } from './ViteEnv.js'
 
 const ApiHealth = Type.Object({
 	'@context': Type.Literal(Context.apiHealth.toString()),

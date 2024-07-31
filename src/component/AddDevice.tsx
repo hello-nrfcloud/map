@@ -1,9 +1,9 @@
 import { useNavigation } from '../context/Navigation.js'
 import { Close, Add } from '../icons/LucideIcon.js'
-import { SidebarContent } from './Sidebar/SidebarContent.tsx'
+import { SidebarContent } from './Sidebar/SidebarContent.js'
 import { Show } from 'solid-js'
-import { AddCustomDeviceFlow } from './AddDevice/AddCustomDeviceFlow.tsx'
-import { AddDeviceByFingerprintFlow } from './AddDevice/AddDeviceByFingerprintFlow.tsx'
+import { AddCustomDeviceFlow } from './AddDevice/AddCustomDeviceFlow.js'
+import { AddDeviceByFingerprintFlow } from './AddDevice/AddDeviceByFingerprintFlow.js'
 import {
 	type ModelID,
 	models,
@@ -11,8 +11,8 @@ import {
 } from '@hello.nrfcloud.com/proto-map/models'
 
 import './AddDevice.css'
-import { Problem } from './Problem.tsx'
-import { ModelInfoBlock } from './AddDevice/ModelInfoBlock.tsx'
+import { Problem } from './Problem.js'
+import { ModelInfoBlock } from './AddDevice/ModelInfoBlock.js'
 
 const panelId = 'add-device'
 

@@ -11,7 +11,7 @@ import {
 import { Device as DeviceIcon } from '../icons/Device.js'
 import { AddToSearch, Close, Published } from '../icons/LucideIcon.js'
 import { RelativeTime } from './RelativeTime.js'
-import { SidebarContent } from './Sidebar/SidebarContent.tsx'
+import { SidebarContent } from './Sidebar/SidebarContent.js'
 
 import './Search.css'
 import { noop } from '../util/noop.js'

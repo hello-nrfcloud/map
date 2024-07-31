@@ -3,9 +3,9 @@ import type { ShareDeviceRequest } from '@hello.nrfcloud.com/proto-map/api'
 import type { Static } from '@sinclair/typebox'
 import { For, createSignal } from 'solid-js'
 import { noop } from '../../util/noop.js'
-import { EmailInput } from './EmailInput.tsx'
-import { ModelInfoBlock } from './ModelInfoBlock.tsx'
-import { ShareDeviceSubmit } from './ShareDeviceSubmit.tsx'
+import { EmailInput } from './EmailInput.js'
+import { ModelInfoBlock } from './ModelInfoBlock.js'
+import { ShareDeviceSubmit } from './ShareDeviceSubmit.js'
 
 export const AddDeviceForm = (props: {
 	onRequest: (request: Static<typeof ShareDeviceRequest>) => void

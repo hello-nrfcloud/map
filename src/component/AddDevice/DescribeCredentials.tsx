@@ -1,6 +1,6 @@
 import { For } from 'solid-js'
 import { type DeviceCredentials } from '../../resources/createCredentials.ts'
-import { CopyableProp } from '../CopyableProp.tsx'
+import { CopyableProp } from '../CopyableProp.js'
 
 export const DescribeCredentials = (props: {
 	credentials: DeviceCredentials

@@ -1,7 +1,7 @@
 import { type ParentProps, Show } from 'solid-js'
 import type { ShareDeviceRequest } from '@hello.nrfcloud.com/proto-map/api'
 import { type Static } from '@sinclair/typebox'
-import { CopyableProp } from '../CopyableProp.tsx'
+import { CopyableProp } from '../CopyableProp.js'
 
 export const ShareDeviceRequestCreated = (
 	props: ParentProps<{

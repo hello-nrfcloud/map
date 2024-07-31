@@ -1,13 +1,14 @@
-import { APIHealth } from './component/APIHealth.tsx'
+import { APIHealth } from './component/APIHealth.js'
 import { Sidebar as AddDeviceSidebar } from './component/AddDevice.js'
 import { AllDevicesMap } from './component/AllDevicesMap/AllDevicesMap.js'
-import { UpdateAvailable } from './component/AppUpdate.tsx'
+import { UpdateAvailable } from './component/AppUpdate.js'
 import { DeviceSidebar } from './component/Device.js'
 import { NordicHeader } from './component/NordicHeader.jsx'
 import { Sidebar as SearchSidebar } from './component/Search.js'
-import { SidebarNav } from './component/SidebarNav.tsx'
-import { Tutorial } from './component/Tutorial/Tutorial.tsx'
+import { SidebarNav } from './component/SidebarNav.js'
+import { Tutorial } from './component/Tutorial/Tutorial.js'
 import { Sidebar as ViewSourceSidebar } from './component/ViewSource.js'
+import { Sidebar as FeedbackSidebar } from './component/Feedback.js'
 import { createEffect } from 'solid-js'
 
 import './Layout.css'
@@ -32,6 +33,7 @@ export const MapApp = () => {
 				<SearchSidebar />
 				<ViewSourceSidebar />
 				<AddDeviceSidebar />
+				<FeedbackSidebar />
 			</div>
 			<AllDevicesMap />
 		</div>
