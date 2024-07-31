@@ -8,7 +8,6 @@ import { Sidebar as SearchSidebar } from './component/Search.js'
 import { SidebarNav } from './component/SidebarNav.tsx'
 import { Tutorial } from './component/Tutorial/Tutorial.tsx'
 import { Sidebar as ViewSourceSidebar } from './component/ViewSource.js'
-import { WIPSidebar } from './component/WIPSidebar.tsx'
 import { createEffect } from 'solid-js'
 
 import './Layout.css'
@@ -29,7 +28,6 @@ export const MapApp = () => {
 			<SidebarNav />
 			<div id="sidebar">
 				<Tutorial />
-				<WIPSidebar />
 				<DeviceSidebar />
 				<SearchSidebar />
 				<ViewSourceSidebar />
