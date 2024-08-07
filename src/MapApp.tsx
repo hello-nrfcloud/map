@@ -8,7 +8,6 @@ import { SidebarNav } from './component/SidebarNav.js'
 import { Tutorial } from './component/Tutorial/Tutorial.js'
 import { Sidebar as ViewSourceSidebar } from './component/ViewSource.js'
 import { Sidebar as FeedbackSidebar } from './component/Feedback.js'
-import { Sidebar as ProtocolSidebar } from './component/Protocol.js'
 import { createEffect } from 'solid-js'
 
 import './Layout.css'
@@ -33,7 +32,6 @@ export const MapApp = () => {
 				<SearchSidebar />
 				<ViewSourceSidebar />
 				<FeedbackSidebar />
-				<ProtocolSidebar />
 			</div>
 			<AllDevicesMap />
 		</div>
