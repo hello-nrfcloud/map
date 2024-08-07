@@ -2,7 +2,6 @@ import { useNavigation } from '../context/Navigation.js'
 import { Close, Protocol } from '../icons/LucideIcon.js'
 import { SidebarContent } from './Sidebar/SidebarContent.js'
 import { Show } from 'solid-js'
-import { panelId as AddDevicePanelId } from './AddDevice.js'
 import { DescribeConnectionSettings } from './DescribeConnectionSettings.tsx'
 
 export const panelId = 'protocol'
@@ -21,11 +20,8 @@ export const Sidebar = () => {
 				<div class="scrollable">
 					<section class="separator">
 						<p>
-							Once you have{' '}
-							<a href={location.link({ panel: AddDevicePanelId })}>
-								added your device
-							</a>{' '}
-							and acquired the credentials, it can start publish data.
+							Once you have added your device and acquired the credentials, it
+							can start publish data.
 						</p>
 						<h2>Connect to nRF Cloud</h2>
 						<p>

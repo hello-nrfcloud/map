@@ -3,12 +3,8 @@ import { Context as HelloContext } from '@hello.nrfcloud.com/proto/hello'
 import type { IncomingMessage, ServerResponse } from 'http'
 import type { Connect } from 'vite'
 import type { Registry } from '../../src/context/Parameters.tsx'
-import type http from 'node:http'
-import { randomWords } from '@bifravst/random-words'
-import { models } from '@hello.nrfcloud.com/proto-map/models'
 
 const deviceIdentities: Record<string, string> = {}
-const publicDeviceIds: Record<string, string> = {}
 
 export const mockBackend = ({
 	registry,
@@ -42,31 +38,6 @@ export const mockBackend = ({
 				'@context': HelloContext.deviceIdentity,
 				id: deviceIdentities[fingerprint],
 				model: 'thingy91x',
-			})
-		},
-		'POST /e2e/api/share/confirm': async (req, res) => {
-			const { token, deviceId } = await getJSON(req)
-			if (token !== 'ABCDEF') return anError(res, 400)
-			return sendJSON(res, {
-				'@context': Context.shareDevice.ownershipConfirmed,
-				id: publicDeviceIds[deviceId],
-			})
-		},
-		'POST /e2e/api/share': async (req, res) => {
-			const { fingerprint, model } = await getJSON(req)
-			const deviceId = deviceIdentities[fingerprint]
-			if (deviceId === undefined) {
-				return anError(res, 404)
-			}
-			if (models[model as keyof typeof models] === undefined) {
-				return anError(res, 404)
-			}
-			const id = randomWords({ numWords: 3 }).join('-')
-			publicDeviceIds[deviceId] = id
-			return sendJSON(res, {
-				'@context': Context.shareDevice.request,
-				id,
-				deviceId,
 			})
 		},
 		'GET /map/.well-known/release': (req, res) => {
@@ -135,21 +106,3 @@ export const anError = (
 	res.statusCode = statusCode
 	res.end()
 }
-
-const getJSON = async (
-	req: http.IncomingMessage,
-): Promise<Record<string, any>> =>
-	new Promise((resolve, reject) => {
-		let requestData = ''
-		req.on('data', (data) => {
-			requestData += data
-		})
-		req.on('end', () => {
-			try {
-				const jsonData = JSON.parse(requestData)
-				resolve(jsonData)
-			} catch (error) {
-				reject(error)
-			}
-		})
-	})

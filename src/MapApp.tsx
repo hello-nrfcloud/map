@@ -1,5 +1,4 @@
 import { APIHealth } from './component/APIHealth.js'
-import { Sidebar as AddDeviceSidebar } from './component/AddDevice.js'
 import { AllDevicesMap } from './component/AllDevicesMap/AllDevicesMap.js'
 import { UpdateAvailable } from './component/AppUpdate.js'
 import { DeviceSidebar } from './component/Device.js'
@@ -33,7 +32,6 @@ export const MapApp = () => {
 				<DeviceSidebar />
 				<SearchSidebar />
 				<ViewSourceSidebar />
-				<AddDeviceSidebar />
 				<FeedbackSidebar />
 				<ProtocolSidebar />
 			</div>
