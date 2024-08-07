@@ -1,9 +1,17 @@
 import type { ParentProps } from 'solid-js'
 
+import './Card.css'
+
 export const Card = (props: ParentProps) => (
-	<section class="card">{props.children}</section>
+	<section class="card boxed bg-lighter">{props.children}</section>
 )
 export const CardHeader = (props: ParentProps) => (
-	<header>{props.children}</header>
+	<header class="pad bg-light">{props.children}</header>
 )
-export const CardBody = (props: ParentProps) => <div>{props.children}</div>
+export const CardBody = (props: ParentProps) => (
+	<div class="pad">{props.children}</div>
+)
+
+export const CardFooter = (props: ParentProps) => (
+	<footer class="pad">{props.children}</footer>
+)

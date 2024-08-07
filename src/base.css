@@ -32,6 +32,8 @@
   --color-form-border-default: #222;
   --color-progress-fg: #305074;
   --color-progress-bg: #283b5e;
+  --color-success-bg: #44663f;
+  --color-success-fg: #3d724a;
 
   /* Fonts */
   --regular-font-family: "Inter Tight", sans-serif;
@@ -39,11 +41,18 @@
 
   /* Sizes */
   --base-size-navbar: 40px;
+  --border-radius: 2.5px;
+  --gap: 0.5rem;
+  --gap-medium: calc(var(--gap) / 2);
+  --gap-small: calc(var(--gap) / 4);
+  --gap-tiny: calc(var(--gap) / 4);
 }
 
 @media (min-width: 400px) {
   :root {
     --base-size-navbar: 60px;
+    --border-radius: 5px;
+    --gap: 1rem;
   }
 }
 
@@ -108,10 +117,7 @@ h2 {
 
 p {
   line-height: 135%;
-}
-
-p + p {
-  margin-top: 0.75rem;
+  margin-bottom: var(--gap-medium);
 }
 
 /* Link with icon, button with icon */
@@ -178,6 +184,26 @@ h6:has(.icon) .icon {
   padding-right: var(--gap);
 }
 
+.gap {
+  margin: var(--gap);
+}
+
+.gap-b {
+  margin-bottom: var(--gap);
+}
+
+.gap-t {
+  margin-top: var(--gap);
+}
+
+.gap-s {
+  margin-left: var(--gap);
+}
+
+.gap-e {
+  margin-right: var(--gap);
+}
+
 /** Forms **/
 
 form {
@@ -221,6 +247,32 @@ input:-webkit-autofill:active {
   transition:
     background-color 5000000s ease-in-out 0s,
     color 5000000s ease-in-out 0s;
+}
+
+form .one-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+form .one-line > *:last-child {
+  margin-top: var(--gap-medium);
+}
+
+@media (min-width: 450px) {
+  form .one-line {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+
+  form .one-line button {
+    flex-shrink: 0;
+    margin-left: var(--gap-medium);
+  }
+
+  form .one-line > *:last-child {
+    margin-top: 0;
+  }
 }
 
 .btn {
@@ -286,4 +338,12 @@ ul {
 ul li {
   margin-left: 1.5rem;
   margin-bottom: 0.25rem;
+}
+
+.bg-light {
+  background-color: var(--bg-blue-4);
+}
+
+.bg-lighter {
+  background-color: var(--bg-blue-5);
 }

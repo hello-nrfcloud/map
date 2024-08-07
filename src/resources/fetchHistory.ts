@@ -4,7 +4,7 @@ import type { Static } from '@sinclair/typebox'
 import type { Device } from './fetchDevices.js'
 import { getDeviceJWT } from './getDeviceJWT.js'
 import type { Parameters } from '#context/Parameters.js'
-import { ProblemDetailError } from '#component/Problem.js'
+import { ProblemDetailError } from '#component/notifications/Problem.tsx'
 
 const fetchResourceHistory = typedFetch({
 	responseBodySchema: LwM2MObjectHistory,

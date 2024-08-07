@@ -1,0 +1,12 @@
+.success {
+  width: 100%;
+  background-color: var(--color-success-bg);
+  border: 1px solid var(--color-success-fg);
+  padding: var(--gap-small);
+  border-radius: var(--border-radius);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

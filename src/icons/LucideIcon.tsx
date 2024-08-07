@@ -40,6 +40,7 @@ import {
 	RadioTower,
 	CircleUserRound,
 	Earth,
+	LogOut as LogOutIcon,
 } from 'lucide'
 import { For } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
@@ -234,4 +235,8 @@ export const Dashboard = (props: LucideProps) => (
 
 export const MapApplication = (props: LucideProps) => (
 	<LucideIcon icon={Earth} {...props} />
+)
+
+export const LogOut = (props: LucideProps) => (
+	<LucideIcon icon={LogOutIcon} {...props} />
 )

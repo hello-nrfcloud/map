@@ -2,7 +2,7 @@ import { PublicDevice } from '@hello.nrfcloud.com/proto-map/api'
 import type { ModelID } from '@hello.nrfcloud.com/proto-map/models'
 import { typedFetch } from '@hello.nrfcloud.com/proto/hello'
 import type { Static } from '@sinclair/typebox'
-import { ProblemDetailError } from '#component/Problem.js'
+import { ProblemDetailError } from '#component/notifications/Problem.tsx'
 
 const publicDevice = typedFetch({
 	responseBodySchema: PublicDevice,

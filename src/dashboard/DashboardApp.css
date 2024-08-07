@@ -1,16 +1,24 @@
 #layout {
   display: grid;
-  grid-template-columns: var(--base-size-navbar) auto;
   grid-template-rows: var(--base-size-navbar) minmax(
       calc(100vh - var(--base-size-navbar)),
       1fr
     );
+  grid-template-columns: var(--base-size-navbar) auto;
   width: 100vw;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: cal(100% - var(--gap) * 2);
+  margin: var(--gap);
 }
 
 header.nordic {
   grid-column-start: 1;
-  grid-column-end: 4;
+  grid-column-end: 3;
   grid-row-start: 1;
   grid-row-end: 2;
 }
@@ -19,6 +27,6 @@ nav.sidebar {
   grid-column-start: 1;
   grid-column-end: 2;
   grid-row-start: 2;
-  grid-row-end: 4;
+  grid-row-end: 3;
   height: 100%;
 }

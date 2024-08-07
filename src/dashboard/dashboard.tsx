@@ -4,6 +4,7 @@ import { AppUpdateProvider } from '#context/AppUpdate.tsx'
 import { ParametersProvider } from '#context/Parameters.tsx'
 import { ViteEnvProvider } from '#context/ViteEnv.tsx'
 import { DashboardApp } from '#dashboard/DashboardApp.tsx'
+import { UserProvider } from '#context/User.tsx'
 
 import 'the-new-css-reset/css/reset.css'
 import '../base.css'
@@ -20,7 +21,9 @@ render(
 			<AppUpdateProvider>
 				<ParametersProvider>
 					<APIHealthProvider>
-						<DashboardApp />
+						<UserProvider>
+							<DashboardApp />
+						</UserProvider>
 					</APIHealthProvider>
 				</ParametersProvider>
 			</AppUpdateProvider>
