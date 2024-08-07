@@ -4,8 +4,8 @@ import {
 	type LwM2MObjectInstance,
 } from '@hello.nrfcloud.com/proto-map/lwm2m'
 import { Show } from 'solid-js'
-import { Multiple, Published } from '../../icons/LucideIcon.js'
-import type { Device } from '../../resources/fetchDevices.js'
+import { Multiple, Published } from '#icons/LucideIcon.js'
+import type { Device } from '#resources/fetchDevices.js'
 import { ToggleButton } from '../ToggleButton.jsx'
 import { RelativeTime } from '../RelativeTime.js'
 import { WhenToggled } from '../WhenToggled.jsx'

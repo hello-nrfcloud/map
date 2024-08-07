@@ -1,4 +1,5 @@
 :root {
+  /* Colors */
   --bg-blue-5: #2f5a87;
   --bg-blue-4: #1a497b;
   --bg-blue-3: #11456f;
@@ -31,31 +32,18 @@
   --color-form-border-default: #222;
   --color-progress-fg: #305074;
   --color-progress-bg: #283b5e;
-  --base-size-navbar: 40px;
-  --size-sidebar: 400px;
+
+  /* Fonts */
   --regular-font-family: "Inter Tight", sans-serif;
   --condensed-font-family: "Roboto Condensed", sans-serif;
-  --gap: 0.5rem;
-  --gap-medium: calc(var(--gap) / 2);
-  --gap-small: calc(var(--gap) / 4);
-  --gap-tiny: calc(var(--gap) / 4);
-  --border-radius: 2.5px;
-  --box-shadow-size: calc(var(--border-radius) * 2);
-  /* This will be adjusted using JavaScript because for our case, we need to set the height of the app to be the innerHeight of the window, which is not what it is on mobile browsers. */
-  --app-height: 100vh;
+
+  /* Sizes */
+  --base-size-navbar: 40px;
 }
 
 @media (min-width: 400px) {
   :root {
     --base-size-navbar: 60px;
-    --gap: 1rem;
-    --border-radius: 5px;
-  }
-}
-
-@media (min-width: 600px) {
-  :root {
-    --size-sidebar: 500px;
   }
 }
 

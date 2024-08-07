@@ -1,20 +1,20 @@
 import { For, Show, createMemo } from 'solid-js'
-import { useDevices } from '../context/Devices.js'
-import { type Device } from '../resources/fetchDevices.js'
-import { useNavigation } from '../context/Navigation.js'
+import { useDevices } from '#context/Devices.js'
+import { type Device } from '#resources/fetchDevices.js'
+import { useNavigation } from '#context/Navigation.js'
 import {
 	type SearchTerm,
 	matches,
 	SearchTermType,
 	isSearchTermType,
-} from '../search.ts'
-import { Device as DeviceIcon } from '../icons/Device.js'
-import { AddToSearch, Close, Published } from '../icons/LucideIcon.js'
+} from '../search.js'
+import { Device as DeviceIcon } from '#icons/Device.js'
+import { AddToSearch, Close, Published } from '#icons/LucideIcon.js'
 import { RelativeTime } from './RelativeTime.js'
 import { SidebarContent } from './Sidebar/SidebarContent.js'
 
 import './Search.css'
-import { noop } from '../util/noop.js'
+import { noop } from '#util/noop.js'
 
 const parse = (value: string): SearchTerm | undefined => {
 	const [type, term] = value.trim().split(':')

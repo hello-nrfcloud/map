@@ -1,7 +1,7 @@
 import { Show, createSignal, onCleanup } from 'solid-js'
-import { useParameters } from '../context/Parameters.js'
+import { useParameters } from '#context/Parameters.js'
 
-import { NoConnection } from '../icons/LucideIcon.js'
+import { NoConnection } from '#icons/LucideIcon.js'
 import './APIHealth.css'
 
 export const APIHealth = () => {

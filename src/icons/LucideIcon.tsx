@@ -38,6 +38,8 @@ import {
 	ArrowDownToLine,
 	MessageSquareHeart,
 	RadioTower,
+	CircleUserRound,
+	Earth,
 } from 'lucide'
 import { For } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
@@ -224,4 +226,12 @@ export const Feedback = (props: LucideProps) => (
 
 export const Protocol = (props: LucideProps) => (
 	<LucideIcon icon={RadioTower} {...props} />
+)
+
+export const Dashboard = (props: LucideProps) => (
+	<LucideIcon icon={CircleUserRound} {...props} />
+)
+
+export const MapApplication = (props: LucideProps) => (
+	<LucideIcon icon={Earth} {...props} />
 )

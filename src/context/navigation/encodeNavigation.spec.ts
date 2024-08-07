@@ -1,7 +1,8 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
-import { SearchTermType } from '../../search.ts'
-import { encode, decode, type Navigation } from './encodeNavigation.js'
+import { SearchTermType } from '../../search.js'
+import { encode, type Navigation } from './encodeNavigation.js'
+import { decode } from './decodeNavigation.ts'
 import { ModelID } from '@hello.nrfcloud.com/proto-map/models'
 
 void describe('encode() / decode()', () => {

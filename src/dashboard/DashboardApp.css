@@ -1,0 +1,24 @@
+#layout {
+  display: grid;
+  grid-template-columns: var(--base-size-navbar) auto;
+  grid-template-rows: var(--base-size-navbar) minmax(
+      calc(100vh - var(--base-size-navbar)),
+      1fr
+    );
+  width: 100vw;
+}
+
+header.nordic {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+nav.sidebar {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 2;
+  grid-row-end: 4;
+  height: 100%;
+}

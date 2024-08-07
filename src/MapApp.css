@@ -1,3 +1,28 @@
+:root {
+  --size-sidebar: 400px;
+  --gap: 0.5rem;
+  --gap-medium: calc(var(--gap) / 2);
+  --gap-small: calc(var(--gap) / 4);
+  --gap-tiny: calc(var(--gap) / 4);
+  --border-radius: 2.5px;
+  --box-shadow-size: calc(var(--border-radius) * 2);
+  /* This will be adjusted using JavaScript because for our case, we need to set the height of the app to be the innerHeight of the window, which is not what it is on mobile browsers. */
+  --app-height: 100vh;
+}
+
+@media (min-width: 400px) {
+  :root {
+    --gap: 1rem;
+    --border-radius: 5px;
+  }
+}
+
+@media (min-width: 600px) {
+  :root {
+    --size-sidebar: 500px;
+  }
+}
+
 #layout {
   display: grid;
   grid-template-columns: var(--base-size-navbar) auto;

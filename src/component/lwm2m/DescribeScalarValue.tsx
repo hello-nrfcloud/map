@@ -1,6 +1,6 @@
 import type { LwM2MResourceInfo } from '@hello.nrfcloud.com/proto-map/lwm2m'
 import { Show } from 'solid-js'
-import { format } from '../../util/lwm2m.ts'
+import { format } from '#util/lwm2m.js'
 
 export const DescribeScalarValue = (props: {
 	value: string | number | boolean

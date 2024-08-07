@@ -1,5 +1,5 @@
 import { type ParentProps, Show } from 'solid-js'
-import { Warning } from '../icons/LucideIcon.js'
+import { Warning } from '#icons/LucideIcon.js'
 import type {
 	HttpStatusCode,
 	ProblemDetail,

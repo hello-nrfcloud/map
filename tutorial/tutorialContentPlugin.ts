@@ -4,7 +4,7 @@ import path from 'node:path'
 import { loadMarkdownContentFromFile } from './loadMarkdownFromFile.ts'
 import { Type, type Static } from '@sinclair/typebox'
 import { validateWithTypeBox } from '@hello.nrfcloud.com/proto'
-import { decode } from '../src/context/navigation/encodeNavigation.ts'
+import { decode } from '../src/context/navigation/decodeNavigation.js'
 
 const __dirname = import.meta.dirname
 const tutorialDir = path.join(__dirname, '..', 'docs', 'tutorial')

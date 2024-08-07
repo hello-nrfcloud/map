@@ -4,8 +4,8 @@ import {
 	type Geolocation_14201,
 } from '@hello.nrfcloud.com/proto-map/lwm2m'
 import { For, Show, createMemo, type ParentProps } from 'solid-js'
-import { useNavigation } from '../../context/Navigation.js'
-import type { Device } from '../../resources/fetchDevices.js'
+import { useNavigation } from '#context/Navigation.js'
+import type { Device } from '#resources/fetchDevices.js'
 import { DescribeInstance } from '../lwm2m/DescribeInstance.js'
 import {
 	Card as BatteryAndPowerCard,

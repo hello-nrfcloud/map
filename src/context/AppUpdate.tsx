@@ -8,7 +8,7 @@ import {
 	onCleanup,
 	useContext,
 } from 'solid-js'
-import { fetchRelease } from '../resources/fetchRelease.js'
+import { fetchRelease } from '#resources/fetchRelease.js'
 import { useViteEnv } from './ViteEnv.js'
 
 const logPrefix = '[AppUpdate]'

@@ -1,5 +1,5 @@
 import { Show, type ParentProps, type JSX } from 'solid-js'
-import { useNavigation } from '../context/Navigation.js'
+import { useNavigation } from '#context/Navigation.js'
 export const WhenToggled = (
 	props: ParentProps<{ id: string; fallback?: JSX.Element }>,
 ) => {

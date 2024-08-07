@@ -2,9 +2,9 @@ import {
 	definitions,
 	type LwM2MObjectInstance,
 } from '@hello.nrfcloud.com/proto-map/lwm2m'
-import { useNavigation } from '../../context/Navigation.js'
-import { SearchTermType } from '../../search.ts'
-import { Documentation, Search, ViewSource } from '../../icons/LucideIcon.js'
+import { useNavigation } from '#context/Navigation.js'
+import { SearchTermType } from '../../search.js'
+import { Documentation, Search, ViewSource } from '#icons/LucideIcon.js'
 import { ToggleButton } from '../ToggleButton.jsx'
 import { CollapsibleMenu } from '../CollapsibleMenu.js'
 import { ResourcesDL } from '../ResourcesDL.js'

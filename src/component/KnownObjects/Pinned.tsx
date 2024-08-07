@@ -1,4 +1,4 @@
-import { PinOnMap } from '../../icons/LucideIcon.js'
+import { PinOnMap } from '#icons/LucideIcon.js'
 import { For, createMemo } from 'solid-js'
 import type { LwM2MObjectID } from '@hello.nrfcloud.com/proto-map/lwm2m'
 import {
@@ -8,10 +8,10 @@ import {
 	instanceTs,
 } from '@hello.nrfcloud.com/proto-map/lwm2m'
 import { isLwM2MObjectID } from '@hello.nrfcloud.com/proto-map/lwm2m'
-import type { Device } from '../../resources/fetchDevices.js'
+import type { Device } from '#resources/fetchDevices.js'
 import { ResourcesDL } from '../ResourcesDL.js'
 import { DescribeResource } from '../lwm2m/DescribeResource.js'
-import type { PinnedResource } from '../../context/navigation/encodeNavigation.ts'
+import type { PinnedResource } from '#context/navigation/encodeNavigation.js'
 
 import './DeviceInformation.css'
 

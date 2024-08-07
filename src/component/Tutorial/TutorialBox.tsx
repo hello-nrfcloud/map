@@ -5,12 +5,12 @@ import {
 	createEffect,
 	onCleanup,
 } from 'solid-js'
-import type { TutorialEntryType } from '../../../tutorial/tutorialContentPlugin.ts'
-import { useAllDevicesMapState } from '../../context/AllDeviceMapState.js'
-import { useNavigation } from '../../context/Navigation.js'
-import { decode } from '../../context/navigation/encodeNavigation.ts'
-import { Close, Done, Next, Prev, ToDo } from '../../icons/LucideIcon.js'
-import { isDone } from './isDone.ts'
+import type { TutorialEntryType } from '../../../tutorial/tutorialContentPlugin.js'
+import { useAllDevicesMapState } from '#context/AllDeviceMapState.js'
+import { useNavigation } from '#context/Navigation.js'
+import { decode } from '#context/navigation/decodeNavigation.ts'
+import { Close, Done, Next, Prev, ToDo } from '#icons/LucideIcon.js'
+import { isDone } from './isDone.js'
 
 import './TutorialBox.css'
 

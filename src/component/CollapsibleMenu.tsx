@@ -1,7 +1,7 @@
 import { type ParentProps, Show } from 'solid-js'
-import { Close, Menu as MenuIcon } from '../icons/LucideIcon.js'
+import { Close, Menu as MenuIcon } from '#icons/LucideIcon.js'
 import './CollapsibleMenu.css'
-import { useNavigation } from '../context/Navigation.js'
+import { useNavigation } from '#context/Navigation.js'
 
 export const CollapsibleMenu = (
 	props: ParentProps<{ id: string; title?: string; class?: string }>,

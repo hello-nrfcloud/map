@@ -1,6 +1,6 @@
 import { type ParentProps } from 'solid-js'
 import { createContext, createResource, useContext, Show } from 'solid-js'
-import { LoadingFullScreen } from '../component/LoadingFullScreen.js'
+import { LoadingFullScreen } from '#component/LoadingFullScreen.js'
 import { useViteEnv } from './ViteEnv.js'
 
 export type Registry = {

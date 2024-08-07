@@ -1,4 +1,4 @@
-import { Battery } from '../../icons/LucideIcon.js'
+import { Battery } from '#icons/LucideIcon.js'
 import {
 	definitions,
 	LwM2MObjectID,
