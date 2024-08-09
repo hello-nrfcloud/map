@@ -1,14 +1,14 @@
+import { resolve } from 'node:path'
 import { defineConfig, type PluginOption, type UserConfig } from 'vite'
 import solidPlugin from 'vite-plugin-solid'
+import { encloseWithSlash } from '../src/util/encloseWithSlash.ts'
+import { tutorialContentPlugin } from '../tutorial/tutorialContentPlugin.ts'
 import {
 	homepage,
 	protoVersion,
 	repositoryUrl,
 	version,
 } from './packageInfo.js'
-import { encloseWithSlash } from '../src/util/encloseWithSlash.ts'
-import { tutorialContentPlugin } from '../tutorial/tutorialContentPlugin.ts'
-import { resolve } from 'node:path'
 
 export const createConfig = (
 	apiURL: URL,

@@ -1,18 +1,19 @@
-import { createContext, useContext } from 'solid-js'
 import {
+	type Accessor,
+	createContext,
+	createEffect,
 	createSignal,
 	onCleanup,
 	type ParentProps,
-	type Accessor,
-	createEffect,
+	useContext,
 } from 'solid-js'
+import type { SearchTerm } from '../search.js'
+import { decode } from './navigation/decodeNavigation.ts'
 import {
 	encode,
 	type Navigation,
 	type PinnedResource,
 } from './navigation/encodeNavigation.js'
-import { decode } from './navigation/decodeNavigation.ts'
-import type { SearchTerm } from '../search.js'
 import { useViteEnv } from './ViteEnv.js'
 
 const Home: Navigation = {

@@ -1,7 +1,7 @@
-import { type SearchTerm } from '../../search.js'
 import type { LwM2MObjectID } from '@hello.nrfcloud.com/proto-map/lwm2m'
 import type { ModelID } from '@hello.nrfcloud.com/proto-map/models'
 import type { TutorialContent } from '../../../tutorial/tutorialContentPlugin.js'
+import { type SearchTerm } from '../../search.js'
 
 export type PinnedResource = {
 	model: ModelID

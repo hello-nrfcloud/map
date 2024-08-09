@@ -2,14 +2,26 @@ import { NordicHeader } from '#component/NordicHeader.tsx'
 import { SidebarNav } from '#component/SidebarNav.tsx'
 import { useUser } from '#context/User.tsx'
 import { Card, CardBody, CardHeader } from '#dashboard/Card.tsx'
-import { LogOut, MapApplication } from '#icons/LucideIcon.tsx'
-import { Show } from 'solid-js'
-import { LoginForm } from './forms/Login.tsx'
+import { Add, LogOut, MapApplication } from '#icons/LucideIcon.tsx'
+import { createSignal, onCleanup, Show } from 'solid-js'
+import { AddDevice } from './AddDevice.tsx'
+import { DeviceList } from './DeviceList.tsx'
+import { LoginForm } from './Login.tsx'
 
 import './DashboardApp.css'
 
 export const DashboardApp = () => {
 	const { user, logout } = useUser()
+	const [panel, setPanel] = createSignal(document.location.hash.slice(1))
+
+	const hashChange = () => {
+		setPanel(document.location.hash.slice(1))
+	}
+	window.addEventListener('hashchange', hashChange)
+	onCleanup(() => {
+		window.removeEventListener('hashchange', hashChange)
+	})
+
 	return (
 		<div id="layout">
 			<NordicHeader />
@@ -24,6 +36,10 @@ export const DashboardApp = () => {
 				</a>
 				<hr />
 				<Show when={user() !== undefined}>
+					<a class="button" href="/map/dashboard/#add-device">
+						<Add strokeWidth={2} />
+					</a>
+					<hr />
 					<button type="button" class="button" onClick={() => logout()}>
 						<LogOut strokeWidth={2} />
 					</button>
@@ -31,25 +47,50 @@ export const DashboardApp = () => {
 				</Show>
 			</SidebarNav>
 			<main>
-				<Card>
-					<CardHeader>
-						<h1>Dashboard</h1>
-						<Show when={user() !== undefined}>
-							<p>Welcome {user()?.email}!</p>
-						</Show>
-					</CardHeader>
-					<CardBody>
-						<p>
-							Welcome to the dashboard. Here you can view and manage your
-							devices.
-						</p>
-						<Show when={user() === undefined}>
-							<p>Get started by logging in with your email.</p>
-							<LoginForm />
-						</Show>
-					</CardBody>
-				</Card>
+				<Show when={user() !== undefined} fallback={<Unauthenticated />}>
+					<Show when={panel() === 'add-device'} fallback={<Home />}>
+						<AddDevice />
+					</Show>
+				</Show>
 			</main>
 		</div>
+	)
+}
+
+const Unauthenticated = () => (
+	<Card>
+		<CardHeader>
+			<h1>Dashboard</h1>
+		</CardHeader>
+		<CardBody>
+			<p>
+				Welcome to the dashboard. Here you can view and manage your devices.
+			</p>
+			<hr />
+			<p>Get started by logging in with your email.</p>
+			<LoginForm />
+		</CardBody>
+	</Card>
+)
+
+const Home = () => {
+	const { user } = useUser()
+	return (
+		<>
+			<Card>
+				<CardHeader>
+					<h1>Dashboard</h1>
+					<Show when={user() !== undefined}>
+						<p>Welcome {user()?.email}!</p>
+					</Show>
+				</CardHeader>
+				<CardBody>
+					<p>
+						Welcome to the dashboard. Here you can view and manage your devices.
+					</p>
+				</CardBody>
+			</Card>
+			<DeviceList />
+		</>
 	)
 }

@@ -1,24 +1,24 @@
-import {
-	LwM2MObjectID,
-	type Geolocation_14201,
-	definitions,
-} from '@hello.nrfcloud.com/proto-map/lwm2m'
-import { isLwM2MObjectID } from '@hello.nrfcloud.com/proto-map/lwm2m'
-import type { Map as MapLibreGlMap, MapMouseEvent } from 'maplibre-gl'
-import { type MapGeoJSONFeature } from 'maplibre-gl'
-import { onCleanup, createMemo, createSignal, createEffect } from 'solid-js'
+import { useAllDevicesMapState } from '#context/AllDeviceMapState.jsx'
 import { useDevices } from '#context/Devices.js'
-import { type Device } from '#resources/fetchDevices.js'
+import { useNavigation } from '#context/Navigation.js'
+import type { PinnedResource } from '#context/navigation/encodeNavigation.js'
 import { useParameters } from '#context/Parameters.js'
 import { createMap } from '#map/createMap.js'
-import { newestInstanceFirst } from '#util/newestInstanceFirst.js'
-import { matches, type SearchTerm } from '../../search.js'
-import { useNavigation } from '#context/Navigation.js'
 import { glyphFonts } from '#map/glyphFonts.js'
+import { type Device } from '#resources/fetchDevices.js'
 import { format, type ResourceValue } from '#util/lwm2m.js'
+import { newestInstanceFirst } from '#util/newestInstanceFirst.js'
+import {
+	definitions,
+	isLwM2MObjectID,
+	LwM2MObjectID,
+	type Geolocation_14201,
+} from '@hello.nrfcloud.com/proto-map/lwm2m'
+import type { Map as MapLibreGlMap, MapMouseEvent } from 'maplibre-gl'
+import { type MapGeoJSONFeature } from 'maplibre-gl'
+import { createEffect, createMemo, createSignal, onCleanup } from 'solid-js'
 import { createStore, reconcile } from 'solid-js/store'
-import { useAllDevicesMapState } from '#context/AllDeviceMapState.jsx'
-import type { PinnedResource } from '#context/navigation/encodeNavigation.js'
+import { matches, type SearchTerm } from '../../search.js'
 
 type DeviceInfo = {
 	device: Device

@@ -1,18 +1,17 @@
-import { Center, Map, ZoomIn } from '#icons/LucideIcon.js'
+import { useParameters } from '#context/Parameters.js'
+import { Center, Map, ZoomIn, ZoomOut } from '#icons/LucideIcon.js'
+import { createMap } from '#map/createMap.js'
+import { geoJSONPolygonFromCircle } from '#map/geoJSONPolygonFromCircle.js'
+import { getLocationsBounds } from '#map/getLocationsBounds.js'
+import { glyphFonts } from '#map/glyphFonts.js'
+import {
+	defaultLocationSourceColor,
+	locationSourceColors,
+} from '#map/locationSourceColors.js'
 import { type Geolocation_14201 } from '@hello.nrfcloud.com/proto-map/lwm2m'
-import { createEffect, onCleanup, createMemo } from 'solid-js'
 import type { Map as MapLibreGlMap } from 'maplibre-gl'
 import { ScaleControl } from 'maplibre-gl'
-import { useParameters } from '#context/Parameters.js'
-import { geoJSONPolygonFromCircle } from '#map/geoJSONPolygonFromCircle.js'
-import { ZoomOut } from '#icons/LucideIcon.js'
-import { getLocationsBounds } from '#map/getLocationsBounds.js'
-import { createMap } from '#map/createMap.js'
-import {
-	locationSourceColors,
-	defaultLocationSourceColor,
-} from '#map/locationSourceColors.js'
-import { glyphFonts } from '#map/glyphFonts.js'
+import { createEffect, createMemo, onCleanup } from 'solid-js'
 
 import './Location.css'
 

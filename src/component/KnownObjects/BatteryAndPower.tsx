@@ -4,11 +4,11 @@ import {
 	LwM2MObjectID,
 	type BatteryAndPower_14202,
 } from '@hello.nrfcloud.com/proto-map/lwm2m'
+import { createMemo, Show } from 'solid-js'
 import { ResourcesDL } from '../ResourcesDL.js'
-import { Show, createMemo } from 'solid-js'
 
-import './DeviceInformation.css'
 import { DescribeScalarValue } from '../lwm2m/DescribeScalarValue.js'
+import './DeviceInformation.css'
 
 export const Icon = () => (
 	<>

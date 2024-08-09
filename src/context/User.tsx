@@ -3,13 +3,22 @@ import type { Static } from '@sinclair/typebox'
 import {
 	type Accessor,
 	createContext,
+	createEffect,
 	createSignal,
+	onCleanup,
 	type ParentProps,
 	useContext,
-	createEffect,
 } from 'solid-js'
 
 const key = 'user:jwt'
+
+const decodeJWT = (jwt: string): Record<string, any> | undefined => {
+	try {
+		return JSON.parse(atob(jwt.split('.')?.[1] ?? ''))
+	} catch {
+		return undefined
+	}
+}
 
 export const UserProvider = (props: ParentProps) => {
 	const [user, setUser] = createSignal<
@@ -19,21 +28,39 @@ export const UserProvider = (props: ParentProps) => {
 		localStorage.getItem(key) ?? undefined,
 	)
 
+	const logout = () => {
+		setUser(undefined)
+		setUserJWT(undefined)
+		localStorage.removeItem(key)
+	}
+
 	createEffect(() => {
-		if (jwt() !== undefined) {
-			try {
-				const payload = JSON.parse(atob(jwt()!.split('.')?.[1] ?? ''))
-				if (payload.exp < Date.now() / 1000) throw new Error('JWT expired')
-				setUser(payload)
-				localStorage.setItem(key, jwt()!)
-			} catch (e) {
-				console.error(
-					`[UserProvider] Failed to parse JWT: ${(e as Error).message}`,
-				)
-				localStorage.removeItem(key)
-				setUserJWT(undefined)
-			}
+		if (jwt() === undefined) return
+
+		try {
+			const payload = decodeJWT(jwt()!)
+			if (payload === undefined) throw new Error('Invalid JWT')
+			if (payload.exp < Date.now() / 1000) throw new Error('JWT expired')
+			setUser(payload as Static<typeof UserJWTPayload>)
+			localStorage.setItem(key, jwt()!)
+		} catch (e) {
+			console.error(
+				`[UserProvider] Failed to parse JWT: ${(e as Error).message}`,
+			)
+			logout()
 		}
+	})
+
+	createEffect(() => {
+		if (jwt() === undefined) return
+		const exp = decodeJWT(jwt()!)?.exp
+		if (exp === undefined) return
+		const expiresInSeconds = exp - Date.now() / 1000
+		console.debug(
+			`[User] JWT expires in ${Math.floor(expiresInSeconds)} seconds`,
+		)
+		const timeout = setTimeout(logout, expiresInSeconds * 1000)
+		onCleanup(() => clearTimeout(timeout))
 	})
 
 	return (
@@ -41,11 +68,8 @@ export const UserProvider = (props: ParentProps) => {
 			value={{
 				user,
 				setUserJWT,
-				logout: () => {
-					setUser(undefined)
-					setUserJWT(undefined)
-					localStorage.removeItem(key)
-				},
+				logout,
+				jwt,
 			}}
 		>
 			{props.children}
@@ -57,10 +81,12 @@ export const UserContext = createContext<{
 	setUserJWT: (jwt: string) => void
 	user: Accessor<Static<typeof UserJWTPayload> | undefined>
 	logout: () => void
+	jwt: Accessor<string | undefined>
 }>({
 	setUserJWT: () => undefined,
 	user: () => undefined,
 	logout: () => undefined,
+	jwt: () => undefined,
 })
 
 export const useUser = () => useContext(UserContext)

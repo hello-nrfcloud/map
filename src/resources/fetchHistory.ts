@@ -1,10 +1,10 @@
+import { ProblemDetailError } from '#component/notifications/Problem.tsx'
+import type { Parameters } from '#context/Parameters.js'
 import { type LwM2MObjectID } from '@hello.nrfcloud.com/proto-map/lwm2m'
-import { typedFetch, LwM2MObjectHistory } from '@hello.nrfcloud.com/proto/hello'
+import { LwM2MObjectHistory, typedFetch } from '@hello.nrfcloud.com/proto/hello'
 import type { Static } from '@sinclair/typebox'
 import type { Device } from './fetchDevices.js'
 import { getDeviceJWT } from './getDeviceJWT.js'
-import type { Parameters } from '#context/Parameters.js'
-import { ProblemDetailError } from '#component/notifications/Problem.tsx'
 
 const fetchResourceHistory = typedFetch({
 	responseBodySchema: LwM2MObjectHistory,

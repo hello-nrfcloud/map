@@ -1,7 +1,7 @@
-import { Map as MapLibreGlMap, type MapOptions } from 'maplibre-gl'
+import type { Parameters } from '#context/Parameters.js'
 import { mapStyle } from '#map/style.js'
 import { transformRequest } from '#map/transformRequest.js'
-import type { Parameters } from '#context/Parameters.js'
+import { Map as MapLibreGlMap, type MapOptions } from 'maplibre-gl'
 
 export const createMap = (
 	container: HTMLDivElement,

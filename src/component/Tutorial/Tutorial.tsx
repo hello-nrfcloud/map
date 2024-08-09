@@ -1,7 +1,7 @@
-import { content } from 'map:tutorial-content'
-import { For, Show } from 'solid-js'
 import { useNavigation } from '#context/Navigation.js'
 import { Tutorial as TutorialIcon } from '#icons/LucideIcon.js'
+import { content } from 'map:tutorial-content'
+import { For, Show } from 'solid-js'
 import { TutorialBox } from './TutorialBox.js'
 
 export const SidebarButton = () => {

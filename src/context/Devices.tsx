@@ -1,17 +1,17 @@
+import { fetchDevices, type Device } from '#resources/fetchDevices.js'
+import type { PublicDevice } from '@hello.nrfcloud.com/proto-map/api'
+import { instanceTs } from '@hello.nrfcloud.com/proto-map/lwm2m'
+import { type Static } from '@sinclair/typebox'
 import type { ParentProps } from 'solid-js'
 import {
+	createContext,
 	createEffect,
 	createResource,
-	createContext,
-	useContext,
 	onCleanup,
+	useContext,
 } from 'solid-js'
-import { useParameters } from './Parameters.js'
-import type { PublicDevice } from '@hello.nrfcloud.com/proto-map/api'
-import { type Static } from '@sinclair/typebox'
 import { createStore, reconcile } from 'solid-js/store'
-import { instanceTs } from '@hello.nrfcloud.com/proto-map/lwm2m'
-import { fetchDevices, type Device } from '#resources/fetchDevices.js'
+import { useParameters } from './Parameters.js'
 
 export const DevicesProvider = (props: ParentProps) => {
 	const parameters = useParameters()

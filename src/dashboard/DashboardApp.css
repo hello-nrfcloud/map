@@ -5,15 +5,16 @@
       1fr
     );
   grid-template-columns: var(--base-size-navbar) auto;
-  width: 100vw;
+  width: 100%;
 }
 
 main {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  width: cal(100% - var(--gap) * 2);
+  width: cal(100% - var(--gap) * 4);
   margin: var(--gap);
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
 }
 
 header.nordic {

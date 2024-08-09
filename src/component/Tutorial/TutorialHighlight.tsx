@@ -1,7 +1,7 @@
-import { createEffect, createSignal, Show, onCleanup } from 'solid-js'
-import type { TutorialEntryType } from '../../../tutorial/tutorialContentPlugin.js'
 import { useNavigation } from '#context/Navigation.js'
 import { ScrollDown } from '#icons/LucideIcon.js'
+import { createEffect, createSignal, onCleanup, Show } from 'solid-js'
+import type { TutorialEntryType } from '../../../tutorial/tutorialContentPlugin.js'
 import { isDone } from './isDone.js'
 
 import './TutorialHighlight.css'

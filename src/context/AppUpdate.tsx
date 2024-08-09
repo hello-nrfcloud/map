@@ -1,5 +1,5 @@
+import { fetchRelease } from '#resources/fetchRelease.js'
 import { compare, type SemVer } from 'semver'
-import { type ParentProps } from 'solid-js'
 import {
 	createContext,
 	createEffect,
@@ -7,8 +7,8 @@ import {
 	createSignal,
 	onCleanup,
 	useContext,
+	type ParentProps,
 } from 'solid-js'
-import { fetchRelease } from '#resources/fetchRelease.js'
 import { useViteEnv } from './ViteEnv.js'
 
 const logPrefix = '[AppUpdate]'

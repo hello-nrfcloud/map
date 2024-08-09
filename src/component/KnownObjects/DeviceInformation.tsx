@@ -1,8 +1,8 @@
 import { Device } from '#icons/Device.js'
-import { ResourcesDL } from '../ResourcesDL.js'
-import { Show } from 'solid-js'
 import type { DeviceInformation_14204 } from '@hello.nrfcloud.com/proto-map/lwm2m'
 import { identifyIssuer } from 'e118-iin-list'
+import { Show } from 'solid-js'
+import { ResourcesDL } from '../ResourcesDL.js'
 
 import './DeviceInformation.css'
 

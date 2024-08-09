@@ -2,9 +2,9 @@ import { useAPIHealth } from '#context/APIHealth.js'
 import { useNavigation } from '#context/Navigation.js'
 import { useViteEnv } from '#context/ViteEnv.js'
 import { Close, ViewSource } from '#icons/LucideIcon.js'
+import { Show } from 'solid-js'
 import { RelativeTime } from './RelativeTime.js'
 import { SidebarContent } from './Sidebar/SidebarContent.js'
-import { Show } from 'solid-js'
 
 const panelId = 'view-source'
 

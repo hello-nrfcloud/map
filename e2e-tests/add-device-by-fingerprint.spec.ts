@@ -1,5 +1,5 @@
 import { generateCode } from '@hello.nrfcloud.com/proto/fingerprint'
-import { test, expect } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 test('Add an out-of-box experience device using its fingerprint', async ({
 	page,

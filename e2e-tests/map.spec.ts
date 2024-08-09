@@ -1,4 +1,4 @@
-import { test as it, expect } from '@playwright/test'
+import { expect, test as it } from '@playwright/test'
 
 it('should center the map in Trondheim', async ({ page }) => {
 	await page.goto('/')

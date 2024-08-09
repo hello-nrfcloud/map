@@ -1,9 +1,9 @@
-import { describe, it } from 'node:test'
-import assert from 'node:assert/strict'
-import { SearchTermType } from '../../search.js'
-import { encode, type Navigation } from './encodeNavigation.js'
-import { decode } from './decodeNavigation.ts'
 import { ModelID } from '@hello.nrfcloud.com/proto-map/models'
+import assert from 'node:assert/strict'
+import { describe, it } from 'node:test'
+import { SearchTermType } from '../../search.js'
+import { decode } from './decodeNavigation.ts'
+import { encode, type Navigation } from './encodeNavigation.js'
 
 void describe('encode() / decode()', () => {
 	void it('should encode an empty state', () => assert.equal(encode(), ''))

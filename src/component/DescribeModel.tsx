@@ -1,11 +1,11 @@
+import { useNavigation } from '#context/Navigation.js'
+import { Documentation, Search, ViewSource } from '#icons/LucideIcon.js'
 import type { ModelID } from '@hello.nrfcloud.com/proto-map/models'
 import { models } from '@hello.nrfcloud.com/proto-map/models'
-import { useNavigation } from '#context/Navigation.js'
 import { SearchTermType } from '../search.js'
-import { Documentation, Search, ViewSource } from '#icons/LucideIcon.js'
-import { ToggleButton } from './ToggleButton.jsx'
 import { CollapsibleMenu } from './CollapsibleMenu.js'
 import { ResourcesDL } from './ResourcesDL.js'
+import { ToggleButton } from './ToggleButton.jsx'
 import { WhenToggled } from './WhenToggled.jsx'
 
 export const DescribeModel = (props: { model: ModelID }) => {

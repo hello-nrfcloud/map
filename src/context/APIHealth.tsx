@@ -1,14 +1,15 @@
-import { type ParentProps, type Accessor } from 'solid-js'
-import {
-	createContext,
-	createResource,
-	useContext,
-	createSignal,
-	createEffect,
-} from 'solid-js'
 import { Context } from '@hello.nrfcloud.com/proto-map/api'
 import { typedFetch } from '@hello.nrfcloud.com/proto/hello'
 import { Type, type Static } from '@sinclair/typebox'
+import {
+	createContext,
+	createEffect,
+	createResource,
+	createSignal,
+	useContext,
+	type Accessor,
+	type ParentProps,
+} from 'solid-js'
 import { useViteEnv } from './ViteEnv.js'
 
 const ApiHealth = Type.Object({

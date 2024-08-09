@@ -1,11 +1,11 @@
 import {
-	type LwM2MObjectInstance,
-	type DeviceInformation_14204,
 	type BatteryAndPower_14202,
+	type DeviceInformation_14204,
 	type Geolocation_14201,
 	LwM2MObjectID,
-	type LwM2MResourceValue,
+	type LwM2MObjectInstance,
 	type LwM2MResourceInfo,
+	type LwM2MResourceValue,
 	ResourceType,
 } from '@hello.nrfcloud.com/proto-map/lwm2m'
 

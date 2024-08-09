@@ -106,7 +106,7 @@ export const LoginForm = () => {
 				<div class="one-line">
 					<input
 						id="token"
-						type="string"
+						type="text"
 						placeholder='e.g. "3S5N7Q"'
 						ref={tokenInput}
 						onInput={() => {

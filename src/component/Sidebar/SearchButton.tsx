@@ -1,6 +1,6 @@
-import { Show } from 'solid-js'
 import { useNavigation } from '#context/Navigation.js'
-import { Search, ActiveSearch } from '#icons/LucideIcon.js'
+import { ActiveSearch, Search } from '#icons/LucideIcon.js'
+import { Show } from 'solid-js'
 
 export const SearchButton = () => {
 	const location = useNavigation()

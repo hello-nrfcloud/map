@@ -1,7 +1,7 @@
 import { useNavigation } from '#context/Navigation.js'
 import { Close, Feedback } from '#icons/LucideIcon.js'
-import { SidebarContent } from './Sidebar/SidebarContent.js'
 import { Show } from 'solid-js'
+import { SidebarContent } from './Sidebar/SidebarContent.js'
 
 const panelId = 'feedback'
 

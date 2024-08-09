@@ -1,10 +1,10 @@
-import { type ParentProps, Show } from 'solid-js'
 import { Warning } from '#icons/LucideIcon.js'
 import type {
 	HttpStatusCode,
 	ProblemDetail,
 } from '@hello.nrfcloud.com/proto/hello'
 import type { Static } from '@sinclair/typebox'
+import { type ParentProps, Show } from 'solid-js'
 import './Problem.css'
 
 /**

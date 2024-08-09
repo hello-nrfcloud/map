@@ -1,13 +1,13 @@
 import { isLwM2MObjectID } from '@hello.nrfcloud.com/proto-map/lwm2m'
-import { isSearchTermType, type SearchTerm } from '../../search.ts'
-import {
-	type Navigation,
-	sep,
-	FieldKey,
-	type PinnedResource,
-} from './encodeNavigation.ts'
 import type { ModelID } from '@hello.nrfcloud.com/proto-map/models'
 import { models } from '@hello.nrfcloud.com/proto-map/models'
+import { isSearchTermType, type SearchTerm } from '../../search.ts'
+import {
+	FieldKey,
+	type Navigation,
+	type PinnedResource,
+	sep,
+} from './encodeNavigation.ts'
 
 const DeviceModels = Object.keys(models)
 

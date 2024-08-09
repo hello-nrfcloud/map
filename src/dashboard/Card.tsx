@@ -13,5 +13,5 @@ export const CardBody = (props: ParentProps) => (
 )
 
 export const CardFooter = (props: ParentProps) => (
-	<footer class="pad">{props.children}</footer>
+	<footer class="pad bg-light">{props.children}</footer>
 )
