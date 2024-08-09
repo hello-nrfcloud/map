@@ -8,6 +8,7 @@ import { UserProvider } from '#context/User.tsx'
 
 import 'the-new-css-reset/css/reset.css'
 import '../base.css'
+import './dashboard.css'
 
 const root = document.getElementById('root')
 
