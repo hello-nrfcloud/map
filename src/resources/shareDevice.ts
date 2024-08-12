@@ -4,25 +4,27 @@ import type { ModelID } from '@hello.nrfcloud.com/proto-map/models'
 import { typedFetch } from '@hello.nrfcloud.com/proto/hello'
 import type { Static } from '@sinclair/typebox'
 
-const publicDevice = typedFetch({
-	responseBodySchema: PublicDevice,
-})
-
-export type ShareDevice = {
-	email: string
-} & (
-	| {
-			model: ModelID
-	  }
-	| {
-			fingerprint: string
-			model: ModelID
-	  }
-)
 export const shareDevice =
-	(url: URL) =>
-	async (req: ShareDevice): Promise<Static<typeof PublicDevice>> => {
-		const res = await publicDevice(url, req, { method: 'POST' })
+	(apiURL: URL) =>
+	async ({
+		fingerprint,
+		model,
+		jwt,
+	}: {
+		fingerprint: string
+		model: ModelID
+		jwt: string
+	}): Promise<Static<typeof PublicDevice>> => {
+		const res = await typedFetch({
+			responseBodySchema: PublicDevice,
+		})(
+			new URL(`./share`, apiURL),
+			{
+				fingerprint,
+				model,
+			},
+			{ method: 'POST', headers: { Authorization: `Bearer ${jwt}` } },
+		)
 		if ('error' in res) {
 			console.error(res.error)
 			throw new ProblemDetailError(res.error)

@@ -45,6 +45,24 @@ export const mockBackend = ({
 				model: 'thingy91x',
 			})
 		},
+		'POST /e2e/api/share': async (req, res) => {
+			const { fingerprint, model } = await getJSON(req)
+			const deviceId = deviceIdentities[fingerprint]
+			if (deviceId === undefined) {
+				return anError(res, 404)
+			}
+			if (models[model as keyof typeof models] === undefined) {
+				return anError(res, 404)
+			}
+			const id = randomWords({ numWords: 3 }).join('-')
+			publicDeviceIds[deviceId] = id
+			return sendJSON(res, {
+				'@context': Context.device,
+				id,
+				deviceId,
+				model,
+			})
+		},
 		'GET /map/.well-known/release': (req, res) => {
 			res.setHeader('Content-type', 'text/plain; charset=utf-8')
 			res.write(release)

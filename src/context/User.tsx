@@ -32,6 +32,7 @@ export const UserProvider = (props: ParentProps) => {
 		setUser(undefined)
 		setUserJWT(undefined)
 		localStorage.removeItem(key)
+		console.debug(`[User] logged out`)
 	}
 
 	createEffect(() => {

@@ -2,25 +2,47 @@ import { NordicHeader } from '#component/NordicHeader.tsx'
 import { SidebarNav } from '#component/SidebarNav.tsx'
 import { useUser } from '#context/User.tsx'
 import { Card, CardBody, CardHeader } from '#dashboard/Card.tsx'
+import { Device } from '#icons/Device.tsx'
 import { Add, LogOut, MapApplication } from '#icons/LucideIcon.tsx'
-import { createSignal, onCleanup, Show } from 'solid-js'
+import { createEffect, createSignal, onCleanup, Show } from 'solid-js'
 import { AddDevice } from './AddDevice.tsx'
 import { DeviceList } from './DeviceList.tsx'
 import { LoginForm } from './Login.tsx'
 
-import { Device } from '#icons/Device.tsx'
 import './DashboardApp.css'
+
+const panelFromLocation = () =>
+	document.location.hash.slice(1)?.split('?')[0] ?? ''
 
 export const DashboardApp = () => {
 	const { user, logout } = useUser()
-	const [panel, setPanel] = createSignal(document.location.hash.slice(1))
+	const [panel, setPanel] = createSignal(panelFromLocation())
 
 	const hashChange = () => {
-		setPanel(document.location.hash.slice(1))
+		setPanel(panelFromLocation())
 	}
 	window.addEventListener('hashchange', hashChange)
 	onCleanup(() => {
 		window.removeEventListener('hashchange', hashChange)
+	})
+
+	// Remember deep links
+	createEffect(() => {
+		if (user() !== undefined) return
+		if (panel() === '') return
+		document.location.assign(
+			`/map/dashboard/?${new URLSearchParams({ redirect: document.location.hash.slice(1) }).toString()}`,
+		)
+	})
+
+	// Redirect to deep link
+	createEffect(() => {
+		if (user() === undefined) return
+		const redirect = new URLSearchParams(document.location.search).get(
+			'redirect',
+		)
+		if (redirect === null) return
+		document.location.assign('/map/dashboard/#' + redirect)
 	})
 
 	return (
@@ -45,7 +67,14 @@ export const DashboardApp = () => {
 						<Add strokeWidth={2} />
 					</a>
 					<hr />
-					<button type="button" class="button" onClick={() => logout()}>
+					<button
+						type="button"
+						class="button"
+						onClick={() => {
+							logout()
+							document.location.assign('/map/dashboard/')
+						}}
+					>
 						<LogOut strokeWidth={2} />
 					</button>
 					<hr />
