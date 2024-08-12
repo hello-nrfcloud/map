@@ -43,8 +43,11 @@ export const DeviceList = () => {
 					<table class="devices">
 						<thead>
 							<tr>
-								<th>ID</th>
-								<th>Model</th>
+								<th>
+									ID
+									<br />
+									Model
+								</th>
 								<th>Expires</th>
 							</tr>
 						</thead>
@@ -87,8 +90,7 @@ export const ShowDevice = (props: {
 				<a href={`/map/#id:${props.device.id}`} target="_blank">
 					<code>{props.device.id}</code>
 				</a>
-			</td>
-			<td>
+				<br />
 				<a
 					href={`https://github.com/hello-nrfcloud/proto-map/tree/${protoVersion}/models/${model.id}`}
 					target="_blank"
