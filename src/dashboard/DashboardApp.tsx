@@ -8,6 +8,7 @@ import { AddDevice } from './AddDevice.tsx'
 import { DeviceList } from './DeviceList.tsx'
 import { LoginForm } from './Login.tsx'
 
+import { Device } from '#icons/Device.tsx'
 import './DashboardApp.css'
 
 export const DashboardApp = () => {
@@ -36,6 +37,10 @@ export const DashboardApp = () => {
 				</a>
 				<hr />
 				<Show when={user() !== undefined}>
+					<a class="button" href="/map/dashboard/#devices">
+						<Device class="logo" />
+					</a>
+					<hr />
 					<a class="button" href="/map/dashboard/#add-device">
 						<Add strokeWidth={2} />
 					</a>
