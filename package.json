@@ -36,12 +36,14 @@
     "@bifravst/random-words": "8.0.2",
     "@commitlint/config-conventional": "19.2.2",
     "@playwright/test": "1.46.0",
+    "@types/jsonwebtoken": "9.0.6",
     "@types/node": "22.2.0",
     "@types/semver": "7.5.8",
     "commitlint": "19.4.0",
     "glob": "11.0.0",
     "globstar": "1.0.0",
     "husky": "9.1.4",
+    "jsonwebtoken": "9.0.2",
     "rehype-external-links": "^3.0.0",
     "rehype-format": "5.0.0",
     "rehype-stringify": "10.0.0",
@@ -55,7 +57,7 @@
     "yaml": "2.5.0"
   },
   "dependencies": {
-    "@hello.nrfcloud.com/proto": "14.3.7",
+    "@hello.nrfcloud.com/proto": "14.3.8",
     "@hello.nrfcloud.com/proto-map": "16.1.0",
     "@sinclair/typebox": "0.33.4",
     "e118-iin-list": "4.1.4",

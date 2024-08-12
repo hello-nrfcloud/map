@@ -26,7 +26,7 @@ export const LoginForm = () => {
 	const [jwtRequest, { refetch: resendLoginRequest }] = createResource(() => {
 		const e = email()
 		const t = token()
-		if (e === undefined || t === undefined) return undefined
+		if (!isEmail(e) || !isToken(t)) return undefined
 		return {
 			email: e,
 			token: t,

@@ -4,6 +4,7 @@ import { models } from '@hello.nrfcloud.com/proto-map/models'
 import { Context as HelloContext } from '@hello.nrfcloud.com/proto/hello'
 import { randomUUID } from 'crypto'
 import type { IncomingMessage, ServerResponse } from 'http'
+import jwt from 'jsonwebtoken'
 import type http from 'node:http'
 import type { Connect } from 'vite'
 import type { Registry } from '../../src/context/Parameters.tsx'
@@ -44,6 +45,30 @@ export const mockBackend = ({
 				id: deviceIdentities[fingerprint],
 				model: 'thingy91x',
 			})
+		},
+		'POST /e2e/api/auth/jwt': async (req, res) => {
+			const { email } = await getJSON(req)
+			return sendJSON(res, {
+				'@context': Context.userJWT,
+				email,
+				jwt: jwt.sign(
+					{
+						'@context': Context.userJWT.toString(),
+						email,
+					},
+					'secret',
+					{
+						algorithm: 'HS256',
+						expiresIn: '24h',
+						audience: 'hello.nrfcloud.com',
+						keyid: crypto.randomUUID(),
+					},
+				),
+			})
+		},
+		'POST /e2e/api/auth': async (req, res) => {
+			res.statusCode = 200
+			res.end()
 		},
 		'POST /e2e/api/share': async (req, res) => {
 			const { fingerprint, model } = await getJSON(req)

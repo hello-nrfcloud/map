@@ -2,6 +2,7 @@ import { ModelInfoBlock } from '#component/ModelInfoBlock.tsx'
 import { Problem } from '#component/notifications/Problem.tsx'
 import { Progress } from '#component/notifications/Progress.tsx'
 import { Success } from '#component/notifications/Success.tsx'
+import { ResourcesDL } from '#component/ResourcesDL.tsx'
 import { useParameters } from '#context/Parameters.tsx'
 import { useUser } from '#context/User.tsx'
 import { fetchOOBDeviceInfo } from '#resources/fetchOOBDeviceInfo.ts'
@@ -11,6 +12,7 @@ import type { DeviceIdentity } from '@hello.nrfcloud.com/proto/hello'
 import type { Static } from '@sinclair/typebox'
 import { Show, createResource, createSignal } from 'solid-js'
 import { Card, CardBody, CardFooter, CardHeader } from './Card.tsx'
+import { CopyableProp } from './CopyableProp.tsx'
 
 export const ShareOOBDevice = (props: {
 	model: string
@@ -71,6 +73,18 @@ const ShareInfo = (props: { device: Static<typeof DeviceIdentity> }) => (
 			</a>
 			.
 		</p>
+		<ResourcesDL>
+			<CopyableProp
+				name={'Device ID'}
+				value={props.device.id}
+				data-testId="device-deviceId"
+			/>
+			<CopyableProp
+				name={'Model'}
+				value={props.device.model}
+				data-testId="device-model"
+			/>
+		</ResourcesDL>
 		<p>
 			Most of the devices on the map are owned and operated by our customers to
 			demonstrate their diverse applications and capabilities to a global
@@ -137,6 +151,15 @@ const DoShare = (props: {
 							</a>
 						</p>
 					</Success>
+					<div class="pad-t">
+						<ResourcesDL>
+							<CopyableProp
+								name={'Public ID'}
+								value={shareDeviceRequest()!.id}
+								data-testId="device-id"
+							/>
+						</ResourcesDL>
+					</div>
 				</Show>
 				<Show when={shareDeviceRequest.loading}>
 					<Progress class="gap-t" title="Sharing ..." />
@@ -156,7 +179,7 @@ const DoShare = (props: {
 					onClick={() => setShare(true)}
 					disabled={shareDeviceRequest.loading}
 				>
-					Share device
+					share device
 				</button>
 			</CardFooter>
 		</>
