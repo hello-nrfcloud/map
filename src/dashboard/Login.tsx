@@ -110,7 +110,7 @@ export const LoginForm = () => {
 						placeholder='e.g. "3S5N7Q"'
 						ref={tokenInput}
 						onInput={() => {
-							setToken(tokenInput.value)
+							setToken(tokenInput.value.trim().toUpperCase())
 						}}
 						maxLength={6}
 						minLength={6}
