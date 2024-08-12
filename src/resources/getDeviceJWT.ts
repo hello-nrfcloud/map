@@ -1,3 +1,4 @@
+import { ProblemDetailError } from '#component/notifications/Problem.tsx'
 import {
 	Context,
 	DeviceId,
@@ -6,7 +7,6 @@ import {
 } from '@hello.nrfcloud.com/proto-map/api'
 import { typedFetch } from '@hello.nrfcloud.com/proto/hello'
 import { Type } from '@sinclair/typebox'
-import { ProblemDetailError } from '../component/Problem.js'
 import type { Device } from './fetchDevices.js'
 
 const deviceJWT = typedFetch({

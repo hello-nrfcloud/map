@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises'
 import { parse } from 'node:path'
+import rehypeExternalLinks from 'rehype-external-links'
 import format from 'rehype-format'
 import html from 'rehype-stringify'
 import { remark } from 'remark'
@@ -7,7 +8,6 @@ import extract from 'remark-extract-frontmatter'
 import frontmatter from 'remark-frontmatter'
 import remark2rehype from 'remark-rehype'
 import yaml from 'yaml'
-import rehypeExternalLinks from 'rehype-external-links'
 
 const parseMarkdown = remark()
 	.use(frontmatter, ['yaml'])

@@ -1,18 +1,19 @@
-import { createContext, useContext } from 'solid-js'
 import {
+	type Accessor,
+	createContext,
+	createEffect,
 	createSignal,
 	onCleanup,
 	type ParentProps,
-	type Accessor,
-	createEffect,
+	useContext,
 } from 'solid-js'
+import type { SearchTerm } from '../search.js'
+import { decode } from './navigation/decodeNavigation.ts'
 import {
-	decode,
 	encode,
 	type Navigation,
 	type PinnedResource,
-} from './navigation/encodeNavigation.ts'
-import type { SearchTerm } from '../search.ts'
+} from './navigation/encodeNavigation.js'
 import { useViteEnv } from './ViteEnv.js'
 
 const Home: Navigation = {
@@ -21,6 +22,10 @@ const Home: Navigation = {
 	search: [],
 	toggled: [],
 }
+
+const linkToPage = (page: string) =>
+	// eslint-disable-next-line no-restricted-globals
+	new URL(`${BASE_URL}${page}/`, document.location.href).toString()
 
 export const NavigationProvider = (props: ParentProps) => {
 	const { base } = useViteEnv()
@@ -149,6 +154,7 @@ export const NavigationProvider = (props: ParentProps) => {
 						],
 					})
 				},
+				linkToPage,
 			}}
 		>
 			{props.children}
@@ -174,6 +180,7 @@ export const NavigationContext = createContext<{
 	toggle: (id: string) => void
 	toggleBatch: (updates: Record<string, boolean>) => void
 	isToggled: (id: string) => boolean
+	linkToPage: (page: string) => string
 }>({
 	current: () => ({ ...Home, search: [], pinnedResources: [] }),
 	navigate: () => undefined,
@@ -192,6 +199,7 @@ export const NavigationContext = createContext<{
 	toggle: () => undefined,
 	toggleBatch: () => undefined,
 	isToggled: () => false,
+	linkToPage,
 })
 
 export const useNavigation = () => useContext(NavigationContext)

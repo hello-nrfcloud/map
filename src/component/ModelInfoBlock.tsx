@@ -1,17 +1,13 @@
+import { useViteEnv } from '#context/ViteEnv.js'
 import { models } from '@hello.nrfcloud.com/proto-map/models'
 import { For } from 'solid-js'
-import { useViteEnv } from '../../context/ViteEnv.js'
-import { InfoBlock } from '../InfoBlock.js'
+import { InfoBlock } from './InfoBlock.js'
 
 export const ModelInfoBlock = () => {
 	const { protoVersion } = useViteEnv()
 	return (
 		<InfoBlock title={<h3>Known models ({protoVersion})</h3>}>
 			<div class="about add-device-flow">
-				<p>
-					All devices must use a well-known model definition. Below is a list of
-					defined models.
-				</p>
 				<ul>
 					<For each={Object.values(models)}>
 						{(model) => (

@@ -1,26 +1,26 @@
-import { type LwM2MObjectInstance } from '@hello.nrfcloud.com/proto-map/lwm2m'
-import type { ModelID } from '@hello.nrfcloud.com/proto-map/models'
-import { createMemo, For, Show } from 'solid-js'
-import { byId, useDevices } from '../context/Devices.js'
-import { useNavigation } from '../context/Navigation.js'
-import { Device as DeviceIcon } from '../icons/Device.js'
-import { Close } from '../icons/LucideIcon.js'
-import { type Device } from '../resources/fetchDevices.js'
+import { byId, useDevices } from '#context/Devices.js'
+import { useNavigation } from '#context/Navigation.js'
+import { useViteEnv } from '#context/ViteEnv.js'
+import { Device as DeviceIcon } from '#icons/Device.js'
+import { Close } from '#icons/LucideIcon.js'
+import { type Device } from '#resources/fetchDevices.js'
 import {
 	isBatteryAndPower,
 	isDeviceInformation,
 	isGeoLocation,
 	isGeoLocationArray,
-} from '../util/lwm2m.js'
-import { newestInstanceFirst } from '../util/newestInstanceFirst.js'
+} from '#util/lwm2m.js'
+import { newestInstanceFirst } from '#util/newestInstanceFirst.js'
+import { type LwM2MObjectInstance } from '@hello.nrfcloud.com/proto-map/lwm2m'
+import type { ModelID } from '@hello.nrfcloud.com/proto-map/models'
+import { content } from 'map:tutorial-content'
+import { createMemo, For, Show } from 'solid-js'
 import { DescribeModel } from './DescribeModel.js'
 import { InfoBlock } from './InfoBlock.js'
 import { KnownObjects } from './KnownObjects/KnownObjects.js'
 import { DescribeInstance } from './lwm2m/DescribeInstance.js'
 import { SidebarContent } from './Sidebar/SidebarContent.js'
-import { useViteEnv } from '../context/ViteEnv.js'
 import { TutorialHighlight } from './Tutorial/TutorialHighlight.js'
-import { content } from 'map:tutorial-content'
 
 import './lwm2m/LwM2M.css'
 

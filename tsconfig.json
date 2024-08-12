@@ -22,7 +22,17 @@
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
     "types": ["vite/client"],
-    "allowImportingTsExtensions": true
+    "allowImportingTsExtensions": true,
+    "baseUrl": "src",
+    "paths": {
+      "#dashboard/*": ["dashboard/*"],
+      "#component/*": ["component/*"],
+      "#context/*": ["context/*"],
+      "#icons/*": ["icons/*"],
+      "#map/*": ["map/*"],
+      "#resources/*": ["resources/*"],
+      "#util/*": ["util/*"]
+    }
   },
   "exclude": ["node_modules/**/*"]
 }

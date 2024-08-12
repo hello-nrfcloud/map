@@ -1,10 +1,10 @@
-import { type ParentProps, Show } from 'solid-js'
-import { Warning } from '../icons/LucideIcon.js'
+import { Warning } from '#icons/LucideIcon.js'
 import type {
 	HttpStatusCode,
 	ProblemDetail,
 } from '@hello.nrfcloud.com/proto/hello'
 import type { Static } from '@sinclair/typebox'
+import { type ParentProps, Show } from 'solid-js'
 import './Problem.css'
 
 /**
@@ -30,9 +30,10 @@ export class ProblemDetailError extends Error {
 export const Problem = (
 	props: ParentProps<{
 		problem: Omit<Static<typeof ProblemDetail>, '@context'> | ProblemDetailError
+		class?: string
 	}>,
 ) => (
-	<aside class="problem">
+	<div class={`problem ${props.class ?? ''}`}>
 		<h1>
 			<Warning /> A problem occurred!
 		</h1>
@@ -46,5 +47,5 @@ export const Problem = (
 				<small>{props.problem.detail!}</small>
 			</Show>
 		</p>
-	</aside>
+	</div>
 )

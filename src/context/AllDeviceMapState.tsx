@@ -1,11 +1,11 @@
 import {
-	createContext,
-	type ParentProps,
-	createSignal,
-	type Setter,
 	type Accessor,
-	useContext,
+	createContext,
 	createEffect,
+	createSignal,
+	type ParentProps,
+	type Setter,
+	useContext,
 } from 'solid-js'
 import { useNavigation } from './Navigation.js'
 

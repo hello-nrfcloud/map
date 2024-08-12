@@ -57,7 +57,3 @@ aside.sidebar .close {
 aside.sidebar a {
   text-decoration: underline;
 }
-
-aside.sidebar .bg-light {
-  background-color: var(--bg-blue-4);
-}

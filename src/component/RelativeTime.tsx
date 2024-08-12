@@ -1,4 +1,4 @@
-import { Updated } from '../icons/LucideIcon.js'
+import { Updated } from '#icons/LucideIcon.js'
 import { createSignal, onCleanup, Show, type ParentProps } from 'solid-js'
 import './RelativeTime.css'
 

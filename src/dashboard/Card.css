@@ -1,0 +1,11 @@
+.card {
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  max-width: 600px;
+  width: 100%;
+}
+
+.card footer {
+  display: flex;
+  justify-content: end;
+}

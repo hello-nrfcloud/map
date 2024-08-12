@@ -1,33 +1,13 @@
-import { useNavigation } from '../context/Navigation.js'
-import { Close, Add } from '../icons/LucideIcon.js'
-import { SidebarContent } from './Sidebar/SidebarContent.js'
+import { useNavigation } from '#context/Navigation.js'
+import { Add, Close } from '#icons/LucideIcon.js'
 import { Show } from 'solid-js'
-import { AddCustomDeviceFlow } from './AddDevice/AddCustomDeviceFlow.js'
-import { AddDeviceByFingerprintFlow } from './AddDevice/AddDeviceByFingerprintFlow.js'
-import {
-	type ModelID,
-	models,
-	type Model,
-} from '@hello.nrfcloud.com/proto-map/models'
-
-import './AddDevice.css'
-import { Problem } from './Problem.js'
-import { ModelInfoBlock } from './AddDevice/ModelInfoBlock.js'
-import { panelId as ProtocolPanelId } from './Protocol.tsx'
+import { ModelInfoBlock } from './ModelInfoBlock.js'
+import { SidebarContent } from './Sidebar/SidebarContent.js'
 
 export const panelId = 'add-device'
 
 export const Sidebar = () => {
 	const location = useNavigation()
-	const fingerprint = () => location.current().query?.get('fingerprint')
-	const modelParam = () => location.current().query?.get('model')
-	const hasModelParam = () => modelParam() !== undefined
-	const model = (): Model | undefined => {
-		const modelId = Object.keys(models).find(
-			(modelId) => modelId === modelParam(),
-		) as ModelID | undefined
-		return models[modelId!]
-	}
 	return (
 		<Show when={location.current().panel === panelId}>
 			<SidebarContent class="add-device" id={panelId}>
@@ -50,48 +30,26 @@ export const Sidebar = () => {
 							devices to the map.
 						</p>
 						<p>
-							After registering your device, you will have the necessary device
-							credentials to start publishing data. Please refer to the{' '}
-							<a href={location.link({ panel: ProtocolPanelId })}>
-								protocol definition
-							</a>{' '}
-							for more information.
+							All devices must use a well-known model definition. Below is a
+							list of defined models.
 						</p>
 					</section>
-					<Show when={hasModelParam()}>
-						<Show
-							when={model() !== undefined}
-							fallback={
-								<section>
-									<Show
-										when={modelParam() !== null}
-										fallback={
-											<Problem
-												problem={{
-													title: `No model ID provided.`,
-												}}
-											/>
-										}
-									>
-										<Problem
-											problem={{
-												title: `The provided model ID "${modelParam()}" is not valid.`,
-											}}
-										/>
-										<ModelInfoBlock />
-									</Show>
-								</section>
-							}
-						>
-							<AddDeviceByFingerprintFlow
-								fingerprint={fingerprint()!}
-								model={model()!}
-							/>
-						</Show>
-					</Show>
-					<Show when={!hasModelParam()}>
-						<AddCustomDeviceFlow />
-					</Show>
+					<section class="boxed pad-s pad-e">
+						<ModelInfoBlock />
+					</section>
+					<section>
+						<p>
+							Get started by{' '}
+							<a
+								class="button"
+								href={location.linkToPage('dashboard')}
+								title="Dashboard"
+							>
+								logging in to the Dashboard
+							</a>
+							.
+						</p>
+					</section>
 				</div>
 			</SidebarContent>
 		</Show>

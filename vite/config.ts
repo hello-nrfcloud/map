@@ -1,13 +1,14 @@
+import { resolve } from 'node:path'
 import { defineConfig, type PluginOption, type UserConfig } from 'vite'
 import solidPlugin from 'vite-plugin-solid'
+import { encloseWithSlash } from '../src/util/encloseWithSlash.ts'
+import { tutorialContentPlugin } from '../tutorial/tutorialContentPlugin.ts'
 import {
 	homepage,
 	protoVersion,
 	repositoryUrl,
 	version,
 } from './packageInfo.js'
-import { encloseWithSlash } from '../src/util/encloseWithSlash.ts'
-import { tutorialContentPlugin } from '../tutorial/tutorialContentPlugin.ts'
 
 export const createConfig = (
 	apiURL: URL,
@@ -43,5 +44,25 @@ export const createConfig = (
 		},
 		// string values will be used as raw expressions, so if defining a string constant, it needs to be explicitly quoted
 		define,
+		build: {
+			rollupOptions: {
+				input: {
+					main: resolve(__dirname, '..', 'index.html'),
+					dashboard: resolve(__dirname, '..', 'dashboard', 'index.html'),
+				},
+			},
+			sourcemap: true,
+		},
+		resolve: {
+			alias: [
+				{ find: '#dashboard/', replacement: '/src/dashboard/' },
+				{ find: '#component/', replacement: '/src/component/' },
+				{ find: '#context/', replacement: '/src/context/' },
+				{ find: '#icons/', replacement: '/src/icons/' },
+				{ find: '#map/', replacement: '/src/map/' },
+				{ find: '#resources/', replacement: '/src/resources/' },
+				{ find: '#util/', replacement: '/src/util/' },
+			],
+		},
 	})
 }

@@ -1,0 +1,32 @@
+table.devices {
+  width: 100%;
+  margin-bottom: var(--gap);
+}
+
+table.devices thead th {
+  padding-top: var(--gap);
+}
+
+table.devices th:first-child,
+table.devices td:first-child {
+  padding-left: var(--gap);
+}
+
+table.devices th:last-child,
+table.devices td:last-child {
+  padding-right: var(--right);
+}
+
+table.devices th {
+  font-weight: 200;
+}
+
+table.devices td,
+table.devices th {
+  padding-top: var(--gap-medium);
+  padding-bottom: var(--gap-medium);
+}
+
+table.devices tbody tr:nth-child(odd) {
+  background-color: #ffffff1c;
+}

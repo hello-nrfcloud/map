@@ -1,5 +1,5 @@
-import { Info } from '../icons/LucideIcon.js'
-import { type ParentProps, Show, createSignal, type JSX } from 'solid-js'
+import { Info } from '#icons/LucideIcon.js'
+import { Show, createSignal, type JSX, type ParentProps } from 'solid-js'
 import './InfoBlock.css'
 
 export const InfoBlock = (props: ParentProps<{ title: JSX.Element }>) => {

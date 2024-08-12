@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 import { mockBackendApi } from './lib/mock-backend.ts'
 
 test.describe('App-Update notification', () => {

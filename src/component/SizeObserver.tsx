@@ -1,4 +1,4 @@
-import { Show, type JSX, createEffect, onCleanup, createSignal } from 'solid-js'
+import { createEffect, createSignal, onCleanup, Show, type JSX } from 'solid-js'
 
 export type Size = { width: number; height: number }
 export const SizeObserver = (props: {

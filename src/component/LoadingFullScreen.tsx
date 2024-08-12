@@ -1,4 +1,4 @@
-import { Loading as LoadingIcon } from '../icons/LucideIcon.js'
+import { Loading as LoadingIcon } from '#icons/LucideIcon.js'
 
 import './LoadingFullScreen.css'
 

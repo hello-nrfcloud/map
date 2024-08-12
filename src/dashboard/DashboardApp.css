@@ -1,0 +1,33 @@
+#layout {
+  display: grid;
+  grid-template-rows: var(--base-size-navbar) minmax(
+      calc(100vh - var(--base-size-navbar)),
+      1fr
+    );
+  grid-template-columns: var(--base-size-navbar) auto;
+  width: 100%;
+}
+
+main {
+  display: flex;
+  width: cal(100% - var(--gap) * 4);
+  margin: var(--gap);
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+
+header.nordic {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+nav.sidebar {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 2;
+  grid-row-end: 3;
+  height: 100%;
+}

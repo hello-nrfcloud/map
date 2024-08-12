@@ -1,4 +1,5 @@
 :root {
+  /* Colors */
   --bg-blue-5: #2f5a87;
   --bg-blue-4: #1a497b;
   --bg-blue-3: #11456f;
@@ -31,40 +32,33 @@
   --color-form-border-default: #222;
   --color-progress-fg: #305074;
   --color-progress-bg: #283b5e;
-  --base-size-navbar: 40px;
-  --size-sidebar: 400px;
+  --color-success-bg: #44663f;
+  --color-success-fg: #3d724a;
+
+  /* Fonts */
   --regular-font-family: "Inter Tight", sans-serif;
   --condensed-font-family: "Roboto Condensed", sans-serif;
+
+  /* Sizes */
+  --base-size-navbar: 40px;
+  --border-radius: 2.5px;
   --gap: 0.5rem;
   --gap-medium: calc(var(--gap) / 2);
   --gap-small: calc(var(--gap) / 4);
   --gap-tiny: calc(var(--gap) / 4);
-  --border-radius: 2.5px;
-  --box-shadow-size: calc(var(--border-radius) * 2);
-  /* This will be adjusted using JavaScript because for our case, we need to set the height of the app to be the innerHeight of the window, which is not what it is on mobile browsers. */
-  --app-height: 100vh;
 }
 
 @media (min-width: 400px) {
   :root {
     --base-size-navbar: 60px;
-    --gap: 1rem;
     --border-radius: 5px;
-  }
-}
-
-@media (min-width: 600px) {
-  :root {
-    --size-sidebar: 500px;
+    --gap: 1rem;
   }
 }
 
 html,
 body {
-  height: 100%;
-  width: 100%;
   min-height: var(--app-height);
-  min-width: 100vw;
   background: #111;
   color: white;
   font-family: var(--regular-font-family);
@@ -120,10 +114,7 @@ h2 {
 
 p {
   line-height: 135%;
-}
-
-p + p {
-  margin-top: 0.75rem;
+  margin-bottom: var(--gap-medium);
 }
 
 /* Link with icon, button with icon */
@@ -190,13 +181,36 @@ h6:has(.icon) .icon {
   padding-right: var(--gap);
 }
 
+.gap {
+  margin: var(--gap);
+}
+
+.gap-b {
+  margin-bottom: var(--gap);
+}
+
+.gap-t {
+  margin-top: var(--gap);
+}
+
+.gap-s {
+  margin-left: var(--gap);
+}
+
+.gap-e {
+  margin-right: var(--gap);
+}
+
 /** Forms **/
 
 form {
   font-family: var(--condensed-font-family);
 }
 
-form input,
+form input[type="text"],
+form input[type="password"],
+form input[type="email"],
+form input[type="search"],
 form select {
   border-style: solid;
   border-width: 1px;
@@ -212,6 +226,20 @@ form select {
   display: flex;
   align-items: center;
   font-weight: 300;
+}
+
+form input[type="radio"] {
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--color-form-border-default);
+  height: 16px;
+  width: 16px;
+  border-radius: 100%;
+}
+
+form input[type="radio"][checked] {
+  background-color: var(--color-border-active);
+  border-color: var(--color-border-active);
 }
 
 form select {
@@ -233,6 +261,32 @@ input:-webkit-autofill:active {
   transition:
     background-color 5000000s ease-in-out 0s,
     color 5000000s ease-in-out 0s;
+}
+
+form .one-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+form .one-line > *:last-child {
+  margin-top: var(--gap-medium);
+}
+
+@media (min-width: 450px) {
+  form .one-line {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+
+  form .one-line button {
+    flex-shrink: 0;
+    margin-left: var(--gap-medium);
+  }
+
+  form .one-line > *:last-child {
+    margin-top: 0;
+  }
 }
 
 .btn {
@@ -298,4 +352,12 @@ ul {
 ul li {
   margin-left: 1.5rem;
   margin-bottom: 0.25rem;
+}
+
+.bg-light {
+  background-color: var(--bg-blue-4);
+}
+
+.bg-lighter {
+  background-color: var(--bg-blue-5);
 }

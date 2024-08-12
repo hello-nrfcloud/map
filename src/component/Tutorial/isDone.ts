@@ -1,6 +1,6 @@
-import type { TutorialEntryType } from '../../../tutorial/tutorialContentPlugin.ts'
-import type { useNavigation } from '../../context/Navigation.js'
-import { encode } from '../../context/navigation/encodeNavigation.ts'
+import type { useNavigation } from '#context/Navigation.js'
+import { encode } from '#context/navigation/encodeNavigation.js'
+import type { TutorialEntryType } from '../../../tutorial/tutorialContentPlugin.js'
 
 export const isDone = (
 	tutorial: TutorialEntryType,

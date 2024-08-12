@@ -1,0 +1,11 @@
+body {
+  background-image: url(/assets/bg.webp);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: 0 50%;
+}
+
+a {
+  text-decoration: underline;
+}

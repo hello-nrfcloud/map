@@ -1,7 +1,6 @@
 /* eslint no-restricted-globals: 0 */
 
-import { type ParentProps } from 'solid-js'
-import { createContext, useContext } from 'solid-js'
+import { createContext, useContext, type ParentProps } from 'solid-js'
 
 type ViteEnv = {
 	// Base URL of the site with a leading and a trailing slash

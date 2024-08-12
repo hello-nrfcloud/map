@@ -1,43 +1,46 @@
 import {
-	TriangleAlert,
+	ArrowDownToLine,
 	BatteryCharging,
 	ChevronDown,
+	ChevronLeft,
+	ChevronRight,
 	ChevronUp,
+	CircleCheckBig,
+	CircleDashed,
+	CircleHelp,
+	CirclePlus,
+	CircleUserRound,
+	Clipboard,
+	ClipboardCheck,
 	Clock10,
 	CloudOff,
+	CloudUpload,
 	CodeXml,
+	Earth,
+	Ellipsis,
 	FileText,
+	Filter,
+	Hourglass,
 	Info as InfoIcon,
+	LineChart,
 	LocateFixed,
+	LogOut as LogOutIcon,
+	MapPin,
 	MapPinned,
-	CirclePlus,
+	MapPinOff,
+	MessageSquareHeart,
+	RadioTower,
 	RefreshCcwDot,
 	Search as SearchIcon,
 	SquareStack,
+	Star,
+	StarOff,
+	TriangleAlert,
 	X,
+	ZapOff,
 	ZoomIn as ZoomInIcon,
 	ZoomOut as ZoomOutIcon,
 	type IconNode,
-	Star,
-	StarOff,
-	CloudUpload,
-	Ellipsis,
-	LineChart,
-	MapPin,
-	MapPinOff,
-	Clipboard,
-	ClipboardCheck,
-	Filter,
-	Hourglass,
-	CircleHelp,
-	ChevronRight,
-	ZapOff,
-	ChevronLeft,
-	CircleCheckBig,
-	CircleDashed,
-	ArrowDownToLine,
-	MessageSquareHeart,
-	RadioTower,
 } from 'lucide'
 import { For } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
@@ -224,4 +227,16 @@ export const Feedback = (props: LucideProps) => (
 
 export const Protocol = (props: LucideProps) => (
 	<LucideIcon icon={RadioTower} {...props} />
+)
+
+export const Dashboard = (props: LucideProps) => (
+	<LucideIcon icon={CircleUserRound} {...props} />
+)
+
+export const MapApplication = (props: LucideProps) => (
+	<LucideIcon icon={Earth} {...props} />
+)
+
+export const LogOut = (props: LucideProps) => (
+	<LucideIcon icon={LogOutIcon} {...props} />
 )

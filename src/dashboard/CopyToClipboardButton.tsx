@@ -1,5 +1,5 @@
-import { CopyToClipboard, CopiedToClipboard } from '../icons/LucideIcon.js'
-import { Show, createSignal, createEffect, onCleanup } from 'solid-js'
+import { CopiedToClipboard, CopyToClipboard } from '#icons/LucideIcon.js'
+import { Show, createEffect, createSignal, onCleanup } from 'solid-js'
 
 export const CopyToClipboardButton = (props: { value: string }) => {
 	const [copied, setCopied] = createSignal<number>(0)

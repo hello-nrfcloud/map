@@ -1,10 +1,10 @@
-import type { Plugin } from 'vite'
+import { validateWithTypeBox } from '@hello.nrfcloud.com/proto'
+import { Type, type Static } from '@sinclair/typebox'
 import fs from 'node:fs/promises'
 import path from 'node:path'
+import type { Plugin } from 'vite'
+import { decode } from '../src/context/navigation/decodeNavigation.js'
 import { loadMarkdownContentFromFile } from './loadMarkdownFromFile.ts'
-import { Type, type Static } from '@sinclair/typebox'
-import { validateWithTypeBox } from '@hello.nrfcloud.com/proto'
-import { decode } from '../src/context/navigation/encodeNavigation.ts'
 
 const __dirname = import.meta.dirname
 const tutorialDir = path.join(__dirname, '..', 'docs', 'tutorial')

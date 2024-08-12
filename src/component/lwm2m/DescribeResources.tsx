@@ -1,3 +1,4 @@
+import type { Device } from '#resources/fetchDevices.js'
 import {
 	definitions,
 	timestampResources,
@@ -6,7 +7,6 @@ import {
 	type LwM2MResourceValue,
 } from '@hello.nrfcloud.com/proto-map/lwm2m'
 import { For, createMemo } from 'solid-js'
-import type { Device } from '../../resources/fetchDevices.js'
 import { ResourcesDL } from '../ResourcesDL.js'
 import { DescribeResource } from './DescribeResource.js'
 
