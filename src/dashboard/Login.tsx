@@ -6,7 +6,6 @@ import { useParameters } from '#context/Parameters.tsx'
 import { useUser } from '#context/User.tsx'
 import { requestJWT } from '#resources/requestJWT.ts'
 import { requestToken } from '#resources/requestToken.ts'
-import { noop } from '#util/noop.ts'
 import { createEffect, createResource, createSignal, Show } from 'solid-js'
 
 const isEmail = (s?: string): s is string => /^.+@.+\..+$/.test(s ?? '')
@@ -41,7 +40,7 @@ export const LoginForm = () => {
 	})
 
 	return (
-		<form onsubmit={noop}>
+		<>
 			<div class="row">
 				<label for="email">Please provide your email:</label>
 				<div class="one-line">
@@ -143,6 +142,6 @@ export const LoginForm = () => {
 			<Show when={!jwtRequest.loading && jwtRequest.error !== undefined}>
 				<Problem class="gap-t" problem={jwtRequest.error} />
 			</Show>
-		</form>
+		</>
 	)
 }

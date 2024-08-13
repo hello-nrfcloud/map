@@ -6,7 +6,6 @@ import { ResourcesDL } from '#component/ResourcesDL.tsx'
 import { useParameters } from '#context/Parameters.tsx'
 import { useUser } from '#context/User.tsx'
 import { createDevice } from '#resources/createDevice.ts'
-import { noop } from '#util/noop.ts'
 import type { DeviceCredentials } from '@hello.nrfcloud.com/proto-map/api'
 import { type ModelID, models } from '@hello.nrfcloud.com/proto-map/models'
 import type { Static } from '@sinclair/typebox'
@@ -76,79 +75,77 @@ export const CreateDevice = () => {
 				<CardHeader>
 					<h1>Add device</h1>
 				</CardHeader>
-				<form onSubmit={noop}>
-					<CardBody>
-						<div class="row">
-							<label for="model">Select your model:</label>
-							<For each={Object.values(models)}>
-								{({ id, about }) => (
-									<label
-										onClick={() => {
-											selectModel(id)
-										}}
-										style={{ cursor: 'pointer' }}
+				<CardBody>
+					<div class="row">
+						<label for="model">Select your model:</label>
+						<For each={Object.values(models)}>
+							{({ id, about }) => (
+								<label
+									onClick={() => {
+										selectModel(id)
+									}}
+									style={{ cursor: 'pointer' }}
+								>
+									<Show
+										when={model() === id}
+										fallback={
+											<input type="radio" name="model" value={id} id={id} />
+										}
 									>
-										<Show
-											when={model() === id}
-											fallback={
-												<input type="radio" name="model" value={id} id={id} />
-											}
-										>
-											<input
-												type="radio"
-												name="model"
-												id={id}
-												value={id}
-												checked
-											/>
-										</Show>{' '}
-										{about.title} (<code>{id}</code>)
-									</label>
-								)}
-							</For>
-						</div>
-						<ModelInfoBlock />
-						<Show
-							when={
-								!deviceRequest.loading &&
-								deviceRequest.error === undefined &&
-								deviceRequest() !== undefined
+										<input
+											type="radio"
+											name="model"
+											id={id}
+											value={id}
+											checked
+										/>
+									</Show>{' '}
+									{about.title} (<code>{id}</code>)
+								</label>
+							)}
+						</For>
+					</div>
+					<ModelInfoBlock />
+					<Show
+						when={
+							!deviceRequest.loading &&
+							deviceRequest.error === undefined &&
+							deviceRequest() !== undefined
+						}
+					>
+						<Success class="gap-t">
+							Great! Make sure you have saved the private key and certificate!
+						</Success>
+					</Show>
+					<Show when={deviceRequest.loading}>
+						<Progress class="gap-t" title="Sending ..." />
+					</Show>
+					<Show
+						when={!deviceRequest.loading && deviceRequest.error !== undefined}
+					>
+						<Problem class="gap-t" problem={deviceRequest.error} />
+					</Show>
+				</CardBody>
+				<CardFooter>
+					<button
+						type="button"
+						class="btn"
+						onClick={() => {
+							if (!submit()) {
+								setSubmit(true)
+							} else {
+								void resendRequest()
 							}
-						>
-							<Success class="gap-t">
-								Great! Make sure you have saved the private key and certificate!
-							</Success>
-						</Show>
-						<Show when={deviceRequest.loading}>
-							<Progress class="gap-t" title="Sending ..." />
-						</Show>
-						<Show
-							when={!deviceRequest.loading && deviceRequest.error !== undefined}
-						>
-							<Problem class="gap-t" problem={deviceRequest.error} />
-						</Show>
-					</CardBody>
-					<CardFooter>
-						<button
-							type="button"
-							class="btn"
-							onClick={() => {
-								if (!submit()) {
-									setSubmit(true)
-								} else {
-									void resendRequest()
-								}
-							}}
-							disabled={
-								model() === undefined ||
-								deviceRequest.loading ||
-								deviceRequest() !== undefined
-							}
-						>
-							create
-						</button>
-					</CardFooter>
-				</form>
+						}}
+						disabled={
+							model() === undefined ||
+							deviceRequest.loading ||
+							deviceRequest() !== undefined
+						}
+					>
+						create
+					</button>
+				</CardFooter>
 			</Card>
 			<Show when={deviceRequest() !== undefined}>
 				<Card>

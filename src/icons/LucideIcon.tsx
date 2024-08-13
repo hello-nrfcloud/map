@@ -1,6 +1,7 @@
 import {
 	ArrowDownToLine,
 	BatteryCharging,
+	Check,
 	ChevronDown,
 	ChevronLeft,
 	ChevronRight,
@@ -10,6 +11,7 @@ import {
 	CircleHelp,
 	CirclePlus,
 	CircleUserRound,
+	CircleX,
 	Clipboard,
 	ClipboardCheck,
 	Clock10,
@@ -32,6 +34,8 @@ import {
 	RadioTower,
 	RefreshCcwDot,
 	Search as SearchIcon,
+	Square,
+	SquareCheckBig,
 	SquareStack,
 	Star,
 	StarOff,
@@ -239,4 +243,18 @@ export const MapApplication = (props: LucideProps) => (
 
 export const LogOut = (props: LucideProps) => (
 	<LucideIcon icon={LogOutIcon} {...props} />
+)
+
+export const Unchecked = (props: LucideProps) => (
+	<LucideIcon icon={Square} {...props} />
+)
+
+export const Checked = (props: LucideProps) => (
+	<LucideIcon icon={SquareCheckBig} {...props} />
+)
+
+export const OK = (props: LucideProps) => <LucideIcon icon={Check} {...props} />
+
+export const Failed = (props: LucideProps) => (
+	<LucideIcon icon={CircleX} {...props} />
 )

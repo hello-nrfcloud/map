@@ -42,7 +42,7 @@ export const Sidebar = () => {
 							Get started by{' '}
 							<a
 								class="button"
-								href={location.linkToPage('dashboard')}
+								href={'/map/dashboard/#add-device'}
 								title="Dashboard"
 							>
 								logging in to the Dashboard

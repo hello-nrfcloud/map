@@ -201,17 +201,34 @@ h6:has(.icon) .icon {
   margin-right: var(--gap);
 }
 
-/** Forms **/
-
-form {
-  font-family: var(--condensed-font-family);
+.gap-medium {
+  margin: calc(var(--gap) / 2);
 }
 
-form input[type="text"],
-form input[type="password"],
-form input[type="email"],
-form input[type="search"],
-form select {
+.gap-b-medium {
+  margin-bottom: calc(var(--gap) / 2);
+}
+
+.gap-t-medium {
+  margin-top: calc(var(--gap) / 2);
+}
+
+.gap-s-medium {
+  margin-left: calc(var(--gap) / 2);
+}
+
+.gap-e-medium {
+  margin-right: calc(var(--gap) / 2);
+}
+
+/** Forms **/
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="search"],
+select {
+  font-family: var(--condensed-font-family);
   border-style: solid;
   border-width: 1px;
   border-radius: calc(var(--border-radius) / 2);
@@ -228,27 +245,32 @@ form select {
   font-weight: 300;
 }
 
-form input[type="radio"] {
+input[type="radio"],
+input[type="checkbox"] {
   border-style: solid;
   border-width: 1px;
   border-color: var(--color-form-border-default);
   height: 16px;
   width: 16px;
+}
+
+input[type="radio"] {
   border-radius: 100%;
 }
 
-form input[type="radio"][checked] {
+input[type="radio"][checked],
+input[type="checkbox"][checked] {
   background-color: var(--color-border-active);
   border-color: var(--color-border-active);
 }
 
-form select {
+select {
   appearance: menulist;
 }
 
-form input:focus,
-form select:focus,
-form input:focus + button.btn,
+input:focus,
+select:focus,
+input:focus + button.btn,
 .btn:active:not(:disabled) {
   border-color: var(--color-border-active);
 }
@@ -263,28 +285,28 @@ input:-webkit-autofill:active {
     color 5000000s ease-in-out 0s;
 }
 
-form .one-line {
+.one-line {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
 }
 
-form .one-line > *:last-child {
+.one-line > *:last-child {
   margin-top: var(--gap-medium);
 }
 
 @media (min-width: 450px) {
-  form .one-line {
+  .one-line {
     flex-wrap: nowrap;
     justify-content: space-between;
   }
 
-  form .one-line button {
+  .one-line button {
     flex-shrink: 0;
     margin-left: var(--gap-medium);
   }
 
-  form .one-line > *:last-child {
+  .one-line > *:last-child {
     margin-top: 0;
   }
 }
@@ -327,16 +349,16 @@ a.btn {
   border-right: 0;
 }
 
-form label {
+label {
   display: block;
   margin-bottom: var(--gap-medium);
 }
 
-form .row + .row {
+.row + .row {
   margin-top: var(--gap-medium);
 }
 
-form footer {
+footer {
   width: 100%;
   display: flex;
   justify-content: end;
@@ -360,4 +382,12 @@ ul li {
 
 .bg-lighter {
   background-color: var(--bg-blue-5);
+}
+
+.color-error {
+  color: var(--color-error);
+}
+
+.color-success {
+  color: var(--color-highlight);
 }
