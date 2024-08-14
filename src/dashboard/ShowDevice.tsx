@@ -7,11 +7,23 @@ import { useViteEnv } from '#context/ViteEnv.tsx'
 import { extendDeviceSharing } from '#resources/extendDeviceSharing.ts'
 import { listUserDevices } from '#resources/listUserDevices.ts'
 import { type ModelID, models } from '@hello.nrfcloud.com/proto-map/models'
-import { createResource, createSignal, Match, Show, Switch } from 'solid-js'
+import {
+	createEffect,
+	createResource,
+	createSignal,
+	Match,
+	Show,
+	Switch,
+} from 'solid-js'
 import { Card, CardBody, CardHeader } from './Card.tsx'
 import { CopyableProp } from './CopyableProp.tsx'
 
-const formatAsDate = (d: Date) => d.toLocaleDateString(undefined, {})
+const f = new Intl.DateTimeFormat(undefined, {
+	dateStyle: 'short',
+	timeStyle: 'short',
+})
+
+const formatAsDate = (d: Date) => f.format(d)
 
 export const ShowDevice = () => {
 	const { protoVersion } = useViteEnv()
@@ -57,10 +69,10 @@ export const ShowDevice = () => {
 						</dd>
 						<dt>Sharing expires</dt>
 						<dd class="pad-b pad-t">
-							<time datetime={new Date(deviceInfo()!.expires).toISOString()}>
-								{formatAsDate(new Date(deviceInfo()!.expires))}
-							</time>
-							<ExtendSharing id={deviceInfo()!.id} />
+							<ExtendSharing
+								id={deviceInfo()!.id}
+								expires={new Date(deviceInfo()!.expires)}
+							/>
 						</dd>
 					</ResourcesDL>
 				</Show>
@@ -91,8 +103,9 @@ export const ShowDevice = () => {
 	)
 }
 
-const ExtendSharing = (props: { id: string }) => {
+const ExtendSharing = (props: { id: string; expires: Date }) => {
 	const [extend, setExtend] = createSignal(false)
+	const [currentExpires, setExpires] = createSignal(props.expires)
 	const { jwt } = useUser()
 	const { apiURL } = useParameters()
 	const [extendRequest, { refetch }] = createResource(() => {
@@ -102,8 +115,18 @@ const ExtendSharing = (props: { id: string }) => {
 			jwt: jwt()!,
 		}
 	}, extendDeviceSharing(apiURL))
+
+	createEffect(() => {
+		if (extendRequest.loading) return
+		if (extendRequest.state !== 'ready') return
+		setExpires(new Date(Date.now() + 1000 * 60 * 60 * 24 * 30))
+	})
+
 	return (
 		<>
+			<time datetime={currentExpires().toISOString()}>
+				{formatAsDate(currentExpires())}
+			</time>
 			<Switch
 				fallback={
 					<button
