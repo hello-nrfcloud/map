@@ -2,13 +2,11 @@ import { Problem } from '#component/notifications/Problem.tsx'
 import { Progress } from '#component/notifications/Progress.tsx'
 import { useParameters } from '#context/Parameters.tsx'
 import { useUser } from '#context/User.tsx'
-import { useViteEnv } from '#context/ViteEnv.tsx'
 import { Card, CardBody, CardFooter, CardHeader } from '#dashboard/Card.tsx'
 import { Checked, Failed, OK, Unchecked } from '#icons/LucideIcon.tsx'
 import { extendDeviceSharing } from '#resources/extendDeviceSharing.ts'
 import { listUserDevices } from '#resources/listUserDevices.ts'
 import type { UserDevices } from '@hello.nrfcloud.com/proto-map/api'
-import { type ModelID, models } from '@hello.nrfcloud.com/proto-map/models'
 import type { Static } from '@sinclair/typebox'
 import {
 	For,
@@ -213,11 +211,7 @@ export const DeviceList = () => {
 											</Show>
 										</button>
 									</th>
-									<th>
-										ID
-										<br />
-										Model
-									</th>
+									<th>ID</th>
 									<th>Expires</th>
 								</tr>
 							</thead>
@@ -289,8 +283,6 @@ export const ShowDevice = (props: {
 	device: Static<(typeof UserDevices)['devices'][number]>
 	onCheck: () => void
 }) => {
-	const model = models[props.device.model as ModelID]
-	const { protoVersion } = useViteEnv()
 	const exp = new Date(props.device.expires)
 	return (
 		<tr>
@@ -313,13 +305,6 @@ export const ShowDevice = (props: {
 					href={`/map/dashboard/#device?${new URLSearchParams({ id: props.device.id }).toString()}`}
 				>
 					<code>{props.device.id}</code>
-				</a>
-				<br />
-				<a
-					href={`https://github.com/hello-nrfcloud/proto-map/tree/${protoVersion}/models/${model.id}`}
-					target="_blank"
-				>
-					{model.about.title}
 				</a>
 			</td>
 			<td>
