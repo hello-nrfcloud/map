@@ -5,6 +5,7 @@ import { useUser } from '#context/User.tsx'
 import { useViteEnv } from '#context/ViteEnv.tsx'
 import { Card, CardBody, CardFooter, CardHeader } from '#dashboard/Card.tsx'
 import { Checked, Failed, OK, Unchecked } from '#icons/LucideIcon.tsx'
+import { extendDeviceSharing } from '#resources/extendDeviceSharing.ts'
 import { listUserDevices } from '#resources/listUserDevices.ts'
 import type { UserDevices } from '@hello.nrfcloud.com/proto-map/api'
 import { type ModelID, models } from '@hello.nrfcloud.com/proto-map/models'
@@ -18,7 +19,6 @@ import {
 	createSignal,
 } from 'solid-js'
 
-import { extendDeviceSharing } from '#resources/extendDeviceSharing.ts'
 import './DeviceList.css'
 
 export const DeviceList = () => {
@@ -76,6 +76,23 @@ export const DeviceList = () => {
 					To extend the time the device is visible on the map by 30 days select
 					one or more devices below and click &quot;extend sharing&quot;.
 				</p>
+				<div class="one-line">
+					<p>Click here to extend the sharing for all devices:</p>
+					<Show when={submit() === false}>
+						<button
+							type="button"
+							class="btn"
+							onClick={() => {
+								batch(() => {
+									setCheckAll(true)
+									setSubmit(true)
+								})
+							}}
+						>
+							extend all
+						</button>
+					</Show>
+				</div>
 			</CardHeader>
 			<Show
 				when={
@@ -292,7 +309,9 @@ export const ShowDevice = (props: {
 				</button>
 			</td>
 			<td>
-				<a href={`/map/#id:${props.device.id}`} target="_blank">
+				<a
+					href={`/map/dashboard/#device?${new URLSearchParams({ id: props.device.id }).toString()}`}
+				>
 					<code>{props.device.id}</code>
 				</a>
 				<br />

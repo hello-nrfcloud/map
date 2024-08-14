@@ -4,10 +4,18 @@ import { useUser } from '#context/User.tsx'
 import { Card, CardBody, CardHeader } from '#dashboard/Card.tsx'
 import { Device } from '#icons/Device.tsx'
 import { Add, LogOut, MapApplication } from '#icons/LucideIcon.tsx'
-import { createEffect, createSignal, onCleanup, Show } from 'solid-js'
+import {
+	createEffect,
+	createSignal,
+	Match,
+	onCleanup,
+	Show,
+	Switch,
+} from 'solid-js'
 import { AddDevice } from './AddDevice.tsx'
 import { DeviceList } from './DeviceList.tsx'
 import { LoginForm } from './Login.tsx'
+import { ShowDevice } from './ShowDevice.tsx'
 
 import './DashboardApp.css'
 
@@ -82,9 +90,14 @@ export const DashboardApp = () => {
 			</SidebarNav>
 			<main>
 				<Show when={user() !== undefined} fallback={<Unauthenticated />}>
-					<Show when={panel() === 'add-device'} fallback={<Home />}>
-						<AddDevice />
-					</Show>
+					<Switch fallback={<Home />}>
+						<Match when={panel() === 'add-device'}>
+							<AddDevice />
+						</Match>
+						<Match when={panel() === 'device'}>
+							<ShowDevice />
+						</Match>
+					</Switch>
 				</Show>
 			</main>
 		</div>
