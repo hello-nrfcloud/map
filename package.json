@@ -37,7 +37,7 @@
     "@commitlint/config-conventional": "19.5.0",
     "@playwright/test": "1.46.1",
     "@types/jsonwebtoken": "9.0.7",
-    "@types/node": "22.7.0",
+    "@types/node": "22.7.1",
     "@types/semver": "7.5.8",
     "commitlint": "19.5.0",
     "glob": "11.0.0",
