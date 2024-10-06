@@ -58,7 +58,7 @@
   },
   "dependencies": {
     "@hello.nrfcloud.com/proto": "15.3.3",
-    "@hello.nrfcloud.com/proto-map": "16.1.10",
+    "@hello.nrfcloud.com/proto-map": "16.1.11",
     "@sinclair/typebox": "0.33.14",
     "e118-iin-list": "4.1.4",
     "lucide": "0.447.0",
