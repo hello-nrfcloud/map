@@ -49,7 +49,7 @@ export const DeviceList = () => {
 			return
 		}
 
-		const nextDevice = checked().values().next().value
+		const nextDevice = checked().values().next().value!
 		extend({ id: nextDevice, jwt: jwt()! })
 			.then(() => {
 				batch(() => {
