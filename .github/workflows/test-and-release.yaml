@@ -46,7 +46,7 @@ jobs:
 
     environment: ci
 
-    container: mcr.microsoft.com/playwright:v1.48.0
+    container: mcr.microsoft.com/playwright:v1.48.1
 
     env:
       MAP_REGION: ${{ vars.MAP_REGION }}
