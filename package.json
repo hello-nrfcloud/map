@@ -59,7 +59,7 @@
   "dependencies": {
     "@hello.nrfcloud.com/proto": "15.3.9",
     "@hello.nrfcloud.com/proto-map": "16.1.13",
-    "@sinclair/typebox": "0.33.16",
+    "@sinclair/typebox": "0.33.17",
     "e118-iin-list": "4.1.4",
     "lucide": "0.453.0",
     "maplibre-gl": "4.7.1",
