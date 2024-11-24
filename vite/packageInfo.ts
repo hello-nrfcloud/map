@@ -1,4 +1,4 @@
-import pJson from '../package.json'
+import pJson from '../package.json' assert { type: 'json' }
 
 export const version = process.env.VERSION ?? pJson.version ?? Date.now()
 export const protoVersion = `v${pJson.dependencies['@hello.nrfcloud.com/proto-map']}`
