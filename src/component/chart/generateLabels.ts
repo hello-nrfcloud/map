@@ -9,7 +9,7 @@ export const generateLabels = (
 	const labels: string[] = [xAxis.format(labelTime)]
 	for (let i = 0; i <= xAxis.minutes / xAxis.labelEvery; i++) {
 		labelTime = subMinutes(labelTime, -xAxis.labelEvery)
-		labels.unshift(xAxis.format(labelTime))
+		labels.push(xAxis.format(labelTime))
 	}
 	return labels
 }
