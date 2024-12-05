@@ -9,7 +9,7 @@ export const SidebarButton = () => {
 			<a
 				class="button"
 				href={location.linkToPage('dashboard')}
-				title="Dashboard"
+				title="Manage your public devices"
 			>
 				<Dashboard strokeWidth={2} />
 			</a>

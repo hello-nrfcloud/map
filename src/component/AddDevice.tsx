@@ -43,7 +43,7 @@ export const Sidebar = () => {
 							<a
 								class="button"
 								href={'/map/dashboard/#add-device'}
-								title="Dashboard"
+								title="Manage your public devices"
 							>
 								logging in to the Dashboard
 							</a>

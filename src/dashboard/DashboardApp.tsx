@@ -107,11 +107,12 @@ export const DashboardApp = () => {
 const Unauthenticated = () => (
 	<Card>
 		<CardHeader>
-			<h1>Dashboard</h1>
+			<h1>Manage your public devices</h1>
 		</CardHeader>
 		<CardBody>
 			<p>
-				Welcome to the dashboard. Here you can view and manage your devices.
+				Welcome to the dashboard. Here you can view and manage your public
+				devices.
 			</p>
 			<hr />
 			<p>Get started by logging in with your email.</p>
@@ -126,14 +127,15 @@ const Home = () => {
 		<>
 			<Card>
 				<CardHeader>
-					<h1>Dashboard</h1>
+					<h1>Manage your public devices</h1>
 					<Show when={user() !== undefined}>
 						<p>Welcome {user()?.email}!</p>
 					</Show>
 				</CardHeader>
 				<CardBody>
 					<p>
-						Welcome to the dashboard. Here you can view and manage your devices.
+						Welcome to the dashboard. Here you can view and manage your public
+						devices.
 					</p>
 				</CardBody>
 			</Card>

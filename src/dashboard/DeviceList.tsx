@@ -72,10 +72,10 @@ export const DeviceList = () => {
 				<h1>Your devices</h1>
 				<p>
 					To extend the time the device is visible on the map by 30 days select
-					one or more devices below and click &quot;extend sharing&quot;.
+					one or more devices below and click &quot;extend publication&quot;.
 				</p>
 				<div class="one-line">
-					<p>Click here to extend the sharing for all devices:</p>
+					<p>Click here to extend the publication for all devices:</p>
 					<Show when={submit() === false}>
 						<button
 							type="button"
@@ -87,7 +87,7 @@ export const DeviceList = () => {
 								})
 							}}
 						>
-							extend all
+							extend publication for all
 						</button>
 					</Show>
 				</div>
@@ -238,7 +238,7 @@ export const DeviceList = () => {
 								when={checked().size > 0}
 								fallback={
 									<button type="button" class="btn" disabled>
-										extend sharing
+										extend publication
 									</button>
 								}
 							>
@@ -252,7 +252,7 @@ export const DeviceList = () => {
 										})
 									}}
 								>
-									extend sharing
+									extend publication
 								</button>
 							</Show>
 						</CardFooter>

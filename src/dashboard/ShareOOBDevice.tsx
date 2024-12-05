@@ -2,6 +2,7 @@ import { ModelInfoBlock } from '#component/ModelInfoBlock.tsx'
 import { Problem } from '#component/notifications/Problem.tsx'
 import { Progress } from '#component/notifications/Progress.tsx'
 import { Success } from '#component/notifications/Success.tsx'
+import { Warning } from '#component/notifications/Warning.tsx'
 import { ResourcesDL } from '#component/ResourcesDL.tsx'
 import { useParameters } from '#context/Parameters.tsx'
 import { useUser } from '#context/User.tsx'
@@ -28,7 +29,7 @@ export const ShareOOBDevice = (props: {
 	return (
 		<Card>
 			<CardHeader>
-				<h1>Share device</h1>
+				<h1>Make your device public</h1>
 			</CardHeader>
 			<Show when={modelValid()} fallback={<InvalidModel model={props.model} />}>
 				<Show
@@ -65,14 +66,17 @@ export const ShareOOBDevice = (props: {
 
 const ShareInfo = (props: { device: Static<typeof DeviceIdentity> }) => (
 	<section>
-		<p>
-			You're about to make your device <code>{props.device.id}</code> publicly
-			available on{' '}
-			<a href="/map" target="_blank">
-				the map
-			</a>
-			.
-		</p>
+		<Warning class="pad-s pad-e pad-t gap-b">
+			<p>
+				You're about to make your device <code>{props.device.id}</code>{' '}
+				<strong>publicly available</strong> on{' '}
+				<a href="/map" target="_blank">
+					the map
+				</a>
+				. Everyone will be able to see data sent by your device, which may
+				include the precise location.
+			</p>
+		</Warning>
 		<ResourcesDL>
 			<CopyableProp
 				name={'Device ID'}
@@ -179,7 +183,7 @@ const DoShare = (props: {
 					onClick={() => setShare(true)}
 					disabled={shareDeviceRequest.loading}
 				>
-					share device
+					make device public
 				</button>
 			</CardFooter>
 		</>

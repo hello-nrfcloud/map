@@ -34,6 +34,8 @@
   --color-progress-bg: #283b5e;
   --color-success-bg: #44663f;
   --color-success-fg: #3d724a;
+  --color-warning-bg: #594e12;
+  --color-warning-fg: #d4c53a;
 
   /* Fonts */
   --regular-font-family: "Inter Tight", sans-serif;

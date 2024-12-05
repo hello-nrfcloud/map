@@ -67,7 +67,7 @@ export const ShowDevice = () => {
 								{deviceInfo()!.model.about.title}
 							</a>
 						</dd>
-						<dt>Sharing expires</dt>
+						<dt>Public until</dt>
 						<dd class="pad-b pad-t">
 							<ExtendSharing
 								id={deviceInfo()!.id}
@@ -139,7 +139,7 @@ const ExtendSharing = (props: { id: string; expires: Date }) => {
 							setExtend(true)
 						}}
 					>
-						extend sharing
+						extend publication for 30 days
 					</button>
 				}
 			>

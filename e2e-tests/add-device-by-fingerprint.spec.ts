@@ -23,7 +23,7 @@ test('Add an out-of-box experience device using its fingerprint', async ({
 	await expect(page.getByTestId('device-deviceId')).toHaveText(
 		/oob-3526561666[0-9]+/,
 	)
-	await page.getByRole('button', { name: 'share device' }).click()
+	await page.getByRole('button', { name: 'make device public' }).click()
 
 	await expect(
 		page.getByText('We will now show data sent by the device on the map!'),
