@@ -319,12 +319,11 @@ input:-webkit-autofill:active {
   border-radius: calc(var(--border-radius) / 2);
   border-color: var(--color-form-border-default);
   background-color: var(--color-form-bg);
-  height: 32px;
+  min-height: 32px;
   padding: 0 var(--gap-medium);
   color: var(--color-form-text);
   font-weight: 300;
   display: inline-block;
-  height: 32px;
   font-family: var(--condensed-font-family);
 }
 

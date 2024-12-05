@@ -6,6 +6,7 @@ import { useUser } from '#context/User.tsx'
 import { useViteEnv } from '#context/ViteEnv.tsx'
 import { extendDeviceSharing } from '#resources/extendDeviceSharing.ts'
 import { listUserDevices } from '#resources/listUserDevices.ts'
+import { stopDeviceSharing } from '#resources/stopDeviceSharing.ts'
 import { type ModelID, models } from '@hello.nrfcloud.com/proto-map/models'
 import {
 	createEffect,
@@ -15,7 +16,7 @@ import {
 	Show,
 	Switch,
 } from 'solid-js'
-import { Card, CardBody, CardHeader } from './Card.tsx'
+import { Card, CardBody, CardFooter, CardHeader } from './Card.tsx'
 import { CopyableProp } from './CopyableProp.tsx'
 
 const f = new Intl.DateTimeFormat(undefined, {
@@ -24,6 +25,10 @@ const f = new Intl.DateTimeFormat(undefined, {
 })
 
 const formatAsDate = (d: Date) => f.format(d)
+
+import { Success } from '#component/notifications/Success.tsx'
+import { Checked, Unchecked } from '#icons/LucideIcon.tsx'
+import './ShowDevice.css'
 
 export const ShowDevice = () => {
 	const { protoVersion } = useViteEnv()
@@ -98,7 +103,26 @@ export const ShowDevice = () => {
 				>
 					<Problem class="gap-t" problem={devicesRequest.error} />
 				</Show>
+				<Show
+					when={
+						!devicesRequest.loading &&
+						devicesRequest.error === undefined &&
+						deviceInfo() === undefined
+					}
+				>
+					<Problem
+						problem={{
+							status: 404,
+							title: `Device ${deviceId} not found!`,
+						}}
+					/>
+				</Show>
 			</CardBody>
+			<Show when={deviceInfo() !== undefined}>
+				<CardFooter class="stop-sharing">
+					<StopSharing id={deviceId!} />
+				</CardFooter>
+			</Show>
 		</Card>
 	)
 }
@@ -152,6 +176,87 @@ const ExtendSharing = (props: { id: string; expires: Date }) => {
 					when={!extendRequest.loading && extendRequest.error !== undefined}
 				>
 					<Problem class="gap-t" problem={extendRequest.error} />
+				</Match>
+			</Switch>
+		</>
+	)
+}
+
+const StopSharing = (props: { id: string }) => {
+	const [stop, setStopped] = createSignal(false)
+	const [unlocked, setUnlocked] = createSignal(false)
+	const { jwt } = useUser()
+	const { apiURL } = useParameters()
+	const [stopRequest] = createResource(() => {
+		if (!stop()) return undefined
+		return {
+			id: props.id,
+			jwt: jwt()!,
+		}
+	}, stopDeviceSharing(apiURL))
+
+	createEffect(() => {
+		if (stopRequest.loading) return
+		if (stopRequest.state !== 'ready') return
+		setStopped(true)
+	})
+
+	return (
+		<>
+			<p>
+				You can stop the publication of this device at any time. If you stop the
+				publication, the device will no longer be visible on the map. You can
+				start the publication again at any time. It may take a few minutes for
+				the device to disappear from the map.
+			</p>
+			<p class="confirm">
+				<button
+					class="pad-e"
+					type="button"
+					onClick={() => setUnlocked((l) => !l)}
+				>
+					<Show
+						when={unlocked()}
+						fallback={<Unchecked strokeWidth={1} size={20} />}
+					>
+						<Checked strokeWidth={1} size={20} />
+					</Show>
+					Yes, I want to stop the publication of this device.
+				</button>
+				<Show
+					when={unlocked()}
+					fallback={
+						<Show
+							when={!stopRequest.loading}
+							fallback={
+								<button type="button" class="btn" disabled>
+									stopping ...
+								</button>
+							}
+						>
+							<button type="button" class="btn" disabled>
+								stop publication
+							</button>
+						</Show>
+					}
+				>
+					<button
+						type="button"
+						class="btn"
+						onClick={() => {
+							setStopped(true)
+						}}
+					>
+						stop publication
+					</button>
+				</Show>
+			</p>
+			<Switch>
+				<Match when={!stopRequest.loading && stopRequest.error !== undefined}>
+					<Problem class="gap-t" problem={stopRequest.error} />
+				</Match>
+				<Match when={!stopRequest.loading && stopRequest.state === 'ready'}>
+					<Success>The publication of this device has been stopped.</Success>
 				</Match>
 			</Switch>
 		</>

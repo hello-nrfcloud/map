@@ -1,0 +1,10 @@
+.stop-sharing {
+  display: flex;
+  flex-direction: column;
+}
+
+.stop-sharing .confirm {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
