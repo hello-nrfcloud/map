@@ -27,15 +27,15 @@
     "test:e2e": "npx playwright test --project chromium"
   },
   "devDependencies": {
-    "@aws-sdk/client-cloudformation": "3.713.0",
-    "@aws-sdk/client-cloudfront": "3.713.0",
+    "@aws-sdk/client-cloudformation": "3.714.0",
+    "@aws-sdk/client-cloudfront": "3.714.0",
     "@bifravst/cloudformation-helpers": "9.1.1",
     "@bifravst/eslint-config-typescript": "6.1.19",
     "@bifravst/from-env": "3.0.2",
     "@bifravst/prettier-config": "1.1.4",
     "@bifravst/random-words": "8.0.2",
     "@commitlint/config-conventional": "19.6.0",
-    "@playwright/test": "1.49.0",
+    "@playwright/test": "1.49.1",
     "@types/jsonwebtoken": "9.0.7",
     "@types/node": "22.10.2",
     "@types/semver": "7.5.8",
@@ -58,7 +58,7 @@
   },
   "dependencies": {
     "@hello.nrfcloud.com/proto": "15.3.29",
-    "@hello.nrfcloud.com/proto-map": "16.1.30",
+    "@hello.nrfcloud.com/proto-map": "16.1.31",
     "@sinclair/typebox": "0.34.11",
     "e118-iin-list": "4.1.4",
     "lucide": "0.468.0",
