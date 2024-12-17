@@ -10,13 +10,13 @@ import { WhenToggled } from './WhenToggled.jsx'
 
 export const DescribeModel = (props: { model: ModelID }) => {
 	const location = useNavigation()
-	const model = models[props.model]
+	const model = () => models[props.model]
 	return (
 		<aside class="model-definition boxed" title="Model">
 			<header class="pad">
 				<h3>
 					<Documentation size={20} strokeWidth={1} />
-					{model.about.title}
+					{model().about.title}
 				</h3>
 				<ToggleButton title="definition" id="describe-model" />
 			</header>
@@ -35,7 +35,7 @@ export const DescribeModel = (props: { model: ModelID }) => {
 										},
 									],
 								})}
-								title={`Search for all ${model.about.title} devices`}
+								title={`Search for all ${model().about.title} devices`}
 							>
 								<Search strokeWidth={1} size={20} />
 							</a>
@@ -47,7 +47,7 @@ export const DescribeModel = (props: { model: ModelID }) => {
 					<dt>
 						<span class="info">Description</span>
 					</dt>
-					<dd>{model.about.description}</dd>
+					<dd>{model().about.description}</dd>
 					<dt>
 						<span class="info">Source</span>
 					</dt>
