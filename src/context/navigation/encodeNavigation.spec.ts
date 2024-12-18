@@ -107,6 +107,27 @@ void describe('encode() / decode()', () => {
 			},
 		))
 
+	void it('should encode the device map state', () =>
+		assert.deepEqual(
+			decode(
+				encode({
+					panel: 'world',
+					deviceMap: {
+						centerLocationSource: 'GNSS',
+					},
+				}),
+			),
+			{
+				panel: 'world',
+				search: [],
+				pinnedResources: [],
+				toggled: [],
+				deviceMap: {
+					centerLocationSource: 'GNSS',
+				},
+			},
+		))
+
 	void it('should encode the tutorial state', () =>
 		assert.deepEqual(
 			decode(

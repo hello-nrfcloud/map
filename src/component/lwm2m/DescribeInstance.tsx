@@ -5,16 +5,19 @@ import {
 	instanceTs,
 	type LwM2MObjectInstance,
 } from '@hello.nrfcloud.com/proto-map/lwm2m'
-import { Show } from 'solid-js'
+import { Show, type JSX } from 'solid-js'
 import { RelativeTime } from '../RelativeTime.js'
 import { ToggleButton } from '../ToggleButton.jsx'
 import { WhenToggled } from '../WhenToggled.jsx'
 import { DescribeObject } from './DescribeObject.js'
 import { DescribeResources } from './DescribeResources.js'
 
+import './DescribeInstance.css'
+
 export const DescribeInstance = (props: {
 	instance: LwM2MObjectInstance
 	device: Device
+	actions?: JSX.Element
 }) => {
 	const definition = definitions[props.instance.ObjectID]
 	const ts = instanceTs(props.instance)
@@ -51,7 +54,10 @@ export const DescribeInstance = (props: {
 								</RelativeTime>
 							</small>
 						</h2>
-						<ToggleButton title="resources" id={toggleId} />
+						<div class="actions">
+							{props.actions}
+							<ToggleButton title="resources" id={toggleId} />
+						</div>
 					</header>
 					<WhenToggled id={toggleId}>
 						<DescribeResources

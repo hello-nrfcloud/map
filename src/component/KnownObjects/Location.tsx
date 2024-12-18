@@ -1,8 +1,9 @@
+import { useNavigation } from '#context/Navigation.tsx'
 import { useParameters } from '#context/Parameters.js'
-import { Center, Map, ZoomIn, ZoomOut } from '#icons/LucideIcon.js'
+import { Lock, Map, Unlock, ZoomIn, ZoomOut } from '#icons/LucideIcon.js'
 import { createMap } from '#map/createMap.js'
 import { geoJSONPolygonFromCircle } from '#map/geoJSONPolygonFromCircle.js'
-import { getLocationsBounds } from '#map/getLocationsBounds.js'
+import { getLocationsBounds } from '#map/getLocationsBounds.ts'
 import { glyphFonts } from '#map/glyphFonts.js'
 import {
 	defaultLocationSourceColor,
@@ -11,7 +12,13 @@ import {
 import { type Geolocation_14201 } from '@hello.nrfcloud.com/proto-map/lwm2m'
 import type { Map as MapLibreGlMap } from 'maplibre-gl'
 import { ScaleControl } from 'maplibre-gl'
-import { createEffect, createMemo, onCleanup } from 'solid-js'
+import {
+	createEffect,
+	createMemo,
+	createSignal,
+	onCleanup,
+	Show,
+} from 'solid-js'
 
 import './Location.css'
 
@@ -29,11 +36,18 @@ const byAge = (loc1: Geolocation_14201, loc2: Geolocation_14201) =>
 
 export const Card = (props: { locations: Geolocation_14201[] }) => {
 	const parameters = useParameters()
+	const location = useNavigation()
+	const [locked, setLocked] = createSignal(true)
 
 	let ref!: HTMLDivElement
 	let map: MapLibreGlMap
 
-	const bounds = createMemo(() => getLocationsBounds(props.locations))
+	const centerLocation = createMemo(() =>
+		props.locations.find(
+			({ Resources }) =>
+				Resources[6] === location.current()?.deviceMap?.centerLocationSource,
+		),
+	)
 
 	createEffect(() => {
 		const mostRecent = props.locations.sort(byAge)[0]
@@ -42,7 +56,7 @@ export const Card = (props: { locations: Geolocation_14201[] }) => {
 
 		const {
 			Resources: { 0: lat, 1: lng },
-		} = mostRecent
+		} = centerLocation() ?? mostRecent
 
 		map = createMap(
 			ref,
@@ -65,18 +79,20 @@ export const Card = (props: { locations: Geolocation_14201[] }) => {
 				const lat = Resources[0]
 				const acc = Resources[3] ?? 500
 				const src = Resources[6]
+
 				// Data for Hexagon
 				const locationAreaSourceId = `center-circle-source-${src}`
-				map.addSource(
-					locationAreaSourceId,
-					geoJSONPolygonFromCircle([lng, lat], acc, 6, Math.PI / 2),
-				)
+				map.addSource(locationAreaSourceId, {
+					...geoJSONPolygonFromCircle([lng, lat], acc, 6, Math.PI / 2),
+					// This will ensure that the polygon is drawn even at low zoom levels
+					// See https://docs.mapbox.com/help/troubleshooting/working-with-large-geojson-data/#tolerance
+					tolerance: 0.001,
+				})
 				// Render Hexagon
 				map.addLayer({
 					id: `center-circle-layer-${src}`,
 					type: 'line',
-					source: `center-circle-source-${src}`,
-					layout: {},
+					source: locationAreaSourceId,
 					paint: {
 						'line-color':
 							locationSourceColors[src] ?? defaultLocationSourceColor,
@@ -105,16 +121,29 @@ export const Card = (props: { locations: Geolocation_14201[] }) => {
 					},
 				})
 			}
+		})
 
-			map.fitBounds(bounds(), {
-				padding: 20,
-				maxZoom: 16,
-			})
+		onCleanup(() => {
+			map?.remove()
 		})
 	})
 
-	onCleanup(() => {
-		map?.remove()
+	createEffect(() => {
+		if (centerLocation() === undefined) return
+		map.fitBounds(getLocationsBounds([centerLocation()!]), {
+			padding: 40,
+			maxZoom: 16,
+		})
+	})
+
+	createEffect(() => {
+		if (locked()) {
+			map.scrollZoom.disable()
+			map.dragPan.disable()
+		} else {
+			map.scrollZoom.enable()
+			map.dragPan.enable()
+		}
 	})
 
 	return (
@@ -123,17 +152,28 @@ export const Card = (props: { locations: Geolocation_14201[] }) => {
 				<button type="button" onClick={() => map?.zoomIn()}>
 					<ZoomIn />
 				</button>
-				<button
-					type="button"
-					onClick={() =>
-						map?.fitBounds(bounds(), {
-							padding: 20,
-							maxZoom: 16,
-						})
+				<Show
+					when={locked()}
+					fallback={
+						<button
+							type="button"
+							onClick={() => {
+								setLocked(true)
+							}}
+						>
+							<Lock />
+						</button>
 					}
 				>
-					<Center />
-				</button>
+					<button
+						type="button"
+						onClick={() => {
+							setLocked(false)
+						}}
+					>
+						<Unlock />
+					</button>
+				</Show>
 				<button type="button" onClick={() => map?.zoomOut()}>
 					<ZoomOut />
 				</button>

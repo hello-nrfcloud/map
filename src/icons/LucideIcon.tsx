@@ -26,6 +26,7 @@ import {
 	Info as InfoIcon,
 	LineChart,
 	LocateFixed,
+	Lock as LockIcon,
 	LogOut as LogOutIcon,
 	MapPin,
 	MapPinned,
@@ -40,6 +41,7 @@ import {
 	Star,
 	StarOff,
 	TriangleAlert,
+	Unlock as UnlockIcon,
 	X,
 	ZapOff,
 	ZoomIn as ZoomInIcon,
@@ -257,4 +259,12 @@ export const OK = (props: LucideProps) => <LucideIcon icon={Check} {...props} />
 
 export const Failed = (props: LucideProps) => (
 	<LucideIcon icon={CircleX} {...props} />
+)
+
+export const Unlock = (props: LucideProps) => (
+	<LucideIcon icon={UnlockIcon} {...props} />
+)
+
+export const Lock = (props: LucideProps) => (
+	<LucideIcon icon={LockIcon} {...props} />
 )

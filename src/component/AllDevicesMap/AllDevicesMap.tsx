@@ -104,9 +104,12 @@ export const AllDevicesMap = () => {
 				'click',
 				'devices-dots',
 				(e: MapMouseEvent & { features?: MapGeoJSONFeature[] }) => {
-					const id = e.features?.[0]?.properties.id
+					const { id, source } = e.features?.[0]?.properties ?? {}
 					location.navigate({
 						panel: `id:${id}`,
+						deviceMap: {
+							centerLocationSource: source,
+						},
 					})
 				},
 			)
@@ -139,7 +142,7 @@ export const AllDevicesMap = () => {
 					({
 						device: { id },
 						location: {
-							Resources: { 0: lat, 1: lng },
+							Resources: { 0: lat, 1: lng, 6: source },
 						},
 						resources,
 					}) => ({
@@ -153,6 +156,7 @@ export const AllDevicesMap = () => {
 							resourceValues: resources
 								.map(({ value, units }) => `${value} ${units ?? ''}`)
 								.join('\n'),
+							source,
 						},
 					}),
 				),

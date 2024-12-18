@@ -13,11 +13,17 @@ export type NavigationMapState = {
 	center: { lat: number; lng: number }
 	zoom: number
 }
+
+// Encode which location source is currently centered on the map
+export type DeviceMapState = {
+	centerLocationSource: string
+}
 export type Navigation = {
 	panel: string
 	search: SearchTerm[]
 	pinnedResources: PinnedResource[]
 	map?: NavigationMapState
+	deviceMap?: DeviceMapState
 	tutorial?: keyof TutorialContent
 	toggled: string[]
 	query?: URLSearchParams
@@ -27,6 +33,7 @@ export enum FieldKey {
 	Search = 's',
 	PinnedResources = 'r',
 	Map = 'm',
+	DeviceMap = 'M',
 	Tutorial = 'T',
 	Toggled = 't',
 }
@@ -38,8 +45,16 @@ export const encode = (
 ): string | undefined => {
 	if (navigation === undefined) return ''
 	const parts = []
-	const { panel, search, pinnedResources, map, tutorial, toggled, query } =
-		navigation
+	const {
+		panel,
+		search,
+		pinnedResources,
+		map,
+		deviceMap,
+		tutorial,
+		toggled,
+		query,
+	} = navigation
 	let panelWithQuery = `${panel ?? ''}`
 	if (query !== undefined) panelWithQuery += '?' + query.toString()
 	parts.push(panelWithQuery)
@@ -68,6 +83,9 @@ export const encode = (
 		parts.push(
 			`${FieldKey.Map}:${map.zoom}:${map.center.lat},${map.center.lng}`,
 		)
+	}
+	if (deviceMap !== undefined) {
+		parts.push(`${FieldKey.DeviceMap}:${deviceMap.centerLocationSource}`)
 	}
 	if (tutorial !== undefined) {
 		parts.push(`${FieldKey.Tutorial}:${tutorial}`)

@@ -18,6 +18,7 @@ import {
 import { Card as LocationCard, Icon as LocationIcon } from './Location.js'
 import { Card as PinnedCard, Icon as PinnedIcon } from './Pinned.js'
 
+import { Center } from '#icons/LucideIcon.tsx'
 import './KnownObjects.css'
 
 enum TabType {
@@ -126,8 +127,26 @@ export const KnownObjects = (props: {
 			</Show>
 			<Show when={isActive(TabType.Location) && hasLocations}>
 				<For each={props.locations}>
-					{(location) => (
-						<DescribeInstance device={props.device} instance={location} />
+					{(geoLocation) => (
+						<DescribeInstance
+							device={props.device}
+							instance={geoLocation}
+							actions={
+								<button
+									type="button"
+									onClick={() => {
+										location.navigate({
+											deviceMap: {
+												centerLocationSource: geoLocation.Resources[6],
+											},
+										})
+									}}
+									title="Center map on location"
+								>
+									<Center strokeWidth={1} />
+								</button>
+							}
+						/>
 					)}
 				</For>
 			</Show>

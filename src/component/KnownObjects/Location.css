@@ -27,3 +27,7 @@ div.device-map .maplibregl-ctrl-scale {
   border-color: var(--chart-labels);
   color: var(--chart-labels);
 }
+
+div.device-map .maplibregl-canvas-container {
+  cursor: default;
+}

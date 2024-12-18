@@ -36,7 +36,6 @@ export const MapApp = () => {
 		// However, this app's sidebar should not overflow the viewport.
 		const appHeight = `${window.innerHeight}px`
 		document.documentElement.style.setProperty('--app-height', appHeight)
-		console.debug(`[MapApp]`, 'appHeight:', appHeight)
 	})
 	return (
 		<div id="layout">

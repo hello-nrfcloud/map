@@ -82,6 +82,16 @@ export const decode = (encoded?: string): Navigation | undefined => {
 		}
 	}
 
+	const deviceMapState = rest.find(
+		(s) => s.split(':', 2)[0] === FieldKey.DeviceMap,
+	)
+	if (deviceMapState !== undefined) {
+		const [, centerLocationSource] = deviceMapState.split(':', 3)
+		nav.deviceMap = {
+			centerLocationSource: centerLocationSource ?? 'none',
+		}
+	}
+
 	const helpState = rest.find((s) => s.split(':', 2)[0] === FieldKey.Tutorial)
 	if (helpState !== undefined) {
 		nav.tutorial = helpState.split(':', 2)[1] as string

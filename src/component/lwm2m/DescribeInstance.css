@@ -1,0 +1,9 @@
+.lwm2m.instance header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.lwm2m.instance header .actions {
+  display: flex;
+  align-items: center;
+}
