@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@aws-sdk/client-cloudformation": "3.714.0",
-    "@aws-sdk/client-cloudfront": "3.714.0",
+    "@aws-sdk/client-cloudfront": "3.716.0",
     "@bifravst/cloudformation-helpers": "9.1.1",
     "@bifravst/eslint-config-typescript": "6.1.19",
     "@bifravst/from-env": "3.0.2",
@@ -52,16 +52,16 @@
     "remark-frontmatter": "5.0.0",
     "remark-rehype": "11.1.1",
     "tsx": "4.19.2",
-    "vite": "6.0.3",
+    "vite": "6.0.5",
     "vite-plugin-solid": "2.11.0",
     "yaml": "2.6.1"
   },
   "dependencies": {
-    "@hello.nrfcloud.com/proto": "15.3.31",
-    "@hello.nrfcloud.com/proto-map": "16.1.31",
-    "@sinclair/typebox": "0.34.12",
-    "e118-iin-list": "4.1.4",
-    "lucide": "0.468.0",
+    "@hello.nrfcloud.com/proto": "15.3.33",
+    "@hello.nrfcloud.com/proto-map": "16.1.33",
+    "@sinclair/typebox": "0.34.13",
+    "e118-iin-list": "4.3.1",
+    "lucide": "0.469.0",
     "maplibre-gl": "4.7.1",
     "the-new-css-reset": "1.11.3"
   },
