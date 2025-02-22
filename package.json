@@ -36,7 +36,7 @@
     "@bifravst/random-words": "8.0.2",
     "@commitlint/config-conventional": "19.7.1",
     "@playwright/test": "1.50.1",
-    "@types/jsonwebtoken": "9.0.8",
+    "@types/jsonwebtoken": "9.0.9",
     "@types/node": "22.13.5",
     "@types/semver": "7.5.8",
     "commitlint": "19.7.1",
