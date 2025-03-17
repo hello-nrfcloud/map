@@ -35,7 +35,7 @@
     "@bifravst/prettier-config": "1.1.8",
     "@bifravst/random-words": "8.0.3",
     "@commitlint/config-conventional": "19.8.0",
-    "@playwright/test": "1.50.1",
+    "@playwright/test": "1.51.1",
     "@types/jsonwebtoken": "9.0.9",
     "@types/node": "22.14.1",
     "@types/semver": "7.7.0",
