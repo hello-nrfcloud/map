@@ -54,7 +54,7 @@
     "tsx": "4.19.4",
     "vite": "6.3.5",
     "vite-plugin-solid": "2.11.6",
-    "yaml": "2.7.1"
+    "yaml": "2.8.0"
   },
   "dependencies": {
     "@hello.nrfcloud.com/proto": "15.4.18",
