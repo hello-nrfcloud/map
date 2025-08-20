@@ -114,7 +114,6 @@ jobs:
           cache: "npm"
 
       - name: Semantic release
-        continue-on-error: true
         run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
