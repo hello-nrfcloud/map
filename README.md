@@ -67,7 +67,6 @@ This is achieved through:
   reusing an existing one) without the need for custom development.
 
 - **Customizable User Interface for Personalized Storytelling:**
-
   - Provides a customizable UI, allowing users to curate and showcase specific
     devices or groups.
   - Enables filtering and sorting of devices based on various attributes like
