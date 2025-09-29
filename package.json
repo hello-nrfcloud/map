@@ -51,7 +51,7 @@
     "remark-extract-frontmatter": "3.2.0",
     "remark-frontmatter": "5.0.0",
     "remark-rehype": "11.1.2",
-    "tsx": "4.20.5",
+    "tsx": "4.20.6",
     "vite": "7.1.7",
     "vite-plugin-solid": "2.11.8",
     "yaml": "2.8.1"
