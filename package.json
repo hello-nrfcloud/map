@@ -40,7 +40,7 @@
     "@types/node": "24.9.1",
     "@types/semver": "7.7.1",
     "commitlint": "19.8.1",
-    "glob": "11.0.3",
+    "glob": "11.1.0",
     "globstar": "1.0.0",
     "husky": "9.1.7",
     "jsonwebtoken": "9.0.2",
