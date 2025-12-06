@@ -57,7 +57,7 @@
     "yaml": "2.8.2"
   },
   "dependencies": {
-    "@hello.nrfcloud.com/proto": "15.4.92",
+    "@hello.nrfcloud.com/proto": "15.4.93",
     "@hello.nrfcloud.com/proto-map": "16.5.43",
     "@sinclair/typebox": "0.34.41",
     "e118-iin-list": "4.5.0",
