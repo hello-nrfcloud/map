@@ -43,7 +43,7 @@
     "glob": "11.1.0",
     "globstar": "1.0.0",
     "husky": "9.1.7",
-    "jsonwebtoken": "9.0.2",
+    "jsonwebtoken": "9.0.3",
     "rehype-external-links": "^3.0.0",
     "rehype-format": "5.0.1",
     "rehype-stringify": "10.0.1",
