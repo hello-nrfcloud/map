@@ -18,6 +18,9 @@ jobs:
           node-version: "22.x"
           cache: "npm"
 
+      - name: Install NPM version specified in package.json
+        uses: ./.github/actions/install-npm
+
       - name: Install dependencies
         run: npm ci --no-audit
 
@@ -75,6 +78,9 @@ jobs:
           node-version: "22.x"
           cache: "npm"
 
+      - name: Install NPM version specified in package.json
+        uses: ./.github/actions/install-npm
+
       - name: Install dependencies
         run: npm ci --no-audit --force
 
@@ -112,6 +118,9 @@ jobs:
         with:
           node-version: "22.x"
           cache: "npm"
+
+      - name: Install NPM version specified in package.json
+        uses: ./.github/actions/install-npm
 
       - name: Semantic release
         run: npx semantic-release
