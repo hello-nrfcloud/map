@@ -14,6 +14,10 @@ export const createConfig = (
 	apiURL: URL,
 	registryEndpoint: URL,
 	base: string,
+	map: {
+		region: string
+		apiKey: string
+	},
 	plugins: PluginOption[] = [],
 ): UserConfig => {
 	const baseSlashed = encloseWithSlash(base)
@@ -26,6 +30,8 @@ export const createConfig = (
 		REPOSITORY_URL: JSON.stringify(repositoryUrl),
 		PROTO_VERSION: JSON.stringify(protoVersion),
 		API_URL: JSON.stringify(apiURL.toString()),
+		MAP_REGION: JSON.stringify(map.region),
+		MAP_API_KEY: JSON.stringify(map.apiKey),
 	}
 	for (const [k, v] of Object.entries(define)) {
 		console.debug(`[vite define] ${k}:`, v)

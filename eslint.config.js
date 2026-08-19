@@ -19,6 +19,8 @@ export default [
 				'REGISTRY_ENDPOINT',
 				'REPOSITORY_URL',
 				'PROTO_VERSION',
+				'MAP_REGION',
+				'MAP_API_KEY',
 			],
 		},
 	},

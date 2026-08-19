@@ -2,7 +2,6 @@ import { useAllDevicesMapState } from '#context/AllDeviceMapState.tsx'
 import { useDevices } from '#context/Devices.tsx'
 import { useNavigation } from '#context/Navigation.tsx'
 import type { PinnedResource } from '#context/navigation/encodeNavigation.ts'
-import { useParameters } from '#context/Parameters.tsx'
 import { createMap } from '#map/createMap.ts'
 import { glyphFonts } from '#map/glyphFonts.ts'
 import { type Device } from '#resources/fetchDevices.ts'
@@ -27,7 +26,6 @@ type DeviceInfo = {
 }
 
 export const AllDevicesMap = () => {
-	const parameters = useParameters()
 	const allDevices = useDevices()
 	const location = useNavigation()
 	const { initial, update, state } = useAllDevicesMapState()
@@ -94,7 +92,7 @@ export const AllDevicesMap = () => {
 
 	// Create the initial map
 	createEffect(() => {
-		map = createMap(ref, parameters, initial.center, {
+		map = createMap(ref, initial.center, {
 			zoom: initial.zoom,
 		})
 

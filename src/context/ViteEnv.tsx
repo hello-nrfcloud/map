@@ -14,6 +14,9 @@ type ViteEnv = {
 	repositoryURL: URL
 	protoVersion: string
 	apiURL: URL
+	// Map resources
+	mapRegion: string
+	mapApiKey: string
 }
 
 const env: ViteEnv = {
@@ -26,6 +29,8 @@ const env: ViteEnv = {
 	repositoryURL: new URL(REPOSITORY_URL),
 	protoVersion: PROTO_VERSION,
 	apiURL: new URL(API_URL),
+	mapRegion: MAP_REGION,
+	mapApiKey: MAP_API_KEY,
 }
 
 export const ViteEnvContext = createContext<ViteEnv>(env)

@@ -11,3 +11,7 @@ declare const BASE_URL: string
 declare const REPOSITORY_URL: string
 declare const PROTO_VERSION: string
 declare const API_URL: string
+/** Region of the AWS Location Service map resources */
+declare const MAP_REGION: string
+/** API key for the AWS Location Service map resources */
+declare const MAP_API_KEY: string

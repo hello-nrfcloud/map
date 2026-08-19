@@ -39,6 +39,8 @@ jobs:
       - name: Ensure it builds
         env:
           REGISTRY_ENDPOINT: https://example.com/
+          MAP_REGION: eu-west-1
+          MAP_API_KEY: placeholder
         run: |
           npm run build
 
@@ -53,7 +55,6 @@ jobs:
 
     env:
       MAP_REGION: ${{ vars.MAP_REGION }}
-      MAP_NAME: ${{ vars.MAP_NAME }}
       MAP_API_KEY: ${{ vars.MAP_API_KEY }}
 
     # Note: It's currently not possible to run test for multiple browsers in

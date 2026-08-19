@@ -1,5 +1,4 @@
 import { useNavigation } from '#context/Navigation.tsx'
-import { useParameters } from '#context/Parameters.tsx'
 import { Lock, Map, Unlock, ZoomIn, ZoomOut } from '#icons/LucideIcon.tsx'
 import { createMap } from '#map/createMap.ts'
 import { geoJSONPolygonFromCircle } from '#map/geoJSONPolygonFromCircle.ts'
@@ -35,7 +34,6 @@ const byAge = (loc1: Geolocation_14201, loc2: Geolocation_14201) =>
 	new Date(loc1.Resources['99']).getTime()
 
 export const Card = (props: { locations: Geolocation_14201[] }) => {
-	const parameters = useParameters()
 	const location = useNavigation()
 	const [locked, setLocked] = createSignal(true)
 
@@ -58,12 +56,7 @@ export const Card = (props: { locations: Geolocation_14201[] }) => {
 			Resources: { 0: lat, 1: lng },
 		} = centerLocation() ?? mostRecent
 
-		map = createMap(
-			ref,
-			parameters,
-			{ lat, lng },
-			{ zoom: 8, attributionControl: false },
-		)
+		map = createMap(ref, { lat, lng }, { zoom: 8, attributionControl: false })
 		map.scrollZoom.disable()
 		map.dragPan.disable()
 		map.addControl(

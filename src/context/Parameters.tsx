@@ -10,10 +10,6 @@ import { useViteEnv } from './ViteEnv.tsx'
 
 export type Registry = {
 	nrfCloudTeamId: string
-	// Map resources
-	mapName: string
-	mapApiKey: string
-	mapRegion: string
 	// Backend API
 	helloApiURL: string
 }
@@ -28,10 +24,6 @@ export type Parameters = {
 	shareAPIURL: URL
 	confirmOwnershipAPIURL: URL
 	createCredentialsAPIURL: URL
-	// Map resources
-	mapName: string
-	mapApiKey: string
-	mapRegion: string
 	// Backend API
 	helloApiURL: URL
 }
@@ -41,13 +33,10 @@ export const fetchParameters =
 		try {
 			const res = await fetch(registryURL)
 			const params: Registry = await res.json()
-			const { mapName, mapApiKey, mapRegion, helloApiURL } = params
+			const { helloApiURL } = params
 			const parsed: Parameters = {
 				apiURL,
 				devicesAPIURL: new URL('./devices', apiURL),
-				mapName,
-				mapApiKey,
-				mapRegion,
 				shareAPIURL: new URL('./share', apiURL),
 				confirmOwnershipAPIURL: new URL('./share/confirm', apiURL),
 				createCredentialsAPIURL: new URL('./credentials', apiURL),

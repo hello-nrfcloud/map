@@ -75,17 +75,40 @@ This is achieved through:
   - Integrates with external data sources for contextual enrichment (e.g., nRF
     Cloud Location API, Memfault Device Health Metrics, etc. ...).
 
+## API Key for AWS Location Service map resources
+
+### Create an API key
+
+```bash
+aws location create-key \
+  --region eu-west-1 \
+  --key-name hello.nrfcloud.com-map \
+  --description "Map tiles for the hello.nrfcloud.com/map web app" \
+  --no-expiry \
+  --restrictions '{"AllowActions":["geo-maps:GetTile","geo-maps:GetStaticMap"],"AllowResources":["arn:aws:geo-maps:eu-west-1::provider/default"],"AllowReferers":["https://hello.nrfcloud.com/*","http://localhost:*/*"]}'
+```
+
+### Configure
+
+Export the map settings as the environment variables `MAP_REGION` and
+`MAP_API_KEY` before running it.
+
 ## Continuous integration
 
-Deploy an instance of the
-[AWS Map resources](https://github.com/hello-nrfcloud/aws-map) to the CI AWS
-account and store the map settings as variables:
+Store the map settings as variables:
 
 ```bash
 # Make sure that the `ci` environment exists in this repo
 gh variable set MAP_REGION --env ci --body "<mapRegion>"
-gh variable set MAP_NAME --env ci --body "<mapName>"
 gh variable set MAP_API_KEY --env ci --body "<apiKey>"
+```
+
+Store the map settings for the deployment as variables:
+
+```bash
+# Make sure that the `production` environment exists in this repo
+gh variable set MAP_REGION --env production --body "<mapRegion>"
+gh variable set MAP_API_KEY --env production --body "<apiKey>"
 ```
 
 ## end-to-end tests
@@ -93,8 +116,7 @@ gh variable set MAP_API_KEY --env ci --body "<apiKey>"
 End-to-end tests are run completely without a backend using Vite's built-in dev
 server to serve the data.
 
-Make sure to export `MAP_REGION`, `MAP_NAME`, and `MAP_API_KEY` before running
-it.
+Make sure to export `MAP_REGION` and `MAP_API_KEY` before running it.
 
 > Note: It's currently not possible to run test for multiple browsers in
 > parallel since the `webServer` >
