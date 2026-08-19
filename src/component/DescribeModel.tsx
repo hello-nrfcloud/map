@@ -1,12 +1,12 @@
-import { useNavigation } from '#context/Navigation.js'
-import { Documentation, Search, ViewSource } from '#icons/LucideIcon.js'
+import { useNavigation } from '#context/Navigation.tsx'
+import { Documentation, Search, ViewSource } from '#icons/LucideIcon.tsx'
 import type { ModelID } from '@hello.nrfcloud.com/proto-map/models'
 import { models } from '@hello.nrfcloud.com/proto-map/models'
-import { SearchTermType } from '../search.js'
-import { CollapsibleMenu } from './CollapsibleMenu.js'
-import { ResourcesDL } from './ResourcesDL.js'
-import { ToggleButton } from './ToggleButton.jsx'
-import { WhenToggled } from './WhenToggled.jsx'
+import { SearchTermType } from '../search.ts'
+import { CollapsibleMenu } from './CollapsibleMenu.tsx'
+import { ResourcesDL } from './ResourcesDL.tsx'
+import { ToggleButton } from './ToggleButton.tsx'
+import { WhenToggled } from './WhenToggled.tsx'
 
 export const DescribeModel = (props: { model: ModelID }) => {
 	const location = useNavigation()

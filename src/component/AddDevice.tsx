@@ -1,8 +1,8 @@
-import { useNavigation } from '#context/Navigation.js'
-import { Add, Close } from '#icons/LucideIcon.js'
+import { useNavigation } from '#context/Navigation.tsx'
+import { Add, Close } from '#icons/LucideIcon.tsx'
 import { Show } from 'solid-js'
-import { ModelInfoBlock } from './ModelInfoBlock.js'
-import { SidebarContent } from './Sidebar/SidebarContent.js'
+import { ModelInfoBlock } from './ModelInfoBlock.tsx'
+import { SidebarContent } from './Sidebar/SidebarContent.tsx'
 
 export const panelId = 'add-device'
 

@@ -1,13 +1,13 @@
-import { Battery } from '#icons/LucideIcon.js'
+import { Battery } from '#icons/LucideIcon.tsx'
 import {
 	definitions,
 	LwM2MObjectID,
 	type BatteryAndPower_14202,
 } from '@hello.nrfcloud.com/proto-map/lwm2m'
 import { createMemo, Show } from 'solid-js'
-import { ResourcesDL } from '../ResourcesDL.js'
+import { ResourcesDL } from '../ResourcesDL.tsx'
 
-import { DescribeScalarValue } from '../lwm2m/DescribeScalarValue.js'
+import { DescribeScalarValue } from '../lwm2m/DescribeScalarValue.tsx'
 import './DeviceInformation.css'
 
 export const Icon = () => (

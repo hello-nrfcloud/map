@@ -51,32 +51,36 @@ import {
 import { For } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
 
+// Attributes lucide applies to the <svg> element it creates,
+// see https://github.com/lucide-icons/lucide/blob/main/packages/lucide/src/defaultAttributes.ts
+const defaultAttributes = {
+	xmlns: 'http://www.w3.org/2000/svg',
+	viewBox: '0 0 24 24',
+	fill: 'none',
+	stroke: 'currentColor',
+	'stroke-linecap': 'round',
+	'stroke-linejoin': 'round',
+} as const
+
 export const LucideIcon = (
 	props: {
 		icon: IconNode
 	} & LucideProps,
-) => {
-	const [, attrs, children] = props.icon
-	const svgProps = {
-		'stroke-width': props.strokeWidth ?? attrs.strokeWidth ?? 2,
-	}
-	return (
-		<svg
-			{...{ ...attrs, ...svgProps }}
-			style={{
-				width: `${props.size ?? 24}px`,
-				height: `${props.size ?? 24}px`,
-			}}
-			class={`icon ${props.class ?? ''}`}
-		>
-			<For each={children}>
-				{([elementName, attrs]) => (
-					<Dynamic component={elementName} {...attrs} />
-				)}
-			</For>
-		</svg>
-	)
-}
+) => (
+	<svg
+		{...defaultAttributes}
+		stroke-width={props.strokeWidth ?? 2}
+		style={{
+			width: `${props.size ?? 24}px`,
+			height: `${props.size ?? 24}px`,
+		}}
+		class={`icon ${props.class ?? ''}`}
+	>
+		<For each={props.icon}>
+			{([elementName, attrs]) => <Dynamic component={elementName} {...attrs} />}
+		</For>
+	</svg>
+)
 
 export type LucideProps = {
 	size?: number

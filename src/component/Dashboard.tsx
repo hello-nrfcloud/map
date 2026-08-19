@@ -1,5 +1,5 @@
-import { useNavigation } from '#context/Navigation.js'
-import { Dashboard } from '#icons/LucideIcon.js'
+import { useNavigation } from '#context/Navigation.tsx'
+import { Dashboard } from '#icons/LucideIcon.tsx'
 
 export const SidebarButton = () => {
 	const location = useNavigation()

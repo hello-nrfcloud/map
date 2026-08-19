@@ -1,8 +1,8 @@
-import { useNavigation } from '#context/Navigation.js'
-import { ScrollDown } from '#icons/LucideIcon.js'
+import { useNavigation } from '#context/Navigation.tsx'
+import { ScrollDown } from '#icons/LucideIcon.tsx'
 import { createEffect, createSignal, onCleanup, Show } from 'solid-js'
-import type { TutorialEntryType } from '../../../tutorial/tutorialContentPlugin.js'
-import { isDone } from './isDone.js'
+import type { TutorialEntryType } from '../../../tutorial/tutorialContentPlugin.ts'
+import { isDone } from './isDone.ts'
 
 import './TutorialHighlight.css'
 

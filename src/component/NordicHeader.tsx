@@ -1,4 +1,4 @@
-import { useViteEnv } from '#context/ViteEnv.js'
+import { useViteEnv } from '#context/ViteEnv.tsx'
 
 import './NordicHeader.css'
 

@@ -1,5 +1,5 @@
-import { useNavigation } from '#context/Navigation.js'
-import { Close, Menu as MenuIcon } from '#icons/LucideIcon.js'
+import { useNavigation } from '#context/Navigation.tsx'
+import { Close, Menu as MenuIcon } from '#icons/LucideIcon.tsx'
 import { type ParentProps, Show } from 'solid-js'
 import './CollapsibleMenu.css'
 

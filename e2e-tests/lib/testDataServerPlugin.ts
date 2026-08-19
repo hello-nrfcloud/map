@@ -1,6 +1,6 @@
 import type { IncomingMessage, ServerResponse } from 'http'
 import type { Connect, Plugin } from 'vite'
-import type { Registry } from '../../src/context/Parameters.js'
+import type { Registry } from '../../src/context/Parameters.tsx'
 import { mockBackend } from './mock-backend.ts'
 
 export const testdataServerPlugin = ({

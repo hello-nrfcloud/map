@@ -12,20 +12,17 @@ import {
 export const isDeviceInformation = (
 	instance?: LwM2MObjectInstance,
 ): instance is DeviceInformation_14204 =>
-	instance !== undefined &&
-	instance.ObjectID === LwM2MObjectID.DeviceInformation_14204
+	instance?.ObjectID === LwM2MObjectID.DeviceInformation_14204
 
 export const isBatteryAndPower = (
 	instance?: LwM2MObjectInstance,
 ): instance is BatteryAndPower_14202 =>
-	instance !== undefined &&
-	instance.ObjectID === LwM2MObjectID.BatteryAndPower_14202
+	instance?.ObjectID === LwM2MObjectID.BatteryAndPower_14202
 
 export const isGeoLocation = (
 	instance?: LwM2MObjectInstance,
 ): instance is Geolocation_14201 =>
-	instance !== undefined &&
-	instance.ObjectID === LwM2MObjectID.Geolocation_14201
+	instance?.ObjectID === LwM2MObjectID.Geolocation_14201
 
 export const isGeoLocationArray = (
 	instances: LwM2MObjectInstance[],

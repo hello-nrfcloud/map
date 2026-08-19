@@ -1,31 +1,31 @@
-import { APIHealth } from '#component/APIHealth.js'
+import { APIHealth } from '#component/APIHealth.tsx'
 import {
 	SidebarButton as AddDeviceButton,
 	Sidebar as AddDeviceSidebar,
-} from '#component/AddDevice.js'
-import { AllDevicesMap } from '#component/AllDevicesMap/AllDevicesMap.js'
-import { UpdateAvailable } from '#component/AppUpdate.js'
-import { SidebarButton as DashboardButton } from '#component/Dashboard.js'
+} from '#component/AddDevice.tsx'
+import { AllDevicesMap } from '#component/AllDevicesMap/AllDevicesMap.tsx'
+import { UpdateAvailable } from '#component/AppUpdate.tsx'
+import { SidebarButton as DashboardButton } from '#component/Dashboard.tsx'
 import {
 	SidebarButton as DeviceDetailButton,
 	DeviceSidebar,
-} from '#component/Device.js'
+} from '#component/Device.tsx'
 import {
 	SidebarButton as FeedbackButton,
 	Sidebar as FeedbackSidebar,
-} from '#component/Feedback.js'
-import { NordicHeader } from '#component/NordicHeader.jsx'
-import { Sidebar as SearchSidebar } from '#component/Search.js'
-import { SearchButton } from '#component/Sidebar/SearchButton.js'
-import { SidebarNav } from '#component/SidebarNav.js'
+} from '#component/Feedback.tsx'
+import { NordicHeader } from '#component/NordicHeader.tsx'
+import { Sidebar as SearchSidebar } from '#component/Search.tsx'
+import { SearchButton } from '#component/Sidebar/SearchButton.tsx'
+import { SidebarNav } from '#component/SidebarNav.tsx'
 import {
 	Tutorial,
 	SidebarButton as TutorialButton,
-} from '#component/Tutorial/Tutorial.js'
+} from '#component/Tutorial/Tutorial.tsx'
 import {
 	SidebarButton as ViewSourceButton,
 	Sidebar as ViewSourceSidebar,
-} from '#component/ViewSource.js'
+} from '#component/ViewSource.tsx'
 import { createEffect } from 'solid-js'
 
 import './MapApp.css'

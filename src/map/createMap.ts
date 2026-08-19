@@ -1,7 +1,12 @@
-import type { Parameters } from '#context/Parameters.js'
-import { mapStyle } from '#map/style.js'
-import { transformRequest } from '#map/transformRequest.js'
-import { Map as MapLibreGlMap, type MapOptions } from 'maplibre-gl'
+import type { Parameters } from '#context/Parameters.tsx'
+import { mapStyle } from '#map/style.ts'
+import { transformRequest } from '#map/transformRequest.tsx'
+import {
+	Map as MapLibreGlMap,
+	setWorkerUrl,
+	type MapOptions,
+} from 'maplibre-gl'
+import maplibreWorkerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url'
 
 export const createMap = (
 	container: HTMLDivElement,
@@ -10,6 +15,7 @@ export const createMap = (
 	options?: Partial<MapOptions>,
 ): MapLibreGlMap => {
 	const { lng, lat } = center
+	setWorkerUrl(maplibreWorkerUrl)
 	const map = new MapLibreGlMap({
 		container,
 		style: mapStyle({

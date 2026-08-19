@@ -7,7 +7,7 @@ import { stackOutput } from '@bifravst/cloudformation-helpers'
 import { glob } from 'glob'
 import { randomUUID } from 'node:crypto'
 import path, { parse } from 'node:path'
-import { encloseWithSlash } from '../../src/util/encloseWithSlash.js'
+import { encloseWithSlash } from '../../src/util/encloseWithSlash.ts'
 
 const cloudFront = new CloudFrontClient({})
 const cloudFormation = new CloudFormationClient({})

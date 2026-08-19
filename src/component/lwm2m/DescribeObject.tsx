@@ -1,14 +1,14 @@
-import { useNavigation } from '#context/Navigation.js'
-import { Documentation, Search, ViewSource } from '#icons/LucideIcon.js'
+import { useNavigation } from '#context/Navigation.tsx'
+import { Documentation, Search, ViewSource } from '#icons/LucideIcon.tsx'
 import {
 	definitions,
 	type LwM2MObjectInstance,
 } from '@hello.nrfcloud.com/proto-map/lwm2m'
-import { SearchTermType } from '../../search.js'
-import { CollapsibleMenu } from '../CollapsibleMenu.js'
-import { ResourcesDL } from '../ResourcesDL.js'
-import { ToggleButton } from '../ToggleButton.jsx'
-import { WhenToggled } from '../WhenToggled.jsx'
+import { SearchTermType } from '../../search.ts'
+import { CollapsibleMenu } from '../CollapsibleMenu.tsx'
+import { ResourcesDL } from '../ResourcesDL.tsx'
+import { ToggleButton } from '../ToggleButton.tsx'
+import { WhenToggled } from '../WhenToggled.tsx'
 
 export const DescribeObject = (props: { instance: LwM2MObjectInstance }) => {
 	const location = useNavigation()

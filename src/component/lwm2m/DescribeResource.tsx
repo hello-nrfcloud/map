@@ -1,5 +1,5 @@
-import { useNavigation } from '#context/Navigation.js'
-import type { PinnedResource } from '#context/navigation/encodeNavigation.js'
+import { useNavigation } from '#context/Navigation.tsx'
+import type { PinnedResource } from '#context/navigation/encodeNavigation.ts'
 import {
 	Documentation,
 	History,
@@ -7,9 +7,9 @@ import {
 	Published,
 	Search,
 	UnpinFromMap,
-} from '#icons/LucideIcon.js'
-import type { Device } from '#resources/fetchDevices.js'
-import { format } from '#util/lwm2m.js'
+} from '#icons/LucideIcon.tsx'
+import type { Device } from '#resources/fetchDevices.ts'
+import { format } from '#util/lwm2m.ts'
 import type { LwM2MObjectID } from '@hello.nrfcloud.com/proto-map/lwm2m'
 import {
 	ResourceType,
@@ -18,12 +18,12 @@ import {
 } from '@hello.nrfcloud.com/proto-map/lwm2m'
 import type { ModelID } from '@hello.nrfcloud.com/proto-map/models'
 import { createSignal, For, Show } from 'solid-js'
-import { SearchTermType } from '../../search.js'
-import { CollapsibleMenu } from '../CollapsibleMenu.js'
-import { RelativeTime } from '../RelativeTime.js'
-import { DescribeResourceDefinition } from './DescribeResourceDefinition.js'
-import { DescribeScalarValue } from './DescribeScalarValue.js'
-import { ResourceHistory } from './ResourceHistory.js'
+import { SearchTermType } from '../../search.ts'
+import { CollapsibleMenu } from '../CollapsibleMenu.tsx'
+import { RelativeTime } from '../RelativeTime.tsx'
+import { DescribeResourceDefinition } from './DescribeResourceDefinition.tsx'
+import { DescribeScalarValue } from './DescribeScalarValue.tsx'
+import { ResourceHistory } from './ResourceHistory.tsx'
 
 export const DescribeResource = (props: {
 	ObjectID: LwM2MObjectID

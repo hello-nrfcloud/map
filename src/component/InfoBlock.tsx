@@ -1,4 +1,4 @@
-import { Info } from '#icons/LucideIcon.js'
+import { Info } from '#icons/LucideIcon.tsx'
 import { Show, createSignal, type JSX, type ParentProps } from 'solid-js'
 import './InfoBlock.css'
 

@@ -1,4 +1,4 @@
-import { LoadingFullScreen } from '#component/LoadingFullScreen.js'
+import { LoadingFullScreen } from '#component/LoadingFullScreen.tsx'
 import {
 	createContext,
 	createResource,
@@ -6,7 +6,7 @@ import {
 	useContext,
 	type ParentProps,
 } from 'solid-js'
-import { useViteEnv } from './ViteEnv.js'
+import { useViteEnv } from './ViteEnv.tsx'
 
 export type Registry = {
 	nrfCloudTeamId: string
@@ -65,11 +65,12 @@ export const fetchParameters =
 				`Failed to fetch parameters from registry (${registryURL.toString()}): ${
 					(err as Error).message
 				}!`,
+				{ cause: err },
 			)
 		}
 	}
 
-export const ParametersContext = createContext<Parameters>(undefined as any)
+export const ParametersContext = createContext<Parameters>(undefined)
 export const useParameters = () => {
 	const context = useContext(ParametersContext)
 

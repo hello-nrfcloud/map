@@ -1,4 +1,4 @@
-import { Warning } from '#icons/LucideIcon.js'
+import { Warning } from '#icons/LucideIcon.tsx'
 import type {
 	HttpStatusCode,
 	ProblemDetail,

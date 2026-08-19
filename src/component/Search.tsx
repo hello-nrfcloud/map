@@ -1,19 +1,19 @@
-import { useDevices } from '#context/Devices.js'
-import { useNavigation } from '#context/Navigation.js'
-import { Device as DeviceIcon } from '#icons/Device.js'
-import { AddToSearch, Close, Published } from '#icons/LucideIcon.js'
-import { type Device } from '#resources/fetchDevices.js'
+import { useDevices } from '#context/Devices.tsx'
+import { useNavigation } from '#context/Navigation.tsx'
+import { Device as DeviceIcon } from '#icons/Device.tsx'
+import { AddToSearch, Close, Published } from '#icons/LucideIcon.tsx'
+import { type Device } from '#resources/fetchDevices.ts'
 import { For, Show, createMemo } from 'solid-js'
 import {
 	type SearchTerm,
 	SearchTermType,
 	isSearchTermType,
 	matches,
-} from '../search.js'
-import { RelativeTime } from './RelativeTime.js'
-import { SidebarContent } from './Sidebar/SidebarContent.js'
+} from '../search.ts'
+import { RelativeTime } from './RelativeTime.tsx'
+import { SidebarContent } from './Sidebar/SidebarContent.tsx'
 
-import { noop } from '#util/noop.js'
+import { noop } from '#util/noop.ts'
 import './Search.css'
 
 const parse = (value: string): SearchTerm | undefined => {
@@ -21,7 +21,7 @@ const parse = (value: string): SearchTerm | undefined => {
 	if (type !== undefined && term === undefined) {
 		return { type: SearchTermType.Any, term: type }
 	} else if (isSearchTermType(type) && term !== undefined) {
-		return { type, term } as SearchTerm
+		return { type, term }
 	}
 	return undefined
 }

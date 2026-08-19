@@ -21,17 +21,15 @@
     "verbatimModuleSyntax": true,
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
-    "types": ["vite/client"],
     "allowImportingTsExtensions": true,
-    "baseUrl": "src",
     "paths": {
-      "#dashboard/*": ["dashboard/*"],
-      "#component/*": ["component/*"],
-      "#context/*": ["context/*"],
-      "#icons/*": ["icons/*"],
-      "#map/*": ["map/*"],
-      "#resources/*": ["resources/*"],
-      "#util/*": ["util/*"]
+      "#dashboard/*": ["./src/dashboard/*"],
+      "#component/*": ["./src/component/*"],
+      "#context/*": ["./src/context/*"],
+      "#icons/*": ["./src/icons/*"],
+      "#map/*": ["./src/map/*"],
+      "#resources/*": ["./src/resources/*"],
+      "#util/*": ["./src/util/*"]
     }
   },
   "exclude": ["node_modules/**/*"]

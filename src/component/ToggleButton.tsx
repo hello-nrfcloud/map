@@ -1,5 +1,5 @@
-import { useNavigation } from '#context/Navigation.js'
-import { Collapse, Expand } from '#icons/LucideIcon.js'
+import { useNavigation } from '#context/Navigation.tsx'
+import { Collapse, Expand } from '#icons/LucideIcon.tsx'
 import { Show } from 'solid-js'
 
 export const ToggleButton = (props: { id: string; title: string }) => {

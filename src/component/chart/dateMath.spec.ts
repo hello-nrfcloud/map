@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
-import { addMinutes, subMinutes } from './dateMath.js'
+import { addMinutes, subMinutes } from './dateMath.ts'
 
 void describe('addMinutes', () => {
 	void it('should add minutes to a date', () => {

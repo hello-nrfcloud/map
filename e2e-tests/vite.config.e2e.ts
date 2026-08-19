@@ -1,6 +1,6 @@
 import { fromEnv } from '@bifravst/from-env'
 import { randomUUID } from 'crypto'
-import { createConfig } from '../vite/config.js'
+import { createConfig } from '../vite/config.ts'
 import { testdataServerPlugin } from './lib/testDataServerPlugin.ts'
 
 const { mapRegion, mapName, mapApiKey } = fromEnv({

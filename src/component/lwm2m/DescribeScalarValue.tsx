@@ -1,4 +1,4 @@
-import { format } from '#util/lwm2m.js'
+import { format } from '#util/lwm2m.ts'
 import type { LwM2MResourceInfo } from '@hello.nrfcloud.com/proto-map/lwm2m'
 import { Show } from 'solid-js'
 

@@ -1,16 +1,16 @@
-import { Multiple, Published } from '#icons/LucideIcon.js'
-import type { Device } from '#resources/fetchDevices.js'
+import { Multiple, Published } from '#icons/LucideIcon.tsx'
+import type { Device } from '#resources/fetchDevices.ts'
 import {
 	definitions,
 	instanceTs,
 	type LwM2MObjectInstance,
 } from '@hello.nrfcloud.com/proto-map/lwm2m'
 import { Show, type JSX } from 'solid-js'
-import { RelativeTime } from '../RelativeTime.js'
-import { ToggleButton } from '../ToggleButton.jsx'
-import { WhenToggled } from '../WhenToggled.jsx'
-import { DescribeObject } from './DescribeObject.js'
-import { DescribeResources } from './DescribeResources.js'
+import { RelativeTime } from '../RelativeTime.tsx'
+import { ToggleButton } from '../ToggleButton.tsx'
+import { WhenToggled } from '../WhenToggled.tsx'
+import { DescribeObject } from './DescribeObject.tsx'
+import { DescribeResources } from './DescribeResources.tsx'
 
 import './DescribeInstance.css'
 

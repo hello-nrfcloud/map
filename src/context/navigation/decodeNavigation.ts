@@ -94,7 +94,7 @@ export const decode = (encoded?: string): Navigation | undefined => {
 
 	const helpState = rest.find((s) => s.split(':', 2)[0] === FieldKey.Tutorial)
 	if (helpState !== undefined) {
-		nav.tutorial = helpState.split(':', 2)[1] as string
+		nav.tutorial = helpState.split(':', 2)[1]
 	}
 
 	const toggledState = rest.find((s) => s.split(':', 2)[0] === FieldKey.Toggled)

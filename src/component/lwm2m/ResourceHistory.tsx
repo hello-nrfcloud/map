@@ -1,6 +1,6 @@
-import { useParameters } from '#context/Parameters.js'
-import type { Device } from '#resources/fetchDevices.js'
-import { fetchHistory } from '#resources/fetchHistory.js'
+import { useParameters } from '#context/Parameters.tsx'
+import type { Device } from '#resources/fetchDevices.ts'
+import { fetchHistory } from '#resources/fetchHistory.ts'
 import {
 	ResourceType,
 	definitions,
@@ -9,8 +9,8 @@ import {
 	type LwM2MResourceInfo,
 } from '@hello.nrfcloud.com/proto-map/lwm2m'
 import { Show, createMemo, createResource } from 'solid-js'
-import { SizeObserver } from '../SizeObserver.js'
-import { HistoryChart } from '../chart/HistoryChart.js'
+import { SizeObserver } from '../SizeObserver.tsx'
+import { HistoryChart } from '../chart/HistoryChart.tsx'
 
 import './ResourceHistory.css'
 

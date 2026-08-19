@@ -1,22 +1,22 @@
-import { useNavigation } from '#context/Navigation.js'
-import type { Device } from '#resources/fetchDevices.js'
+import { useNavigation } from '#context/Navigation.tsx'
+import type { Device } from '#resources/fetchDevices.ts'
 import {
 	type BatteryAndPower_14202,
 	type DeviceInformation_14204,
 	type Geolocation_14201,
 } from '@hello.nrfcloud.com/proto-map/lwm2m'
 import { For, Show, createMemo, type ParentProps } from 'solid-js'
-import { DescribeInstance } from '../lwm2m/DescribeInstance.js'
+import { DescribeInstance } from '../lwm2m/DescribeInstance.tsx'
 import {
 	Card as BatteryAndPowerCard,
 	Icon as BatteryAndPowerIcon,
-} from './BatteryAndPower.js'
+} from './BatteryAndPower.tsx'
 import {
 	Card as DeviceInformationCard,
 	Icon as DeviceInformationIcon,
-} from './DeviceInformation.js'
-import { Card as LocationCard, Icon as LocationIcon } from './Location.js'
-import { Card as PinnedCard, Icon as PinnedIcon } from './Pinned.js'
+} from './DeviceInformation.tsx'
+import { Card as LocationCard, Icon as LocationIcon } from './Location.tsx'
+import { Card as PinnedCard, Icon as PinnedIcon } from './Pinned.tsx'
 
 import { Center } from '#icons/LucideIcon.tsx'
 import './KnownObjects.css'

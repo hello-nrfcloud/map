@@ -1,6 +1,6 @@
-import type { Size } from '../SizeObserver.js'
-import { chartMath, type ChartData } from './chartMath.js'
-import { generateLabels } from './generateLabels.js'
+import type { Size } from '../SizeObserver.tsx'
+import { chartMath, type ChartData } from './chartMath.ts'
+import { generateLabels } from './generateLabels.ts'
 
 import './HistoryChart.css'
 

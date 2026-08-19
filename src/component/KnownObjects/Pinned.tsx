@@ -1,6 +1,6 @@
-import type { PinnedResource } from '#context/navigation/encodeNavigation.js'
-import { PinOnMap } from '#icons/LucideIcon.js'
-import type { Device } from '#resources/fetchDevices.js'
+import type { PinnedResource } from '#context/navigation/encodeNavigation.ts'
+import { PinOnMap } from '#icons/LucideIcon.tsx'
+import type { Device } from '#resources/fetchDevices.ts'
 import type { LwM2MObjectID } from '@hello.nrfcloud.com/proto-map/lwm2m'
 import {
 	definitions,
@@ -10,8 +10,8 @@ import {
 	type LwM2MResourceValue,
 } from '@hello.nrfcloud.com/proto-map/lwm2m'
 import { For, createMemo } from 'solid-js'
-import { ResourcesDL } from '../ResourcesDL.js'
-import { DescribeResource } from '../lwm2m/DescribeResource.js'
+import { ResourcesDL } from '../ResourcesDL.tsx'
+import { DescribeResource } from '../lwm2m/DescribeResource.tsx'
 
 import './DeviceInformation.css'
 
@@ -51,7 +51,7 @@ export const Card = (props: {
 					ObjectID,
 					resource,
 					definition,
-					value: resourceValue as LwM2MResourceValue | undefined,
+					value: resourceValue,
 					ts,
 					InstanceID: instance?.ObjectInstanceID ?? 0,
 				}

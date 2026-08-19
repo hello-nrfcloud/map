@@ -1,10 +1,10 @@
-import { useAPIHealth } from '#context/APIHealth.js'
-import { useNavigation } from '#context/Navigation.js'
-import { useViteEnv } from '#context/ViteEnv.js'
-import { Close, ViewSource } from '#icons/LucideIcon.js'
+import { useAPIHealth } from '#context/APIHealth.tsx'
+import { useNavigation } from '#context/Navigation.tsx'
+import { useViteEnv } from '#context/ViteEnv.tsx'
+import { Close, ViewSource } from '#icons/LucideIcon.tsx'
 import { Show } from 'solid-js'
-import { RelativeTime } from './RelativeTime.js'
-import { SidebarContent } from './Sidebar/SidebarContent.js'
+import { RelativeTime } from './RelativeTime.tsx'
+import { SidebarContent } from './Sidebar/SidebarContent.tsx'
 
 const panelId = 'view-source'
 

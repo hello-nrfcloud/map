@@ -1,4 +1,4 @@
-import { fetchRelease } from '#resources/fetchRelease.js'
+import { fetchRelease } from '#resources/fetchRelease.ts'
 import { compare, type SemVer } from 'semver'
 import {
 	createContext,
@@ -9,7 +9,7 @@ import {
 	useContext,
 	type ParentProps,
 } from 'solid-js'
-import { useViteEnv } from './ViteEnv.js'
+import { useViteEnv } from './ViteEnv.tsx'
 
 const logPrefix = '[AppUpdate]'
 

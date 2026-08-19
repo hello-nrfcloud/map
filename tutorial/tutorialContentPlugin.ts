@@ -3,7 +3,7 @@ import { Type, type Static } from '@sinclair/typebox'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import type { Plugin } from 'vite'
-import { decode } from '../src/context/navigation/decodeNavigation.js'
+import { decode } from '../src/context/navigation/decodeNavigation.ts'
 import { loadMarkdownContentFromFile } from './loadMarkdownFromFile.ts'
 
 const __dirname = import.meta.dirname

@@ -8,7 +8,7 @@ import {
 	protoVersion,
 	repositoryUrl,
 	version,
-} from './packageInfo.js'
+} from './packageInfo.ts'
 
 export const createConfig = (
 	apiURL: URL,
@@ -47,11 +47,19 @@ export const createConfig = (
 		build: {
 			rollupOptions: {
 				input: {
-					main: resolve(__dirname, '..', 'index.html'),
-					dashboard: resolve(__dirname, '..', 'dashboard', 'index.html'),
+					main: resolve(import.meta.dirname, '..', 'index.html'),
+					dashboard: resolve(
+						import.meta.dirname,
+						'..',
+						'dashboard',
+						'index.html',
+					),
 				},
 			},
 			sourcemap: true,
+		},
+		optimizeDeps: {
+			exclude: ['maplibre-gl'],
 		},
 		resolve: {
 			alias: [

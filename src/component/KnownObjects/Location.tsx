@@ -1,14 +1,14 @@
 import { useNavigation } from '#context/Navigation.tsx'
-import { useParameters } from '#context/Parameters.js'
-import { Lock, Map, Unlock, ZoomIn, ZoomOut } from '#icons/LucideIcon.js'
-import { createMap } from '#map/createMap.js'
-import { geoJSONPolygonFromCircle } from '#map/geoJSONPolygonFromCircle.js'
+import { useParameters } from '#context/Parameters.tsx'
+import { Lock, Map, Unlock, ZoomIn, ZoomOut } from '#icons/LucideIcon.tsx'
+import { createMap } from '#map/createMap.ts'
+import { geoJSONPolygonFromCircle } from '#map/geoJSONPolygonFromCircle.ts'
 import { getLocationsBounds } from '#map/getLocationsBounds.ts'
-import { glyphFonts } from '#map/glyphFonts.js'
+import { glyphFonts } from '#map/glyphFonts.ts'
 import {
 	defaultLocationSourceColor,
 	locationSourceColors,
-} from '#map/locationSourceColors.js'
+} from '#map/locationSourceColors.ts'
 import { type Geolocation_14201 } from '@hello.nrfcloud.com/proto-map/lwm2m'
 import type { Map as MapLibreGlMap } from 'maplibre-gl'
 import { ScaleControl } from 'maplibre-gl'

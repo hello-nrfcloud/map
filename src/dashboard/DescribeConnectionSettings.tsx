@@ -1,6 +1,6 @@
-import { ResourcesDL } from '#component/ResourcesDL.js'
-import { useParameters } from '#context/Parameters.js'
-import { CopyableProp } from '#dashboard/CopyableProp.js'
+import { ResourcesDL } from '#component/ResourcesDL.tsx'
+import { useParameters } from '#context/Parameters.tsx'
+import { CopyableProp } from '#dashboard/CopyableProp.tsx'
 
 export const DescribeConnectionSettings = (props: {
 	deviceId: string

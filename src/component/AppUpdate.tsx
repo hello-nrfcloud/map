@@ -1,6 +1,6 @@
-import { useAppUpdate } from '#context/AppUpdate.js'
-import { useNavigation } from '#context/Navigation.js'
-import { AppUpdateRequired } from '#icons/LucideIcon.js'
+import { useAppUpdate } from '#context/AppUpdate.tsx'
+import { useNavigation } from '#context/Navigation.tsx'
+import { AppUpdateRequired } from '#icons/LucideIcon.tsx'
 import { Show } from 'solid-js'
 
 import './AppUpdate.css'

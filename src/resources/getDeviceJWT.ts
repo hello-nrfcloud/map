@@ -7,7 +7,7 @@ import {
 } from '@hello.nrfcloud.com/proto-map/api'
 import { typedFetch } from '@hello.nrfcloud.com/proto/hello'
 import { Type } from '@sinclair/typebox'
-import type { Device } from './fetchDevices.js'
+import type { Device } from './fetchDevices.ts'
 
 const deviceJWT = typedFetch({
 	responseBodySchema: Type.Object({

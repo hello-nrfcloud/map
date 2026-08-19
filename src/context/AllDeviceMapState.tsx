@@ -7,7 +7,7 @@ import {
 	type Setter,
 	useContext,
 } from 'solid-js'
-import { useNavigation } from './Navigation.js'
+import { useNavigation } from './Navigation.tsx'
 
 export type MapState = {
 	center: {

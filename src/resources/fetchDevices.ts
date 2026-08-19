@@ -12,6 +12,7 @@ export const fetchDevices =
 		} catch (err) {
 			throw new Error(
 				`Failed to fetch devices (${url.toString()}): ${(err as Error).message}!`,
+				{ cause: err },
 			)
 		}
 	}

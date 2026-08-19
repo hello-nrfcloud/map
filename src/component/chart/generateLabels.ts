@@ -1,5 +1,5 @@
-import { type chartMath, type XAxis } from './chartMath.js'
-import { subMinutes } from './dateMath.js'
+import { type chartMath, type XAxis } from './chartMath.ts'
+import { subMinutes } from './dateMath.ts'
 
 export const generateLabels = (
 	{ startDate }: ReturnType<typeof chartMath>,

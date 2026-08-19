@@ -7,14 +7,14 @@ import {
 	type ParentProps,
 	useContext,
 } from 'solid-js'
-import type { SearchTerm } from '../search.js'
+import type { SearchTerm } from '../search.ts'
 import { decode } from './navigation/decodeNavigation.ts'
 import {
 	encode,
 	type Navigation,
 	type PinnedResource,
-} from './navigation/encodeNavigation.js'
-import { useViteEnv } from './ViteEnv.js'
+} from './navigation/encodeNavigation.ts'
+import { useViteEnv } from './ViteEnv.tsx'
 
 const Home: Navigation = {
 	panel: 'world',

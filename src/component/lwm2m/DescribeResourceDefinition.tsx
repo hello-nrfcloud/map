@@ -1,4 +1,4 @@
-import { Close } from '#icons/LucideIcon.js'
+import { Close } from '#icons/LucideIcon.tsx'
 import type { LwM2MObjectID } from '@hello.nrfcloud.com/proto-map/lwm2m'
 import {
 	definitions,

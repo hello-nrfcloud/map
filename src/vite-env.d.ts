@@ -1,6 +1,6 @@
 /* eslint no-restricted-globals: 0 */
 
-// add these to eslint.config.js
+/// <reference types="vite/client" />
 
 declare const HOMEPAGE: string
 declare const VERSION: string

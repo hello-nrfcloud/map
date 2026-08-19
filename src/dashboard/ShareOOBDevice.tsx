@@ -24,7 +24,7 @@ export const ShareOOBDevice = (props: {
 		() => props.fingerprint,
 		fetchOOBDeviceInfo(parameters.helloApiURL),
 	)
-	const modelValid = () => Object.keys(models).includes(props.model as ModelID)
+	const modelValid = () => Object.keys(models).includes(props.model)
 
 	return (
 		<Card>

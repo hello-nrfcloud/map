@@ -1,5 +1,5 @@
 import { fromEnv } from '@bifravst/from-env'
-import { createConfig } from './vite/config.js'
+import { createConfig } from './vite/config.ts'
 
 const { registryEndpoint } = fromEnv({
 	registryEndpoint: 'REGISTRY_ENDPOINT',

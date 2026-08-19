@@ -36,10 +36,8 @@ export const mockBackend = ({
 				req.originalUrl?.split('?')[1],
 			).get('fingerprint')
 			if (fingerprint === null) return anError(res, 400)
-			if (deviceIdentities[fingerprint] === undefined) {
-				deviceIdentities[fingerprint] =
-					`oob-${352656166600000 + Math.floor(Math.random() * 100_000)}`
-			}
+			deviceIdentities[fingerprint] ??=
+				`oob-${352656166600000 + Math.floor(Math.random() * 100_000)}`
 			return sendJSON(res, {
 				'@context': HelloContext.deviceIdentity,
 				id: deviceIdentities[fingerprint],
@@ -188,7 +186,9 @@ const getJSON = async (
 				const jsonData = JSON.parse(requestData)
 				resolve(jsonData)
 			} catch (error) {
-				reject(error)
+				reject(
+					error instanceof Error ? error : new Error(JSON.stringify(error)),
+				)
 			}
 		})
 	})

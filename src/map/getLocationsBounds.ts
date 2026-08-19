@@ -1,6 +1,6 @@
 import { type Geolocation_14201 } from '@hello.nrfcloud.com/proto-map/lwm2m'
 import { LngLatBounds } from 'maplibre-gl'
-import { getPolygonCoordinatesForCircle } from './geoJSONPolygonFromCircle.js'
+import { getPolygonCoordinatesForCircle } from './geoJSONPolygonFromCircle.ts'
 
 export const getLocationsBounds = (
 	locations: Geolocation_14201[],

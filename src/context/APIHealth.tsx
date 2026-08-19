@@ -10,7 +10,7 @@ import {
 	type Accessor,
 	type ParentProps,
 } from 'solid-js'
-import { useViteEnv } from './ViteEnv.js'
+import { useViteEnv } from './ViteEnv.tsx'
 
 const ApiHealth = Type.Object({
 	'@context': Type.Literal(Context.apiHealth.toString()),

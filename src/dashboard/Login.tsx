@@ -1,4 +1,4 @@
-import { InfoBlock } from '#component/InfoBlock.js'
+import { InfoBlock } from '#component/InfoBlock.tsx'
 import { Problem } from '#component/notifications/Problem.tsx'
 import { Progress } from '#component/notifications/Progress.tsx'
 import { Success } from '#component/notifications/Success.tsx'

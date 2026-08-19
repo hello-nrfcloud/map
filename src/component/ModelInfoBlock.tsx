@@ -1,7 +1,7 @@
-import { useViteEnv } from '#context/ViteEnv.js'
+import { useViteEnv } from '#context/ViteEnv.tsx'
 import { models } from '@hello.nrfcloud.com/proto-map/models'
 import { For } from 'solid-js'
-import { InfoBlock } from './InfoBlock.js'
+import { InfoBlock } from './InfoBlock.tsx'
 
 export const ModelInfoBlock = () => {
 	const { protoVersion } = useViteEnv()

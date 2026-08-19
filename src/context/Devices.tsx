@@ -1,4 +1,4 @@
-import { fetchDevices, type Device } from '#resources/fetchDevices.js'
+import { fetchDevices, type Device } from '#resources/fetchDevices.ts'
 import type { PublicDevice } from '@hello.nrfcloud.com/proto-map/api'
 import { instanceTs } from '@hello.nrfcloud.com/proto-map/lwm2m'
 import { type Static } from '@sinclair/typebox'
@@ -11,7 +11,7 @@ import {
 	useContext,
 } from 'solid-js'
 import { createStore, reconcile } from 'solid-js/store'
-import { useParameters } from './Parameters.js'
+import { useParameters } from './Parameters.tsx'
 
 export const DevicesProvider = (props: ParentProps) => {
 	const parameters = useParameters()

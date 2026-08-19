@@ -1,7 +1,7 @@
-import { useAllDevicesMapState } from '#context/AllDeviceMapState.js'
-import { useNavigation } from '#context/Navigation.js'
+import { useAllDevicesMapState } from '#context/AllDeviceMapState.tsx'
+import { useNavigation } from '#context/Navigation.tsx'
 import { decode } from '#context/navigation/decodeNavigation.ts'
-import { Close, Done, Next, Prev, ToDo } from '#icons/LucideIcon.js'
+import { Close, Done, Next, Prev, ToDo } from '#icons/LucideIcon.tsx'
 import {
 	type ParentProps,
 	Show,
@@ -9,8 +9,8 @@ import {
 	createSignal,
 	onCleanup,
 } from 'solid-js'
-import type { TutorialEntryType } from '../../../tutorial/tutorialContentPlugin.js'
-import { isDone } from './isDone.js'
+import type { TutorialEntryType } from '../../../tutorial/tutorialContentPlugin.ts'
+import { isDone } from './isDone.ts'
 
 import './TutorialBox.css'
 

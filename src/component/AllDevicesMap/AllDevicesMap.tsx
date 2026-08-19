@@ -1,13 +1,13 @@
-import { useAllDevicesMapState } from '#context/AllDeviceMapState.jsx'
-import { useDevices } from '#context/Devices.js'
-import { useNavigation } from '#context/Navigation.js'
-import type { PinnedResource } from '#context/navigation/encodeNavigation.js'
-import { useParameters } from '#context/Parameters.js'
-import { createMap } from '#map/createMap.js'
-import { glyphFonts } from '#map/glyphFonts.js'
-import { type Device } from '#resources/fetchDevices.js'
-import { format, type ResourceValue } from '#util/lwm2m.js'
-import { newestInstanceFirst } from '#util/newestInstanceFirst.js'
+import { useAllDevicesMapState } from '#context/AllDeviceMapState.tsx'
+import { useDevices } from '#context/Devices.tsx'
+import { useNavigation } from '#context/Navigation.tsx'
+import type { PinnedResource } from '#context/navigation/encodeNavigation.ts'
+import { useParameters } from '#context/Parameters.tsx'
+import { createMap } from '#map/createMap.ts'
+import { glyphFonts } from '#map/glyphFonts.ts'
+import { type Device } from '#resources/fetchDevices.ts'
+import { format, type ResourceValue } from '#util/lwm2m.ts'
+import { newestInstanceFirst } from '#util/newestInstanceFirst.ts'
 import {
 	definitions,
 	isLwM2MObjectID,
@@ -18,7 +18,7 @@ import type { Map as MapLibreGlMap, MapMouseEvent } from 'maplibre-gl'
 import { type MapGeoJSONFeature } from 'maplibre-gl'
 import { createEffect, createMemo, createSignal, onCleanup } from 'solid-js'
 import { createStore, reconcile } from 'solid-js/store'
-import { matches, type SearchTerm } from '../../search.js'
+import { matches, type SearchTerm } from '../../search.ts'
 
 type DeviceInfo = {
 	device: Device

@@ -1,5 +1,5 @@
-import { useNavigation } from '#context/Navigation.js'
-import { ActiveSearch, Search } from '#icons/LucideIcon.js'
+import { useNavigation } from '#context/Navigation.tsx'
+import { ActiveSearch, Search } from '#icons/LucideIcon.tsx'
 import { Show } from 'solid-js'
 
 export const SearchButton = () => {

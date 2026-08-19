@@ -1,4 +1,4 @@
-import { addMinutes } from './dateMath.js'
+import { addMinutes } from './dateMath.ts'
 
 export type Values = [value: number, ts: Date][]
 
