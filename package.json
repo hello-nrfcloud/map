@@ -27,8 +27,8 @@
     "test:e2e": "npx playwright test --project chromium"
   },
   "devDependencies": {
-    "@aws-sdk/client-cloudformation": "3.1115.0",
-    "@aws-sdk/client-cloudfront": "3.1115.0",
+    "@aws-sdk/client-cloudformation": "3.1116.0",
+    "@aws-sdk/client-cloudfront": "3.1116.0",
     "@bifravst/cloudformation-helpers": "10.0.1",
     "@bifravst/eslint-config-typescript": "8.0.0",
     "@bifravst/from-env": "4.0.0",
