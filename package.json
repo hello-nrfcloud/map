@@ -65,7 +65,7 @@
     "@sinclair/typebox": "0.34.52",
     "e118-iin-list": "4.5.1",
     "lucide": "1.39.0",
-    "maplibre-gl": "6.6.0",
+    "maplibre-gl": "6.7.0",
     "the-new-css-reset": "1.11.3"
   },
   "engines": {
