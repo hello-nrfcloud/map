@@ -63,7 +63,7 @@
     "@hello.nrfcloud.com/proto": "16.0.0",
     "@hello.nrfcloud.com/proto-map": "17.1.1",
     "@sinclair/typebox": "0.34.52",
-    "e118-iin-list": "4.5.1",
+    "e118-iin-list": "5.0.0",
     "lucide": "1.39.0",
     "maplibre-gl": "6.7.0",
     "the-new-css-reset": "1.11.3"
