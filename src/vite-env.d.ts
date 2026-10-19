@@ -1,5 +1,3 @@
-/* eslint no-restricted-globals: 0 */
-
 /// <reference types="vite/client" />
 
 declare const HOMEPAGE: string

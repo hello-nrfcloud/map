@@ -59,7 +59,6 @@ export const DashboardApp = () => {
 			<SidebarNav>
 				<a
 					class="button"
-					// eslint-disable-next-line no-restricted-globals
 					href={new URL(BASE_URL, document.location.href).toString()}
 					title="Back to the map"
 				>

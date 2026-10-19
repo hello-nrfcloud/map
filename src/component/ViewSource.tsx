@@ -1,6 +1,5 @@
 import { useAPIHealth } from '#context/APIHealth.tsx'
 import { useNavigation } from '#context/Navigation.tsx'
-import { useViteEnv } from '#context/ViteEnv.tsx'
 import { Close, ViewSource } from '#icons/LucideIcon.tsx'
 import { Show } from 'solid-js'
 import { RelativeTime } from './RelativeTime.tsx'
@@ -9,7 +8,6 @@ import { SidebarContent } from './Sidebar/SidebarContent.tsx'
 const panelId = 'view-source'
 
 export const Sidebar = () => {
-	const { repositoryURL, version, buildTime } = useViteEnv()
 	const location = useNavigation()
 	const apiHealth = useAPIHealth()
 	return (
@@ -77,7 +75,7 @@ export const Sidebar = () => {
 						</p>
 						<p>
 							The source-code for this project can be found on{' '}
-							<a class="button" href={repositoryURL.toString()} target="_blank">
+							<a class="button" href={REPOSITORY_URL} target="_blank">
 								GitHub
 							</a>
 							.
@@ -85,7 +83,7 @@ export const Sidebar = () => {
 					</section>
 					<footer>
 						<p>
-							Version: <code data-testId="version">{version}</code> &middot;{' '}
+							Version: <code data-testId="version">{VERSION}</code> &middot;{' '}
 							<a
 								href="https://github.com/hello-nrfcloud/map/releases"
 								target="_blank"
@@ -94,7 +92,9 @@ export const Sidebar = () => {
 							</a>
 						</p>
 						<p>
-							built <RelativeTime time={buildTime} class="build-time" /> ago
+							built{' '}
+							<RelativeTime time={new Date(BUILD_TIME)} class="build-time" />{' '}
+							ago
 						</p>
 						<Show when={apiHealth() !== undefined}>
 							<p>

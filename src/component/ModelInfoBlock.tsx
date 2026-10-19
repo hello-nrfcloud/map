@@ -1,12 +1,10 @@
-import { useViteEnv } from '#context/ViteEnv.tsx'
 import { models } from '@hello.nrfcloud.com/proto-map/models'
 import { For } from 'solid-js'
 import { InfoBlock } from './InfoBlock.tsx'
 
 export const ModelInfoBlock = () => {
-	const { protoVersion } = useViteEnv()
 	return (
-		<InfoBlock title={<h3>Known models ({protoVersion})</h3>}>
+		<InfoBlock title={<h3>Known models ({PROTO_VERSION})</h3>}>
 			<div class="about add-device-flow">
 				<ul>
 					<For each={Object.values(models)}>
@@ -21,7 +19,7 @@ export const ModelInfoBlock = () => {
 					If your model is not available to select, you can add it by creating a
 					PR against{' '}
 					<a
-						href={`https://github.com/hello-nrfcloud/proto-map/tree/${protoVersion}/models`}
+						href={`https://github.com/hello-nrfcloud/proto-map/tree/${PROTO_VERSION}/models`}
 						target="_blank"
 					>
 						our protocol repository

@@ -1,6 +1,5 @@
 import { byId, useDevices } from '#context/Devices.tsx'
 import { useNavigation } from '#context/Navigation.tsx'
-import { useViteEnv } from '#context/ViteEnv.tsx'
 import { Device as DeviceIcon } from '#icons/Device.tsx'
 import { Close } from '#icons/LucideIcon.tsx'
 import { type Device } from '#resources/fetchDevices.ts'
@@ -106,7 +105,6 @@ const isGenericObject = (instance: LwM2MObjectInstance): boolean => {
 }
 
 const DeviceInfo = (props: { device: Device }) => {
-	const { repositoryURL } = useViteEnv()
 	const instances = createMemo(() =>
 		[...(props.device.state ?? [])].sort(newestInstanceFirst),
 	)
@@ -147,7 +145,7 @@ const DeviceInfo = (props: { device: Device }) => {
 						These objects have been published by the device in the last 30 days,
 						but there is no custom handling in this application for the data,
 						yet. Consider creating a feature request{' '}
-						<a href={repositoryURL.toString()} target="_blank">
+						<a href={REPOSITORY_URL} target="_blank">
 							here
 						</a>
 						.

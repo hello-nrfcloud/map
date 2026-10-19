@@ -9,7 +9,6 @@ import {
 	useContext,
 	type ParentProps,
 } from 'solid-js'
-import { useViteEnv } from './ViteEnv.tsx'
 
 const logPrefix = '[AppUpdate]'
 
@@ -19,7 +18,6 @@ type AppUpdateInfo = {
 }
 
 export const AppUpdateProvider = (props: ParentProps) => {
-	const { version } = useViteEnv()
 	const [info, setInfo] = createSignal<AppUpdateInfo>({
 		updateRequired: false,
 		releasedVersion: '0.0.0-development',
@@ -32,7 +30,7 @@ export const AppUpdateProvider = (props: ParentProps) => {
 	createEffect(() => {
 		const releasedVersion = versionResource()
 		if (releasedVersion !== undefined) {
-			const updateRequired = compare(releasedVersion, version) > 0
+			const updateRequired = compare(releasedVersion, VERSION) > 0
 			setInfo(() => ({
 				updateRequired,
 				releasedVersion: releasedVersion.toString(),

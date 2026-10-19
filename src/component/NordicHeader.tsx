@@ -1,18 +1,15 @@
-import { useViteEnv } from '#context/ViteEnv.tsx'
-
 import './NordicHeader.css'
 
 export const NordicHeader = () => {
-	const { baseNoEndSlash } = useViteEnv()
 	return (
 		<header class="nordic">
 			<img
-				src={`${baseNoEndSlash}/assets/nordicsemi-logo.svg`}
+				src={`${BASE_URL}assets/nordicsemi-logo.svg`}
 				alt="Nordic Semiconductor Logo"
 				class="logo"
 			/>
 			<img
-				src={`${baseNoEndSlash}/assets/nordicsemi-text.svg`}
+				src={`${BASE_URL}assets/nordicsemi-text.svg`}
 				alt="Nordic Semiconductor"
 				class="text"
 			/>

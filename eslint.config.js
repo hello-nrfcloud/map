@@ -7,20 +7,4 @@ export default [
 		files: ['**/*.tsx'],
 		rules: { 'no-unassigned-vars': 'off' },
 	},
-	{
-		rules: {
-			'no-restricted-globals': [
-				'error',
-				// Sync with ./src/vite-env.d.ts
-				'BASE_URL',
-				'HOMEPAGE',
-				'VERSION',
-				'BUILD_TIME',
-				'REPOSITORY_URL',
-				'PROTO_VERSION',
-				'MAP_REGION',
-				'MAP_API_KEY',
-			],
-		},
-	},
 ]

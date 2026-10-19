@@ -14,7 +14,6 @@ import {
 	type Navigation,
 	type PinnedResource,
 } from './navigation/encodeNavigation.ts'
-import { useViteEnv } from './ViteEnv.tsx'
 
 const Home: Navigation = {
 	panel: 'world',
@@ -24,11 +23,9 @@ const Home: Navigation = {
 }
 
 const linkToPage = (page: string) =>
-	// eslint-disable-next-line no-restricted-globals
 	new URL(`${BASE_URL}${page}/`, document.location.href).toString()
 
 export const NavigationProvider = (props: ParentProps) => {
-	const { base } = useViteEnv()
 	const [location, setLocation] = createSignal<Navigation>(
 		decode(window.location.hash.slice(1)) ?? Home,
 	)
@@ -54,7 +51,7 @@ export const NavigationProvider = (props: ParentProps) => {
 	}
 	const link = (next: Partial<Navigation>) =>
 		new URL(
-			`${base}#${encode({
+			`${BASE_URL}#${encode({
 				...location(),
 				...next,
 			})}`,
@@ -85,9 +82,9 @@ export const NavigationProvider = (props: ParentProps) => {
 						panel: 'world',
 					})
 					if (encoded === undefined)
-						return new URL(base, document.location.href).toString()
+						return new URL(BASE_URL, document.location.href).toString()
 					return new URL(
-						`${base}?${new URLSearchParams({ next: encoded }).toString()}`,
+						`${BASE_URL}?${new URLSearchParams({ next: encoded }).toString()}`,
 						document.location.href,
 					).toString()
 				},
@@ -188,7 +185,6 @@ export const NavigationContext = createContext<{
 	navigateWithSearchTerm: () => undefined,
 
 	linkToHome: () =>
-		// eslint-disable-next-line no-restricted-globals
 		new URL(`${BASE_URL}#${encode(Home)}`, document.location.href).toString(),
 	link: () => '/#',
 	reloadLink: () => '/',

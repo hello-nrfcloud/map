@@ -10,7 +10,6 @@ import {
 	type Accessor,
 	type ParentProps,
 } from 'solid-js'
-import { useViteEnv } from './ViteEnv.tsx'
 
 const ApiHealth = Type.Object({
 	'@context': Type.Literal(Context.apiHealth.toString()),
@@ -49,10 +48,9 @@ export const useParameters = () => {
 }
 
 export const APIHealthProvider = (props: ParentProps) => {
-	const { apiURL } = useViteEnv()
 	const [health, updateHealth] = createSignal<Static<typeof ApiHealth>>()
 	const [healthResource] = createResource<Static<typeof ApiHealth>>(
-		fetchHealth(new URL('./health', apiURL)),
+		fetchHealth(new URL('./health', API_URL)),
 	)
 
 	createEffect(() => {

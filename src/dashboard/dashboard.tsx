@@ -1,7 +1,6 @@
 import { APIHealthProvider } from '#context/APIHealth.tsx'
 import { AppUpdateProvider } from '#context/AppUpdate.tsx'
 import { UserProvider } from '#context/User.tsx'
-import { ViteEnvProvider } from '#context/ViteEnv.tsx'
 import { DashboardApp } from '#dashboard/DashboardApp.tsx'
 import { render } from 'solid-js/web'
 
@@ -17,15 +16,13 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
 
 render(
 	() => (
-		<ViteEnvProvider>
-			<AppUpdateProvider>
-				<APIHealthProvider>
-					<UserProvider>
-						<DashboardApp />
-					</UserProvider>
-				</APIHealthProvider>
-			</AppUpdateProvider>
-		</ViteEnvProvider>
+		<AppUpdateProvider>
+			<APIHealthProvider>
+				<UserProvider>
+					<DashboardApp />
+				</UserProvider>
+			</APIHealthProvider>
+		</AppUpdateProvider>
 	),
 	root!,
 )

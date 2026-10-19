@@ -1,4 +1,3 @@
-import { useViteEnv } from '#context/ViteEnv.tsx'
 import {
 	Map as MapLibreGlMap,
 	setWorkerUrl,
@@ -16,12 +15,11 @@ export const createMap = (
 	center: { lat: number; lng: number },
 	options?: Partial<MapOptions>,
 ): MapLibreGlMap => {
-	const { mapRegion, mapApiKey } = useViteEnv()
 	const { lng, lat } = center
 	setWorkerUrl(maplibreWorkerUrl)
 	const map = new MapLibreGlMap({
 		container,
-		style: `https://maps.geo.${mapRegion}.amazonaws.com/v2/styles/${mapStyleName}/descriptor?key=${mapApiKey}&color-scheme=Dark`,
+		style: `https://maps.geo.${MAP_REGION}.amazonaws.com/v2/styles/${mapStyleName}/descriptor?key=${MAP_API_KEY}&color-scheme=Dark`,
 		center: [lng, lat],
 		refreshExpiredTiles: false,
 		trackResize: true,

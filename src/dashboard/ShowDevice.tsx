@@ -2,7 +2,6 @@ import { Problem } from '#component/notifications/Problem.tsx'
 import { Progress } from '#component/notifications/Progress.tsx'
 import { ResourcesDL } from '#component/ResourcesDL.tsx'
 import { useUser } from '#context/User.tsx'
-import { useViteEnv } from '#context/ViteEnv.tsx'
 import { extendDeviceSharing } from '#resources/extendDeviceSharing.ts'
 import { listUserDevices } from '#resources/listUserDevices.ts'
 import { stopDeviceSharing } from '#resources/stopDeviceSharing.ts'
@@ -30,7 +29,6 @@ import { Checked, Unchecked } from '#icons/LucideIcon.tsx'
 import './ShowDevice.css'
 
 export const ShowDevice = () => {
-	const { protoVersion } = useViteEnv()
 	const deviceId = new URLSearchParams(
 		document.location.hash.slice(1).split('?')[1],
 	).get('id')
@@ -67,7 +65,7 @@ export const ShowDevice = () => {
 						<dt>Model</dt>
 						<dd class="pad-b pad-t">
 							<a
-								href={`https://github.com/hello-nrfcloud/proto-map/tree/${protoVersion}/models/${deviceInfo()!.model.id}`}
+								href={`https://github.com/hello-nrfcloud/proto-map/tree/${PROTO_VERSION}/models/${deviceInfo()!.model.id}`}
 								target="_blank"
 							>
 								{deviceInfo()!.model.about.title}
