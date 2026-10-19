@@ -117,6 +117,9 @@ Store the map settings for the deployment as variables:
 # Make sure that the `production` environment exists in this repo
 gh variable set MAP_REGION --env production --body "<mapRegion>"
 gh variable set MAP_API_KEY --env production --body "<apiKey>"
+# Optional, to override the defaults
+gh variable set HELLO_API_URL --env production --body "<helloApiURL>"
+gh variable set NRF_CLOUD_TEAM_ID --env production --body "<teamId>"
 ```
 
 ## end-to-end tests

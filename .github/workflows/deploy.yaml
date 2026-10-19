@@ -46,6 +46,8 @@ jobs:
           SENTRY_DSN: ${{ vars.SENTRY_DSN }}
           MAP_REGION: ${{ vars.MAP_REGION }}
           MAP_API_KEY: ${{ vars.MAP_API_KEY }}
+          HELLO_API_URL: ${{ vars.HELLO_API_URL }}
+          NRF_CLOUD_TEAM_ID: ${{ vars.NRF_CLOUD_TEAM_ID }}
         run: |
           npm run build
           mkdir  ./dist/.well-known
