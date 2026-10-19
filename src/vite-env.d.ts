@@ -7,6 +7,8 @@ declare const VERSION: string
 declare const BUILD_TIME: string
 /** URL of the hello.nrfcloud.com backend API */
 declare const HELLO_API_URL: string
+/** ID of the nRF Cloud team the devices are connected to */
+declare const NRF_CLOUD_TEAM_ID: string
 // Base URL of the site with a leading and a trailing slash
 declare const BASE_URL: string
 declare const REPOSITORY_URL: string

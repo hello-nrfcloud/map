@@ -97,6 +97,10 @@ The URL of the hello.nrfcloud.com backend API is configured at build time using
 the environment variable `HELLO_API_URL`. It defaults to the production
 deployment (`https://api.hello.nordicsemi.cloud/2024-04-17/`).
 
+The ID of the nRF Cloud team the devices are connected to is configured at build
+time using the environment variable `NRF_CLOUD_TEAM_ID`. It defaults to the
+production team (`bbfe6b73-a46a-43ad-94bd-8e4b4a7847ce`).
+
 ## Continuous integration
 
 Store the map settings as variables:
