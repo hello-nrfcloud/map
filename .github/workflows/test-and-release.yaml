@@ -44,14 +44,36 @@ jobs:
         run: |
           npm run build
 
+  playwright-version:
+    runs-on: ubuntu-latest
+
+    outputs:
+      image: ${{ steps.version.outputs.image }}
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          sparse-checkout: package.json
+          sparse-checkout-cone-mode: false
+
+      - name: Determine Playwright version specified in package.json
+        id: version
+        run: |
+          version="$(node -p 'require(`./package.json`).devDependencies[`@playwright/test`].replace(/^[^\d]+/, ``)')"
+          echo "Playwright version: ${version}"
+          echo "image=mcr.microsoft.com/playwright:v${version}" >> "$GITHUB_OUTPUT"
+
   e2e-tests:
     timeout-minutes: 10
+
+    needs:
+      - playwright-version
 
     runs-on: ubuntu-latest
 
     environment: ci
 
-    container: mcr.microsoft.com/playwright:v1.62.1
+    container: ${{ needs.playwright-version.outputs.image }}
 
     env:
       MAP_REGION: ${{ vars.MAP_REGION }}
