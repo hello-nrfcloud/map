@@ -5,7 +5,8 @@
 declare const HOMEPAGE: string
 declare const VERSION: string
 declare const BUILD_TIME: string
-declare const REGISTRY_ENDPOINT: string
+/** URL of the hello.nrfcloud.com backend API */
+declare const HELLO_API_URL: string
 // Base URL of the site with a leading and a trailing slash
 declare const BASE_URL: string
 declare const REPOSITORY_URL: string

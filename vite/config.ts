@@ -12,7 +12,7 @@ import {
 
 export const createConfig = (
 	apiURL: URL,
-	registryEndpoint: URL,
+	helloApiURL: URL,
 	base: string,
 	map: {
 		region: string
@@ -25,7 +25,7 @@ export const createConfig = (
 		HOMEPAGE: JSON.stringify(homepage),
 		VERSION: JSON.stringify(version),
 		BUILD_TIME: JSON.stringify(new Date().toISOString()),
-		REGISTRY_ENDPOINT: JSON.stringify(registryEndpoint.toString()),
+		HELLO_API_URL: JSON.stringify(helloApiURL.toString()),
 		BASE_URL: JSON.stringify(baseSlashed),
 		REPOSITORY_URL: JSON.stringify(repositoryUrl),
 		PROTO_VERSION: JSON.stringify(protoVersion),

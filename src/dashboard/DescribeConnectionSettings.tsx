@@ -1,13 +1,10 @@
 import { ResourcesDL } from '#component/ResourcesDL.tsx'
-import { useParameters } from '#context/Parameters.tsx'
 import { CopyableProp } from '#dashboard/CopyableProp.tsx'
 
 export const DescribeConnectionSettings = (props: {
 	deviceId: string
 	class?: string
 }) => {
-	const parameters = useParameters()
-
 	return (
 		<div class={props.class ?? ''}>
 			<h2 class="pad-b">Connection information</h2>
@@ -18,7 +15,7 @@ export const DescribeConnectionSettings = (props: {
 				<CopyableProp name={'MQTT Endpoint'} value={'mqtt.nrfcloud.com'} />
 				<CopyableProp
 					name={'MQTT SenML topic'}
-					value={`prod/${parameters.nrfCloudTeamId}/m/d/${props.deviceId}/d2c/senml		`}
+					value={`prod/bbfe6b73-a46a-43ad-94bd-8e4b4a7847ce/m/d/${props.deviceId}/d2c/senml		`}
 				/>
 			</ResourcesDL>
 		</div>

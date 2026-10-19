@@ -1,7 +1,6 @@
 import { Problem } from '#component/notifications/Problem.tsx'
 import { Progress } from '#component/notifications/Progress.tsx'
 import { ResourcesDL } from '#component/ResourcesDL.tsx'
-import { useParameters } from '#context/Parameters.tsx'
 import { useUser } from '#context/User.tsx'
 import { useViteEnv } from '#context/ViteEnv.tsx'
 import { extendDeviceSharing } from '#resources/extendDeviceSharing.ts'
@@ -36,8 +35,10 @@ export const ShowDevice = () => {
 		document.location.hash.slice(1).split('?')[1],
 	).get('id')
 	const { jwt } = useUser()
-	const { apiURL } = useParameters()
-	const [devicesRequest] = createResource(jwt, listUserDevices(apiURL))
+	const [devicesRequest] = createResource(
+		jwt,
+		listUserDevices(new URL(API_URL)),
+	)
 
 	const deviceInfo = () => {
 		const device = devicesRequest()?.devices.find((d) => d.id === deviceId)
@@ -131,14 +132,16 @@ const ExtendSharing = (props: { id: string; expires: Date }) => {
 	const [extend, setExtend] = createSignal(false)
 	const [currentExpires, setExpires] = createSignal(props.expires)
 	const { jwt } = useUser()
-	const { apiURL } = useParameters()
-	const [extendRequest, { refetch }] = createResource(() => {
-		if (!extend()) return undefined
-		return {
-			id: props.id,
-			jwt: jwt()!,
-		}
-	}, extendDeviceSharing(apiURL))
+	const [extendRequest, { refetch }] = createResource(
+		() => {
+			if (!extend()) return undefined
+			return {
+				id: props.id,
+				jwt: jwt()!,
+			}
+		},
+		extendDeviceSharing(new URL(API_URL)),
+	)
 
 	createEffect(() => {
 		if (extendRequest.loading) return
@@ -186,14 +189,16 @@ const StopSharing = (props: { id: string }) => {
 	const [stop, setStopped] = createSignal(false)
 	const [unlocked, setUnlocked] = createSignal(false)
 	const { jwt } = useUser()
-	const { apiURL } = useParameters()
-	const [stopRequest] = createResource(() => {
-		if (!stop()) return undefined
-		return {
-			id: props.id,
-			jwt: jwt()!,
-		}
-	}, stopDeviceSharing(apiURL))
+	const [stopRequest] = createResource(
+		() => {
+			if (!stop()) return undefined
+			return {
+				id: props.id,
+				jwt: jwt()!,
+			}
+		},
+		stopDeviceSharing(new URL(API_URL)),
+	)
 
 	createEffect(() => {
 		if (stopRequest.loading) return

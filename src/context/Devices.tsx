@@ -11,13 +11,10 @@ import {
 	useContext,
 } from 'solid-js'
 import { createStore, reconcile } from 'solid-js/store'
-import { useParameters } from './Parameters.tsx'
 
 export const DevicesProvider = (props: ParentProps) => {
-	const parameters = useParameters()
 	const [devicesResource, { refetch: refetchDevices }] = createResource(
-		parameters,
-		fetchDevices(parameters.devicesAPIURL),
+		fetchDevices(new URL('./devices', API_URL)),
 	)
 
 	// Use a store to only update the context when the devices change

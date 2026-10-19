@@ -7,20 +7,13 @@ import type { IncomingMessage, ServerResponse } from 'http'
 import jwt from 'jsonwebtoken'
 import type http from 'node:http'
 import type { Connect } from 'vite'
-import type { Registry } from '../../src/context/Parameters.tsx'
 
 const deviceIdentities: Record<string, string> = {}
 const publicDeviceIds: Record<string, string> = {}
 
-export const mockBackend = ({
-	registry,
-}: {
-	registry: Registry
-}): Record<string, Connect.SimpleHandleFunction> => {
+export const mockBackend = (): Record<string, Connect.SimpleHandleFunction> => {
 	let release = '0.0.0-development'
 	return {
-		'GET /e2e/registry.json': (req, res) =>
-			sendJSON(res, generateRegistryResponse(registry)),
 		'GET /e2e/api/health': (req, res) =>
 			sendJSON(res, {
 				'@context': Context.apiHealth,
@@ -121,20 +114,6 @@ export const mockBackend = ({
 		},
 	}
 }
-
-const generateRegistryResponse = (
-	registry: Registry,
-): Registry & {
-	'@ts': string // e.g. '2024-03-06T14:42:12.690Z'
-	'@version': 1
-	'@context': 'https://github.com/hello-nrfcloud/public-parameter-registry-aws-js'
-} => ({
-	'@version': 1,
-	'@ts': new Date().toISOString(),
-	'@context':
-		'https://github.com/hello-nrfcloud/public-parameter-registry-aws-js',
-	...registry,
-})
 
 const sendJSON = (
 	res: ServerResponse<IncomingMessage>,

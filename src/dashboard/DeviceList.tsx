@@ -1,6 +1,5 @@
 import { Problem } from '#component/notifications/Problem.tsx'
 import { Progress } from '#component/notifications/Progress.tsx'
-import { useParameters } from '#context/Parameters.tsx'
 import { useUser } from '#context/User.tsx'
 import { Card, CardBody, CardFooter, CardHeader } from '#dashboard/Card.tsx'
 import { Checked, Failed, OK, Unchecked } from '#icons/LucideIcon.tsx'
@@ -21,16 +20,15 @@ import './DeviceList.css'
 
 export const DeviceList = () => {
 	const { jwt } = useUser()
-	const { apiURL } = useParameters()
 	const [devicesRequest, { refetch }] = createResource(
 		jwt,
-		listUserDevices(apiURL),
+		listUserDevices(new URL(API_URL)),
 	)
 	const [checkAll, setCheckAll] = createSignal(false)
 	const [checked, setChecked] = createSignal(new Set<string>())
 	const [submit, setSubmit] = createSignal(false)
 	const [updated, setUpdated] = createSignal(new Map<string, boolean>())
-	const extend = extendDeviceSharing(apiURL)
+	const extend = extendDeviceSharing(new URL(API_URL))
 
 	createEffect(() => {
 		if (!checkAll()) {

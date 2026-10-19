@@ -2,7 +2,6 @@ import { InfoBlock } from '#component/InfoBlock.tsx'
 import { Problem } from '#component/notifications/Problem.tsx'
 import { Progress } from '#component/notifications/Progress.tsx'
 import { Success } from '#component/notifications/Success.tsx'
-import { useParameters } from '#context/Parameters.tsx'
 import { useUser } from '#context/User.tsx'
 import { requestJWT } from '#resources/requestJWT.ts'
 import { requestToken } from '#resources/requestToken.ts'
@@ -17,20 +16,22 @@ export const LoginForm = () => {
 	const [email, setEmail] = createSignal<string | undefined>()
 	const [submit, setSubmit] = createSignal(false)
 	const [token, setToken] = createSignal<string | undefined>()
-	const { apiURL } = useParameters()
 	const [tokenRequest, { refetch: resendTokenRequest }] = createResource(
 		() => submit() && email(),
-		requestToken(apiURL),
+		requestToken(new URL(API_URL)),
 	)
-	const [jwtRequest, { refetch: resendLoginRequest }] = createResource(() => {
-		const e = email()
-		const t = token()
-		if (!isEmail(e) || !isToken(t)) return undefined
-		return {
-			email: e,
-			token: t,
-		}
-	}, requestJWT(apiURL))
+	const [jwtRequest, { refetch: resendLoginRequest }] = createResource(
+		() => {
+			const e = email()
+			const t = token()
+			if (!isEmail(e) || !isToken(t)) return undefined
+			return {
+				email: e,
+				token: t,
+			}
+		},
+		requestJWT(new URL(API_URL)),
+	)
 	const { setUserJWT } = useUser()
 
 	createEffect(() => {
