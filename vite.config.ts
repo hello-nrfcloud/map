@@ -12,6 +12,7 @@ export default createConfig(
 		process.env.HELLO_API_URL ??
 			'https://api.hello.nordicsemi.cloud/2024-04-17/',
 	),
+	process.env.NRF_CLOUD_TEAM_ID ?? 'bbfe6b73-a46a-43ad-94bd-8e4b4a7847ce',
 	process.env.BASE_URL ?? '/map/',
 	{
 		region: mapRegion,

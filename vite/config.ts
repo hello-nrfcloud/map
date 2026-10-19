@@ -13,6 +13,7 @@ import {
 export const createConfig = (
 	apiURL: URL,
 	helloApiURL: URL,
+	nrfCloudTeamId: string,
 	base: string,
 	map: {
 		region: string
@@ -26,6 +27,7 @@ export const createConfig = (
 		VERSION: JSON.stringify(version),
 		BUILD_TIME: JSON.stringify(new Date().toISOString()),
 		HELLO_API_URL: JSON.stringify(helloApiURL.toString()),
+		NRF_CLOUD_TEAM_ID: JSON.stringify(nrfCloudTeamId),
 		BASE_URL: JSON.stringify(baseSlashed),
 		REPOSITORY_URL: JSON.stringify(repositoryUrl),
 		PROTO_VERSION: JSON.stringify(protoVersion),
