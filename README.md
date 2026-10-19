@@ -93,6 +93,10 @@ aws location create-key \
 Export the map settings as the environment variables `MAP_REGION` and
 `MAP_API_KEY` before running it.
 
+The URL of the hello.nrfcloud.com backend API is configured at build time using
+the environment variable `HELLO_API_URL`. It defaults to the production
+deployment (`https://api.hello.nordicsemi.cloud/2024-04-17/`).
+
 ## Continuous integration
 
 Store the map settings as variables:

@@ -16,7 +16,6 @@ export default [
 				'HOMEPAGE',
 				'VERSION',
 				'BUILD_TIME',
-				'REGISTRY_ENDPOINT',
 				'REPOSITORY_URL',
 				'PROTO_VERSION',
 				'MAP_REGION',

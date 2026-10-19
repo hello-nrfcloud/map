@@ -1,4 +1,3 @@
-import { useParameters } from '#context/Parameters.tsx'
 import type { Device } from '#resources/fetchDevices.ts'
 import { fetchHistory } from '#resources/fetchHistory.ts'
 import {
@@ -25,8 +24,7 @@ export const ResourceHistory = (props: {
 	ObjectID: LwM2MObjectID
 	InstanceID: number
 }) => {
-	const parameters = useParameters()
-	const [history] = createResource(parameters, fetchHistory(parameters, props))
+	const [history] = createResource(fetchHistory(props))
 
 	const resourceHistory = createMemo(() => {
 		const ts = tsResource(props.ObjectID)

@@ -7,7 +7,6 @@ type ViteEnv = {
 	base: string
 	// Base URL of the site with a leading and no trailing slash
 	baseNoEndSlash: string
-	registryEndpoint: URL
 	version: string
 	homepageURL: URL
 	buildTime: Date
@@ -22,7 +21,6 @@ type ViteEnv = {
 const env: ViteEnv = {
 	base: BASE_URL,
 	baseNoEndSlash: BASE_URL.replace(/\/$/, ''),
-	registryEndpoint: new URL(REGISTRY_ENDPOINT),
 	version: VERSION,
 	homepageURL: new URL(HOMEPAGE),
 	buildTime: new Date(BUILD_TIME),

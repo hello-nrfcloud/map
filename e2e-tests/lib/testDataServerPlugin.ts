@@ -1,20 +1,11 @@
 import type { IncomingMessage, ServerResponse } from 'http'
 import type { Connect, Plugin } from 'vite'
-import type { Registry } from '../../src/context/Parameters.tsx'
 import { mockBackend } from './mock-backend.ts'
 
-export const testdataServerPlugin = ({
-	registry,
-}: {
-	registry: Registry
-}): Plugin => ({
+export const testdataServerPlugin = (): Plugin => ({
 	name: 'testdata-server',
 	configureServer: (server) => {
-		Object.entries(
-			mockBackend({
-				registry,
-			}),
-		).forEach(([route, handler]) => {
+		Object.entries(mockBackend()).forEach(([route, handler]) => {
 			const [method, path] = route.split(' ')
 			if (method === undefined || path === undefined)
 				throw new Error(`Route ${route} does not specify method and path!`)

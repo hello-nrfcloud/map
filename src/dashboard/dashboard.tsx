@@ -1,6 +1,5 @@
 import { APIHealthProvider } from '#context/APIHealth.tsx'
 import { AppUpdateProvider } from '#context/AppUpdate.tsx'
-import { ParametersProvider } from '#context/Parameters.tsx'
 import { UserProvider } from '#context/User.tsx'
 import { ViteEnvProvider } from '#context/ViteEnv.tsx'
 import { DashboardApp } from '#dashboard/DashboardApp.tsx'
@@ -20,13 +19,11 @@ render(
 	() => (
 		<ViteEnvProvider>
 			<AppUpdateProvider>
-				<ParametersProvider>
-					<APIHealthProvider>
-						<UserProvider>
-							<DashboardApp />
-						</UserProvider>
-					</APIHealthProvider>
-				</ParametersProvider>
+				<APIHealthProvider>
+					<UserProvider>
+						<DashboardApp />
+					</UserProvider>
+				</APIHealthProvider>
 			</AppUpdateProvider>
 		</ViteEnvProvider>
 	),

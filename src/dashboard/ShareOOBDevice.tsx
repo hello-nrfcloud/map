@@ -4,7 +4,6 @@ import { Progress } from '#component/notifications/Progress.tsx'
 import { Success } from '#component/notifications/Success.tsx'
 import { Warning } from '#component/notifications/Warning.tsx'
 import { ResourcesDL } from '#component/ResourcesDL.tsx'
-import { useParameters } from '#context/Parameters.tsx'
 import { useUser } from '#context/User.tsx'
 import { fetchOOBDeviceInfo } from '#resources/fetchOOBDeviceInfo.ts'
 import { shareDevice } from '#resources/shareDevice.ts'
@@ -19,10 +18,9 @@ export const ShareOOBDevice = (props: {
 	model: string
 	fingerprint: string
 }) => {
-	const parameters = useParameters()
 	const [deviceInfoRequest] = createResource(
 		() => props.fingerprint,
-		fetchOOBDeviceInfo(parameters.helloApiURL),
+		fetchOOBDeviceInfo(new URL(HELLO_API_URL)),
 	)
 	const modelValid = () => Object.keys(models).includes(props.model)
 
@@ -122,18 +120,20 @@ const DoShare = (props: {
 	model: ModelID
 	device: Static<typeof DeviceIdentity>
 }) => {
-	const parameters = useParameters()
 	const { jwt } = useUser()
 	const [share, setShare] = createSignal(false)
-	const [shareDeviceRequest] = createResource(() => {
-		if (!share()) return
-		if (jwt() === undefined) return
-		return {
-			model: props.model,
-			fingerprint: props.fingerprint,
-			jwt: jwt()!,
-		}
-	}, shareDevice(parameters.apiURL))
+	const [shareDeviceRequest] = createResource(
+		() => {
+			if (!share()) return
+			if (jwt() === undefined) return
+			return {
+				model: props.model,
+				fingerprint: props.fingerprint,
+				jwt: jwt()!,
+			}
+		},
+		shareDevice(new URL(API_URL)),
+	)
 
 	return (
 		<>

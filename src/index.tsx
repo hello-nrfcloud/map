@@ -3,7 +3,6 @@ import { APIHealthProvider } from '#context/APIHealth.tsx'
 import { AppUpdateProvider } from '#context/AppUpdate.tsx'
 import { DevicesProvider } from '#context/Devices.tsx'
 import { NavigationProvider } from '#context/Navigation.tsx'
-import { ParametersProvider } from '#context/Parameters.tsx'
 import { ViteEnvProvider } from '#context/ViteEnv.tsx'
 import { render } from 'solid-js/web'
 import { MapApp } from './MapApp.tsx'
@@ -21,17 +20,15 @@ render(
 	() => (
 		<ViteEnvProvider>
 			<AppUpdateProvider>
-				<ParametersProvider>
-					<APIHealthProvider>
-						<DevicesProvider>
-							<NavigationProvider>
-								<AllDevicesMapStateProvider>
-									<MapApp />
-								</AllDevicesMapStateProvider>
-							</NavigationProvider>
-						</DevicesProvider>
-					</APIHealthProvider>
-				</ParametersProvider>
+				<APIHealthProvider>
+					<DevicesProvider>
+						<NavigationProvider>
+							<AllDevicesMapStateProvider>
+								<MapApp />
+							</AllDevicesMapStateProvider>
+						</NavigationProvider>
+					</DevicesProvider>
+				</APIHealthProvider>
 			</AppUpdateProvider>
 		</ViteEnvProvider>
 	),

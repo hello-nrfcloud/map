@@ -1,4 +1,3 @@
-import { useParameters } from '#context/Parameters.tsx'
 import { Show, createSignal, onCleanup } from 'solid-js'
 
 import { NoConnection } from '#icons/LucideIcon.tsx'
@@ -6,11 +5,10 @@ import './APIHealth.css'
 
 export const APIHealth = () => {
 	const [apiHealthy, setApiHealthy] = createSignal<boolean>(true)
-	const parameters = useParameters()
 
 	const checkConnection = async () => {
 		try {
-			const res = await fetch(parameters.apiHealthURL)
+			const res = await fetch(new URL('./health', API_URL))
 			setApiHealthy(res.ok)
 		} catch (err) {
 			console.error(`[APIHealth] Failed to connect to API!`)

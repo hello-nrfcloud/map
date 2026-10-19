@@ -3,7 +3,6 @@ import { Problem } from '#component/notifications/Problem.tsx'
 import { Progress } from '#component/notifications/Progress.tsx'
 import { Success } from '#component/notifications/Success.tsx'
 import { ResourcesDL } from '#component/ResourcesDL.tsx'
-import { useParameters } from '#context/Parameters.tsx'
 import { useUser } from '#context/User.tsx'
 import { createDevice } from '#resources/createDevice.ts'
 import type { DeviceCredentials } from '@hello.nrfcloud.com/proto-map/api'
@@ -54,15 +53,17 @@ const downloadCredentials = (credentials: Static<typeof DeviceCredentials>) => {
 
 export const CreateDevice = () => {
 	const [model, selectModel] = createSignal<ModelID>()
-	const { apiURL } = useParameters()
 	const { jwt } = useUser()
 	const [submit, setSubmit] = createSignal(false)
-	const [deviceRequest, { refetch: resendRequest }] = createResource(() => {
-		if (!submit()) return
-		if (model() === undefined) return
-		if (jwt() === undefined) return
-		return { model: model()!, jwt: jwt()! }
-	}, createDevice(apiURL))
+	const [deviceRequest, { refetch: resendRequest }] = createResource(
+		() => {
+			if (!submit()) return
+			if (model() === undefined) return
+			if (jwt() === undefined) return
+			return { model: model()!, jwt: jwt()! }
+		},
+		createDevice(new URL(API_URL)),
+	)
 
 	createEffect(() => {
 		if (deviceRequest() === undefined) return
