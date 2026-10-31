@@ -69,7 +69,7 @@
     "the-new-css-reset": "1.11.3"
   },
   "engines": {
-    "node": ">=24.19.0 <25",
+    "node": ">=24.19.0 <27",
     "npm": ">=12.0.2 <13"
   },
   "lint-staged": {
