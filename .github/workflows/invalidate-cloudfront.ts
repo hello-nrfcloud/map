@@ -4,8 +4,8 @@ import {
 	CreateInvalidationCommand,
 } from '@aws-sdk/client-cloudfront'
 import { stackOutput } from '@bifravst/cloudformation-helpers'
-import { glob } from 'glob'
 import { randomUUID } from 'node:crypto'
+import { glob } from 'node:fs/promises'
 import path, { parse } from 'node:path'
 import { encloseWithSlash } from '../../src/util/encloseWithSlash.ts'
 
@@ -14,9 +14,10 @@ const cloudFormation = new CloudFormationClient({})
 
 const buildDir = path.join(process.cwd(), 'build', 'client')
 
-const htmlFiles = await glob('*/**/*.html', {
-	cwd: buildDir,
-})
+const htmlFiles: string[] = []
+for await (const f of glob('*/**/*.html', { cwd: buildDir })) {
+	htmlFiles.push(f)
+}
 const base = encloseWithSlash(process.env.BASE_URL ?? '')
 const pathesToInvalidate = [
 	`${base}`,
