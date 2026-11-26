@@ -23,21 +23,21 @@
     "start:e2e": "vite -c e2e-tests/vite.config.e2e.ts",
     "build": "node --max_old_space_size=8192 ./node_modules/vite/bin/vite.js build --emptyOutDir",
     "prepare": "husky && case \"$npm_command\" in install|ci) check-node-version --package ;; esac",
-    "test": "node --no-warnings --experimental-transform-types --test --test-reporter spec \"!(node_modules|e2e-tests)/**/*.spec.ts\"",
+    "test": "node --no-warnings --test --test-reporter spec \"!(node_modules|e2e-tests)/**/*.spec.ts\"",
     "test:e2e": "npx playwright test --project chromium"
   },
   "devDependencies": {
-    "@aws-sdk/client-cloudformation": "3.1175.0",
-    "@aws-sdk/client-cloudfront": "3.1175.0",
+    "@aws-sdk/client-cloudformation": "3.1178.0",
+    "@aws-sdk/client-cloudfront": "3.1178.0",
     "@bifravst/cloudformation-helpers": "10.0.3",
-    "@bifravst/eslint-config-typescript": "8.0.17",
+    "@bifravst/eslint-config-typescript": "9.0.3",
     "@bifravst/from-env": "4.0.1",
     "@bifravst/prettier-config": "2.0.7",
     "@bifravst/random-words": "9.0.0",
     "@commitlint/config-conventional": "21.2.4",
     "@playwright/test": "1.65.1",
     "@types/jsonwebtoken": "9.0.10",
-    "@types/node": "26.6.6",
+    "@types/node": "26.6.11",
     "@types/semver": "7.8.0",
     "@typescript/native": "npm:typescript@7.0.2",
     "check-node-version": "4.2.1",
@@ -53,22 +53,22 @@
     "remark-frontmatter": "5.0.0",
     "remark-rehype": "11.1.2",
     "typescript": "npm:@typescript/typescript6@6.0.2",
-    "vite": "8.3.8",
+    "vite": "8.4.0",
     "vite-plugin-solid": "2.11.17",
     "yaml": "2.9.1"
   },
   "dependencies": {
-    "@hello.nrfcloud.com/proto": "16.0.2",
-    "@hello.nrfcloud.com/proto-map": "17.1.1",
+    "@hello.nrfcloud.com/proto": "16.0.4",
+    "@hello.nrfcloud.com/proto-map": "18.1.2",
     "@sinclair/typebox": "0.34.52",
     "e118-iin-list": "5.0.1",
-    "lucide": "1.78.0",
+    "lucide": "1.81.0",
     "maplibre-gl": "6.19.0",
     "the-new-css-reset": "1.11.3"
   },
   "engines": {
-    "node": ">=24.19.0 <27",
-    "npm": ">=12.0.2 <13"
+    "node": ">=26.13.1 <27",
+    "npm": ">=12.2.3 <13"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

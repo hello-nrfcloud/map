@@ -1,13 +1,15 @@
 import { type Device } from './resources/fetchDevices.ts'
 
-export enum SearchTermType {
-	Id = 'id',
-	Model = 'model',
-	NotModel = '-model',
+export const SearchTermType = {
+	Id: 'id',
+	Model: 'model',
+	NotModel: '-model',
 	// Used to search for devices with LwM2M objects and resourcs
-	Has = 'has',
-	Any = '*',
-}
+	Has: 'has',
+	Any: '*',
+} as const
+export type SearchTermType =
+	(typeof SearchTermType)[keyof typeof SearchTermType]
 export type SearchTerm = {
 	type: SearchTermType
 	term: string

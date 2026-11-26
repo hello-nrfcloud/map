@@ -29,14 +29,15 @@ export type Navigation = {
 	query?: URLSearchParams
 }
 
-export enum FieldKey {
-	Search = 's',
-	PinnedResources = 'r',
-	Map = 'm',
-	DeviceMap = 'M',
-	Tutorial = 'T',
-	Toggled = 't',
-}
+export const FieldKey = {
+	Search: 's',
+	PinnedResources: 'r',
+	Map: 'm',
+	DeviceMap: 'M',
+	Tutorial: 'T',
+	Toggled: 't',
+} as const
+export type FieldKey = (typeof FieldKey)[keyof typeof FieldKey]
 
 export const sep = '!'
 

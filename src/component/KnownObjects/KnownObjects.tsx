@@ -21,12 +21,13 @@ import { Card as PinnedCard, Icon as PinnedIcon } from './Pinned.tsx'
 import { Center } from '#icons/LucideIcon.tsx'
 import './KnownObjects.css'
 
-enum TabType {
-	Info = 'info',
-	Bat = 'bat',
-	Location = 'location',
-	Pinned = 'pinned',
-}
+const TabType = {
+	Info: 'info',
+	Bat: 'bat',
+	Location: 'location',
+	Pinned: 'pinned',
+} as const
+type TabType = (typeof TabType)[keyof typeof TabType]
 
 export const KnownObjects = (props: {
 	device: Device
